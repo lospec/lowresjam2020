@@ -5,6 +5,7 @@ onready var animated_sprite = $AnimatedSprite
 
 func _ready():
 	animated_sprite.frame = 0
+	animated_sprite.playing = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
