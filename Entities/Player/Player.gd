@@ -1,6 +1,6 @@
-extends "res://BaseEntity/BaseEntity.gd"
+extends "res://Entities/BaseEntity/BaseEntity.gd"
 
-
+# constants
 const SPEED = 20
 
 # Public Variables
