@@ -18,9 +18,9 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Middle"]
 margin_left = 237.0
-margin_top = 237.0
+margin_top = 232.0
 margin_right = 275.0
-margin_bottom = 246.0
+margin_bottom = 241.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 custom_fonts/font = ExtResource( 3 )
@@ -28,9 +28,9 @@ text = "Game Name"
 align = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Middle"]
-margin_top = 250.0
+margin_top = 245.0
 margin_right = 512.0
-margin_bottom = 275.0
+margin_bottom = 280.0
 custom_constants/separation = -5
 
 [node name="Play Button" type="Button" parent="Middle/Buttons"]
@@ -57,5 +57,19 @@ custom_fonts/font = ExtResource( 3 )
 enabled_focus_mode = 0
 text = "Credits"
 flat = true
+
+[node name="Settings Button" type="Button" parent="Middle/Buttons"]
+margin_left = 235.0
+margin_top = 20.0
+margin_right = 277.0
+margin_bottom = 35.0
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+enabled_focus_mode = 0
+text = "Settings"
+flat = true
 [connection signal="pressed" from="Middle/Buttons/Play Button" to="." method="_on_Play_Button_pressed"]
 [connection signal="pressed" from="Middle/Buttons/Credits Button" to="." method="_on_Credits_Button_pressed"]
+[connection signal="pressed" from="Middle/Buttons/Settings Button" to="." method="_on_Settings_Button_pressed"]
