@@ -16,6 +16,7 @@ texture = ExtResource( 2 )
 texture = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2, 0 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
-node_to_follow = NodePath("../Sprite")
+node_to_follow = NodePath("../Player")
