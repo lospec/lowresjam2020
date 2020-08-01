@@ -1,6 +1,6 @@
-extends KinematicBody2D
+extends "res://BaseEntity/BaseEntity.gd"
 
-# Constants
+
 const SPEED = 20
 
 # Public Variables
