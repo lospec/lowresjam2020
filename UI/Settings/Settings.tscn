@@ -18,29 +18,43 @@ custom_constants/separation = -5
 alignment = 1
 
 [node name="Audio" type="Button" parent="VBoxContainer"]
-margin_left = 241.0
-margin_top = 243.0
-margin_right = 271.0
-margin_bottom = 258.0
+margin_left = 237.0
+margin_top = 238.0
+margin_right = 275.0
+margin_bottom = 253.0
 focus_mode = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
-text = "Audio"
+text = "Audio #"
 flat = true
 
-[node name="Color Blindness" type="Button" parent="VBoxContainer"]
-margin_left = 222.0
-margin_top = 253.0
-margin_right = 290.0
-margin_bottom = 268.0
+[node name="Controls" type="Button" parent="VBoxContainer"]
+margin_left = 234.0
+margin_top = 248.0
+margin_right = 278.0
+margin_bottom = 263.0
 focus_mode = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
-text = "Color Blindness"
+text = "Controls"
+flat = true
+
+[node name="Accessibility" type="Button" parent="VBoxContainer"]
+margin_left = 227.0
+margin_top = 258.0
+margin_right = 285.0
+margin_bottom = 273.0
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
+text = "Accessibility"
 flat = true
 [connection signal="pressed" from="VBoxContainer/Audio" to="." method="_on_Audio_pressed"]
-[connection signal="pressed" from="VBoxContainer/Color Blindness" to="." method="_on_Color_Blindness_pressed"]
+[connection signal="pressed" from="VBoxContainer/Controls" to="." method="_on_Controls_pressed"]
+[connection signal="pressed" from="VBoxContainer/Accessibility" to="." method="_on_Accessibility_pressed"]

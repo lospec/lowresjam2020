@@ -5,10 +5,16 @@ func _unhandled_input(_event):
 		exit_to_main_menu()
 
 func _on_Audio_pressed():
-	print_debug("Nothin' to see here.")
+	if get_tree().change_scene("res://UI/Settings/Audio Settings/Audio Settings.tscn") != OK:
+		print_debug("An error occured while attempting to change to the main menu scene")
 
-func _on_Color_Blindness_pressed():
-	print_debug(":Flushed:")
+func _on_Controls_pressed():
+	if get_tree().change_scene("res://UI/Settings/Control Settings/Control Settings.tscn") != OK:
+		print_debug("An error occured while attempting to change to the main menu scene")
+
+func _on_Accessibility_pressed():
+	if get_tree().change_scene("res://UI/Settings/Accessibility Settings/Accessibility Settings.tscn") != OK:
+		print_debug("An error occured while attempting to change to the main menu scene")
 
 func exit_to_main_menu():
 	if get_tree().change_scene("res://UI/Main Menu/Main Menu.tscn") != OK:
