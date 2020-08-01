@@ -10,7 +10,7 @@ const START_SCROLL_POS = 50
 onready var main_credits_vbox = $"Main Credits"
 onready var thanks_label = $Thanks
 
-# Feels hacky but it works - Should be refactored
+# Feels hacky but it works - Should be refactored if possible
 
 func _on_Credits_sort_children():
 	main_credits_vbox.rect_position.y = START_SCROLL_POS
