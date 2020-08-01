@@ -4,7 +4,7 @@ class_name CameraController
 
 const Utility = preload("../Utility/Utility.gd")
 const SMOOTH_SPEED = 5
-const SPEED = 15
+const SPEED = 10
 
 var vertical_movement_enabled = true
 var horizontal_movement_enabled = true
@@ -39,16 +39,17 @@ func _process(delta):
 			difference.x = other_position.x - current_position.x
 		else:
 			difference.x = 0
-			
-		# Adding to the leftover vec
-		leftover += difference * SMOOTH_SPEED * delta
+		
+		# Multiplying the difference for delta time and smoothspeed
+		difference *= SMOOTH_SPEED * delta
 		# Setting the position
-		global_position = (global_position + leftover).round()
+		global_position = (global_position + difference + leftover).round()
 		
-		# Checking if I have to reset the leftover vec
+		# If I didn't move, I still have a leftover movement
+		if global_position.distance_to(current_position) < 0.01:
+			# Adding to the leftover vec
+			leftover += difference
+		# If I moved, I have to reset the leftover vec
+		else:
+			leftover = Vector2(0, 0)
 		
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
