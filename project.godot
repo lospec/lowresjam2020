@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Losres Lospec Game"
+config/name="Lowres Lospec Game"
 run/main_scene="res://UI/Main Menu/Main Menu.tscn"
 config/icon="res://icon.png"
 
