@@ -2,24 +2,23 @@ extends Camera2D
 
 class_name CameraController
 
+# Constants
 const Utility = preload("../Utility/Utility.gd")
 const SMOOTH_SPEED = 5
 const SPEED = 10
 
+# Public Variables
 var vertical_movement_enabled = true
 var horizontal_movement_enabled = true
-# Toggle this to lock the camera
-var is_locked = false
-# The object the camera will follow
-var object_to_follow
+var is_locked = false # Toggle this to lock the camera
+var object_to_follow # The object the camera will follow
 # Leftovers vector2 are added when it's not possible to move
 # the camera because it's not in an integer position
 var leftover = Vector2()
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	print(get_tree().root)
-	object_to_follow = get_node("/root/Node2D/16x16")
+	object_to_follow = get_parent()
 
 func _process(delta):
 	# The camera will update its position only if it isn't locked
@@ -52,4 +51,3 @@ func _process(delta):
 		# If I moved, I have to reset the leftover vec
 		else:
 			leftover = Vector2(0, 0)
-		
