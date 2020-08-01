@@ -9,4 +9,5 @@ func _on_Credits_Button_pressed():
 		print_debug("An error occured while attempting to change to the credits scene")
 
 func _on_Settings_Button_pressed():
-	print_debug("There are no settings, what do you expect to happen?")
+	if get_tree().change_scene("res://UI/Settings/Settings.tscn") != OK:
+		print_debug("An error occured while attempting to change to the settings scene")
