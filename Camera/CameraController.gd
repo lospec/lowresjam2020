@@ -42,6 +42,10 @@ func _process(delta):
 		else:
 			difference.x = 0
 		
+		if (abs(node_to_follow_reference.global_position.x - global_position.x) <= 0.03 and
+				abs(node_to_follow_reference.global_position.y - global_position.y) <= 0.03):
+			return
+		
 		# Multiplying the difference for delta time and smoothspeed
 		difference *= SMOOTH_SPEED * delta
 		# Setting the position
