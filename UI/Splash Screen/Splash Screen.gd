@@ -4,19 +4,19 @@ extends Node
 onready var animated_sprite = $AnimatedSprite
 
 func _ready():
-	animated_sprite.frame = 0
-	animated_sprite.playing = true
+    animated_sprite.frame = 0
+    animated_sprite.playing = true
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		go_to_main_menu()
+    if event is InputEventMouseButton:
+        go_to_main_menu()
 
 func _unhandled_key_input(_event):
-	go_to_main_menu()
+    go_to_main_menu()
 
 func _on_AnimatedSprite_animation_finished():
-	go_to_main_menu()
+    go_to_main_menu()
 
 func go_to_main_menu():
-	if get_tree().change_scene("res://UI/Main Menu/Main Menu.tscn") != OK:
-		print_debug("An error occured while attempting to change to the main menu scene")
+    if get_tree().change_scene("res://UI/Main Menu/Main Menu.tscn") != OK:
+        print_debug("An error occured while attempting to change to the main menu scene")
