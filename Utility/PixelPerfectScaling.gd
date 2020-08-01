@@ -20,11 +20,11 @@ onready var root = get_tree().root
 onready var base_size = root.get_visible_rect().size
 
 func _ready():
-	get_tree().connect("screen_resized", self, "_on_screen_resized")
+	if get_tree().connect("screen_resized", self, "_on_screen_resized") != OK:
+		print_debug("An error occurred while connecting the screen_resized signal.")
 	
 	root.set_attach_to_screen_rect(root.get_visible_rect())
 	_on_screen_resized()
-
 
 func _on_screen_resized():
 	var new_window_size = OS.window_size
@@ -42,8 +42,8 @@ func _on_screen_resized():
 	var odd_offset = Vector2(int(new_window_size.x) % 2, int(new_window_size.y) % 2)
 	
 	VisualServer.black_bars_set_margins(
-		max(diffhalf.x, 0), # prevent negative values, they make the black bars go in the wrong direction.
-		max(diffhalf.y, 0),
-		max(diffhalf.x, 0) + odd_offset.x,
-		max(diffhalf.y, 0) + odd_offset.y
+		int(max(diffhalf.x, 0)), # prevent negative values, they make the black bars go in the wrong direction.
+		int(max(diffhalf.y, 0)),
+		int(max(diffhalf.x, 0)) + odd_offset.x,
+		int(max(diffhalf.y, 0)) + odd_offset.y
 	)
