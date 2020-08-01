@@ -14,13 +14,33 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 512.0
 margin_bottom = 512.0
+custom_constants/separation = -5
+alignment = 1
 
 [node name="Audio" type="Button" parent="VBoxContainer"]
-margin_right = 512.0
-margin_bottom = 15.0
+margin_left = 241.0
+margin_top = 243.0
+margin_right = 271.0
+margin_bottom = 258.0
 focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Audio"
 flat = true
+
+[node name="Color Blindness" type="Button" parent="VBoxContainer"]
+margin_left = 222.0
+margin_top = 253.0
+margin_right = 290.0
+margin_bottom = 268.0
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
+text = "Color Blindness"
+flat = true
 [connection signal="pressed" from="VBoxContainer/Audio" to="." method="_on_Audio_pressed"]
+[connection signal="pressed" from="VBoxContainer/Color Blindness" to="." method="_on_Color_Blindness_pressed"]
