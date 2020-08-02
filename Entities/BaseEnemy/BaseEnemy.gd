@@ -15,6 +15,15 @@ var heavy_damage: int
 var counter_damage: int
 var battle_texture: StreamTexture
 
+# Onready Variables
+onready var stateMachine = $StateMachine
+
+func _ready():
+	pass
+
+func _process(_delta):
+	pass
+
 func set_enemy(enemy_name):
 	in_game_name = enemy_name
 	var enemy_stats = EnemyStats.enemies_stats[enemy_name]
