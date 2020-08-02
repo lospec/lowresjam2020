@@ -9,30 +9,61 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AIState",
+"language": "GDScript",
+"path": "res://Entities/AI/AIState.gd"
+}, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
+}, {
+"base": "StateAction",
+"class": "ChaseAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/ChaseAction.gd"
+}, {
+"base": "Resource",
+"class": "StateAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/StateAction.gd"
+}, {
+"base": "StateAction",
+"class": "WanderAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/WanderState.gd"
 } ]
 _global_script_class_icons={
-"CameraController": ""
+"AIState": "",
+"CameraController": "",
+"ChaseAction": "",
+"StateAction": "",
+"WanderAction": ""
 }
 
 [application]
 
-config/name="Lowres Lospec Game"
+config/name="Heroes' Guild"
 run/main_scene="res://UI/Splash Screen/Splash Screen.tscn"
 boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[autoload]
+
+PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
+EnemyStats="*res://Entities/Enemies/EnemyStats.gd"
+
 [display]
 
-window/size/width=512
-window/size/height=512
+window/size/width=64
+window/size/height=64
+window/size/test_width=512
+window/size/test_height=512
+window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
-window/stretch/shrink=8.0
 
 [importer_defaults]
 
