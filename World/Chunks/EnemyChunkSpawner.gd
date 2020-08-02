@@ -2,8 +2,6 @@ extends Node2D
 
 class_name EnemySpawner
 
-const Utility = preload("../../Utility/Utility.gd")
-
 export(Array, PackedScene) var enemies
 export(Vector2) var horizontal_bounds
 export(Vector2) var vertical_bounds
