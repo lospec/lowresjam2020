@@ -5,15 +5,16 @@ const BASIC_ITEM_DATA_PATH = "res://Data/ItemData.csv"
 const WEAPON_DATA_PATH = "res://Data/WeaponData.csv"
 
 # Public Variables
-var base_item_script = preload("res://Items/base_item/BaseItem.gd")
-var base_weapon_script = preload("res://Items/base_weapon/BaseWeapon.gd")
+var BaseItemScript = preload("res://Items/base_item/BaseItem.gd")
+var BaseWeaponScript = preload("res://Items/base_weapon/BaseWeapon.gd")
 var all_items = {}
 var basic_items = {}
 var weapons = {}
 
 func _ready():
-	parse_data(BASIC_ITEM_DATA_PATH, base_item_script, [basic_items, all_items])
-	parse_data(WEAPON_DATA_PATH, base_weapon_script, [weapons, all_items])
+	parse_data(BASIC_ITEM_DATA_PATH, BaseItemScript, [basic_items, all_items])
+	parse_data(WEAPON_DATA_PATH, BaseWeaponScript, [weapons, all_items])
+
 
 func parse_data(csv_path, class_script, dict_collections):
 	var file = File.new()
@@ -40,5 +41,9 @@ func parse_data(csv_path, class_script, dict_collections):
 		line_num += 1
 	file.close()
 
+
 func get_item(item_name):
-	return all_items[item_name]
+	if all_items.has(item_name):
+		return all_items[item_name]
+	else:
+		push_error("Item %s not found." % item_name)

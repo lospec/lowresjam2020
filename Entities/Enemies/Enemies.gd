@@ -4,12 +4,13 @@ extends Node
 const ENEMY_DATA_PATH = "res://Data/EnemyData.csv"
 
 # Public Variables
-var base_enemy_script = preload("res://Entities/BaseEnemy/BaseEnemy.gd")
+var BaseEnemyScript = preload("res://Entities/BaseEnemy/BaseEnemy.gd")
 var property_names = []
 var enemies = []
 
 func _ready():
 	parse_enemy_data()
+
 
 func parse_enemy_data():
 	var file = File.new()
@@ -22,7 +23,7 @@ func parse_enemy_data():
 			for value in csv:
 				property_names.append(value)
 		else:
-			var enemy = base_enemy_script.new()
+			var enemy = BaseEnemyScript.new()
 			var drop_table = {}
 			var drop_table_item = null
 			var drop_table_chance = null
@@ -33,7 +34,7 @@ func parse_enemy_data():
 				if "item_drop" in property:
 					if "chance" in property:
 						drop_table_chance = value
-					else:
+					elif value != "":
 						drop_table_item = Items.get_item(value)
 					
 					if drop_table_item != null and drop_table_chance != null:

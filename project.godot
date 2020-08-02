@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://Entities/BaseEntity/EntityResource.gd"
 }, {
 "base": "Resource",
+"class": "ItemResource",
+"language": "GDScript",
+"path": "res://Items/base_item/ItemResource.gd"
+}, {
+"base": "Resource",
 "class": "StateAction",
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/StateAction.gd"
@@ -44,6 +49,7 @@ _global_script_class_icons={
 "CameraController": "",
 "ChaseAction": "",
 "EntityResource": "",
+"ItemResource": "",
 "StateAction": "",
 "WanderAction": ""
 }

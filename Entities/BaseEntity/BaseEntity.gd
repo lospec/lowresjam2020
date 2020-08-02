@@ -13,12 +13,11 @@ var health: int
 var velocity = Vector2()
 var velocity_leftover = Vector2()
 
+# Onready Variables
 onready var animated_sprite = $AnimatedSprite
 onready var animation_tree = $AnimationTree
 onready var playback = $AnimationTree.get("parameters/playback")
 onready var run_blend_tree = $AnimationTree.get("parameters/Run/blend_position")
-
-
 
 func _init():
 	self.animated_sprite = animated_sprite
@@ -28,7 +27,7 @@ func _ready():
 	entity_resource.apply(self)
 	if max_health <= 0:
 		return
-	current_health = max_health
+	health = max_health
 	playback.start("Run")
 
 
