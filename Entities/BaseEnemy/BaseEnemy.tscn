@@ -1,18 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Entities/BaseEnemy/BaseEnemy.gd" type="Script" id=1]
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/AI/StateMachineNode.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Entities/AI/debug_state.tres" type="Resource" id=4]
+[ext_resource path="res://Entities/AI/Debug_AI_Behaviour.tres" type="Resource" id=4]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+[sub_resource type="CircleShape2D" id=1]
+radius = 0.01
 
-[node name="BaseEnemy" instance=ExtResource( 2 )]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[node name="BaseEnemy" groups=[
+"EnemyGroup",
+] instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 
 [node name="StateMachine" parent="." index="2" instance=ExtResource( 3 )]
 active = true
-currentState = ExtResource( 4 )
+behaviour = ExtResource( 4 )
+
+[node name="CircleArea2D" type="Area2D" parent="StateMachine" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/CircleArea2D" index="0"]
+shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="3"]
 flip_h = false
@@ -21,5 +31,5 @@ flip_h = false
 playback_process_mode = 1
 
 [node name="AnimationTree" parent="." index="5"]
-parameters/playback = SubResource( 1 )
+parameters/playback = SubResource( 2 )
 parameters/Run/blend_position = Vector2( 0.0190616, 0.589862 )

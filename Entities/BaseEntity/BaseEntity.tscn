@@ -15,7 +15,9 @@ extents = Vector2( 4.2093, 5.83667 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
-[node name="BaseEntity" type="KinematicBody2D"]
+[node name="BaseEntity" type="KinematicBody2D" groups=[
+"EntityGroup",
+]]
 script = ExtResource( 2 )
 entity_resource = ExtResource( 1 )
 

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+class_name BaseEntity
 # Constants
 const SPEED = 20
 
