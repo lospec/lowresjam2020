@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/AI/AIState.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "BaseEntity",
-"language": "GDScript",
-"path": "res://Entities/BaseEntity/BaseEntity.gd"
-}, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
@@ -46,7 +41,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AIState": "",
-"BaseEntity": "",
 "CameraController": "",
 "ChaseAction": "",
 "EntityResource": "",
