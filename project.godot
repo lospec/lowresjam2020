@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
+"base": "Node2D",
+"class": "EnemySpawnData",
+"language": "GDScript",
+"path": "res://World/Chunks/EnemySpawnData.gd"
+}, {
+"base": "Node2D",
+"class": "EnemySpawner",
+"language": "GDScript",
+"path": "res://World/Chunks/EnemyChunkSpawner.gd"
+}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
@@ -48,6 +58,8 @@ _global_script_class_icons={
 "AIState": "",
 "CameraController": "",
 "ChaseAction": "",
+"EnemySpawnData": "",
+"EnemySpawner": "",
 "EntityResource": "",
 "ItemResource": "",
 "StateAction": "",
