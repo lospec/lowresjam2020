@@ -2,8 +2,6 @@ extends Node2D
 
 class_name EnemySpawner
 
-const Utility = preload("../../Utility/Utility.gd")
-
 export(Array, PackedScene) var enemies
 export(Vector2) var horizontal_bounds
 export(Vector2) var vertical_bounds
@@ -33,18 +31,19 @@ func _ready():
 		
 		# Converting it to global position
 		spawn_pos = get_parent().get_node("TileMap").map_to_world(Vector2(x,y)) / 16
-
 		# Generating a random probability
 		spawn_prob = randi() % 100
-		
-		print(spawn_pos)
-		
+
 		# Instantiating the enemy
 		var enemy = getMinProbEnemy(spawn_prob).instance()
 		enemy.set_position(spawn_pos)
-		add_child(enemy)
-
-		spawned_enemies += 1
+		
+		# Checking if it is at the right position
+		if enemy.get_node("SpawnData").is_in_allowed_tile():
+			add_child(enemy)
+			spawned_enemies += 1
+		else:
+			enemy.queue_free()
 
 
 func getMinProbEnemy(prob):

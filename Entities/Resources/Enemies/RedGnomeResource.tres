@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource( 1 )
-entity_name = ""
+entity_name = "Red Gnome"
 entity_sprite_frames = ExtResource( 2 )
