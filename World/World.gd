@@ -1,7 +1,7 @@
 extends Node
 
 # Public Variables
-var chunk_scene = preload("res://World/Chunks/Plain Grass Chunk.tscn")
+var chunk_scene = preload("res://World/Chunks/ChunkPreset.tscn")
 var current_chunk = null
 
 # Onready Variables

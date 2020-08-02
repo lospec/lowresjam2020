@@ -12,4 +12,4 @@ texture = ExtResource( 1 )
 
 [node name="SpawnData" type="Node2D" parent="."]
 script = ExtResource( 2 )
-spawn_probability = 60.0
+spawn_probability = 20.0
