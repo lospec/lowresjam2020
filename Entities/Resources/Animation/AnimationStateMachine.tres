@@ -36,4 +36,5 @@ states/Idle/position = Vector2( 306, 196 )
 states/Run/node = SubResource( 6 )
 states/Run/position = Vector2( 583, 196 )
 transitions = [ "Idle", "Run", SubResource( 7 ), "Run", "Idle", SubResource( 8 ) ]
+start_node = "Idle"
 graph_offset = Vector2( -66, 21 )
