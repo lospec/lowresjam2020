@@ -9,7 +9,7 @@ onready var entity := get_parent() as BaseEntity
 onready var _circle_area = $CircleArea2D
 onready var _collision_circle_shape = $CircleArea2D/CollisionShape2D
 
-var current_state: AI_State
+var current_state: AI_State = null
 var target: BaseEntity
 var distance_to_target: float setget , _get_distance_to_target
 var distance_to_origin: float setget , _get_distance_to_origin
@@ -51,7 +51,11 @@ func _update_current_state(_delta):
 	current_state.update_state(self, _delta)
 
 
-func transition_to_state(state):
+func transition_to_state(state_index):
+	if state_index == -1:
+		return false
+		
+	var state = behaviour.states[state_index]
 	if not state:
 		return false
 	current_state = state

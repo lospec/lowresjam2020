@@ -1,22 +1,23 @@
 extends AI_State_Action
 class_name AI_Action_SearchForTarget
 
-export (PackedScene) var target
 export (float) var search_range
 
+var found_target  =null
+var _initialized = false
+
+func _on_body_entered(body):
+	if body.is_in_group("PlayerGroup"):
+		found_target = body as BaseEntity
+		
+func _on_body_exited(body):
+	if body.is_in_group("PlayerGroup"):
+		found_target = null
 
 func perform(_stateMachine, _delta, _interrupt):
-	if _stateMachine.target:
-		if _stateMachine.distance_to_target <= search_range:
-			return
-		else:
-			_stateMachine.target = null
-			return
-
-
-	for body in _stateMachine.find_bodies_in_range(search_range):
-		if body.is_in_group("PlayerGroup"):
-			_stateMachine.target = body as BaseEntity
-			return
-
-	
+	if not _initialized:
+		_stateMachine._collision_circle_size = search_range
+		_stateMachine._circle_area.connect("body_entered", self, "_on_body_entered")
+		_initialized = true
+	if found_target:
+		_stateMachine.target = found_target

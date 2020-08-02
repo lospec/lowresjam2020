@@ -7,5 +7,5 @@
 
 [resource]
 script = ExtResource( 1 )
-States = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ]
+states = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ]
 start_state = ExtResource( 3 )

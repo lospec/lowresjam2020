@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-distance_from_origin = 10.0
+distance_from_origin = 30.0

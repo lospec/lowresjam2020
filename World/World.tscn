@@ -12,7 +12,7 @@ script = ExtResource( 4 )
 [node name="Chunks" type="Node" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -99.8079, 49.8047 )
+position = Vector2( -21.1468, 14.0326 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
 smoothing_speed = 0.0
@@ -21,4 +21,4 @@ node_to_follow = NodePath("../../World/Player")
 [node name="Pause Menu" parent="." instance=ExtResource( 1 )]
 
 [node name="BaseEnemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 92.658, 24.3567 )
+position = Vector2( 21.4884, 13.1194 )

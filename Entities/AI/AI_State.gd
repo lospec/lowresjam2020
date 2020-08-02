@@ -28,8 +28,8 @@ func _check_all_transitions(stateMachine):
 		if typeof(item) != typeof(AI_Transition):
 			print("%s is not of StateTransition type." % item)
 		var transition: AI_Transition = item
-		var make_transit = transition.condition.evaluate(stateMachine)
+		var is_true = transition.condition.evaluate(stateMachine)
 		if stateMachine.transition_to_state(
-			transition.trueState if make_transit else transition.falseState
+			transition.trueState if is_true else transition.falseState
 		):
 			return

@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-search_range = 10.0
+search_range = 8.0

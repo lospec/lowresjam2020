@@ -6,7 +6,7 @@
 [ext_resource path="res://Entities/Resources/Enemies/AI/Debug_AI_Behaviour.tres" type="Resource" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 0.01
+radius = 20.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
@@ -20,6 +20,8 @@ active = true
 behaviour = ExtResource( 4 )
 
 [node name="CircleArea2D" type="Area2D" parent="StateMachine" index="0"]
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/CircleArea2D" index="0"]
 shape = SubResource( 1 )
