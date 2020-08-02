@@ -9,13 +9,37 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AIState",
+"language": "GDScript",
+"path": "res://Entities/AI/AIState.gd"
+}, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
+}, {
+"base": "StateAction",
+"class": "ChaseAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/ChaseAction.gd"
+}, {
+"base": "Resource",
+"class": "StateAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/StateAction.gd"
+}, {
+"base": "StateAction",
+"class": "WanderAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/WanderState.gd"
 } ]
 _global_script_class_icons={
-"CameraController": ""
+"AIState": "",
+"CameraController": "",
+"ChaseAction": "",
+"StateAction": "",
+"WanderAction": ""
 }
 
 [application]
