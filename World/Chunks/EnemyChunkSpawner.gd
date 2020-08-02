@@ -27,8 +27,6 @@ func _ready():
 		var x = Utility.randomRange(horizontal_bounds.x, horizontal_bounds.y)
 		var y = Utility.randomRange(vertical_bounds.x, vertical_bounds.y)
 		
-		print("Coord: ", Vector2(x, y))
-		
 		# Converting it to global position
 		spawn_pos = get_parent().get_node("TileMap").map_to_world(Vector2(x,y)) / 16
 		# Generating a random probability
@@ -39,7 +37,7 @@ func _ready():
 		enemy.set_position(spawn_pos)
 		
 		# Checking if it is at the right position
-		if enemy.get_node("SpawnData").is_in_allowed_tile():
+		if enemy.is_in_allowed_tile():
 			add_child(enemy)
 			spawned_enemies += 1
 		else:
@@ -50,7 +48,7 @@ func getMinProbEnemy(prob):
 	for i in range(0, enemies.size()):
 		var current_enemy = enemies[i].instance()
 		
-		if (current_enemy.get_node("SpawnData").get_spawn_prob() > prob):
+		if (current_enemy.spawn_prob > prob):
 			current_enemy.queue_free()
 			return enemies[i]
 		current_enemy.queue_free()
@@ -60,8 +58,8 @@ func sortEnemies(a, b):
 	var a_object = a.instance()
 	var b_object = b.instance()
 	
-	var a_prob = a_object.get_node("SpawnData").get_spawn_prob()
-	var b_prob = b_object.get_node("SpawnData").get_spawn_prob()
+	var a_prob = a_object.spawn_prob
+	var b_prob = b_object.spawn_prob
 
 	if a_prob < b_prob:
 		a_object.queue_free()

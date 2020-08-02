@@ -40,11 +40,6 @@ _global_script_classes=[ {
 "path": "res://Entities/BaseEntity/EntityResource.gd"
 }, {
 "base": "Resource",
-"class": "ItemResource",
-"language": "GDScript",
-"path": "res://Items/base_item/ItemResource.gd"
-}, {
-"base": "Resource",
 "class": "StateAction",
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/StateAction.gd"
@@ -61,7 +56,6 @@ _global_script_class_icons={
 "EnemySpawnData": "",
 "EnemySpawner": "",
 "EntityResource": "",
-"ItemResource": "",
 "StateAction": "",
 "WanderAction": ""
 }
@@ -79,7 +73,7 @@ config/icon="res://icon.png"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
-Items="*res://Items/items/Items.gd"
+Items="*res://Items/Items.gd"
 Enemies="*res://Entities/Enemies/Enemies.gd"
 
 [display]
@@ -141,6 +135,12 @@ player_move_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Tiles"
+2d_physics/layer_2="Static Objects"
+2d_physics/layer_3="Entities"
 
 [network]
 
