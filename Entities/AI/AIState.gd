@@ -8,7 +8,7 @@ func update_state(stateMachine):
 	
 func _perform_actions(stateMachine):
 	for item in actions:
-		if item.get_type() != typeof(StateAction):
+		if typeof(item) != typeof(StateAction):
 			print("%s is not of StateAction type." % item)
 		
 		var action: StateAction = item
