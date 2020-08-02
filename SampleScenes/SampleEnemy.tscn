@@ -6,6 +6,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="icon" type="Sprite" parent="."]
+modulate = Color( 0.164706, 0.760784, 0.345098, 1 )
 position = Vector2( -0.422903, 0.687626 )
 scale = Vector2( 0.283924, 0.283924 )
 texture = ExtResource( 1 )

@@ -35,4 +35,4 @@ script = ExtResource( 3 )
 enemies = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ) ]
 horizontal_bounds = Vector2( -15, 14 )
 vertical_bounds = Vector2( -14, 12 )
-n_enemies = 5.0
+n_enemies = 10.0

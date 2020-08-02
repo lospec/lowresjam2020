@@ -5,4 +5,5 @@ static func getPixellizedPos(pos):
 	return pos
 
 static func randomRange(minim, maxim):
+	randomize()
 	return randi() % (int(maxim - minim)) + int(minim)

@@ -4,6 +4,7 @@
 [ext_resource path="res://World/Chunks/EnemySpawnData.gd" type="Script" id=2]
 
 [node name="Node2D" type="Node2D"]
+modulate = Color( 0.890196, 0.415686, 0.415686, 1 )
 
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( -0.422903, 0.687626 )

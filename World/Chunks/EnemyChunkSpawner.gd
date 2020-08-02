@@ -24,15 +24,20 @@ func _ready():
 
 	# Spawning enemies
 	while spawned_enemies < n_enemies:
+		randomize()
 		# Generating a random position
 		var x = Utility.randomRange(horizontal_bounds.x, horizontal_bounds.y)
 		var y = Utility.randomRange(vertical_bounds.x, vertical_bounds.y)
 		
+		print("Coord: ", Vector2(x, y))
+		
 		# Converting it to global position
-		spawn_pos = get_parent().get_node("TileMap").map_to_world(Vector2(x,y))
+		spawn_pos = get_parent().get_node("TileMap").map_to_world(Vector2(x,y)) / 16
 
 		# Generating a random probability
 		spawn_prob = randi() % 100
+		
+		print(spawn_pos)
 		
 		# Instantiating the enemy
 		var enemy = getMinProbEnemy(spawn_prob).instance()
@@ -48,7 +53,7 @@ func getMinProbEnemy(prob):
 		
 		if (current_enemy.get_node("SpawnData").get_spawn_prob() > prob):
 			current_enemy.queue_free()
-			return enemies[i - 1]
+			return enemies[i]
 		current_enemy.queue_free()
 	return enemies[enemies.size() - 1]
 
