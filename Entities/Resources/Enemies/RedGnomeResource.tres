@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource( 1 )
-entity_name = "Debug_Entity"
+entity_name = ""
 entity_sprite_frames = ExtResource( 2 )

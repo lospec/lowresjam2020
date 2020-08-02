@@ -2,7 +2,7 @@ extends Resource
 class_name EntityResource
 
 export (String) var entity_name
-export (Texture) var entity_sprite
+export (SpriteFrames) var entity_sprite_frames
 
 func apply(entity):
-	entity.sprite.texture = entity_sprite
+	entity.animated_sprite.frames = entity_sprite_frames

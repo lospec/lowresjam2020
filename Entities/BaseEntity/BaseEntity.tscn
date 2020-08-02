@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Entities/Resources/Debug_Entity.tres" type="Resource" id=1]
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.gd" type="Script" id=2]
+[ext_resource path="res://Entities/Resources/Animation/Idle_Anim.tres" type="Animation" id=3]
+[ext_resource path="res://Entities/Resources/Animation/Run_W.tres" type="Animation" id=4]
+[ext_resource path="res://Entities/Resources/Animation/Run_E.tres" type="Animation" id=5]
+[ext_resource path="res://Entities/Resources/Animation/Run_S.tres" type="Animation" id=6]
+[ext_resource path="res://Entities/Resources/Animation/Run_N.tres" type="Animation" id=7]
+[ext_resource path="res://Entities/Resources/Animation/AnimationStateMachine.tres" type="AnimationNodeStateMachine" id=8]
+[ext_resource path="res://Entities/Resources/Animation/Base_Frames.tres" type="SpriteFrames" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.5, 6 )
+extents = Vector2( 4.2093, 5.83667 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
 [node name="BaseEntity" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -15,3 +24,25 @@ position = Vector2( 0, -0.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -5 )
+frames = ExtResource( 9 )
+animation = "Idle"
+playing = true
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 2
+anims/Idle_Anim = ExtResource( 3 )
+anims/Run_E = ExtResource( 5 )
+anims/Run_N = ExtResource( 7 )
+anims/Run_S = ExtResource( 6 )
+anims/Run_W = ExtResource( 4 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 2 )
+parameters/Run/blend_position = Vector2( 0.00146627, 0.991379 )
