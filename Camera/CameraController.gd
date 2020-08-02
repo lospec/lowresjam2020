@@ -11,5 +11,5 @@ var node_to_follow_reference
 func _enter_tree():
 	node_to_follow_reference = get_node(node_to_follow)
 
-func _process(delta):
+func _process(_delta):
 	global_position = node_to_follow_reference.global_position
