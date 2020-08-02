@@ -29,6 +29,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
+EnemyStats="*res://Entities/Enemies/EnemyStats.gd"
 
 [display]
 

@@ -1,10 +1,12 @@
 extends KinematicBody2D
 
-export(int) var maxHealth
-var currentHealth : int
+# Exported Variables
+export(int) var max_health
 
+# Public Variables
+var current_health: int
 
 func _ready():
-	if maxHealth <= 0:
+	if max_health <= 0:
 		return
-	currentHealth = maxHealth
+	current_health = max_health
