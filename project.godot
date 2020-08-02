@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Entities/AI/Actions/AI_Action_MoveToTarget.gd"
 }, {
 "base": "AI_State_Action",
+"class": "AI_Action_ReturnToOrigin",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/AI_Action_ReturnToOrigin.gd"
+}, {
+"base": "AI_State_Action",
 "class": "AI_Action_SearchForTarget",
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/AI_Action_SearchForTarget.gd"
@@ -81,6 +86,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AI_Action_MoveToTarget": "",
+"AI_Action_ReturnToOrigin": "",
 "AI_Action_SearchForTarget": "",
 "AI_Action_WaitTime": "",
 "AI_Behaviour": "",

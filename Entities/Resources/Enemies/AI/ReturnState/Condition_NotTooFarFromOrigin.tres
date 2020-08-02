@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Entities/AI/Conditions/AI_Condition_FarFromOrigin.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+distance_from_origin = 1.0

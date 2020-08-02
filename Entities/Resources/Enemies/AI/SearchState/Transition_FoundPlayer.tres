@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Entities/AI/AI_Transition.gd" type="Script" id=1]
+[ext_resource path="res://Entities/Resources/Enemies/AI/SearchState/Condition_HasTarget.tres" type="Resource" id=2]
+[ext_resource path="res://Entities/Resources/Enemies/AI/State_Chase.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+condition = ExtResource( 2 )
+trueState = ExtResource( 3 )

@@ -15,11 +15,11 @@ var distance_to_target: float setget , _get_distance_to_target
 var distance_to_origin: float setget , _get_distance_to_origin
 var _collision_circle_size: float setget _set_collision_circle_size, _get_collision_circle_size
 
-var _origin_position: Vector2
+var origin_position: Vector2
 
 
 func _ready():
-	_origin_position = entity.position
+	origin_position = entity.position
 	current_state = behaviour.start_state
 
 
@@ -36,7 +36,7 @@ func _set_collision_circle_size(value: float):
 
 
 func _get_distance_to_origin() -> float:
-	return entity.position.distance_to(_origin_position)
+	return entity.position.distance_to(origin_position)
 
 
 func _get_distance_to_target() -> float:
