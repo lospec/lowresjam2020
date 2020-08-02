@@ -4,13 +4,14 @@
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 12 )
+extents = Vector2( 3.5, 6 )
 
 [node name="BaseEntity" type="KinematicBody2D"]
 script = ExtResource( 2 )
 maxHealth = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -0.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
