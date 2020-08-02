@@ -5,16 +5,17 @@ const SPEED = 20
 
 # Exported Variables
 export(int) var max_health
+export (Resource) var entity_resource
 
 # Public Variables
 var current_health: int
 var velocity = Vector2()
 var velocity_leftover = Vector2()
 
-func _init():
-	self.velocity = velocity
+onready var sprite = $Sprite
 
 func _ready():
+	entity_resource.apply(self)
 	if max_health <= 0:
 		return
 	current_health = max_health

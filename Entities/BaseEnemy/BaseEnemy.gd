@@ -6,7 +6,7 @@ var level: int
 var weakness: int
 var resistance: int
 var coin_drop_amount: int
-var drop_1 # Will be replaced with a drop table once the spreadsheet is updated
+var drop_1  # Will be replaced with a drop table once the spreadsheet is updated
 var drop_1_chance
 var max_items_dropped: int
 var attack_pool: String
@@ -18,11 +18,18 @@ var battle_texture: StreamTexture
 # Onready Variables
 onready var stateMachine = $StateMachine
 
+
 func _ready():
 	pass
 
+
 func _process(_delta):
 	pass
+
+
+func initialize_entity():
+	set_enemy(entity_resource.entity_name)
+
 
 func set_enemy(enemy_name):
 	in_game_name = enemy_name
