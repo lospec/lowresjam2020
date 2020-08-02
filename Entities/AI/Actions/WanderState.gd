@@ -1,8 +1,12 @@
 extends StateAction
 class_name WanderAction
 
-export(String) var place
+export (float) var speed = 10
+
 
 func perform(stateMachine):
-	print("IS WANDERING to %s" % place)
-
+	var move = Vector2()
+	move.x = rand_range(-1, 1)
+	move.y = rand_range(-1, 1)
+	move = move.normalized() * speed
+	stateMachine.entity.velocity = move
