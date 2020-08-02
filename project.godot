@@ -54,6 +54,7 @@ config/icon="res://icon.png"
 
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 EnemyStats="*res://Entities/Enemies/EnemyStats.gd"
+Global="*res://Utility/Global.gd"
 
 [display]
 

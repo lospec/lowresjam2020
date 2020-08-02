@@ -7,7 +7,6 @@
 
 [node name="BaseEnemy" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-maxHealth = 0
 
 [node name="StateMachine" parent="." index="2" instance=ExtResource( 3 )]
 active = true
