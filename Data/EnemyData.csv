@@ -1,0 +1,4 @@
+name,level,health,weakness,resistance,coin_drop_amount,drop_1,drop_1_chance,max_items_dropped,attack_pool,quick_damage,quick_damage_type,quick_status_effect,quick_effect_chance,heavy_damage,heavy_damage_type,heavy_status_effect,heavy_effect_chance,counter_damage,counter_damage_type,counter_status_effect,counter_effect_chance
+Demon,10,25,Water,Fire,55,Demonic Pitchfork,0.3,1,QQQHQQQC,5,fire,fire,0.2,10,fire,fire,0.2,3,fire,fire,0.2
+Shroomic,1,5,Fire,none,0,Bag of Spores,0.7,1,QQHQQC,1,,,,2,,,,0,,poison,0.75
+Gnome,2,7,none,none,34,Fishing Rod,0.1,1,QQHQQC,,,,,,,,,,,,
