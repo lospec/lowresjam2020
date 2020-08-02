@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
+}, {
+"base": "Node2D",
+"class": "EnemySpawnData",
+"language": "GDScript",
+"path": "res://World/Chunks/EnemySpawnData.gd"
+}, {
+"base": "Node2D",
+"class": "EnemySpawner",
+"language": "GDScript",
+"path": "res://World/Chunks/EnemyChunkSpawner.gd"
 } ]
 _global_script_class_icons={
-"CameraController": ""
+"CameraController": "",
+"EnemySpawnData": "",
+"EnemySpawner": ""
 }
 
 [application]
