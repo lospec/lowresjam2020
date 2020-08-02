@@ -1,0 +1,2 @@
+item_name,buy_value,sell_value,quick_damage,quick_type,quick_status_effect,quick_effect_chance,heavy_damage,heavy_type,heavy_status_effect,heavy_effect_chance,counter_damage,counter_type,counter_status_effect,counter_effect_chance
+Demonic Pitchfork,0,55,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1
