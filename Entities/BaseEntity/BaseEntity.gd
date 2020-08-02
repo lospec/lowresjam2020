@@ -19,10 +19,6 @@ onready var animation_tree = $AnimationTree
 onready var playback = $AnimationTree.get("parameters/playback")
 onready var run_blend_tree = $AnimationTree.get("parameters/Run/blend_position")
 
-func _init():
-	self.animated_sprite = animated_sprite
-
-
 func _ready():
 	entity_resource.apply(self)
 	if max_health <= 0:
