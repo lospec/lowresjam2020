@@ -4,9 +4,9 @@ extends Node
 const ENEMY_DATA_PATH = "res://Data/EnemyData.csv"
 
 # Public Variables
-var BaseEnemyScript = preload("res://Entities/BaseEnemy/BaseEnemy.gd")
 var property_names = []
-var enemies = []
+var enemies_stats = {}
+
 
 func _ready():
 	parse_enemy_data()
@@ -23,7 +23,8 @@ func parse_enemy_data():
 			for value in csv:
 				property_names.append(value)
 		else:
-			var enemy = BaseEnemyScript.new()
+			var enemy_stats = {}
+			var enemy_name
 			var drop_table = {}
 			var drop_table_item = null
 			var drop_table_chance = null
@@ -42,12 +43,11 @@ func parse_enemy_data():
 						drop_table_item = null
 						drop_table_chance = null
 					continue
-				elif enemy.get(property) == null:
-					print_debug("Corresponding variable not found for the %s property." % property)
-				
-				enemy.set(property, value)
-			enemy.set("drop_table", drop_table)
+				elif property == "in_game_name":
+					enemy_name = value
+				enemy_stats[property] = value
+			enemy_stats["drop_table"] = drop_table
 			
-			enemies.append(enemy)
+			enemies_stats[enemy_name] = enemy_stats
 		line_num += 1
 	file.close()

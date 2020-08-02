@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://SampleScenes/SampleEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Enemies/Gnome/Gnome.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Tilesets/Grass Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://World/Chunks/EnemyChunkSpawner.gd" type="Script" id=3]
-[ext_resource path="res://SampleScenes/SampleEnemy2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://SampleScenes/SampleEnemy3.tscn" type="PackedScene" id=5]
 
 [node name="ChunkPreset" type="Node2D"]
 __meta__ = {
@@ -23,7 +21,6 @@ __meta__ = {
 }
 
 [node name="Grass - Paths - water2" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 4, 4 )
 format = 1
@@ -33,18 +30,16 @@ __meta__ = {
 }
 
 [node name="Height0" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 2 )
 format = 1
 
 [node name="TileMap" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 2 )
 format = 1
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 3 )
-enemies = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ) ]
+enemies = [ ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ) ]
 horizontal_bounds = Vector2( -15, 14 )
 vertical_bounds = Vector2( -14, 12 )
 n_enemies = 10.0

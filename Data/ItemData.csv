@@ -1,3 +1,7 @@
 item_name,buy_value,sell_value
-Spore Bag,0,30
-Fish Rod,0,50
+Spore Bag,0,27
+Fish Rod,0,45
+Gem,0,58
+Leather Armor,10,4
+Chainmail,20,16
+Iron Armor,50,45
