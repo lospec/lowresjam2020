@@ -32,12 +32,11 @@ func _ready():
 
 
 func _process(_delta):
-	pass
 	if velocity == Vector2.ZERO:
 		playback.travel("Idle")
 	else:
 		playback.travel("Run")
-		run_blend_tree = velocity.normalized()
+		animation_tree.set("parameters/Run/blend_position", velocity.normalized())
 
 
 func _physics_process(_delta):

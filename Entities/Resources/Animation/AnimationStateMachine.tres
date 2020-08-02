@@ -4,13 +4,13 @@
 animation = "Idle_Anim"
 
 [sub_resource type="AnimationNodeAnimation" id=2]
-animation = "Run_N"
+animation = "Run_S"
 
 [sub_resource type="AnimationNodeAnimation" id=3]
 animation = "Run_E"
 
 [sub_resource type="AnimationNodeAnimation" id=4]
-animation = "Run_S"
+animation = "Run_N"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Run_W"
