@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Lowres Lospec Game"
+config/name="Heroes' Guild"
 run/main_scene="res://UI/Splash Screen/Splash Screen.tscn"
 boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
