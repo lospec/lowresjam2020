@@ -20,19 +20,25 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Lowres Lospec Game"
+config/name="Heroes' Guild"
 run/main_scene="res://UI/Splash Screen/Splash Screen.tscn"
 boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[autoload]
+
+PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
+
 [display]
 
-window/size/width=512
-window/size/height=512
+window/size/width=64
+window/size/height=64
+window/size/test_width=512
+window/size/test_height=512
+window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
-window/stretch/shrink=8.0
 
 [importer_defaults]
 
