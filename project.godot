@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AIState",
+"language": "GDScript",
+"path": "res://Entities/AI/AIState.gd"
+}, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
+}, {
+"base": "StateAction",
+"class": "ChaseAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
 "base": "Node2D",
 "class": "EnemySpawnData",
@@ -23,11 +33,37 @@ _global_script_classes=[ {
 "class": "EnemySpawner",
 "language": "GDScript",
 "path": "res://World/Chunks/EnemyChunkSpawner.gd"
+}, {
+"base": "Resource",
+"class": "EntityResource",
+"language": "GDScript",
+"path": "res://Entities/BaseEntity/EntityResource.gd"
+}, {
+"base": "Resource",
+"class": "ItemResource",
+"language": "GDScript",
+"path": "res://Items/base_item/ItemResource.gd"
+}, {
+"base": "Resource",
+"class": "StateAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/StateAction.gd"
+}, {
+"base": "StateAction",
+"class": "WanderAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/WanderState.gd"
 } ]
 _global_script_class_icons={
+"AIState": "",
 "CameraController": "",
+"ChaseAction": "",
 "EnemySpawnData": "",
-"EnemySpawner": ""
+"EnemySpawner": "",
+"EntityResource": "",
+"ItemResource": "",
+"StateAction": "",
+"WanderAction": ""
 }
 
 [application]
@@ -41,6 +77,9 @@ config/icon="res://icon.png"
 [autoload]
 
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
+AttackTypes="*res://attack_types/AttackTypes.gd"
+Items="*res://Items/items/Items.gd"
+Enemies="*res://Entities/Enemies/Enemies.gd"
 
 [display]
 
@@ -101,6 +140,10 @@ player_move_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=8192
 
 [rendering]
 

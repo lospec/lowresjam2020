@@ -1,0 +1,3 @@
+item_name,buy_value,sell_value,quick_damage,quick_damage_type,quick_status_effect,quick_effect_chance,heavy_damage,heavy_damage_type,heavy_status_effect,heavy_effect_chance,counter_damage,counter_damage_type,counter_status_effect,counter_effect_chance
+Stick,1,0,1,Pierce,none,0,2,Blunt,none,0,1,Pierce,none,0
+Devilfork,0,55,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1
