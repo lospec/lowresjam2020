@@ -6,8 +6,6 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Gnome" instance=ExtResource( 1 )]
-collision_layer = 0
-collision_mask = 0
 in_game_name = "Gnome"
 
 [node name="AnimatedSprite" parent="." index="0"]

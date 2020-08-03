@@ -24,16 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
-"base": "Node2D",
-"class": "EnemySpawnData",
-"language": "GDScript",
-"path": "res://World/Chunks/EnemySpawnData.gd"
-}, {
-"base": "Node2D",
-"class": "EnemySpawner",
-"language": "GDScript",
-"path": "res://World/Chunks/EnemyChunkSpawner.gd"
-}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
@@ -53,8 +43,6 @@ _global_script_class_icons={
 "AIState": "",
 "CameraController": "",
 "ChaseAction": "",
-"EnemySpawnData": "",
-"EnemySpawner": "",
 "EntityResource": "",
 "StateAction": "",
 "WanderAction": ""
@@ -70,8 +58,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
+PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
 Items="*res://Items/Items.gd"
 Enemies="*res://Entities/Enemies/Enemies.gd"
@@ -138,7 +126,7 @@ player_move_down={
 
 [layer_names]
 
-2d_physics/layer_1="Tiles"
+2d_physics/layer_1="Height1 Tiles"
 2d_physics/layer_2="Static Objects"
 2d_physics/layer_3="Entities"
 
