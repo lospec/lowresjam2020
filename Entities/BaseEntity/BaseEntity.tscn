@@ -10,7 +10,7 @@
 [ext_resource path="res://Entities/Resources/Animation/Base_Frames.tres" type="SpriteFrames" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2, 3.5 )
+extents = Vector2( 2, 1 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
@@ -22,7 +22,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -5 )
 frames = ExtResource( 9 )
-animation = "Idle"
+animation = "Run_Side"
 playing = true
 flip_h = true
 

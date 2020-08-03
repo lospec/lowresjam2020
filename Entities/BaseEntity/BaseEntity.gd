@@ -34,7 +34,3 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
-	for i in get_slide_count():
-		var c = get_slide_collision(i)
-		if c.collider.has_method("get_collision_layer_bit"):
-			print(c.collider.name)

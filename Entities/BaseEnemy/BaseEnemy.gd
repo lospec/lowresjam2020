@@ -3,8 +3,6 @@ extends "res://Entities/BaseEntity/BaseEntity.gd"
 # Public Variables
 export(String) var in_game_name: String
 var race: String
-var spawn_prob: int
-var can_respawn: bool
 var level: int
 var weakness: int
 var resistance: int
