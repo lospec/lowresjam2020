@@ -4,7 +4,7 @@
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "Run_Down",
+"name": "Run_Side",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -19,6 +19,6 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
-"name": "Run_Side",
+"name": "Run_Down",
 "speed": 5.0
 } ]

@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
-[ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume.png" type="Texture" id=2]
-[ext_resource path="res://UI/Settings/Audio Settings/Increase Volume.png" type="Texture" id=3]
+[ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Default.png" type="Texture" id=2]
+[ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume Clicked.png" type="Texture" id=3]
 [ext_resource path="res://UI/Settings/Audio Settings/Volume Control.gd" type="Script" id=4]
+[ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume Hover.png" type="Texture" id=5]
+[ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Hover.png" type="Texture" id=6]
+[ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Clicked.png" type="Texture" id=7]
+[ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume Default.png" type="Texture" id=8]
 
 [node name="Volume Control" type="HBoxContainer"]
 margin_right = 31.0
@@ -19,7 +23,9 @@ margin_top = 1.0
 margin_right = 6.0
 margin_bottom = 7.0
 size_flags_vertical = 4
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
 
 [node name="Value" type="Label" parent="."]
 margin_left = 8.0
@@ -36,6 +42,8 @@ margin_top = 1.0
 margin_right = 27.0
 margin_bottom = 7.0
 size_flags_vertical = 4
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 6 )
 [connection signal="pressed" from="Decrease Value" to="." method="_on_Decrease_Value_pressed"]
 [connection signal="pressed" from="Increase Value" to="." method="_on_Increase_Value_pressed"]

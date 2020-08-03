@@ -1,4 +1,9 @@
-in_game_name,health,weakness,resistance,coin_drop_amount,item_drop_1,item_drop_1_chance,item_drop_2,item_drop_2_chance,item_drop_3,item_drop_3_chance,max_items_dropped,attack_pool,quick_damage,quick_damage_type,quick_status_effect,quick_effect_chance,heavy_damage,heavy_damage_type,heavy_status_effect,heavy_effect_chance,counter_damage,counter_damage_type,counter_status_effect,counter_effect_chance
-Demon,25,Water,Fire,55,Devilfork,0.3,,,,,1,QQQHQQQC,1,Pierce,none,0,2,Blunt,none,0,1,Pierce,none,0
-Shroomic,5,Fire,none,0,Spore Bag,0.7,,,,,1,QQHQQC,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1
-Gnome,7,none,none,34,Fish Rod,0.1,,,,,1,QQHQQC,,,,,,,,,,,,
+in_game_name,race,health,weakness,resistance,coin_drop_amount,item_drop_1,item_drop_1_chance,item_drop_2,item_drop_2_chance,item_drop_3,item_drop_3_chance,max_items_dropped,attack_pool,quick_damage,quick_damage_type,quick_status_effect,quick_effect_chance,heavy_damage,heavy_damage_type,heavy_status_effect,heavy_effect_chance,counter_damage,counter_damage_type,counter_status_effect,counter_effect_chance
+Bugademon,Demon,25,Water,Fire,55,Devilfork,0.3,,,,,1,QQQHQQQC,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1,6,Pierce,OnFire,0.1
+Shroomic,Beast,5,Fire,none,0,Spore Bag,0.7,,,,,1,QQHQQC,1,Pierce,none,0,2,Blunt,none,0,1,Pierce,none,0
+Gnome,Gnome,7,none,none,34,Fish Rod,0.2,Gnoggles,0.001,Gem,0.1,1,QQHQQC,1,none,none,0,3,Blunt,none,0,2,none,none,0
+DEV1T-0,Robot,10,Water,Electricity,40,Stick,0.75,Hotdog,0.1,Leather Armor,0.05,2,QCHCQQH,1,Pierce,none,0,4,Blunt,Confused,0.2,2,Blunt,none,0
+Imp,Demon,,Blunt,Fire,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,Pierce,,,,,,
