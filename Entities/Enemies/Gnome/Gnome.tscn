@@ -6,7 +6,7 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Gnome" instance=ExtResource( 1 )]
-in_game_name = "Gnome"
+enemy_name = "Gnome"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = ExtResource( 2 )

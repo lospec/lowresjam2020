@@ -1,7 +1,7 @@
 extends "res://Entities/BaseEntity/BaseEntity.gd"
 
 # Public Variables
-export(String) var in_game_name: String
+export(String) var enemy_name: String
 var race: String
 var level: int
 var weakness: int
@@ -27,10 +27,10 @@ var counter_effect_chance: float
 onready var stateMachine = $StateMachine
 
 func _ready():
-	if in_game_name == "":
+	if enemy_name == "":
 		return
 	
-	var enemy_stats = Enemies.enemies_stats[in_game_name]
+	var enemy_stats = Enemies.enemies_stats[enemy_name]
 	for property in enemy_stats:
 		var value = enemy_stats[property]
 		if get(property) == null:

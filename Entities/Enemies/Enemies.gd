@@ -43,7 +43,7 @@ func parse_enemy_data():
 						drop_table_item = null
 						drop_table_chance = null
 					continue
-				elif property == "in_game_name":
+				elif property == "enemy_name":
 					enemy_name = value
 				enemy_stats[property] = value
 			enemy_stats["drop_table"] = drop_table
