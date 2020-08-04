@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CombatChar",
 "language": "GDScript",
-"path": "res://Combat/Scripts/CombatChar.gd"
+"path": "res://Combat/CombatChar.gd"
 }, {
 "base": "Resource",
 "class": "EntityResource",
@@ -66,9 +66,8 @@ config/icon="res://icon.png"
 
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
+Data="*res://data/import_data.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
-Items="*res://Items/Items.gd"
-Enemies="*res://Entities/Enemies/Enemies.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
 
 [display]
