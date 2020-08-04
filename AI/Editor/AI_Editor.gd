@@ -64,6 +64,15 @@ onready var action_action_container = $Action/ActionContainer/GridContainer
 onready var action_property_container = $Action/PropertyContainer/GridContainer
 onready var action_confirm_buttom = $Action/ConfirmButton
 
+onready var type_node_provider = {
+	TYPE_BOOL: $TYPE_PROVIDER/BOOL,
+	TYPE_INT: $TYPE_PROVIDER/INT,
+	TYPE_REAL: $TYPE_PROVIDER/REAL
+}
+
+var int_regex = (RegEx.new())
+var float_regex = RegEx.new()
+
 onready var all_controls = [main_control, behaviour_control, state_control, action_control]
 
 var _init_actions = false
@@ -95,6 +104,8 @@ static func _get_valid_name(name: String, arr: Array) -> String:
 
 
 func _ready():
+	int_regex.compile("^[0-9]*$")
+	float_regex.compile("/^\\d*\\.?\\d*$/")
 	_init_window()
 	_show_control(main_control)
 	_init_main_control()
@@ -147,7 +158,8 @@ func _create_new_state_button(ai_behaviour: AI_Behaviour, ai_state: AI_State):
 	behaviour_states_container.add_child(removable)
 
 func _on_behaviour_state_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State):
-	_clear_all_behaviour_state_button()
+	_disconnect_behaviour_control()
+	_clear_node(behaviour_states_container)
 	_init_state_control(ai_behaviour, ai_state)
 
 func _remove_behaviour_state_button(ai_behaviour: AI_Behaviour, ai_state: AI_State, removable: Control):
@@ -164,29 +176,12 @@ func _on_behaviour_new_state_button_pressed(ai_behaviour: AI_Behaviour):
 	_create_new_state_button(ai_behaviour, state)
 
 
-func _clear_all_behaviour_state_button():
+func _disconnect_behaviour_control():
 	behaviour_name_edit.disconnect("text_changed", self, "_on_behaviour_name_edit_changed")
 	behaviour_add_state_button.disconnect(
 		"button_down", self, "_on_behaviour_new_state_button_pressed"
 	)
-	_clear_behaviour_containers()
-	
-func _clear_behaviour_containers():
-	var children: Array = behaviour_states_container.get_children()
-	for i in range(0, children.size()):
-		behaviour_states_container.remove_child(children[i])
-	children.clear()
-	
-func _clear_state_containers():
-	var children: Array = state_action_container.get_children()
-	for i in range(0, children.size()):
-		state_action_container.remove_child(children[i])
-	children.clear()
-	
-	children = state_transition_container.get_children()
-	for i in range(0, children.size()):
-		state_transition_container.remove_child(children[i])
-	children.clear()
+
 
 static func _clear_node(node: Node):
 	var children: Array = node.get_children()
@@ -213,6 +208,9 @@ func _init_state_control(ai_behaviour: AI_Behaviour, ai_state: AI_State):
 		_add_action_to_state_container(ai_behaviour, ai_state, action)
 		
 func _add_action_to_state_container(ai_behaviour: AI_Behaviour, ai_state: AI_State, action: Resource):
+	if not action:
+		return
+	
 	var removable = BASE_REMOVABLE_BUTTON.duplicate()
 	var button = _get_button(removable)
 	var remove = _get_remove_button(removable)
@@ -241,19 +239,17 @@ func _disconnect_state_control():
 	
 func _on_state_new_action_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State):
 	_disconnect_state_control()
-	_clear_state()
+	_clear_node(state_action_container)
+	_clear_node(state_transition_container)
 	_init_action_control(ai_behaviour, ai_state)
 	
 
 func _on_state_action_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_action: Resource):
 	_disconnect_state_control()
-	_clear_state()
-	_init_action_control(ai_behaviour, ai_state, ai_action)
-
-	
-func _clear_state():
 	_clear_node(state_action_container)
 	_clear_node(state_transition_container)
+	_init_action_control(ai_behaviour, ai_state, ai_action)
+
 
 func _disconnect_action_control():
 	# TODO
@@ -266,6 +262,7 @@ func _on_action_confirm_buttom_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_
 	ai_state.actions.append(_selected_action)
 	_init_state_control(ai_behaviour,ai_state)
 	_disconnect_action_control()
+	_clear_node(action_property_container)
 	_selected_action = null
 
 
@@ -280,10 +277,13 @@ func _create_button(name: String, parent_node : Node = null) -> Button:
 func _init_action_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_action: Resource = null):	
 	_show_control(action_control)
 	
+	action_behaviour_label.text = ai_behaviour.resource_name
+	action_state_label.text = ai_state.resource_name
+	
 	if ai_action:
 		_selected_action = ai_action
 		action_action_name_edit.text = ai_action.resource_name
-		pass
+		_set_action_properties(ai_action)
 		
 	action_confirm_buttom.connect("button_down", self, "_on_action_confirm_buttom_pressed", [ai_behaviour, ai_state, ai_action])
 	action_action_name_edit.connect("text_changed", self, "_on_action_name_changed", [ai_state])
@@ -309,10 +309,69 @@ func _on_action_action_button_pressed(action: Script):
 	var name = _get_name_of_script(action)
 	_selected_action.resource_name = name
 	action_action_name_edit.text = name
-	_set_action_properties(action)
+	_set_action_properties(_selected_action)
+
 	
-func _set_action_properties(action: Script):
-	pass
+func _set_action_properties(action: Resource):
+	_clear_node(action_property_container)
+	var p_infos: Array = action.get_property_list()
+	for i in range(0, p_infos.size()):
+		if p_infos[i]["name"] == "Script Variables":
+			p_infos = p_infos.slice(i+1, p_infos.size() - 1)
+			break
+	for i in range(p_infos.size(), 0 , -1):
+		if p_infos[i-1]["name"][0] == "_":
+			p_infos.remove(i-1)
+	
+	for p_info in p_infos:
+		_action_add_property(action, p_info["name"], p_info["type"])
+		
+func _action_add_property(action:Resource, name: String, type: int):
+	var node: Control
+	var property_field: Label
+	match type:
+		TYPE_INT:
+			node = type_node_provider[TYPE_INT].duplicate()
+			var int_field: SpinBox = _get_value_field(node)
+			int_field.value = action.get(name)
+			int_field.connect("value_changed", self, "_validate_int", [ action, name])
+		TYPE_BOOL:
+			node = type_node_provider[TYPE_BOOL].duplicate()
+			var bool_field: CheckBox = _get_value_field(node)
+			bool_field.toggle_mode = action.get(name)
+			bool_field.connect("button_down", self, "_validate_bool", [bool_field, action, name])
+		TYPE_REAL:
+			node = type_node_provider[TYPE_REAL].duplicate()
+			var float_field: SpinBox = _get_value_field(node)
+			float_field.value = action.get(name)
+			float_field.connect("value_changed", self, "_validate_float", [ action, name])
+		_:
+			return
+			
+	node.show()
+	property_field = _get_property_field(node)
+	property_field.text = name
+	action_property_container.add_child(node)
+
+			
+func _get_property_field(node: Control):
+	return node.get_child(0)
+
+	
+func _get_value_field(node:Control):
+	return node.get_child(1)
+
+
+func _validate_int(value: float, action: Resource, p_name: String):
+	action.set(p_name, int(value))
+
+func _validate_float(value: float, action: Resource, p_name: String):
+	action.set(p_name, float(value))
+	
+func _validate_bool(field: CheckBox, action: Resource, p_name: String):
+	var value = field.pressed
+	action.set(p_name, value)
+	field.pressed = value
 	
 func _on_state_new_transition_button_pressed():
 	pass
@@ -327,8 +386,8 @@ func _on_state_name_changed(new_text: String, ai_behaviour: AI_Behaviour, ai_sta
 func _on_state_back_button_pressed(ai_behaviour: AI_Behaviour):
 	_disconnect_state_control()
 	_init_behaviour_control(ai_behaviour)
-	_clear_state_containers()
-	_clear_state()
+	_clear_node(state_action_container)
+	_clear_node(state_transition_container)
 
 
 func _create_new_state(ai_behaviour: AI_Behaviour):
