@@ -1,8 +1,10 @@
 extends Resource
-class_name AI_State
 
-export (Array, Resource) var actions
-export (Array, Resource) var transitions
+const AI_State_Action = preload("res://Entities/AI/Actions/AI_State_Action.gd")
+const AI_Transition = preload("res://Entities/AI/AI_Transition.gd")
+
+export (Array) var actions
+export (Array) var transitions
 
 
 func update_state(stateMachine, _delta):

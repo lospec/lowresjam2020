@@ -1,5 +1,4 @@
-extends AI_State_Condition
-class_name AI_Condition_HasTarget
+extends "res://Entities/AI/Conditions/AI_State_Condition.gd"
 
 func evaluate(stateMachine):
 	if stateMachine.target != null:

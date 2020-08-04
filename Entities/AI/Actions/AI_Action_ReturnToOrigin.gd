@@ -1,5 +1,4 @@
-extends AI_State_Action
-class_name AI_Action_ReturnToOrigin
+extends "res://Entities/AI/Actions/AI_State_Action.gd"
 
 export (float) var move_speed
 

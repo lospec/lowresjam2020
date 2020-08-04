@@ -1,5 +1,4 @@
-extends AI_State_Condition
-class_name AI_Condition_FarFromOrigin
+extends "res://Entities/AI/Conditions/AI_State_Condition.gd"
 
 export (float) var distance_from_origin
 

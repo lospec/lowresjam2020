@@ -1,6 +1,7 @@
 extends Node
 
 const BaseEntity = preload("res://Entities/BaseEntity/BaseEntity.gd")
+const AI_State = preload("res://Entities/AI/AI_State.gd")
 
 export (bool) var active
 export (Resource) var behaviour
@@ -20,7 +21,7 @@ var origin_position: Vector2
 
 func _ready():
 	origin_position = entity.position
-	current_state = behaviour.start_state
+	current_state = behaviour.get_starting_state()
 
 
 func _process(_delta):

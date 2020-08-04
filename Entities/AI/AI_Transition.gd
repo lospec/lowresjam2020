@@ -1,6 +1,5 @@
 extends Resource
-class_name AI_Transition
 
-export (Resource) var condition
-export (int) var trueState
-export (int) var falseState
+export (Resource) var condition 
+export (int) var true_state_index
+export (int) var false_state_index
