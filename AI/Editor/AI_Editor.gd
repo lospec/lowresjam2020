@@ -338,8 +338,8 @@ func _action_add_property(action:Resource, name: String, type: int):
 		TYPE_BOOL:
 			node = type_node_provider[TYPE_BOOL].duplicate()
 			var bool_field: CheckBox = _get_value_field(node)
-			bool_field.toggle_mode = action.get(name)
-			bool_field.connect("button_down", self, "_validate_bool", [bool_field, action, name])
+			bool_field.pressed = action.get(name)
+			bool_field.connect("toggled", self, "_validate_bool", [ action, name])
 		TYPE_REAL:
 			node = type_node_provider[TYPE_REAL].duplicate()
 			var float_field: SpinBox = _get_value_field(node)
@@ -368,10 +368,9 @@ func _validate_int(value: float, action: Resource, p_name: String):
 func _validate_float(value: float, action: Resource, p_name: String):
 	action.set(p_name, float(value))
 	
-func _validate_bool(field: CheckBox, action: Resource, p_name: String):
-	var value = field.pressed
+func _validate_bool(value:bool, action: Resource, p_name: String):
 	action.set(p_name, value)
-	field.pressed = value
+	
 	
 func _on_state_new_transition_button_pressed():
 	pass

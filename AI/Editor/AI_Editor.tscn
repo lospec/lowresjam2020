@@ -50,6 +50,7 @@ text = "-"
 flat = true
 
 [node name="TYPE_PROVIDER" type="Control" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -57,7 +58,6 @@ __meta__ = {
 }
 
 [node name="INT" type="HBoxContainer" parent="TYPE_PROVIDER"]
-visible = false
 margin_right = 92.0
 margin_bottom = 19.0
 __meta__ = {
@@ -84,7 +84,6 @@ allow_greater = true
 allow_lesser = true
 
 [node name="REAL" type="HBoxContainer" parent="TYPE_PROVIDER"]
-visible = false
 margin_right = 92.0
 margin_bottom = 19.0
 __meta__ = {
@@ -111,7 +110,6 @@ allow_greater = true
 allow_lesser = true
 
 [node name="BOOL" type="HBoxContainer" parent="TYPE_PROVIDER"]
-visible = false
 margin_right = 92.0
 margin_bottom = 24.0
 __meta__ = {
@@ -132,7 +130,7 @@ __meta__ = {
 margin_left = 58.0
 margin_right = 82.0
 margin_bottom = 24.0
-toggle_mode = false
+keep_pressed_outside = true
 
 [node name="Main" type="Control" parent="."]
 visible = false
@@ -371,7 +369,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Action" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -447,9 +444,9 @@ __meta__ = {
 }
 
 [node name="PropertiesLabel" type="Label" parent="Action"]
-margin_left = 142.685
+margin_left = 120.205
 margin_top = 80.0
-margin_right = 178.685
+margin_right = 160.205
 margin_bottom = 89.0
 custom_fonts/font = ExtResource( 1 )
 text = "Properties:"
@@ -473,7 +470,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PropertyContainer" type="ScrollContainer" parent="Action"]
-margin_left = 139.0
+margin_left = 120.0
 margin_top = 101.0
 margin_right = 250.0
 margin_bottom = 250.0
