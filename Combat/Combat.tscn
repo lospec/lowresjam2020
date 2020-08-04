@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://Combat/combat_background.png" type="Texture" id=1]
-[ext_resource path="res://Combat/choice_background.png" type="Texture" id=2]
+[ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
+[ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
 [ext_resource path="res://Combat/Enemies/Impit/Impit_Battle_Normal.png" type="Texture" id=3]
-[ext_resource path="res://Combat/player_health_hud.png" type="Texture" id=4]
+[ext_resource path="res://Combat/UI/Backgrounds/player_health_hud.png" type="Texture" id=4]
 [ext_resource path="res://Combat/Font Resources/Mini3x4.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Combat/player_health_icon.png" type="Texture" id=6]
+[ext_resource path="res://Combat/UI/Health/player_health_icon.png" type="Texture" id=6]
 [ext_resource path="res://Combat/Combat.gd" type="Script" id=7]
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Normal.png" type="Texture" id=8]
 [ext_resource path="res://Combat/UI/Buttons/Attacks/Counter Hover.png" type="Texture" id=9]
@@ -23,11 +23,17 @@
 [ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
 [ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=22]
 [ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=23]
+[ext_resource path="res://Combat/UI/Buttons/Back/Back Hover.png" type="Texture" id=24]
+[ext_resource path="res://Combat/UI/Buttons/Back/Back Normal.png" type="Texture" id=25]
+[ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPOver.png" type="Texture" id=26]
+[ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPProgress.png" type="Texture" id=27]
+[ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
 
-[node name="Combat" type="Node"]
+[node name="Combat" type="CanvasLayer"]
 script = ExtResource( 7 )
 
 [node name="CombatMenu" type="MarginContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -49,11 +55,29 @@ margin_right = 64.0
 margin_bottom = 64.0
 alignment = 2
 
-[node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer"]
-margin_left = 16.0
-margin_top = 8.0
-margin_right = 48.0
+[node name="EnemyHUD" type="CenterContainer" parent="CombatMenu/VBoxContainer"]
+margin_top = 3.0
+margin_right = 64.0
 margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/EnemyHUD"]
+margin_left = 13.0
+margin_right = 51.0
+margin_bottom = 37.0
+custom_constants/separation = 0
+
+[node name="EnemyHealthBar" type="TextureProgress" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
+margin_right = 38.0
+margin_bottom = 5.0
+texture_under = ExtResource( 28 )
+texture_over = ExtResource( 26 )
+texture_progress = ExtResource( 27 )
+
+[node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 37.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 3 )
@@ -125,71 +149,109 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
+[node name="Buttons" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
 margin_right = 64.0
 margin_bottom = 16.0
-mouse_filter = 2
+custom_constants/margin_right = 6
+custom_constants/margin_top = 1
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 1
 
-[node name="MainButtons" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons"]
-margin_left = 9.0
-margin_top = 2.0
-margin_right = 54.0
-margin_bottom = 13.0
+[node name="MainButtonsMenu" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons"]
+margin_left = 6.0
+margin_top = 1.0
+margin_right = 58.0
+margin_bottom = 15.0
+custom_constants/margin_top = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu"]
+margin_top = 1.0
+margin_right = 52.0
+margin_bottom = 14.0
 custom_constants/separation = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons"]
-margin_right = 45.0
+[node name="CenterContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer"]
+margin_right = 52.0
 margin_bottom = 5.0
 mouse_filter = 2
 
-[node name="Attack" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons/CenterContainer"]
-margin_left = 5.0
-margin_right = 40.0
+[node name="Attack" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer"]
+margin_left = 8.0
+margin_right = 43.0
 margin_bottom = 5.0
 texture_normal = ExtResource( 8 )
 texture_hover = ExtResource( 15 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons"]
+[node name="CenterContainer2" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer"]
 margin_top = 6.0
-margin_right = 45.0
+margin_right = 52.0
 margin_bottom = 11.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2"]
+margin_left = 3.0
+margin_right = 48.0
+margin_bottom = 5.0
 custom_constants/separation = 0
 
-[node name="Bag" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons/HBoxContainer"]
+[node name="Bag" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer"]
 margin_right = 20.0
 margin_bottom = 5.0
 texture_normal = ExtResource( 16 )
 texture_hover = ExtResource( 18 )
 
-[node name="Flee" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons/HBoxContainer"]
+[node name="Flee" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer"]
 margin_left = 20.0
 margin_right = 45.0
 margin_bottom = 5.0
 texture_normal = ExtResource( 19 )
 texture_hover = ExtResource( 17 )
 
-[node name="AttackButtons" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons"]
+[node name="AttackButtonsMenu" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons"]
 visible = false
-margin_left = 12.0
+margin_left = 6.0
 margin_top = 1.0
-margin_right = 51.0
+margin_right = 58.0
 margin_bottom = 15.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu"]
+margin_right = 3.0
+margin_bottom = 14.0
+mouse_filter = 2
+size_flags_horizontal = 0
+
+[node name="Back" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer"]
+margin_top = 4.0
+margin_right = 3.0
+margin_bottom = 9.0
+texture_normal = ExtResource( 25 )
+texture_hover = ExtResource( 24 )
+
+[node name="CenterContainer2" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu"]
+margin_right = 52.0
+margin_bottom = 14.0
+mouse_filter = 2
+
+[node name="AttackButtons" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2"]
+margin_left = 6.0
+margin_right = 45.0
+margin_bottom = 14.0
 custom_constants/separation = 1
 
-[node name="Counter" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons"]
+[node name="Counter" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons"]
 margin_right = 39.0
 margin_bottom = 4.0
 texture_normal = ExtResource( 13 )
 texture_hover = ExtResource( 9 )
 
-[node name="Quick" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons"]
+[node name="Quick" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons"]
 margin_top = 5.0
 margin_right = 39.0
 margin_bottom = 9.0
 texture_normal = ExtResource( 11 )
 texture_hover = ExtResource( 12 )
 
-[node name="Heavy" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons"]
+[node name="Heavy" type="TextureButton" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons"]
 margin_top = 10.0
 margin_right = 39.0
 margin_bottom = 14.0
@@ -204,6 +266,9 @@ custom_constants/margin_right = 5
 custom_constants/margin_top = 2
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CombatLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding"]
 visible = false
@@ -224,7 +289,11 @@ script = ExtResource( 23 )
 
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 22 )
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]
+[connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="_on_Flee_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="_on_Back_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]

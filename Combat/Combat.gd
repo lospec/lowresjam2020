@@ -1,4 +1,4 @@
-extends Node
+extends CanvasLayer
 
 # Constants
 enum COMBAT_ACTION {
@@ -8,11 +8,21 @@ enum COMBAT_ACTION {
 	HEAVY 
 }
 
+# Public Variables
+
+
 # Onready Variables
 onready var combat_menu = $CombatMenu
 onready var enemy_combat = $EnemyCombat
 onready var player_combat = $PlayerCombat
 onready var combat_label = $CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel
+
+func _on_Player_enemy_detected(player, enemy):
+	combat_menu.visible = true
+	print(player.name)
+	print(enemy.name)
+	print("")
+
 
 func GetActionWeakness(action):
 	match (action):
@@ -36,7 +46,7 @@ func ActionCompare(action1, action2):
 
 
 func TakeTurn(playerAction):
-	var enemyAction = playerAction#enemyCombat.GetAction()
+	var enemyAction = playerAction#enemy_combat.GetAction()
 	var win = ActionCompare(playerAction, enemyAction)
 	
 	combat_menu.ShowCombatLabel()
@@ -72,10 +82,10 @@ func Tie(action):
 		COMBAT_ACTION.QUICK:
 			combat_label.text = "Both of you attack"
 			yield(get_tree().create_timer(1.5), "timeout")
-			enemy_combat.hp -= playerDmg
+			enemy_combat.health -= playerDmg
 			combat_label.text = "The Enemy takes %s dmg" % playerDmg
 			yield(get_tree().create_timer(1.5), "timeout")
-			player_combat.hp -= enemyDmg
+			player_combat.health -= enemyDmg
 			combat_label.text = "You take %s dmg" % enemyDmg
 			yield(get_tree().create_timer(1.5), "timeout")
 		
@@ -90,12 +100,12 @@ func Tie(action):
 			yield(get_tree().create_timer(1.5), "timeout")
 			combat_label.text = "The enemy also charges up!"
 			yield(get_tree().create_timer(1.5), "timeout")
-			playerDmg = playerDmg / 2
-			enemy_combat.hp -= playerDmg
+			playerDmg /= 2
+			enemy_combat.health -= playerDmg
 			combat_label.text = "The Enemy takes %s dmg" % playerDmg
 			yield(get_tree().create_timer(1.5), "timeout")
-			enemyDmg = enemyDmg / 2
-			player_combat.hp -= enemyDmg
+			enemyDmg /= 2
+			player_combat.health -= enemyDmg
 			combat_label.text = "You take %s dmg" % enemyDmg
 			yield(get_tree().create_timer(1.5), "timeout")
 		

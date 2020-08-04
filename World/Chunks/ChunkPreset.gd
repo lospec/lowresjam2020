@@ -18,14 +18,6 @@ const GRASS_ALT_THRESHOLD = 0.3
 
 # Onready Variables
 onready var enemy_spawns = $EnemySpawns
-onready var enemies = $Enemies
-
-func _ready():
-	for enemy_spawn in enemy_spawns.get_children():
-		var enemy_scene = Utility.rand_element(enemy_spawn.enemies)
-		var enemy = enemy_scene.instance()
-		enemy.position = enemy_spawn.position
-		enemies.add_child(enemy)
 
 func fix_tiles(_b):
 	if not Engine.editor_hint:

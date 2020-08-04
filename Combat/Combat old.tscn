@@ -12,12 +12,14 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Normal.png" type="Texture" id=10]
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Hover.png" type="Texture" id=11]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Hover.png" type="Texture" id=12]
-[ext_resource path="res://Combat/UI/Combat-Mockup.png" type="Texture" id=13]
 [ext_resource path="res://Combat/UI/Buttons/Main/Bag Hover.png" type="Texture" id=14]
 [ext_resource path="res://Combat/UI/Buttons/Main/Bag Normal.png" type="Texture" id=15]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=16]
 [ext_resource path="res://UI/Fonts/wendy.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=18]
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/Combat-Mockup.png-04a72e8c39c8864f2ac833a370b85b25.stex"
 
 [sub_resource type="DynamicFont" id=1]
 size = 10
@@ -40,7 +42,7 @@ __meta__ = {
 margin_left = -136.0
 margin_right = 68.0
 margin_bottom = 64.0
-texture = ExtResource( 13 )
+texture = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

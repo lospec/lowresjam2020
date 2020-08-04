@@ -1,7 +1,10 @@
 extends "res://Entities/BaseEntity/BaseEntity.gd"
 
+# Exported Variables
+export(String) var enemy_name
+export(Texture) var enemy_battle_texture
+
 # Public Variables
-export(String) var enemy_name: String
 var race: String
 var level: int
 var weakness: int

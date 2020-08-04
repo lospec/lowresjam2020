@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_health_icon.png-1c5bc6025bf56f385fbb6396217ef838.stex"
+path="res://.import/RedGnome_Battle_Normal.png-1c9aa75b255d503c6cabe7600a26a0aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/player_health_icon.png"
-dest_files=[ "res://.import/player_health_icon.png-1c5bc6025bf56f385fbb6396217ef838.stex" ]
+source_file="res://Entities/Enemies/Gnome/RedGnome_Battle_Normal.png"
+dest_files=[ "res://.import/RedGnome_Battle_Normal.png-1c9aa75b255d503c6cabe7600a26a0aa.stex" ]
 
 [params]
 

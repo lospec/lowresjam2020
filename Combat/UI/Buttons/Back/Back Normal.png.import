@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/combat_background.png-dbf7003e5f50b23339aa8e51bd0960a7.stex"
+path="res://.import/Back Normal.png-cf64b72c5374e6a60b2f6a30907e51f8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/combat_background.png"
-dest_files=[ "res://.import/combat_background.png-dbf7003e5f50b23339aa8e51bd0960a7.stex" ]
+source_file="res://Combat/UI/Buttons/Back/Back Normal.png"
+dest_files=[ "res://.import/Back Normal.png-cf64b72c5374e6a60b2f6a30907e51f8.stex" ]
 
 [params]
 

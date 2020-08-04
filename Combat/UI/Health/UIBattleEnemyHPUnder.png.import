@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/choice_background.png-06216b6354e4aeb6cad794ed84a649de.stex"
+path="res://.import/UIBattleEnemyHPUnder.png-e6726663f7c1113a23d3410fc0cfd911.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/choice_background.png"
-dest_files=[ "res://.import/choice_background.png-06216b6354e4aeb6cad794ed84a649de.stex" ]
+source_file="res://Combat/UI/Health/UIBattleEnemyHPUnder.png"
+dest_files=[ "res://.import/UIBattleEnemyHPUnder.png-e6726663f7c1113a23d3410fc0cfd911.stex" ]
 
 [params]
 

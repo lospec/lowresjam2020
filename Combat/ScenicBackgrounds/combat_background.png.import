@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Combat-Mockup.png-04a72e8c39c8864f2ac833a370b85b25.stex"
+path="res://.import/combat_background.png-f5ab23f50bb47b984317df2ea640268f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/UI/Combat-Mockup.png"
-dest_files=[ "res://.import/Combat-Mockup.png-04a72e8c39c8864f2ac833a370b85b25.stex" ]
+source_file="res://Combat/ScenicBackgrounds/combat_background.png"
+dest_files=[ "res://.import/combat_background.png-f5ab23f50bb47b984317df2ea640268f.stex" ]
 
 [params]
 

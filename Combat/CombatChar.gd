@@ -3,14 +3,14 @@ extends Node
 class_name CombatChar
 
 # Signals
-signal HpChanged(newHp)
+signal health_changed(new_health)
 
 # Exported Variables
-export var hp = 100 setget HpSetter
+var health setget set_health
 
-func HpSetter(val):
-	hp = val
-	emit_signal("HpChanged", hp)
+func set_health(val):
+	health = val
+	emit_signal("health_changed", health)
 
 func GetDamage():
 	return Utility.randomRange(15, 21)
