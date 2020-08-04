@@ -1,7 +1,7 @@
 extends "res://AI/Actions/AI_State_Action.gd"
 
-export (float) var wait_period
-export (float) var active_period
+export (float) var wait_period = 1
+export (float) var active_period = 1
 
 var _timer := 0.0
 

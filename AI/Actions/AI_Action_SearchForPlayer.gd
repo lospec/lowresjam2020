@@ -1,8 +1,8 @@
 extends "res://AI/Actions/AI_State_Action.gd"
 
-export (float) var search_range
+export (float) var search_range = 1
+export (bool) var found_target = false
 
-var found_target = null
 var _initialized = false
 
 func _on_body_entered(body):
