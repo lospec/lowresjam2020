@@ -62,7 +62,25 @@ onready var action_state_label = $Action/StateLabel
 onready var action_action_name_edit = $Action/VBoxContainer/LineEdit
 onready var action_action_container = $Action/ActionContainer/GridContainer
 onready var action_property_container = $Action/PropertyContainer/GridContainer
-onready var action_confirm_buttom = $Action/ConfirmButton
+onready var action_confirm_button = $Action/ConfirmButton
+
+# condition
+onready var condition_control = $Condition
+onready var condition_behaviour_state_label = $Condition/BehaviourStateLabel
+onready var condition_transition_label = $Condition/TransitionLabel
+onready var condition_condition_name_edit = $Condition/VBoxContainer/LineEdit
+onready var condition_condition_container = $Condition/ConditionContainer/GridContainer
+onready var condition_property_container = $Condition/PropertyContainer/GridContainer
+onready var condition_confirm_button = $Condition/ConfirmButton
+
+# Transition
+onready var transition_control = $Transition
+onready var transition_confirm_button = $Transition/ConfirmButton
+onready var transition_behaviour_label = $Transition/BehaviourLabel
+onready var transition_state_label = $Transition/StateLabel
+onready var transition_condition_button = $Transition/ConditionButton
+onready var transition_start_state_container = $Transition/StartStateContainer/VBoxContainer
+onready var transition_end_state_container = $Transition/EndStateContainer/VBoxContainer
 
 onready var type_node_provider = {
 	TYPE_BOOL: $TYPE_PROVIDER/BOOL,
@@ -70,10 +88,15 @@ onready var type_node_provider = {
 	TYPE_REAL: $TYPE_PROVIDER/REAL
 }
 
-var int_regex = (RegEx.new())
-var float_regex = RegEx.new()
 
-onready var all_controls = [main_control, behaviour_control, state_control, action_control]
+onready var all_controls = [
+	main_control,
+	behaviour_control,
+	state_control,
+	action_control,
+	transition_control,
+	condition_control
+]
 
 var _init_actions = false
 var _selected_action: Resource
@@ -104,8 +127,6 @@ static func _get_valid_name(name: String, arr: Array) -> String:
 
 
 func _ready():
-	int_regex.compile("^[0-9]*$")
-	float_regex.compile("/^\\d*\\.?\\d*$/")
 	_init_window()
 	_show_control(main_control)
 	_init_main_control()
@@ -253,10 +274,10 @@ func _on_state_action_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_St
 
 func _disconnect_action_control():
 	# TODO
-	action_confirm_buttom.disconnect("button_down", self, "_on_action_confirm_buttom_pressed")
+	action_confirm_button.disconnect("button_down", self, "_on_action_confirm_button_pressed")
 	action_action_name_edit.disconnect("text_changed", self, "_on_action_name_changed")
 
-func _on_action_confirm_buttom_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_action: Resource):
+func _on_action_confirm_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_action: Resource):
 	if  ai_action:
 		ai_state.actions.remove(ai_state.actions.find(ai_action))
 	ai_state.actions.append(_selected_action)
@@ -285,7 +306,7 @@ func _init_action_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_act
 		action_action_name_edit.text = ai_action.resource_name
 		_set_action_properties(ai_action)
 		
-	action_confirm_buttom.connect("button_down", self, "_on_action_confirm_buttom_pressed", [ai_behaviour, ai_state, ai_action])
+	action_confirm_button.connect("button_down", self, "_on_action_confirm_button_pressed", [ai_behaviour, ai_state, ai_action])
 	action_action_name_edit.connect("text_changed", self, "_on_action_name_changed", [ai_state])
 	
 	if _init_actions:
