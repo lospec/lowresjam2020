@@ -20,7 +20,7 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Bag Hover.png" type="Texture" id=18]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=19]
 [ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=20]
-[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=21]
+[ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
 [ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=22]
 [ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=23]
 
@@ -49,15 +49,13 @@ margin_right = 64.0
 margin_bottom = 64.0
 alignment = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer"]
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = 40.0
-
-[node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer/CenterContainer"]
+[node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer"]
 margin_left = 16.0
+margin_top = 8.0
 margin_right = 48.0
-margin_bottom = 32.0
+margin_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 3 )
 
 [node name="PlayerHUD" type="VBoxContainer" parent="CombatMenu/VBoxContainer"]
@@ -198,19 +196,28 @@ margin_bottom = 14.0
 texture_normal = ExtResource( 10 )
 texture_hover = ExtResource( 14 )
 
-[node name="CenterContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
+[node name="CombatLabelPadding" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
 margin_right = 64.0
 margin_bottom = 16.0
 mouse_filter = 2
+custom_constants/margin_right = 5
+custom_constants/margin_top = 2
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 1
 
-[node name="CombatLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CenterContainer"]
+[node name="CombatLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding"]
 visible = false
-margin_left = 6.0
-margin_top = 3.0
-margin_right = 58.0
-margin_bottom = 12.0
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 59.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 21 )
-text = "You took 2 dmg"
+text = "Combat Label"
+align = 1
+autowrap = true
+clip_text = true
 
 [node name="PlayerCombat" type="Node" parent="."]
 script = ExtResource( 23 )
@@ -218,3 +225,6 @@ script = ExtResource( 23 )
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 22 )
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtons/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]
