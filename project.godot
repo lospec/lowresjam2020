@@ -9,65 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "AI_State_Action",
-"class": "AI_Action_MoveToTarget",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/AI_Action_MoveToTarget.gd"
-}, {
-"base": "AI_State_Action",
-"class": "AI_Action_ReturnToOrigin",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/AI_Action_ReturnToOrigin.gd"
-}, {
-"base": "AI_State_Action",
-"class": "AI_Action_SearchForTarget",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/AI_Action_SearchForTarget.gd"
-}, {
-"base": "AI_State_Action",
-"class": "AI_Action_WaitTime",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/AI_Action_WaitTime.gd"
-}, {
 "base": "Resource",
 "class": "AI_Behaviour",
 "language": "GDScript",
 "path": "res://Entities/AI/AI_Behaviour.gd"
-}, {
-"base": "AI_State_Condition",
-"class": "AI_Condition_FarFromOrigin",
-"language": "GDScript",
-"path": "res://Entities/AI/Conditions/AI_Condition_FarFromOrigin.gd"
-}, {
-"base": "AI_State_Condition",
-"class": "AI_Condition_HasTarget",
-"language": "GDScript",
-"path": "res://Entities/AI/Conditions/AI_Condition_HasTarget.gd"
-}, {
-"base": "AI_State_Condition",
-"class": "AI_Condition_TargetInRange",
-"language": "GDScript",
-"path": "res://Entities/AI/Conditions/AI_Condition_TargetInRange.gd"
-}, {
-"base": "Resource",
-"class": "AI_State",
-"language": "GDScript",
-"path": "res://Entities/AI/AI_State.gd"
-}, {
-"base": "Resource",
-"class": "AI_State_Action",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/AI_State_Action.gd"
-}, {
-"base": "Resource",
-"class": "AI_State_Condition",
-"language": "GDScript",
-"path": "res://Entities/AI/Conditions/AI_State_Condition.gd"
-}, {
-"base": "Resource",
-"class": "AI_Transition",
-"language": "GDScript",
-"path": "res://Entities/AI/AI_Transition.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "BaseEntity",
@@ -85,18 +30,7 @@ _global_script_classes=[ {
 "path": "res://Entities/BaseEntity/EntityResource.gd"
 } ]
 _global_script_class_icons={
-"AI_Action_MoveToTarget": "",
-"AI_Action_ReturnToOrigin": "",
-"AI_Action_SearchForTarget": "",
-"AI_Action_WaitTime": "",
 "AI_Behaviour": "",
-"AI_Condition_FarFromOrigin": "",
-"AI_Condition_HasTarget": "",
-"AI_Condition_TargetInRange": "",
-"AI_State": "",
-"AI_State_Action": "",
-"AI_State_Condition": "",
-"AI_Transition": "",
 "BaseEntity": "",
 "CameraController": "",
 "EntityResource": ""
@@ -124,6 +58,10 @@ window/size/test_height=512
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [importer_defaults]
 
