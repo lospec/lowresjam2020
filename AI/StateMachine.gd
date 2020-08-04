@@ -1,7 +1,7 @@
 extends Node
 
 const BaseEntity = preload("res://Entities/BaseEntity/BaseEntity.gd")
-const AI_State = preload("res://Entities/AI/AI_State.gd")
+const AI_State = preload("res://AI/AI_State.gd")
 
 export (bool) var active
 export (Resource) var behaviour

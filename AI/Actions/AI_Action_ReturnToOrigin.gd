@@ -1,4 +1,4 @@
-extends "res://Entities/AI/Actions/AI_State_Action.gd"
+extends "res://AI/Actions/AI_State_Action.gd"
 
 export (float) var move_speed
 

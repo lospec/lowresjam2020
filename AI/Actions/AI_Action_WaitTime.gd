@@ -1,4 +1,4 @@
-extends "res://Entities/AI/Actions/AI_State_Action.gd"
+extends "res://AI/Actions/AI_State_Action.gd"
 
 export (float) var wait_period
 export (float) var active_period

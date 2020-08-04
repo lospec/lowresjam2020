@@ -1,7 +1,7 @@
 extends Resource
 
-const AI_State_Action = preload("res://Entities/AI/Actions/AI_State_Action.gd")
-const AI_Transition = preload("res://Entities/AI/AI_Transition.gd")
+const AI_State_Action = preload("res://AI/Actions/AI_State_Action.gd")
+const AI_Transition = preload("res://AI/AI_Transition.gd")
 
 export (Array) var actions
 export (Array) var transitions

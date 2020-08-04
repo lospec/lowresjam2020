@@ -1,7 +1,7 @@
 extends Resource
 class_name AI_Behaviour
 
-const AI_State = preload("res://Entities/AI/AI_State.gd")
+const AI_State = preload("res://AI/AI_State.gd")
 
 export (Array) var states
 export (int) var start_state_index
