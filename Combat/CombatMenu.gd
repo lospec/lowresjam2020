@@ -3,7 +3,7 @@ extends Control
 # Constants
 enum MENU_SELECTED {
 	MAIN,
-	ATTACK
+	ATTACK,
 }
 
 # Public Variables
@@ -14,12 +14,34 @@ onready var buttons = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons
 onready var main_buttons_menu = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu
 onready var attack_buttons_menu = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu
 onready var combat_label = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel
+onready var player_health_label = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/Health
+onready var enemy_health_bar = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar
+onready var enemy_health_bar_tween = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/Tween
+
 
 func _ready():
 	reset_ui();
 
-func UpdateEnemyHp(newHp):
-	pass
+
+func set_player_health_value(_max_health, current_health):
+	player_health_label.text = str(current_health)
+
+
+func set_enemy_health_value(max_health, current_health):
+	enemy_health_bar.max_value = max_health
+	enemy_health_bar.value = current_health
+
+
+func update_player_health_value(new_health):
+	player_health_label.text = str(new_health)
+
+
+func update_enemy_health_value(new_health):
+	enemy_health_bar_tween.interpolate_property(enemy_health_bar, "value",
+			enemy_health_bar.value, new_health, 1.0,
+			Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	enemy_health_bar_tween.start()
+
 
 func reset_ui():
 	buttons.visible = true

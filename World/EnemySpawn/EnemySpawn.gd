@@ -1,3 +1,3 @@
 extends Position2D
 
-export(Array, PackedScene) var enemies
+export(Array, String) var enemies

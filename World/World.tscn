@@ -18,7 +18,8 @@ script = ExtResource( 6 )
 [node name="CaveEnterance" parent="Chunks" instance=ExtResource( 5 )]
 
 [node name="EnemySpawn" parent="Chunks/CaveEnterance/EnemySpawns" index="0" instance=ExtResource( 4 )]
-position = Vector2( -2, 20 )
+position = Vector2( -4, 17 )
+enemies = [ "Gnome" ]
 
 [node name="Entities" type="YSort" parent="."]
 
@@ -33,5 +34,6 @@ node_to_follow = NodePath("../Entities/Player")
 [node name="Combat" parent="." instance=ExtResource( 8 )]
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
 [connection signal="enemy_detected" from="Entities/Player" to="Combat" method="_on_Player_enemy_detected"]
+[connection signal="health_changed" from="Entities/Player" to="Combat" method="_on_Player_health_changed"]
 
 [editable path="Chunks/CaveEnterance"]

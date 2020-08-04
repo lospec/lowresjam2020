@@ -1,46 +1,56 @@
 extends CanvasLayer
 
-# Constants
-enum COMBAT_ACTION {
-	INVALID = -1,
-	QUICK,
-	COUNTER,
-	HEAVY 
-}
-
 # Public Variables
-
+var combat_util = preload("res://Combat/CombatUtil.gd")
+var player_instance
+var enemy_instance
 
 # Onready Variables
 onready var combat_menu = $CombatMenu
-onready var enemy_combat = $EnemyCombat
-onready var player_combat = $PlayerCombat
 onready var combat_label = $CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel
+onready var enemy_image = $CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/Enemy
 
 func _on_Player_enemy_detected(player, enemy):
+	get_tree().paused = true
+	
+	player_instance = player
+	enemy_instance = enemy
+	
+	combat_menu.set_player_health_value(player_instance.max_health,
+			player_instance.health)
+	combat_menu.set_enemy_health_value(enemy_instance.max_health,
+			enemy_instance.health)
+	
+	enemy_image.texture = enemy_instance.battle_texture_normal
+	
 	combat_menu.visible = true
-	print(player.name)
-	print(enemy.name)
-	print("")
+
+
+func _on_Player_health_changed(_old_health, new_health):
+	combat_menu.update_player_health_value(new_health)
+
+
+func _on_Enemy_health_changed(_old_health, new_health):
+	combat_menu.update_enemy_health_value(new_health)
 
 
 func GetActionWeakness(action):
 	match (action):
-		COMBAT_ACTION.QUICK:
-			return COMBAT_ACTION.COUNTER
-		COMBAT_ACTION.COUNTER:
-			return COMBAT_ACTION.HEAVY
-		COMBAT_ACTION.HEAVY:
-			return COMBAT_ACTION.QUICK
-	return COMBAT_ACTION.INVALID
+		combat_util.Combat_Action.QUICK:
+			return combat_util.COMBAT_ACTION.COUNTER
+		combat_util.Combat_Action.COUNTER:
+			return combat_util.COMBAT_ACTION.HEAVY
+		combat_util.Combat_Action.HEAVY:
+			return combat_util.COMBAT_ACTION.QUICK
+	return combat_util.Combat_Action.INVALID
 
 
 func ActionCompare(action1, action2):
-	if (action1 == action2):
+	if action1 == action2:
 		return 0
-	elif (GetActionWeakness(action2) == action1):
+	elif GetActionWeakness(action2) == action1:
 		return 1
-	elif (GetActionWeakness(action1) == action2):
+	elif GetActionWeakness(action1) == action2:
 		return 2
 	return -1
 
@@ -75,37 +85,37 @@ func EnemyWin(enemyAction):
 
 
 func Tie(action):
-	var enemyDmg = enemy_combat.GetDamage();
-	var playerDmg = player_combat.GetDamage();
+	var enemyDmg = enemy_instance.get_base_damage(action);
+	var playerDmg = player_instance.get_base_damage(action);
 	
 	match (action):
-		COMBAT_ACTION.QUICK:
+		combat_util.Combat_Action.QUICK:
 			combat_label.text = "Both of you attack"
 			yield(get_tree().create_timer(1.5), "timeout")
-			enemy_combat.health -= playerDmg
+			player_instance.health -= playerDmg
 			combat_label.text = "The Enemy takes %s dmg" % playerDmg
 			yield(get_tree().create_timer(1.5), "timeout")
-			player_combat.health -= enemyDmg
+			player_instance.health -= enemyDmg
 			combat_label.text = "You take %s dmg" % enemyDmg
 			yield(get_tree().create_timer(1.5), "timeout")
 		
-		COMBAT_ACTION.COUNTER:
+		combat_util.Combat_Action.COUNTER:
 			combat_label.text = "You prepare to counter"
 			yield(get_tree().create_timer(1.5), "timeout")
 			combat_label.text = "But nothing happened"
 			yield(get_tree().create_timer(1.5), "timeout")
 		
-		COMBAT_ACTION.HEAVY:
+		combat_util.Combat_Action.HEAVY:
 			combat_label.text = "You charge up your attack"
 			yield(get_tree().create_timer(1.5), "timeout")
 			combat_label.text = "The enemy also charges up!"
 			yield(get_tree().create_timer(1.5), "timeout")
 			playerDmg /= 2
-			enemy_combat.health -= playerDmg
+			enemy_instance.health -= playerDmg
 			combat_label.text = "The Enemy takes %s dmg" % playerDmg
 			yield(get_tree().create_timer(1.5), "timeout")
 			enemyDmg /= 2
-			player_combat.health -= enemyDmg
+			player_instance.health -= enemyDmg
 			combat_label.text = "You take %s dmg" % enemyDmg
 			yield(get_tree().create_timer(1.5), "timeout")
 		
@@ -114,12 +124,12 @@ func Tie(action):
 
 
 func _on_Counter_pressed():
-	TakeTurn(COMBAT_ACTION.COUNTER)
+	TakeTurn(combat_util.Combat_Action.COUNTER)
 
 
 func _on_Quick_pressed():
-	TakeTurn(COMBAT_ACTION.QUICK)
+	TakeTurn(combat_util.Combat_Action.QUICK)
 
 
 func _on_Heavy_pressed():
-	TakeTurn(COMBAT_ACTION.HEAVY)
+	TakeTurn(combat_util.Combat_Action.HEAVY)

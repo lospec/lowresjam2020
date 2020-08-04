@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
@@ -21,8 +21,6 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=19]
 [ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=20]
 [ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
-[ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=22]
-[ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=23]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Hover.png" type="Texture" id=24]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Normal.png" type="Texture" id=25]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPOver.png" type="Texture" id=26]
@@ -30,6 +28,7 @@
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
 
 [node name="Combat" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 7 )
 
 [node name="CombatMenu" type="MarginContainer" parent="."]
@@ -66,12 +65,33 @@ margin_right = 51.0
 margin_bottom = 37.0
 custom_constants/separation = 0
 
-[node name="EnemyHealthBar" type="TextureProgress" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
+[node name="MarginContainer" type="CenterContainer" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
 margin_right = 38.0
 margin_bottom = 5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer"]
+margin_left = 4.0
+margin_top = 1.0
+margin_right = 34.0
+margin_bottom = 4.0
+custom_constants/margin_top = 1
+
+[node name="EnemyHealthBar" type="TextureProgress" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer"]
+margin_top = 1.0
+margin_right = 30.0
+margin_bottom = 3.0
+max_value = 10.0
+step = 0.01
+value = 10.0
 texture_under = ExtResource( 28 )
-texture_over = ExtResource( 26 )
 texture_progress = ExtResource( 27 )
+
+[node name="Tween" type="Tween" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer"]
+
+[node name="EnemyHealthBarOverTexture" type="TextureRect" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer"]
+margin_right = 38.0
+margin_bottom = 5.0
+texture = ExtResource( 26 )
 
 [node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
 margin_left = 3.0
@@ -92,7 +112,7 @@ custom_constants/separation = 0
 margin_right = 64.0
 margin_bottom = 4.0
 
-[node name="Health Background" type="TextureRect" parent="CombatMenu/VBoxContainer/PlayerHUD/HealthHUD"]
+[node name="HealthBackground" type="TextureRect" parent="CombatMenu/VBoxContainer/PlayerHUD/HealthHUD"]
 margin_right = 20.0
 margin_bottom = 4.0
 size_flags_horizontal = 0
@@ -283,12 +303,6 @@ text = "Combat Label"
 align = 1
 autowrap = true
 clip_text = true
-
-[node name="PlayerCombat" type="Node" parent="."]
-script = ExtResource( 23 )
-
-[node name="EnemyCombat" type="Node" parent="."]
-script = ExtResource( 22 )
 [connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]

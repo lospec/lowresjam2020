@@ -1,46 +1,27 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://Entities/Player/Frames/Player_Overworld.png" type="Texture" id=1]
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.gd" type="Script" id=2]
-[ext_resource path="res://Entities/Resources/Animation/Idle_Anim.tres" type="Animation" id=3]
-[ext_resource path="res://Entities/Resources/Animation/Run_W.tres" type="Animation" id=4]
-[ext_resource path="res://Entities/Resources/Animation/Run_E.tres" type="Animation" id=5]
-[ext_resource path="res://Entities/Resources/Animation/Run_S.tres" type="Animation" id=6]
-[ext_resource path="res://Entities/Resources/Animation/Run_N.tres" type="Animation" id=7]
-[ext_resource path="res://Entities/Resources/Animation/AnimationStateMachine.tres" type="AnimationNodeStateMachine" id=8]
-[ext_resource path="res://Entities/Resources/Animation/Base_Frames.tres" type="SpriteFrames" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 1 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
 [node name="BaseEntity" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -5 )
-frames = ExtResource( 9 )
-animation = "Run_Side"
-playing = true
-flip_h = true
+texture = ExtResource( 1 )
+vframes = 4
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
 shape = SubResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_process_mode = 2
-anims/Idle_Anim = ExtResource( 3 )
-anims/Run_E = ExtResource( 5 )
-anims/Run_N = ExtResource( 7 )
-anims/Run_S = ExtResource( 6 )
-anims/Run_W = ExtResource( 4 )
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource( 8 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 2 )
-parameters/Run/blend_position = Vector2( 0.00146627, 0.991379 )
+[node name="NextFrameTimer" type="Timer" parent="."]
+wait_time = 0.001
+autostart = true
+[connection signal="timeout" from="NextFrameTimer" to="." method="_on_NextFrameTimer_timeout"]

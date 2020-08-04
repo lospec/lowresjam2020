@@ -8,7 +8,6 @@
 [ext_resource path="res://Combat/UI/Buttons/Attacks/Heavy Hover.png" type="Texture" id=6]
 [ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=7]
 [ext_resource path="res://Combat/Combat.gd" type="Script" id=8]
-[ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=9]
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Normal.png" type="Texture" id=10]
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Hover.png" type="Texture" id=11]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Hover.png" type="Texture" id=12]
@@ -16,16 +15,25 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Bag Normal.png" type="Texture" id=15]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=16]
 [ext_resource path="res://UI/Fonts/wendy.ttf" type="DynamicFontData" id=17]
-[ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=18]
 
-[sub_resource type="StreamTexture" id=2]
-load_path = "res://.import/Combat-Mockup.png-04a72e8c39c8864f2ac833a370b85b25.stex"
+[sub_resource type="StreamTexture" id=1]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 10
 extra_spacing_bottom = -5
 extra_spacing_space = -1
 font_data = ExtResource( 17 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends \"res://Combat/CombatChar.gd\"
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends \"res://Combat/CombatChar.gd\"
+
+func GetAction():
+	return randi() % 3
+"
 
 [node name="Combat" type="Node"]
 script = ExtResource( 8 )
@@ -42,7 +50,7 @@ __meta__ = {
 margin_left = -136.0
 margin_right = 68.0
 margin_bottom = 64.0
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -140,7 +148,7 @@ margin_left = 3.0
 margin_top = 48.0
 margin_right = 61.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 align = 1
 autowrap = true
 __meta__ = {
@@ -148,10 +156,10 @@ __meta__ = {
 }
 
 [node name="PlayerCombat" type="Node" parent="."]
-script = ExtResource( 9 )
+script = SubResource( 3 )
 
 [node name="EnemyCombat" type="Node" parent="."]
-script = ExtResource( 18 )
+script = SubResource( 4 )
 [connection signal="pressed" from="CombatMenu/MainButtons/AttackButton" to="CombatMenu" method="_on_AttackButton_pressed"]
 [connection signal="pressed" from="CombatMenu/AttackButtons/CounterButton" to="." method="_on_AttackButtons_pressed" binds= [ "Counter" ]]
 [connection signal="pressed" from="CombatMenu/AttackButtons/QuickButton" to="." method="_on_AttackButtons_pressed" binds= [ "Quick" ]]
