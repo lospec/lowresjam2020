@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CombatChar",
 "language": "GDScript",
-"path": "res://Combat/Scripts/CombatChar.gd"
+"path": "res://Combat/CombatChar.gd"
 }, {
 "base": "Resource",
 "class": "EntityResource",
