@@ -4,8 +4,6 @@ extends Node
 onready var animated_sprite = $AnimatedSprite
 
 func _ready():
-	PaletteSwap.enabled = false
-	
 	animated_sprite.frame = 0
 	animated_sprite.playing = true
 
