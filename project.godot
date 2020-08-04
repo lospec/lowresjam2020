@@ -64,10 +64,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Utility="*res://Utility/Utility.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
+Utility="*res://Utility/Utility.gd"
 Data="*res://data/import_data.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
+PaletteSwap="*res://Utility/Palette Swap.tscn"
 
 [display]
 
@@ -131,7 +132,7 @@ player_move_down={
 
 [layer_names]
 
-2d_physics/layer_1="Height1 Tiles"
+2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Static Objects"
 2d_physics/layer_3="Entities"
 
