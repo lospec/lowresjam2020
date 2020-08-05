@@ -3,13 +3,19 @@ extends Node
 class_name CombatChar
 
 # Signals
-#signal health_changed(new_health)
+signal damage_taken(new_health)
 
 # Constants
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
+var hit_combo = 0
+
 var char_instance
+
+func take_damage(dmg):
+	char_instance.health -= dmg
+	hit_combo = 0
 
 func get_base_damage(action) -> int:
 	return 0

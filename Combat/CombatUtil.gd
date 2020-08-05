@@ -8,6 +8,10 @@ enum Combat_Action {
 	FLEE,
 }
 
+# Should probably change to something better
+# maybe make it a variable per char or something
+const MULTIPLIER_PER_COMBO: int = 1
+
 static func GetActionWeakness(action):
 	print("WEAKNESS: %s" % action)
 	match (action):
