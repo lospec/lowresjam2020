@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Items/base_usable_item/BaseUsableItem.tscn" type="PackedScene" id=1]
-
-[node name="Hotdog" instance=ExtResource( 1 )]

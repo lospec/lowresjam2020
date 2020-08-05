@@ -24,15 +24,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
-"base": "Node2D",
-"class": "EnemySpawnData",
+"base": "Node",
+"class": "CombatChar",
 "language": "GDScript",
-"path": "res://World/Chunks/EnemySpawnData.gd"
-}, {
-"base": "Node2D",
-"class": "EnemySpawner",
-"language": "GDScript",
-"path": "res://World/Chunks/EnemyChunkSpawner.gd"
+"path": "res://Combat/CombatChar.gd"
 }, {
 "base": "Resource",
 "class": "EntityResource",
@@ -53,8 +48,7 @@ _global_script_class_icons={
 "AIState": "",
 "CameraController": "",
 "ChaseAction": "",
-"EnemySpawnData": "",
-"EnemySpawner": "",
+"CombatChar": "",
 "EntityResource": "",
 "StateAction": "",
 "WanderAction": ""
@@ -72,9 +66,9 @@ config/icon="res://icon.png"
 
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
+Data="*res://data/import_data.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
-Items="*res://Items/Items.gd"
-Enemies="*res://Entities/Enemies/Enemies.gd"
+PaletteSwap="*res://Utility/Palette Swap.tscn"
 
 [display]
 
