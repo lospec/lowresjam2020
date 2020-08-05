@@ -4,7 +4,6 @@ extends "res://Entities/BaseEntity/BaseEntity.gd"
 export(String) var enemy_name
 
 # Public Variables
-var combat_util = preload("res://Combat/CombatUtil.gd")
 var battle_texture_normal: StreamTexture
 var battle_texture_hurt: StreamTexture
 var race: String
@@ -63,16 +62,3 @@ func is_in_allowed_tile() -> bool:
 		return true
 	is_spawn_safe_area2d.queue_free() # The Area2D is now useless
 	return false
-
-func get_base_damage(action):
-	var damage
-	match action:
-		combat_util.Combat_Action.QUICK:
-			damage = quick_damage
-		
-		combat_util.Combat_Action.HEAVY:
-			damage = heavy_damage
-		
-		combat_util.Combat_Action.COUNTER:
-			damage = counter_damage
-	return damage

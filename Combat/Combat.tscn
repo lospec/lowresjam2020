@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
@@ -21,6 +21,8 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=19]
 [ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=20]
 [ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
+[ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=22]
+[ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=23]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Hover.png" type="Texture" id=24]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Normal.png" type="Texture" id=25]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPOver.png" type="Texture" id=26]
@@ -303,11 +305,20 @@ text = "Combat Label"
 align = 1
 autowrap = true
 clip_text = true
+
+[node name="PlayerCombat" type="Node" parent="."]
+script = ExtResource( 22 )
+
+[node name="EnemyCombat" type="Node" parent="."]
+script = ExtResource( 23 )
 [connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="_on_Flee_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="_on_Flee_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="_on_Back_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="CombatMenu" method="_on_Counter_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="CombatMenu" method="_on_Quick_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="CombatMenu" method="_on_Heavy_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]

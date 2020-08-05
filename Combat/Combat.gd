@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+# Signals
+signal combat_done(player_win)
+
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
 var player_instance
@@ -7,12 +10,15 @@ var enemy_instance
 
 # Onready Variables
 onready var combat_menu = $CombatMenu
-onready var combat_label = $CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel
 onready var enemy_image = $CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/Enemy
+onready var player_combat : CombatChar = $PlayerCombat
+onready var enemy_combat : CombatChar = $EnemyCombat
 
 func _on_Player_enemy_detected(player, enemy):
 	get_tree().paused = true
 	
+	player_combat.char_instance = player
+	enemy_combat.char_instance = enemy
 	player_instance = player
 	enemy_instance = enemy
 	
@@ -34,19 +40,9 @@ func _on_Enemy_health_changed(_old_health, new_health):
 	combat_menu.update_enemy_health_value(new_health)
 
 
-func ActionCompare(action1, action2):
-	if action1 == action2:
-		return 0
-	elif combat_util.GetActionWeakness(action2) == action1:
-		return 1
-	elif combat_util.GetActionWeakness(action1) == action2:
-		return 2
-	return -1
-
-
 func TakeTurn(playerAction):
-	var enemyAction = enemy_instance.GetAction()#playerAction#
-	var win = ActionCompare(playerAction, enemyAction)
+	var enemyAction = enemy_combat.get_action()#playerAction#
+	var win = combat_util.ActionCompare(playerAction, enemyAction)
 	
 	combat_menu.set_buttons_visible(false)
 	
@@ -58,7 +54,25 @@ func TakeTurn(playerAction):
 			yield(PlayerWin(playerAction), "completed")
 		
 		2:
-			yield(EnemyWin(playerAction), "completed")
+			yield(EnemyWin(enemyAction), "completed")
+		
+		_:
+			yield(combat_menu.show_combat_label("ERROR: Invalid win check", 2), "completed")
+	
+	# PLACEHOLDER END CONDITIONS
+	if player_instance.health <= 0:
+		yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
+		yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
+		combat_menu.combat_label.visible = true
+		emit_signal("combat_done", false)
+		return
+	
+	if enemy_instance.health <= 0:
+		yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
+		yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
+		combat_menu.combat_label.visible = true
+		emit_signal("combat_done", true)
+		return
 	
 	combat_menu.reset_ui()
 
@@ -125,20 +139,20 @@ func Tie(action):
 	
 	match (action):
 		combat_util.Combat_Action.QUICK:
-			yield(combat_menu.show_combat_label("Both of you attack", 2), "completed")
+			yield(combat_menu.show_combat_label("Attack hit!", 2), "completed")
 			
 			enemy_instance.health -= playerDmg
 			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+			
+			yield(combat_menu.show_combat_label("The enemy attacked!", 2), "completed")
 			
 			player_instance.health -= enemyDmg
 			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
 		
 		combat_util.Combat_Action.COUNTER:
-			yield(combat_menu.show_combat_label("You prepare to counter", 2), "completed")
-			yield(combat_menu.show_combat_label("But nothing happened", 2), "completed")
+			yield(combat_menu.show_combat_label("Nothing happened", 2), "completed")
 		
 		combat_util.Combat_Action.HEAVY:
-			yield(combat_menu.show_combat_label("You charge up your attack", 2), "completed")
 			yield(combat_menu.show_combat_label("The enemy also charges up!", 2), "completed")
 			
 			playerDmg /= 2
@@ -163,3 +177,6 @@ func _on_Quick_pressed():
 
 func _on_Heavy_pressed():
 	TakeTurn(combat_util.Combat_Action.HEAVY)
+
+func _on_Flee_pressed():
+	pass # Replace with function body.

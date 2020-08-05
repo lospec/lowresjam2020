@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal action_selected
+
 # Constants
 enum MENU_SELECTED {
 	MAIN,
@@ -7,6 +10,7 @@ enum MENU_SELECTED {
 }
 
 # Public Variables
+var combat_util = preload("res://Combat/CombatUtil.gd")
 var current_menu = MENU_SELECTED.MAIN
 
 # Onready Variables
@@ -83,3 +87,18 @@ func _on_Back_pressed():
 
 func _on_Combat_EnemyHpChanged():
 	pass
+
+# These 3 signal emmiters can be used to make the player even more modular
+# the combat system can be made to not wait for this input
+# but they will wait for PlayerCombat to choose an action
+# and the PlayerCombat is set to listen to these signals
+# but i'm(A&) not confident enough to pull this off on time
+# if there's enough time maybe this could even be made into multiplayer or ai driven strategy or something
+func _on_Counter_pressed():
+	emit_signal("action_selected", combat_util.Combat_Action.COUNTER)
+
+func _on_Quick_pressed():
+	emit_signal("action_selected", combat_util.Combat_Action.QUICK)
+
+func _on_Heavy_pressed():
+	emit_signal("action_selected", combat_util.Combat_Action.HEAVY)
