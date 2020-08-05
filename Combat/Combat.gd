@@ -34,23 +34,12 @@ func _on_Enemy_health_changed(_old_health, new_health):
 	combat_menu.update_enemy_health_value(new_health)
 
 
-func GetActionWeakness(action):
-	match (action):
-		combat_util.Combat_Action.QUICK:
-			return combat_util.COMBAT_ACTION.COUNTER
-		combat_util.Combat_Action.COUNTER:
-			return combat_util.COMBAT_ACTION.HEAVY
-		combat_util.Combat_Action.HEAVY:
-			return combat_util.COMBAT_ACTION.QUICK
-	return combat_util.Combat_Action.INVALID
-
-
 func ActionCompare(action1, action2):
 	if action1 == action2:
 		return 0
-	elif GetActionWeakness(action2) == action1:
+	elif combat_util.GetActionWeakness(action2) == action1:
 		return 1
-	elif GetActionWeakness(action1) == action2:
+	elif combat_util.GetActionWeakness(action1) == action2:
 		return 2
 	return -1
 
@@ -59,7 +48,7 @@ func TakeTurn(playerAction):
 	var enemyAction = playerAction#enemy_combat.GetAction()
 	var win = ActionCompare(playerAction, enemyAction)
 	
-	combat_menu.ShowCombatLabel()
+	combat_menu.set_buttons_visible(false)
 	
 	match win:
 		0:
@@ -75,13 +64,11 @@ func TakeTurn(playerAction):
 
 
 func PlayerWin(playerAction):
-	combat_label.text = "Player win case is still in progress"
-	yield(get_tree().create_timer(1.5), "timeout")
+	yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
 
 
 func EnemyWin(enemyAction):
-	combat_label.text = "Enemy win case is still in progress"
-	yield(get_tree().create_timer(1.5), "timeout")
+	yield(combat_menu.show_combat_label("Enemy win case is still in progress", 2), "completed")
 
 
 func Tie(action):
@@ -90,37 +77,32 @@ func Tie(action):
 	
 	match (action):
 		combat_util.Combat_Action.QUICK:
-			combat_label.text = "Both of you attack"
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("Both of you attack", 2), "completed")
+			
 			player_instance.health -= playerDmg
-			combat_label.text = "The Enemy takes %s dmg" % playerDmg
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+			
 			player_instance.health -= enemyDmg
-			combat_label.text = "You take %s dmg" % enemyDmg
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
 		
 		combat_util.Combat_Action.COUNTER:
-			combat_label.text = "You prepare to counter"
-			yield(get_tree().create_timer(1.5), "timeout")
-			combat_label.text = "But nothing happened"
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("You prepare to counter", 2), "completed")
+			yield(combat_menu.show_combat_label("But nothing happened", 2), "completed")
 		
 		combat_util.Combat_Action.HEAVY:
-			combat_label.text = "You charge up your attack"
-			yield(get_tree().create_timer(1.5), "timeout")
-			combat_label.text = "The enemy also charges up!"
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("You charge up your attack", 2), "completed")
+			yield(combat_menu.show_combat_label("The enemy also charges up!", 2), "completed")
+			
 			playerDmg /= 2
 			enemy_instance.health -= playerDmg
-			combat_label.text = "The Enemy takes %s dmg" % playerDmg
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+			
 			enemyDmg /= 2
 			player_instance.health -= enemyDmg
-			combat_label.text = "You take %s dmg" % enemyDmg
-			yield(get_tree().create_timer(1.5), "timeout")
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
 		
 		_:
-			yield(get_tree(), "idle_frame")
+			yield(combat_menu.show_combat_label("ERROR. Unknown Action on TIE", 2), "completed")
 
 
 func _on_Counter_pressed():

@@ -10,7 +10,7 @@ signal health_changed(new_health)
 #const DAMAGE_VARIATION_UP = 3
 
 # Public Variables
-var COMBAT_ACTION = preload("res://Combat/CombatAction.gd")
+var combat_util = preload("res://Combat/CombatUtil.gd")
 var health setget set_health
 var base_quick_damage
 var base_heavy_damage
@@ -23,12 +23,11 @@ func set_health(val):
 func GetBaseDamage(action):
 	var damage
 	match action:
-		COMBAT_ACTION.QUICK:
+		combat_util.Combat_Action.COMBAT_ACTION.QUICK:
 			damage = base_quick_damage
-		COMBAT_ACTION.HEAVY:
+		combat_util.Combat_Action.HEAVY:
 			damage = base_heavy_damage
-		COMBAT_ACTION.COUNTER:
+		combat_util.Combat_Action.COUNTER:
 			damage = base_counter_damage
-	print(damage)
 	print(damage)
 	return damage

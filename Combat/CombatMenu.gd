@@ -54,9 +54,14 @@ func reset_ui():
 			attack_buttons_menu.visible = true
 	combat_label.visible = false
 
-func ShowCombatLabel():
-	buttons.visible = false
+func set_buttons_visible(visible = true):
+	buttons.visible = visible
+
+func show_combat_label(text, time):
+	combat_label.text = text
 	combat_label.visible = true
+	yield(get_tree().create_timer(time), "timeout")
+	combat_label.visible = false
 
 func open_main_menu():
 	current_menu = MENU_SELECTED.MAIN
