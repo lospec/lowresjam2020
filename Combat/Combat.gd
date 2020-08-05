@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 # Signals
+# Currently using bool, should've used enum to check how the combat ended
 signal combat_done(player_win)
 
 # Public Variables
@@ -42,9 +43,16 @@ func _on_Enemy_health_changed(_old_health, new_health):
 
 func TakeTurn(playerAction):
 	var enemyAction = enemy_combat.get_action()#playerAction#
-	var win = combat_util.ActionCompare(playerAction, enemyAction)
-	
 	combat_menu.set_buttons_visible(false)
+	
+	if playerAction == combat_util.Combat_Action.FLEE:
+		if PlayerFlee(enemyAction):
+			yield(combat_menu.show_combat_label("You got away safely", 2), "completed")
+			combat_menu.combat_label.visible = true
+			emit_signal("combat_done", false)
+			return
+		
+	var win = combat_util.ActionCompare(playerAction, enemyAction)
 	
 	match win:
 		0:
@@ -77,6 +85,29 @@ func TakeTurn(playerAction):
 	combat_menu.reset_ui()
 
 
+func PlayerFlee(enemyAction):
+	var enemyDmg = enemy_instance.get_base_damage(enemyAction);
+	var success = false
+	
+	match enemyAction:
+		combat_util.Combat_Action.COUNTER:
+			success = true
+		
+		combat_util.Combat_Action.QUICK:
+			yield(combat_menu.show_combat_label("The Enemy attacked", 2), "completed")
+			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
+			player_instance.health -= enemyDmg
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+		
+		combat_util.Combat_Action.HEAVY:
+			yield(combat_menu.show_combat_label("The Enemy charges up", 2), "completed")
+			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
+			enemyDmg *= 2
+			player_instance.health -= enemyDmg
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+	
+	return success
+
 func PlayerWin(playerAction):
 	#yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
 	var playerDmg = player_instance.get_base_damage(playerAction);
@@ -104,7 +135,6 @@ func PlayerWin(playerAction):
 		_:
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on PlayerWin()", 2), "completed")
 
-
 func EnemyWin(enemyAction):
 	#yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
 	var enemyDmg = enemy_instance.get_base_damage(enemyAction);
@@ -131,7 +161,6 @@ func EnemyWin(enemyAction):
 		
 		_:
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on EnemyWin()", 2), "completed")
-
 
 func Tie(action):
 	var enemyDmg = enemy_instance.get_base_damage(action);
@@ -179,4 +208,4 @@ func _on_Heavy_pressed():
 	TakeTurn(combat_util.Combat_Action.HEAVY)
 
 func _on_Flee_pressed():
-	pass # Replace with function body.
+	TakeTurn(combat_util.Combat_Action.FLEE)

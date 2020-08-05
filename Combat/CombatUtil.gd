@@ -5,6 +5,7 @@ enum Combat_Action {
 	QUICK,
 	COUNTER,
 	HEAVY,
+	FLEE,
 }
 
 static func GetActionWeakness(action):
