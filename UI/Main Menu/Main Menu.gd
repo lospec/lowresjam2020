@@ -11,3 +11,7 @@ func _on_Credits_Button_pressed():
 func _on_Settings_Button_pressed():
 	if get_tree().change_scene("res://UI/Settings/Settings.tscn") != OK:
 		print_debug("An error occured while attempting to change to the settings scene")
+
+func _on_TransitionTest_Button_pressed():
+	if get_tree().change_scene("res://Shaders/Testing/scenes/TransitionTest.tscn") != OK:
+		print_debug("An error occured while attempting to change to the transition test scene")
