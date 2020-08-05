@@ -45,7 +45,7 @@ func ActionCompare(action1, action2):
 
 
 func TakeTurn(playerAction):
-	var enemyAction = playerAction#enemy_combat.GetAction()
+	var enemyAction = enemy_instance.GetAction()#playerAction#
 	var win = ActionCompare(playerAction, enemyAction)
 	
 	combat_menu.set_buttons_visible(false)
@@ -64,11 +64,59 @@ func TakeTurn(playerAction):
 
 
 func PlayerWin(playerAction):
-	yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
+	#yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
+	var playerDmg = player_instance.get_base_damage(playerAction);
+	
+	match (playerAction):
+		combat_util.Combat_Action.QUICK:
+			yield(combat_menu.show_combat_label("Attack hit!", 2), "completed")
+			
+			enemy_instance.health -= playerDmg
+			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+		
+		combat_util.Combat_Action.COUNTER:
+			yield(combat_menu.show_combat_label("Countered!", 2), "completed")
+			
+			playerDmg /= 2
+			enemy_instance.health -= playerDmg
+			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+		
+		combat_util.Combat_Action.HEAVY:
+			yield(combat_menu.show_combat_label("Enemy counter broken!", 2), "completed")
+			
+			enemy_instance.health -= playerDmg
+			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
+		
+		_:
+			yield(combat_menu.show_combat_label("ERROR. Unknown Action on PlayerWin()", 2), "completed")
 
 
 func EnemyWin(enemyAction):
-	yield(combat_menu.show_combat_label("Enemy win case is still in progress", 2), "completed")
+	#yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
+	var enemyDmg = enemy_instance.get_base_damage(enemyAction);
+	
+	match (enemyAction):
+		combat_util.Combat_Action.QUICK:
+			yield(combat_menu.show_combat_label("The Enemy attacked first!", 2), "completed")
+			
+			player_instance.health -= enemyDmg
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+		
+		combat_util.Combat_Action.COUNTER:
+			yield(combat_menu.show_combat_label("Enemy countered!", 2), "completed")
+			
+			enemyDmg /= 2
+			player_instance.health -= enemyDmg
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+		
+		combat_util.Combat_Action.HEAVY:
+			yield(combat_menu.show_combat_label("The Enemy broke your counter!", 2), "completed")
+			
+			player_instance.health -= enemyDmg
+			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+		
+		_:
+			yield(combat_menu.show_combat_label("ERROR. Unknown Action on EnemyWin()", 2), "completed")
 
 
 func Tie(action):
@@ -79,7 +127,7 @@ func Tie(action):
 		combat_util.Combat_Action.QUICK:
 			yield(combat_menu.show_combat_label("Both of you attack", 2), "completed")
 			
-			player_instance.health -= playerDmg
+			enemy_instance.health -= playerDmg
 			yield(combat_menu.show_combat_label("The Enemy takes %s dmg" % playerDmg, 2), "completed")
 			
 			player_instance.health -= enemyDmg
@@ -102,7 +150,7 @@ func Tie(action):
 			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
 		
 		_:
-			yield(combat_menu.show_combat_label("ERROR. Unknown Action on TIE", 2), "completed")
+			yield(combat_menu.show_combat_label("ERROR. Unknown Action on Tie()", 2), "completed")
 
 
 func _on_Counter_pressed():
