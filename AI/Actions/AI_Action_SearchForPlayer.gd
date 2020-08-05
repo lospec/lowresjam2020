@@ -15,8 +15,9 @@ func _on_body_exited(body):
 
 func perform(_stateMachine, _delta, _interrupt):
 	if not _initialized:
-		_stateMachine._collision_circle_size = search_range
 		_stateMachine._circle_area.connect("body_entered", self, "_on_body_entered")
 		_initialized = true
+
+	_stateMachine._collision_circle_size = search_range
 	if found_target:
 		_stateMachine.target = found_target
