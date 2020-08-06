@@ -49,6 +49,7 @@ func _get_distance_to_target() -> float:
 func _update_current_state(_delta):
 	if not active:
 		return
+	entity.velocity = Vector2.ZERO
 	current_state.update_state(self, _delta)
 
 
@@ -64,5 +65,6 @@ func transition_to_state(state_index):
 
 
 func find_bodies_in_range(range_size: float):
-	_collision_circle_size = range_size
+	if _collision_circle_size != range_size:
+		_collision_circle_size = range_size
 	return _circle_area.get_overlapping_bodies()
