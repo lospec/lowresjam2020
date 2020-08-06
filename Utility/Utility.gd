@@ -17,7 +17,7 @@ static func rand_bool() -> bool:
 	return bool(randi() % 2)
 
 
-static func merge_dictionaries(dictionaries: Array):
+static func merge_dictionaries(dictionaries: Array) -> Dictionary:
 	var new_dict = dictionaries[0]
 	for dict in dictionaries:
 		if new_dict == dict:
@@ -26,3 +26,8 @@ static func merge_dictionaries(dictionaries: Array):
 		for key in dict:
 			new_dict[key] = dict[key]
 	return new_dict
+
+
+static func free_all_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()

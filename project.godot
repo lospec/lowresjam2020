@@ -64,9 +64,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
-Data="*res://data/import_data.gd"
 AttackTypes="*res://attack_types/AttackTypes.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
 
