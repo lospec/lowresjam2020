@@ -162,6 +162,9 @@ func _on_Equip_pressed():
 			equip_button.visible = false
 		"armor":
 			player_instance.equipped_armor = selected_item
+			player_instance.max_health = 10 + selected_item_data.health_added
+			if player_instance.health >= 10:
+				player_instance.health = player_instance.max_health
 			emit_signal("equipped_armor_changed")
 			equip_button.visible = false
 		_:

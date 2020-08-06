@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/quick_attack_icon.png-66b493c178f820f98017a4d23eafbd07.stex"
+path="res://.import/quick_attack_icon.png-25e770ecdb21e1e0a0fceffc9002aeef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Inventory/item_info/quick_attack_icon.png"
-dest_files=[ "res://.import/quick_attack_icon.png-66b493c178f820f98017a4d23eafbd07.stex" ]
+source_file="res://UI/inventory/item_info/quick_attack_icon.png"
+dest_files=[ "res://.import/quick_attack_icon.png-25e770ecdb21e1e0a0fceffc9002aeef.stex" ]
 
 [params]
 
