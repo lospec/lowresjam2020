@@ -266,6 +266,17 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
+[node name="SaveButton" type="Button" parent="Behaviour"]
+margin_left = 195.965
+margin_right = 245.965
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 1 )
+text = "Save"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="State" type="Control" parent="."]
 visible = false
 margin_right = 254.0
@@ -595,7 +606,7 @@ margin_top = 111.113
 margin_right = 64.7885
 margin_bottom = 120.113
 custom_fonts/font = ExtResource( 1 )
-text = "Start State:"
+text = "True State:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -606,7 +617,7 @@ margin_top = 111.113
 margin_right = 179.0
 margin_bottom = 120.113
 custom_fonts/font = ExtResource( 1 )
-text = "End State:"
+text = "False State:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
