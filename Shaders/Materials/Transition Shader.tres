@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://Shaders/Transition.shader" type="Shader" id=1]
+[ext_resource path="res://Transitions/multiple_squares.png" type="Texture" id=2]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/transition_t = 1.0
+shader_param/transition_feather = 0.2
+shader_param/transition_col = Color( 0, 0, 0, 1 )
+shader_param/transition_invert = false
+shader_param/mask_tex = ExtResource( 2 )

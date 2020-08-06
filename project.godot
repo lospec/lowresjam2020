@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
 }, {
+"base": "StateAction",
+"class": "ChaseAction",
+"language": "GDScript",
+"path": "res://Entities/AI/Actions/ChaseAction.gd"
+}, {
+"base": "Node",
+"class": "CombatChar",
+"language": "GDScript",
+"path": "res://Combat/CombatChar.gd"
+}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
@@ -33,7 +43,11 @@ _global_script_class_icons={
 "AI_Behaviour": "",
 "BaseEntity": "",
 "CameraController": "",
-"EntityResource": ""
+"ChaseAction": "",
+"CombatChar": "",
+"EntityResource": "",
+"StateAction": "",
+"WanderAction": ""
 }
 
 [application]
@@ -44,10 +58,16 @@ boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
+Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
-EnemyStats="*res://Entities/Enemies/EnemyStats.gd"
+Utility="*res://Utility/Utility.gd"
+PaletteSwap="*res://Utility/Palette Swap.tscn"
 
 [display]
 
@@ -112,6 +132,16 @@ player_move_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Tiles"
+2d_physics/layer_2="Static Objects"
+2d_physics/layer_3="Entities"
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=8192
 
 [rendering]
 

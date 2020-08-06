@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://World/Chunks/ChunkPreset.gd" type="Script" id=2]
+[ext_resource path="res://World/Tilesets/Forest Tileset.tres" type="TileSet" id=4]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+period = 8.0
+lacunarity = 0.44
+
+[node name="ChunkPreset" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "Each level of height must have its tilemap.
+
+You can filter elements of a tileset by searching for \"plateau\", \"rock\", \" water\" and \"path\""
+}
+grass_noise = SubResource( 1 )
+
+[node name="Height0" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 4, 4 )
+collision_mask = 0
+format = 1
+
+[node name="Height1" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 4, 4 )
+collision_mask = 0
+format = 1
+
+[node name="Height2" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 4, 4 )
+collision_mask = 0
+format = 1
+
+[node name="EnemySpawns" type="Node" parent="."]

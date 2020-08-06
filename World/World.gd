@@ -1,14 +1,17 @@
 extends Node
 
-# Public Variables
-var chunk_scene = preload("res://World/Chunks/Plain Grass Chunk.tscn")
-var current_chunk = null
-
 # Onready Variables
-onready var chunks_collection = $Chunks
-onready var player = $Player
+onready var entities = $Entities
+onready var combat = $Combat
+onready var pause_menu = $PauseMenu
+onready var player = $Entities/Player
 
-func _ready():
-	var chunk = chunk_scene.instance()
-	chunks_collection.add_child(chunk)
-	current_chunk = chunk
+
+func _on_Chunks_enemy_instanced(enemy):
+	entities.add_child(enemy)
+	enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
+
+
+func _unhandled_input(_event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		pause_menu.toggle_pause(player)

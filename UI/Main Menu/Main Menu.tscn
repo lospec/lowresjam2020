@@ -12,15 +12,15 @@ __meta__ = {
 }
 
 [node name="Middle" type="VBoxContainer" parent="."]
-margin_right = 64.0
+margin_right = 66.0
 margin_bottom = 64.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Middle"]
-margin_left = 9.0
-margin_top = 8.0
-margin_right = 55.0
-margin_bottom = 17.0
+margin_left = 10.0
+margin_top = 3.0
+margin_right = 56.0
+margin_bottom = 12.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 custom_fonts/font = ExtResource( 3 )
@@ -28,14 +28,14 @@ text = "Heroes' Guild"
 align = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Middle"]
-margin_top = 21.0
-margin_right = 64.0
-margin_bottom = 56.0
+margin_top = 16.0
+margin_right = 66.0
+margin_bottom = 61.0
 custom_constants/separation = -5
 
 [node name="Play Button" type="Button" parent="Middle/Buttons"]
-margin_left = 18.0
-margin_right = 46.0
+margin_left = 19.0
+margin_right = 47.0
 margin_bottom = 15.0
 focus_mode = 0
 size_flags_horizontal = 4
@@ -46,9 +46,9 @@ text = "Play"
 flat = true
 
 [node name="Credits Button" type="Button" parent="Middle/Buttons"]
-margin_left = 13.0
+margin_left = 14.0
 margin_top = 10.0
-margin_right = 51.0
+margin_right = 52.0
 margin_bottom = 25.0
 focus_mode = 0
 size_flags_horizontal = 4
@@ -59,9 +59,9 @@ text = "Credits"
 flat = true
 
 [node name="Settings Button" type="Button" parent="Middle/Buttons"]
-margin_left = 11.0
+margin_left = 12.0
 margin_top = 20.0
-margin_right = 53.0
+margin_right = 54.0
 margin_bottom = 35.0
 focus_mode = 0
 size_flags_horizontal = 4
@@ -70,6 +70,19 @@ custom_fonts/font = ExtResource( 3 )
 enabled_focus_mode = 0
 text = "Settings"
 flat = true
+
+[node name="TransitionTest Button" type="Button" parent="Middle/Buttons"]
+margin_top = 30.0
+margin_right = 66.0
+margin_bottom = 45.0
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+enabled_focus_mode = 0
+text = "Test transition"
+flat = true
 [connection signal="pressed" from="Middle/Buttons/Play Button" to="." method="_on_Play_Button_pressed"]
 [connection signal="pressed" from="Middle/Buttons/Credits Button" to="." method="_on_Credits_Button_pressed"]
 [connection signal="pressed" from="Middle/Buttons/Settings Button" to="." method="_on_Settings_Button_pressed"]
+[connection signal="pressed" from="Middle/Buttons/TransitionTest Button" to="." method="_on_TransitionTest_Button_pressed"]

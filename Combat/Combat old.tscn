@@ -1,0 +1,166 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Counter Hover.png" type="Texture" id=1]
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Heavy Normal.png" type="Texture" id=2]
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Counter Normal.png" type="Texture" id=3]
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Quick Normal.png" type="Texture" id=4]
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Quick Hover.png" type="Texture" id=5]
+[ext_resource path="res://Combat/UI/Buttons/Attacks/Heavy Hover.png" type="Texture" id=6]
+[ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=7]
+[ext_resource path="res://Combat/Combat.gd" type="Script" id=8]
+[ext_resource path="res://Combat/UI/Buttons/Main/Attack Normal.png" type="Texture" id=10]
+[ext_resource path="res://Combat/UI/Buttons/Main/Attack Hover.png" type="Texture" id=11]
+[ext_resource path="res://Combat/UI/Buttons/Main/Flee Hover.png" type="Texture" id=12]
+[ext_resource path="res://Combat/UI/Buttons/Main/Bag Hover.png" type="Texture" id=14]
+[ext_resource path="res://Combat/UI/Buttons/Main/Bag Normal.png" type="Texture" id=15]
+[ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=16]
+[ext_resource path="res://UI/Fonts/wendy.ttf" type="DynamicFontData" id=17]
+
+[sub_resource type="StreamTexture" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 10
+extra_spacing_bottom = -5
+extra_spacing_space = -1
+font_data = ExtResource( 17 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends \"res://Combat/CombatChar.gd\"
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends \"res://Combat/CombatChar.gd\"
+
+func GetAction():
+	return randi() % 3
+"
+
+[node name="Combat" type="Node"]
+script = ExtResource( 8 )
+
+[node name="CombatMenu" type="Control" parent="."]
+margin_right = 64.0
+margin_bottom = 64.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mockup" type="TextureRect" parent="CombatMenu"]
+margin_left = -136.0
+margin_right = 68.0
+margin_bottom = 64.0
+texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainButtons" type="Control" parent="CombatMenu"]
+margin_top = 48.0
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="AttackButton" type="TextureButton" parent="CombatMenu/MainButtons"]
+margin_left = 12.0
+margin_top = 1.0
+margin_right = 52.0
+margin_bottom = 8.0
+texture_normal = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BagButton" type="TextureButton" parent="CombatMenu/MainButtons"]
+margin_left = 2.0
+margin_top = 8.0
+margin_right = 31.0
+margin_bottom = 15.0
+texture_normal = ExtResource( 15 )
+texture_hover = ExtResource( 14 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FleeButton" type="TextureButton" parent="CombatMenu/MainButtons"]
+margin_left = 31.0
+margin_top = 8.0
+margin_right = 60.0
+margin_bottom = 15.0
+texture_normal = ExtResource( 16 )
+texture_hover = ExtResource( 12 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackButtons" type="Control" parent="CombatMenu"]
+visible = false
+margin_top = 48.0
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="CounterButton" type="TextureButton" parent="CombatMenu/AttackButtons"]
+margin_left = 4.0
+margin_right = 44.0
+margin_bottom = 5.0
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuickButton" type="TextureButton" parent="CombatMenu/AttackButtons"]
+margin_left = 4.0
+margin_top = 5.0
+margin_right = 44.0
+margin_bottom = 10.0
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeavyButton" type="TextureButton" parent="CombatMenu/AttackButtons"]
+margin_left = 4.0
+margin_top = 10.0
+margin_right = 44.0
+margin_bottom = 15.0
+texture_normal = ExtResource( 2 )
+texture_hover = ExtResource( 6 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CombatMenu"]
+margin_left = 3.0
+margin_top = 48.0
+margin_right = 61.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerCombat" type="Node" parent="."]
+script = SubResource( 3 )
+
+[node name="EnemyCombat" type="Node" parent="."]
+script = SubResource( 4 )
+[connection signal="pressed" from="CombatMenu/MainButtons/AttackButton" to="CombatMenu" method="_on_AttackButton_pressed"]
+[connection signal="pressed" from="CombatMenu/AttackButtons/CounterButton" to="." method="_on_AttackButtons_pressed" binds= [ "Counter" ]]
+[connection signal="pressed" from="CombatMenu/AttackButtons/QuickButton" to="." method="_on_AttackButtons_pressed" binds= [ "Quick" ]]
+[connection signal="pressed" from="CombatMenu/AttackButtons/HeavyButton" to="." method="_on_AttackButtons_pressed" binds= [ "Heavy" ]]

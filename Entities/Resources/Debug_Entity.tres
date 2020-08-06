@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=2]
-
-[ext_resource path="res://Entities/BaseEntity/EntityResource.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Resources/Enemies/RedGnome/RedGnome_Frames.tres" type="SpriteFrames" id=2]
-
-[resource]
-script = ExtResource( 1 )
-entity_name = "Debug_Entity"
-entity_sprite_frames = ExtResource( 2 )
