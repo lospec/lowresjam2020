@@ -32,6 +32,6 @@ func _check_all_transitions(stateMachine):
 		var transition: AI_Transition = item
 		var is_true = transition.condition.evaluate(stateMachine)
 		if stateMachine.transition_to_state(
-			transition.trueState if is_true else transition.falseState
+			transition.true_state_index if is_true else transition.false_state_index
 		):
 			return
