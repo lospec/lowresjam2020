@@ -72,6 +72,7 @@ Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
+Transitions="*res://Utility/Transitions.tscn"
 
 [display]
 

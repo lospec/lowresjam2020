@@ -35,4 +35,4 @@ cell_size = Vector2( 4, 4 )
 collision_mask = 0
 format = 1
 
-[node name="EnemySpawns" type="Node" parent="."]
+[node name="EnemySpawns" type="Node2D" parent="."]
