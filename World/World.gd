@@ -1,14 +1,14 @@
 extends Node
 
 # Onready Variables
-onready var entities = $Entities
+onready var entities_and_static_objects = $EntitiesAndStaticObjects
 onready var combat = $Combat
 onready var pause_menu = $PauseMenu
-onready var player = $Entities/Player
+onready var player = entities_and_static_objects.get_node("Player")
 
 
 func _on_Chunks_enemy_instanced(enemy):
-	entities.add_child(enemy)
+	entities_and_static_objects.add_child(enemy)
 	enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
 
 
