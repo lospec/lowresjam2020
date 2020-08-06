@@ -62,6 +62,10 @@ boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
 Data="*res://data/import_data.gd"
