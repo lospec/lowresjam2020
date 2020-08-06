@@ -1,7 +1,7 @@
 extends Control
 
 const AI_State = preload("res://AI/AI_State.gd")
-
+const AI_Transition = preload("res://AI/AI_Transition.gd")
 
 class Actions:
 	const MoveToTarget = preload("res://AI/Actions/AI_Action_MoveToTarget.gd")
@@ -34,6 +34,7 @@ static func _get_name_of_script(script: Script):
 
 onready var BASE_BUTTON = $BASE_BUTTON
 onready var BASE_REMOVABLE_BUTTON = $BASE_REMOVABLE_BUTTON
+onready var BASE_OPTIONS_BUTTON = $BASE_OPTIONS_BUTTON
 
 # Main
 onready var main_control = $Main
@@ -76,11 +77,13 @@ onready var condition_confirm_button = $Condition/ConfirmButton
 # Transition
 onready var transition_control = $Transition
 onready var transition_confirm_button = $Transition/ConfirmButton
+onready var transition_transition_name_edit = $Transition/VBoxContainer/LineEdit
 onready var transition_behaviour_label = $Transition/BehaviourLabel
 onready var transition_state_label = $Transition/StateLabel
 onready var transition_condition_button = $Transition/ConditionButton
-onready var transition_start_state_container = $Transition/StartStateContainer/VBoxContainer
-onready var transition_end_state_container = $Transition/EndStateContainer/VBoxContainer
+onready var transition_true_state_container = $Transition/TrueStateContainer/VBoxContainer
+onready var transition_false_state_container = $Transition/FalseStateContainer/VBoxContainer
+onready var transition_error_message = $Transition/ErrorMessage
 
 onready var type_node_provider = {
 	TYPE_BOOL: $TYPE_PROVIDER/BOOL,
@@ -220,13 +223,17 @@ func _init_state_control(ai_behaviour: AI_Behaviour, ai_state: AI_State):
 	)
 	# TODO: Actions
 	state_add_action_button.connect("button_down", self, "_on_state_new_action_button_pressed", [ai_behaviour, ai_state])
-	
 	# TODO: Transitions
+	state_add_transition_button.connect("button_down", self, "_on_state_new_transition_button_pressed", [ai_behaviour, ai_state])
 	
 	# TODO: Get All Actions and Transitions
 	for item in ai_state.actions:
 		var action = item as Resource
 		_add_action_to_state_container(ai_behaviour, ai_state, action)
+	
+	for item in ai_state.transitions:
+		var transition = item as AI_Transition
+		_add_transition_to_state_container(ai_behaviour, ai_state, transition)
 		
 func _add_action_to_state_container(ai_behaviour: AI_Behaviour, ai_state: AI_State, action: Resource):
 	if not action:
@@ -242,6 +249,25 @@ func _add_action_to_state_container(ai_behaviour: AI_Behaviour, ai_state: AI_Sta
 	)
 	removable.show()
 	state_action_container.add_child(removable)
+	
+func _add_transition_to_state_container(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition):
+	if not ai_transition:
+		return
+	var removable = BASE_REMOVABLE_BUTTON.duplicate()
+	var button = _get_button(removable)
+	var remove = _get_remove_button(removable)
+	button.text = ai_transition.resource_name
+	button.connect("button_down", self, "_on_state_transition_button_pressed", [ai_behaviour, ai_state, ai_transition])
+	remove.connect("button_down", self, "_remove_state_transition_button", [ai_state, ai_transition, removable])
+	removable.show()
+	state_transition_container.add_child(removable)
+
+func _remove_state_transition_button(ai_state: AI_State, ai_transition: AI_Transition, removable: Control):
+	var transitions: Array = ai_state.transitions
+	var idx = transitions.find(ai_transition)
+	if idx != -1:
+		transitions.remove(idx)
+		state_transition_container.remove_child(removable)
 
 func _remove_state_action_button(ai_state: AI_State, ai_action: Resource,removable: Control):
 	var actions: Array = ai_state.actions
@@ -256,6 +282,7 @@ func _disconnect_state_control():
 	state_back_button.disconnect("button_down", self, "_on_state_back_button_pressed")
 	state_state_name_edit.disconnect("text_changed", self, "_on_state_name_changed")
 	state_add_action_button.disconnect("button_down", self, "_on_state_new_action_button_pressed")
+	state_add_transition_button.disconnect("button_down", self, "_on_state_new_transition_button_pressed")
 	# TODO: Disconnects!
 	
 func _on_state_new_action_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State):
@@ -270,7 +297,12 @@ func _on_state_action_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_St
 	_clear_node(state_action_container)
 	_clear_node(state_transition_container)
 	_init_action_control(ai_behaviour, ai_state, ai_action)
-
+	
+func _on_state_transition_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition):
+	_disconnect_state_control()
+	_clear_node(state_action_container)
+	_clear_node(state_transition_container)
+	_init_transition_control(ai_behaviour, ai_state, ai_transition)
 
 func _disconnect_action_control():
 	# TODO
@@ -300,6 +332,7 @@ func _init_action_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_act
 	
 	action_behaviour_label.text = ai_behaviour.resource_name
 	action_state_label.text = ai_state.resource_name
+	action_action_name_edit.text = ""
 	
 	if ai_action:
 		_selected_action = ai_action
@@ -393,16 +426,111 @@ func _validate_bool(value:bool, action: Resource, p_name: String):
 	action.set(p_name, value)
 	
 	
-func _on_state_new_transition_button_pressed():
-	pass
+func _on_state_new_transition_button_pressed(ai_behaviour: AI_Behaviour, ai_state: AI_State):
+	_disconnect_state_control()
+	_clear_node(state_action_container)
+	_clear_node(state_transition_container)
+	_init_transition_control(ai_behaviour, ai_state)
 	
-func _init_transition_control():
-	pass
+func _init_transition_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition = null):
+	_show_control(transition_control)
+	
+	transition_error_message.hide()
+	
+	transition_behaviour_label.text = ai_behaviour.resource_name
+	transition_state_label.text = ai_state.resource_name
+	
+	if not ai_transition:
+		ai_transition = AI_Transition.new()
+		ai_transition.resource_name = _get_valid_name("New_Transition_", ai_state.transitions)
+		ai_transition.true_state_index = -1
+		ai_transition.false_state_index = -1
+
+	transition_transition_name_edit.text = ai_transition.resource_name
+	transition_transition_name_edit.connect("text_changed", self, "_on_transition_name_changed",[ai_state, ai_transition])
+	transition_confirm_button.connect("button_down", self, "_on_transition_confirm_button_pressed", [ai_behaviour, ai_state, ai_transition])
+	
+	_set_true_false_state_options(ai_behaviour, ai_state, ai_transition)
+	
+func _set_true_false_state_options(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition):
+	var true_group: ButtonGroup = ButtonGroup.new()
+	var false_group: ButtonGroup = ButtonGroup.new()
+	for i in range(-1, ai_behaviour.states.size()):
+		var state: AI_State = ai_behaviour.states[i] if i != -1 else null
+		if state == ai_state:
+			continue
+			
+		var option = BASE_OPTIONS_BUTTON.duplicate()
+		option.show()
+		_get_option_label(option).text = state.resource_name if state else "none"
+
+		var true_option = option
+		var false_option = option.duplicate()
+		
+		var true_checkbox = _get_option_checkbox(true_option)
+		var false_checkbox = _get_option_checkbox(false_option)
+		
+		true_checkbox.connect("toggled", self, "_on_true_state_option_toggled", [ai_behaviour, state, ai_transition])
+		false_checkbox.connect("toggled", self, "_on_false_state_option_toggled", [ai_behaviour, state, ai_transition])
+		
+		true_checkbox.group = true_group
+		false_checkbox.group = false_group
+		
+		true_checkbox.pressed = i == ai_transition.true_state_index
+		false_checkbox.pressed = i == ai_transition.false_state_index
+
+		transition_true_state_container.add_child(true_option)
+		transition_false_state_container.add_child(false_option)
+
+func _on_true_state_option_toggled(value: bool, ai_behavior: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition):
+	transition_error_message.hide()
+	if not value:
+		return
+	var idx = ai_behavior.states.find(ai_state)
+	ai_transition.true_state_index = idx 
+	
+func _on_false_state_option_toggled(value: bool, ai_behavior: AI_Behaviour, ai_state: AI_State, ai_transition: AI_Transition):
+	transition_error_message.hide()
+	if not value:
+		return
+	var idx = ai_behavior.states.find(ai_state)
+	print(idx)
+	ai_transition.false_state_index = idx 
+	
+
+static func _get_option_label(option : Control) -> Label:
+	return option.get_child(1) as Label
+
+static func _get_option_checkbox(option: Control) -> CheckBox:
+	return option.get_child(0) as CheckBox
 
 func _on_state_name_changed(new_text: String, ai_behaviour: AI_Behaviour, ai_state: AI_State):
 	ai_state.resource_name = _get_valid_name(new_text, ai_behaviour.states)
+	
+func _on_transition_name_changed(new_text: String, ai_state:AI_State, ai_transition: AI_Transition):
+	ai_transition.resource_name = _get_valid_name(new_text, ai_state.transitions)
+	
+func _on_transition_confirm_button_pressed(ai_behaviour: AI_Behaviour,ai_state: AI_State, ai_transition: AI_Transition ):
+	if (ai_transition.true_state_index == ai_transition.false_state_index 
+		and ai_transition.true_state_index != -1
+		and ai_transition.false_state_index != -1):
+		transition_error_message.show()
+		return 
+	
+	var idx = ai_state.transitions.find(ai_transition)
+	if  idx != -1:
+		ai_state.transitions.remove(idx)
+		
+	ai_state.transitions.append(ai_transition)
+	_init_state_control(ai_behaviour,ai_state)
+	_disconnect_transition_control()
+	_clear_node(transition_true_state_container)
+	_clear_node(transition_false_state_container)
 
-
+func _disconnect_transition_control():
+	transition_transition_name_edit.disconnect("text_changed", self, "_on_transition_name_changed")
+	transition_confirm_button.disconnect("button_down", self, "_on_transition_confirm_button_pressed")
+	
 func _on_state_back_button_pressed(ai_behaviour: AI_Behaviour):
 	_disconnect_state_control()
 	_init_behaviour_control(ai_behaviour)
