@@ -31,3 +31,7 @@ static func merge_dictionaries(dictionaries: Array) -> Dictionary:
 static func free_all_children(node: Node) -> void:
 	for child in node.get_children():
 		child.queue_free()
+
+
+static func get_inventory_item_resource(item_name: String) -> Resource:
+	return load("res://items/inventory_sprites/%s.png" % item_name.to_lower().replace(" ", "_"))

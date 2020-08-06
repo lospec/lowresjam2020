@@ -126,7 +126,7 @@ margin_bottom = 11.0
 size_flags_horizontal = 3
 
 [node name="Equipped" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/EquippedMargin"]
-margin_right = 11.0
+margin_right = 22.0
 margin_bottom = 11.0
 size_flags_horizontal = 0
 custom_constants/separation = 0
@@ -135,6 +135,13 @@ custom_constants/separation = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 11.0
+margin_bottom = 11.0
+
+[node name="EquippedArmor" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/EquippedMargin/Equipped" instance=ExtResource( 14 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 11.0
+margin_right = 22.0
 margin_bottom = 11.0
 
 [node name="Coins" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow"]
@@ -189,3 +196,7 @@ margin_right = 64.0
 margin_bottom = 64.0
 
 [node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
+[connection signal="detailed_item_info_menu_appeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_appeared"]
+[connection signal="detailed_item_info_menu_disappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_disappeared"]
+[connection signal="equipped_armor_changed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_equipped_armor_changed"]
+[connection signal="equipped_weapon_changed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_equipped_weapon_changed"]

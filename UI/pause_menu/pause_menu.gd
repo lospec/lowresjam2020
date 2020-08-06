@@ -64,9 +64,11 @@ onready var coins_margin = second_row_hbox.get_node("Coins")
 onready var coins_label = coins_margin.get_node("CoinAmount")
 onready var coins_decor = coins_margin.get_node("CoinsDecor")
 onready var background = pause_menu_margin.get_node("Background")
+
 onready var equipped_items_margin = second_row_hbox.get_node("EquippedMargin")
 onready var equipped_items_hbox = equipped_items_margin.get_node("Equipped")
 onready var equipped_weapon = equipped_items_hbox.get_node("EquippedWeapon")
+onready var equipped_armor = equipped_items_hbox.get_node("EquippedArmor")
 
 onready var item_stats_popup = pause_menu_control.get_node("ItemStatsPopup")
 
@@ -83,10 +85,15 @@ func _ready():
 		button.connect("button_up", self, "_on_Button_button_up", [button])
 
 
+func _on_Player_inventory_button_pressed(player):
+	toggle_pause(player)
+
+
 func toggle_pause(player):
 	player_instance = player
 	tree.paused = not tree.paused
-	pause_menu_control.visible = not pause_menu_control.visible
+	pause_menu_control.visible = tree.paused
+	player_instance.hud_margin.visible = not tree.paused
 	if tree.paused:
 		update_inventory()
 		update_equipped_items()
@@ -97,15 +104,14 @@ func toggle_pause(player):
 func update_inventory():
 	Utility.free_all_children(inventory_items_grid)
 	for item in player_instance.inventory:
-		for i in 23:
-			var inventory_item = inventory_item_scene.instance()
-			inventory_item.item_name = item
-			var item_texture_button = inventory_item.get_node("MarginContainer/Item")
-			item_texture_button.texture_normal = load("res://items/inventory_sprites/%s.png" % item.to_lower())
-			inventory_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [item])
-			inventory_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
-			item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [item])
-			inventory_items_grid.add_child(inventory_item)
+		var inventory_item = inventory_item_scene.instance()
+		inventory_item.item_name = item
+		var item_texture_button = inventory_item.get_node("MarginContainer/Item")
+		item_texture_button.texture_normal = load("res://items/inventory_sprites/%s.png" % item.to_lower().replace(" ", "_"))
+		inventory_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [item])
+		inventory_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
+		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [item, player_instance])
+		inventory_items_grid.add_child(inventory_item)
 
 
 func update_equipped_items():
@@ -113,14 +119,31 @@ func update_equipped_items():
 		return
 	
 	equipped_weapon.item_name = player_instance.equipped_weapon
-	var equipped_weapon_texture_button = equipped_weapon.get_node("MarginContainer/Item")
-	equipped_weapon_texture_button.texture_normal = load("res://items/inventory_sprites/%s.png" % player_instance.equipped_weapon.to_lower())
+	if player_instance.equipped_weapon != "":
+		var equipped_weapon_texture_button = equipped_weapon.get_node("MarginContainer/Item")
+		equipped_weapon_texture_button.texture_normal = Utility.get_inventory_item_resource(player_instance.equipped_weapon)
+	
+	equipped_armor.item_name = player_instance.equipped_armor
+	if player_instance.equipped_armor != "":
+		var equipped_armor_texture_button = equipped_armor.get_node("MarginContainer/Item")
+		equipped_armor_texture_button.texture_normal = Utility.get_inventory_item_resource(player_instance.equipped_armor)
 	
 	for equipped_item in equipped_items_hbox.get_children():
+		var item_button = equipped_item.get_node("MarginContainer/Item")
+		
+		equipped_item.visible = equipped_item.item_name != ""
+		
+		if equipped_item.is_connected("mouse_entered", item_stats_popup, "_on_Item_mouse_entered"):
+			equipped_item.disconnect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered")
 		equipped_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [equipped_item.item_name])
+		
+		if equipped_item.is_connected("mouse_exited", item_stats_popup, "_on_Item_mouse_exited"):
+			equipped_item.disconnect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
 		equipped_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
-		equipped_item.get_node("MarginContainer/Item").connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item.item_name])
-
+		
+		if item_button.is_connected("pressed", item_info_menu, "_on_Item_pressed"):
+			 item_button.disconnect("pressed", item_info_menu, "_on_Item_pressed")
+		item_button.connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item.item_name, player_instance])
 
 func update_menu_state():
 	match current_menu:
@@ -132,6 +155,7 @@ func update_menu_state():
 			coins_margin.visible = false
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
+			item_stats_popup.visible = false
 		
 		Menu.INFO:
 			settings_button.pressed = false
@@ -141,6 +165,7 @@ func update_menu_state():
 			coins_margin.visible = true
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
+			item_stats_popup.visible = false
 		
 		Menu.INVENTORY:
 			settings_button.pressed = false
@@ -150,6 +175,7 @@ func update_menu_state():
 			coins_margin.visible = false
 			inventory_items_margin.visible = true
 			equipped_items_margin.visible = true
+			item_stats_popup.visible = true
 	
 	background.texture = MENU_BACKGROUND[current_menu]
 	
@@ -180,3 +206,11 @@ func _on_Button_button_down(button):
 
 func _on_Button_button_up(button):
 	button.pressed = true
+
+
+func _on_ItemInfoMenu_equipped_armor_changed():
+	update_equipped_items()
+
+
+func _on_ItemInfoMenu_equipped_weapon_changed():
+	update_equipped_items()

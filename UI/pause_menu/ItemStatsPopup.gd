@@ -2,7 +2,7 @@ extends MarginContainer
 
 # Constants
 const ITEM_TYPE_TO_BACKGROUND := {
-	"basic": preload("res://UI/inventory/item_stats_popup.png"),
+	"item": preload("res://UI/inventory/item_stats_popup.png"),
 	"weapon": preload("res://UI/inventory/weapon_stats_popup.png"),
 	"usable": preload("res://UI/inventory/usable_armor_stats_popup.png"),
 	"armor": preload("res://UI/inventory/usable_armor_stats_popup.png"),
@@ -34,6 +34,10 @@ onready var health_gained_label := health_gained_margin.get_node("HealthGained")
 
 
 func _on_Item_mouse_entered(item_name):
+	if item_name == "":
+		push_error("Item name must not be empty.")
+		return
+	
 	var item_data = Data.item_data[item_name]
 	var item_type = item_data.type
 	
@@ -41,7 +45,7 @@ func _on_Item_mouse_entered(item_name):
 	
 	background.texture = ITEM_TYPE_TO_BACKGROUND[item_type]
 	match item_data.type:
-		"basic":
+		"item":
 			damage_margin.visible = false
 			health_gained_margin.visible = false
 		"weapon":
@@ -51,11 +55,16 @@ func _on_Item_mouse_entered(item_name):
 			quick_damage_label.text = str(item_data.quick_damage)
 			heavy_damage_label.text = str(item_data.heavy_damage)
 			counter_damage_label.text = str(item_data.counter_damage)
-		"usable", "armor":
+		"usable":
 			damage_margin.visible = false
 			health_gained_margin.visible = true
 			
 			health_gained_label.text = str(item_data.health_gained)
+		"armor":
+			damage_margin.visible = false
+			health_gained_margin.visible = true
+			
+			health_gained_label.text = str(item_data.health_added)
 	
 	tween.interpolate_property(self, "rect_position", rect_position,
 			Vector2(rect_position.x, BOTTOM_POS_Y), ANIM_DURATION,
@@ -75,3 +84,11 @@ func _on_PopupDisappearDelay_timeout():
 			Vector2(rect_position.x, TOP_POS_Y), ANIM_DURATION,
 			Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.start()
+
+
+func _on_ItemInfoMenu_detailed_item_info_menu_appeared():
+	visible = false
+
+
+func _on_ItemInfoMenu_detailed_item_info_menu_disappeared():
+	visible = true

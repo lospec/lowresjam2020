@@ -43,4 +43,3 @@ size_flags_vertical = 0
 texture = ExtResource( 3 )
 [connection signal="mouse_entered" from="." to="." method="_on_InventoryItem_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_InventoryItem_mouse_exited"]
-[connection signal="pressed" from="MarginContainer/Item" to="." method="_on_Item_pressed"]

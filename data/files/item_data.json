@@ -177,6 +177,10 @@
   "Waterwhip  (sprite needed)": {
     "type": "weapon"
   },
+  "Godobat": {
+    "type": "weapon",
+    "buy value": 200
+  },
   "Spore Bag": {
     "type": "item",
     "sell value": 0,
@@ -204,10 +208,10 @@
   },
   "Goo": {
     "type": "item",
-    "sell value": 1,
+    "sell value": 0,
     "buy value": 1
   },
-  "Leather Armor": {
+  "Leather": {
     "type": "armor",
     "sell value": 10,
     "buy value": 4,
@@ -219,7 +223,7 @@
     "buy value": 16,
     "health_added": 4
   },
-  "Iron Armor": {
+  "Platemail": {
     "type": "armor",
     "sell value": 50,
     "buy value": 45,
