@@ -7,6 +7,7 @@ var _found_target: BaseEntity
 var _initialized = false
 
 func _on_body_entered(body):
+	print("body entered")
 	if body.is_in_group("PlayerGroup"):
 		_found_target = body as BaseEntity
 		
