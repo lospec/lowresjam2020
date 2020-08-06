@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
 }, {
-"base": "StateAction",
-"class": "ChaseAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/ChaseAction.gd"
-}, {
 "base": "Node",
 "class": "CombatChar",
 "language": "GDScript",
@@ -43,11 +38,8 @@ _global_script_class_icons={
 "AI_Behaviour": "",
 "BaseEntity": "",
 "CameraController": "",
-"ChaseAction": "",
 "CombatChar": "",
-"EntityResource": "",
-"StateAction": "",
-"WanderAction": ""
+"EntityResource": ""
 }
 
 [application]
