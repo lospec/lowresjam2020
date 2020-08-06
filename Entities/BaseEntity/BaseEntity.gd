@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name BaseEntity
 
 # Signals
 signal health_changed(old_health, new_health)

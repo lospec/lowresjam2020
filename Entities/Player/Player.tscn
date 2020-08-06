@@ -7,7 +7,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 7.34592
 
-[node name="Player" instance=ExtResource( 1 )]
+[node name="Player" groups=[
+"PlayerGroup",
+] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="EntityDetector" type="Area2D" parent="." index="2"]
