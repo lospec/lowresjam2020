@@ -1,4 +1,4 @@
-extends Control
+extends ShakableControl
 
 class_name CombatMenu
 
@@ -37,7 +37,6 @@ onready var damage_spawn_area = $EffectsContainer/DamageSpawnArea
 
 func _ready():
 	reset_ui();
-
 
 func set_player_health_value(_max_health, current_health):
 	player_health_label.text = str(current_health)
@@ -87,6 +86,7 @@ func animate_player_attack(action: int):
 	yield(attack_effect, "effect_done")
 
 func animate_player_hurt(damage):
+	shake(1, 20, 1)
 	yield(show_combat_label("You take %s dmg" % damage, 2), "completed")
 	# how do i blink the player health icon?
 	# i want to shake the player health icon but don't know how

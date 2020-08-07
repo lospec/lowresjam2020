@@ -16,4 +16,5 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-fade_delay = 1.0
+fade_duration = 1.0
+fade_delay = 0.6

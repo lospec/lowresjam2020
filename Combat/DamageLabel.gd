@@ -1,15 +1,14 @@
 extends Label
 
-const FLOAT_SPEED = 2 # in px per seconds
-const FADE_SPEED = 2 # seconds until invisible
+export(float) var float_speed = 2 # in px per seconds
+export(float) var fade_duration = 2 # seconds until invisible
+export(float) var fade_delay = 0 # seconds until starts fading
 
-export(float) var fade_delay = 0
-
-onready var a = 1 + fade_delay / FADE_SPEED
+onready var a = 1 + fade_delay / fade_duration
 
 func _process(delta):
-	rect_position.y -= delta * FLOAT_SPEED
-	a = max(0, a - delta / FADE_SPEED)
+	rect_position.y -= delta * float_speed
+	a = max(0, a - delta / fade_duration)
 	modulate.a = a
 	
 	if modulate.a <= 0:
