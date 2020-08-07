@@ -8,7 +8,7 @@
 [ext_resource path="res://World/Chunks.gd" type="Script" id=6]
 [ext_resource path="res://World/World.gd" type="Script" id=7]
 [ext_resource path="res://Combat/Combat.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Particle Systems/Fire/Node2D.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Particle Systems/Ice/IceSystem.tscn" type="PackedScene" id=9]
 
 [node name="World" type="Node"]
 script = ExtResource( 7 )
@@ -39,7 +39,6 @@ node_to_follow = NodePath("../Entities/Player")
 [node name="Combat" parent="." instance=ExtResource( 8 )]
 
 [node name="Node2D" parent="." instance=ExtResource( 9 )]
-position = Vector2( 0.353951, 9.7927 )
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
 [connection signal="enemy_detected" from="Entities/Player" to="Combat" method="_on_Player_enemy_detected"]
 [connection signal="health_changed" from="Entities/Player" to="Combat" method="_on_Player_health_changed"]
