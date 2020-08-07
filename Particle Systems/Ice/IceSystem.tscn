@@ -24,6 +24,7 @@ offsets = PoolRealArray( 0, 0.266917, 0.691729, 0.906015 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.234863, 0.541733, 0.8125, 0 )
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 28.6228, 25.2554 )
 
 [node name="SnowFlakes" type="CPUParticles2D" parent="."]
 material = SubResource( 1 )
@@ -31,7 +32,7 @@ position = Vector2( -0.00729752, -0.826847 )
 lifetime = 0.8
 texture = ExtResource( 1 )
 emission_shape = 1
-emission_sphere_radius = 13.05
+emission_sphere_radius = 10.0
 direction = Vector2( 2, 0 )
 spread = 180.0
 gravity = Vector2( 0, 0 )
@@ -47,7 +48,7 @@ material = SubResource( 3 )
 amount = 48
 texture = ExtResource( 3 )
 emission_shape = 1
-emission_sphere_radius = 21.48
+emission_sphere_radius = 20.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 18.76
 orbit_velocity = 1.0

@@ -24,7 +24,7 @@ tile_data = PoolIntArray( -131080, 23, 0, -131079, 23, 0, -131078, 24, 0, -13107
 
 [node name="EnemySpawn" parent="Chunks/CaveEnterance/EnemySpawns" index="0" instance=ExtResource( 4 )]
 position = Vector2( -4, 17 )
-enemies = [ "Gnome" ]
+enemies = [  ]
 
 [node name="Entities" type="YSort" parent="."]
 
