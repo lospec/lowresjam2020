@@ -17,6 +17,7 @@ func take_damage(dmg):
 	char_instance.health -= dmg
 	hit_combo = 0
 
+#warning-ignore:unused_argument
 func get_base_damage(action) -> int:
 	return 0
 
