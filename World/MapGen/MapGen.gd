@@ -29,10 +29,22 @@ var xMax
 var yMin
 var yMax
 
+enum TERRAIN_TYPES{
+	FOREST, DESERT, BEACH, POLAR, WATER
+}
+
+var TERRAIN_COLOR = {
+	TERRAIN_TYPES.FOREST: Color.green,
+	TERRAIN_TYPES.DESERT: Color.orange,
+	TERRAIN_TYPES.BEACH: Color.yellow,
+	TERRAIN_TYPES.POLAR: Color.white,
+	TERRAIN_TYPES.WATER: Color.aliceblue
+}
+
 
 class Tile:
 	var idx
-	var value
+	var terrain_type = null
 	var search_phase = 0
 	var distance
 	var search_heuristic
@@ -41,7 +53,7 @@ class Tile:
 	var next_with_same_priority = null
 	var elevation = 0
 	var water_level = WATER_LEVEL
-
+	
 	func _to_string():
 		return str(distance)
 
