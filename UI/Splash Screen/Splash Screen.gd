@@ -1,8 +1,5 @@
 extends Node
 
-# Constants
-const SPLASH_SCREEN_TRANSITION_DURATION = 0.3
-
 # Public Variables
 var going_to_main_menu = false
 
@@ -10,6 +7,8 @@ var going_to_main_menu = false
 onready var animated_sprite = $AnimatedSprite
 
 func _ready():
+	PaletteSwap.enabled = false
+	
 	animated_sprite.frame = 0
 	animated_sprite.playing = true
 
@@ -26,5 +25,5 @@ func go_to_main_menu():
 	going_to_main_menu = true
 	yield(Transitions.change_scene_double_transition("res://UI/Main Menu/Main Menu.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
-			SPLASH_SCREEN_TRANSITION_DURATION), "completed")
+			0.3), "completed")
 	PaletteSwap.enabled = true

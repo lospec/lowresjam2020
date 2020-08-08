@@ -102,7 +102,7 @@ func toggle_pause(player):
 
 
 func update_inventory():
-	Utility.free_all_children(inventory_items_grid)
+	Utility.queue_free_all_children(inventory_items_grid)
 	for item in player_instance.inventory:
 		var inventory_item = inventory_item_scene.instance()
 		inventory_item.item_name = item

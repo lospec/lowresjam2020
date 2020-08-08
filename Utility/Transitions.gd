@@ -4,10 +4,18 @@ extends CanvasLayer
 enum Transition_Type {
 	SHRINKING_CIRCLE,
 	MULTIPLE_SQUARES,
+	MULTIPLE_CIRCLES_FILLED,
+	LINES,
+	SWIRL,
+	BLOCKS,
 }
 const TRANSITION_TEXTURES = {
 	Transition_Type.SHRINKING_CIRCLE: preload("res://Transitions/shrinking_circle.png"),
 	Transition_Type.MULTIPLE_SQUARES: preload("res://Transitions/multiple_squares.png"),
+	Transition_Type.MULTIPLE_CIRCLES_FILLED: preload("res://Transitions/multiple_circles_filled.png"),
+	Transition_Type.LINES: preload("res://Transitions/lines.png"),
+	Transition_Type.SWIRL: preload("res://Transitions/swirl.png"),
+	Transition_Type.BLOCKS: preload("res://Transitions/blocks.png"),
 }
 
 

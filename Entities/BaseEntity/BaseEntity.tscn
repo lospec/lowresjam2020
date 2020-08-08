@@ -8,7 +8,7 @@ extents = Vector2( 2, 1 )
 
 [node name="BaseEntity" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 19
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -18,7 +18,7 @@ vframes = 4
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -1 )
+position = Vector2( 0, -0.2 )
 shape = SubResource( 1 )
 
 [node name="NextFrameTimer" type="Timer" parent="."]

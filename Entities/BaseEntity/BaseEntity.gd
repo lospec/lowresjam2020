@@ -47,9 +47,9 @@ const ANIM_FRAME_LENGTH = {
 	Animations.RUN_UP: 6,
 }
 const ANIM_FPS_SPEED = {
-	Animations.IDLE_DOWN: 100,
-	Animations.IDLE_UP: 100,
-	Animations.IDLE_SIDE: 100,
+	Animations.IDLE_DOWN: 10,
+	Animations.IDLE_UP: 10,
+	Animations.IDLE_SIDE: 10,
 	Animations.RUN_DOWN: 10,
 	Animations.RUN_SIDE: 8,
 	Animations.RUN_UP: 10,

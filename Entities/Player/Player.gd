@@ -3,19 +3,36 @@ extends "res://Entities/BaseEntity/BaseEntity.gd"
 # Signals
 signal enemy_detected(player, enemy)
 signal inventory_button_pressed(player)
+signal open_chest_input_received(chest)
 
 # Public Variables
-var combat_util := preload("res://Combat/CombatUtil.gd")
-var coins = 0
-var inventory := ["Stick", "Gem", "Hotdog", "Leather", "Knife"]
-var equipped_weapon := "Stick"
+var coins: int
+var inventory: Array
+var equipped_weapon: String
 var equipped_armor: String
 
 # Onready Variables
-onready var equipped_weapon_data: Dictionary = Data.item_data["Stick"]
-onready var equipped_armor_data: Dictionary
 onready var hud_margin = $HUD/MarginContainer
 onready var hud_health_label = $HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health
+onready var chest_detector = $ChestDetector
+
+
+func _ready():
+	coins = SaveData.coins
+	inventory = SaveData.inventory
+	equipped_weapon = SaveData.equipped_weapon
+	equipped_armor = SaveData.equipped_armor 
+	max_health = SaveData.max_health
+	health = SaveData.health
+
+
+func _on_Player_tree_exiting():
+	SaveData.coins = coins
+	SaveData.inventory = inventory
+	SaveData.equipped_weapon = equipped_weapon
+	SaveData.equipped_armor = equipped_armor
+	SaveData.max_health = max_health
+	SaveData.health = health
 
 
 func _physics_process(_delta):
@@ -36,19 +53,22 @@ func _on_EntityDetector_body_entered(body):
 		emit_signal("enemy_detected", self, body)
 
 
-func get_base_damage(action):
-	var damage
-	match action:
-		combat_util.Combat_Action.QUICK:
-			damage = equipped_weapon_data.quick_damage
-		
-		combat_util.Combat_Action.HEAVY:
-			damage = equipped_weapon_data.heavy_damage
-		
-		combat_util.Combat_Action.COUNTER:
-			damage = equipped_weapon_data.counter_damage
-	return damage
-
-
 func _on_Inventory_pressed():
 	emit_signal("inventory_button_pressed", self)
+
+
+func _unhandled_input(_event):
+	if Input.is_action_just_pressed("open_chest"):
+		var chests = chest_detector.get_overlapping_bodies()
+		if not chests:
+			return
+		
+		var closest_chest
+		var closest_dist = -1
+		for chest in chests:
+			var dist = position.distance_to(chest.position)
+			if dist < closest_dist or closest_dist == -1:
+				closest_dist = dist
+				closest_chest = chest
+		
+		emit_signal("open_chest_input_received", closest_chest)

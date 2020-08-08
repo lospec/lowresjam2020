@@ -22,37 +22,46 @@ script = ExtResource( 7 )
 script = ExtResource( 6 )
 
 [node name="PlainGrassWithPathToGuildHall" parent="Chunks" instance=ExtResource( 5 )]
+fix_tiles_toggle = false
 
 [node name="PlainGrass" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( 64, 0 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass2" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( 64, -64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass3" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( 0, -64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass4" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( -64, -64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass5" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( -64, 0 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass6" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( -64, 64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass7" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( 0, 64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="PlainGrass8" parent="Chunks" instance=ExtResource( 9 )]
 position = Vector2( 64, 64 )
+fix_tiles_toggle = false
 grass_noise = SubResource( 1 )
 
 [node name="EntitiesAndStaticObjects" type="YSort" parent="."]
@@ -60,6 +69,18 @@ pause_mode = 1
 
 [node name="GuildHall" parent="EntitiesAndStaticObjects" instance=ExtResource( 4 )]
 position = Vector2( -29, -43 )
+
+[node name="Flag" parent="EntitiesAndStaticObjects/GuildHall" index="1"]
+frame = 2
+
+[node name="Flag2" parent="EntitiesAndStaticObjects/GuildHall" index="2"]
+frame = 3
+
+[node name="Flag3" parent="EntitiesAndStaticObjects/GuildHall" index="3"]
+frame = 0
+
+[node name="Flag4" parent="EntitiesAndStaticObjects/GuildHall" index="4"]
+frame = 1
 
 [node name="Player" parent="EntitiesAndStaticObjects" instance=ExtResource( 2 )]
 
@@ -71,6 +92,9 @@ node_to_follow = NodePath("../EntitiesAndStaticObjects/Player")
 
 [node name="Combat" parent="." instance=ExtResource( 8 )]
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
+[connection signal="body_entered" from="EntitiesAndStaticObjects/GuildHall/DoorDetection" to="." method="_on_DoorDetection_body_entered"]
 [connection signal="enemy_detected" from="EntitiesAndStaticObjects/Player" to="Combat" method="_on_Player_enemy_detected"]
 [connection signal="health_changed" from="EntitiesAndStaticObjects/Player" to="Combat" method="_on_Player_health_changed"]
 [connection signal="inventory_button_pressed" from="EntitiesAndStaticObjects/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
+
+[editable path="EntitiesAndStaticObjects/GuildHall"]

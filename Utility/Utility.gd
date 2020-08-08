@@ -28,7 +28,7 @@ static func merge_dictionaries(dictionaries: Array) -> Dictionary:
 	return new_dict
 
 
-static func free_all_children(node: Node) -> void:
+static func queue_free_all_children(node: Node) -> void:
 	for child in node.get_children():
 		child.queue_free()
 

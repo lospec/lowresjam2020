@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://guild_hall/guild_hall_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Camera/Camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://guild_hall/guild_hall.gd" type="Script" id=4]
+[ext_resource path="res://guild_hall/chest/chest.tscn" type="PackedScene" id=5]
+[ext_resource path="res://guild_hall/chest/chest_gui.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/pause_menu/pause_menu.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17, 1 )
+
+[node name="GuildHall" type="Node"]
+pause_mode = 2
+script = ExtResource( 4 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 2 )]
+limit_left = -32
+limit_top = -32
+limit_right = 32
+limit_bottom = 32
+node_to_follow = NodePath("../YSort/Player")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 24, 4 )
+cell_half_offset = 0
+collision_mask = 2147483648
+format = 1
+tile_data = PoolIntArray( -458754, 4, 0, -458753, 4, 0, -524288, 4, 0, -524287, 4, 0, -393218, 4, 0, -393217, 4, 0, -458752, 4, 0, -327682, 4, 0, -327681, 4, 0, -393216, 4, 0, -393215, 4, 0, -262146, 4, 0, -262145, 4, 0, -327680, 4, 0, -196610, 4, 0, -196609, 4, 0, -262144, 4, 0, -262143, 4, 0, -131074, 4, 0, -131073, 4, 0, -196608, 4, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 327678, 1, 0, 327679, 1, 0, 262144, 1, 0, 262145, 1, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 458750, 1, 0, 458751, 1, 0, 393216, 1, 0, 393217, 1, 0, 524286, 2, 0, 524287, 3, 0, 458752, 2, 0 )
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2( -38, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
+position = Vector2( 38, 0 )
+shape = SubResource( 1 )
+
+[node name="DoorDetection" type="Area2D" parent="."]
+position = Vector2( 0, 35 )
+collision_layer = 8
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDetection"]
+shape = SubResource( 2 )
+
+[node name="YSort" type="YSort" parent="."]
+pause_mode = 1
+
+[node name="Player" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 0, 29 )
+
+[node name="Chest" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 19, -8 )
+
+[node name="PauseMenu" parent="." instance=ExtResource( 7 )]
+
+[node name="ChestGUI" parent="." instance=ExtResource( 6 )]
+[connection signal="body_entered" from="DoorDetection" to="." method="_on_DoorDetection_body_entered"]
+[connection signal="inventory_button_pressed" from="YSort/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
+[connection signal="open_chest_input_received" from="YSort/Player" to="." method="_on_Player_open_chest_input_received"]
