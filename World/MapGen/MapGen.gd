@@ -189,7 +189,7 @@ func _get_neighbors(current: Tile):
 func _create_land():
 	var land_budget = round(len(map) * LAND_PERCENTAGE)
 	while land_budget > 0:
-		var chunk_size = CHUNK_SIZE_MIN + (randi() % CHUNK_SIZE_MAX)
+		var chunk_size = int(rand_range(CHUNK_SIZE_MIN, CHUNK_SIZE_MAX))
 		if randf() < SINK_PROBABILITY:
 			land_budget = sink_terrain(chunk_size, land_budget)
 		else:
