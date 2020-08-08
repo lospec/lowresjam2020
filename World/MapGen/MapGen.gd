@@ -6,7 +6,7 @@ const CHUNK_SIZE = 4
 const MAP_CHUNK_SIZE_X = 24
 const MAP_CHUNK_SIZE_Y = 16
 
-const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE 
+const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
 const DIR = "res://World/MapGen/"
@@ -29,27 +29,28 @@ var xMax
 var yMin
 var yMax
 
+
 class Tile:
 	var idx
 	var value
 	var search_phase = 0
 	var distance
 	var search_heuristic
-	var search_priority setget ,_get_priority
-	var coordinate: Vector2 setget ,_get_coordinate
+	var search_priority setget , _get_priority
+	var coordinate: Vector2 setget , _get_coordinate
 	var next_with_same_priority = null
 	var elevation = 0
 	var water_level = WATER_LEVEL
-	
+
 	func _to_string():
 		return str(distance)
-	
+
 	func _get_coordinate():
 		return Vector2(idx % MAP_SIZE_X, floor(idx / MAP_SIZE_X))
+
 	func _get_priority():
 		return distance + search_heuristic
-		
-	
+
 	func _init(idx: int, value = null):
 		self.idx = idx
 		self.value = value
@@ -61,15 +62,17 @@ var map = []
 var search_frontier = PriorityQueue.new()
 var search_frontier_phase = 0
 
+
 func _init_map():
 	print("image initializing")
 	image = Image.new()
-	image.create(MAP_SIZE_X, MAP_SIZE_Y, false , Image.FORMAT_RGB8)
-	map.resize(MAP_SIZE_X*MAP_SIZE_Y)
-	
+	image.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
+	map.resize(MAP_SIZE_X * MAP_SIZE_Y)
+
 	for i in range(0, map.size()):
 		map[i] = Tile.new(i, 0)
-	
+
+
 func _save():
 	image.lock()
 	var idx = 0
@@ -81,18 +84,20 @@ func _save():
 				color = Color.aqua
 			else:
 				var v = elevation * 0.1
-				color = Color(v,v,v)
-			image.set_pixel(x,y, color)
+				color = Color(v, v, v)
+			image.set_pixel(x, y, color)
 			idx += 1
 	image.unlock()
 	image.save_png(DIR + "test.png")
 	print("image saved")
-	
+
+
 func _get_random_tile():
 	var x = int(rand_range(xMin, xMax))
 	var y = int(rand_range(yMin, yMax))
 	return map[x + (y * MAP_SIZE_X)]
-	
+
+
 func raise_terrain(chunk_size: int, budget: int):
 	search_frontier_phase += 1
 	var first_tile: Tile = _get_random_tile()
@@ -111,7 +116,7 @@ func raise_terrain(chunk_size: int, budget: int):
 			continue
 		current.elevation = new_elevation
 		if original_elevation < WATER_LEVEL and new_elevation >= WATER_LEVEL:
-			budget-=1
+			budget -= 1
 			if budget == 0:
 				break
 		size += 1
@@ -124,10 +129,11 @@ func raise_terrain(chunk_size: int, budget: int):
 				neighbor.distance = v.distance_to(center)
 				neighbor.search_heuristic = 1 if randf() < JITTER_PROBABILITY else 0
 				search_frontier.enqueue(neighbor, neighbor.search_priority)
-				
+
 	search_frontier.clear()
 	return budget
-	
+
+
 func sink_terrain(chunk_size: int, budget: int):
 	search_frontier_phase += 1
 	var first_tile: Tile = _get_random_tile()
@@ -146,7 +152,7 @@ func sink_terrain(chunk_size: int, budget: int):
 			continue
 		current.elevation = new_elevation
 		if original_elevation >= WATER_LEVEL and new_elevation < WATER_LEVEL:
-			budget+=1
+			budget += 1
 		size += 1
 		var neighbors = _get_neighbors(current)
 		for i in range(0, len(neighbors)):
@@ -157,27 +163,29 @@ func sink_terrain(chunk_size: int, budget: int):
 				neighbor.distance = v.distance_to(center)
 				neighbor.search_heuristic = 1 if randf() < JITTER_PROBABILITY else 0
 				search_frontier.enqueue(neighbor, neighbor.search_priority)
-				
+
 	search_frontier.clear()
 	return budget
+
 
 func _get_neighbors(current: Tile):
 	var neighbors = []
 	var coord = current.coordinate
-	var N = Vector2(coord.x, coord.y-1)
-	var S = Vector2(coord.x, coord.y+1)
-	var W = Vector2(coord.x-1, coord.y)
-	var E = Vector2(coord.x+1, coord.y)
-	var NE = Vector2(coord.x+1, coord.y-1)
-	var SE = Vector2(coord.x+1, coord.y+1)
-	var NW = Vector2(coord.x-1, coord.y-1)
-	var SW = Vector2(coord.x-1, coord.y+1)
-	for v in [N,S,W,E,NW,NE,SW,SE]:
+	var N = Vector2(coord.x, coord.y - 1)
+	var S = Vector2(coord.x, coord.y + 1)
+	var W = Vector2(coord.x - 1, coord.y)
+	var E = Vector2(coord.x + 1, coord.y)
+	var NE = Vector2(coord.x + 1, coord.y - 1)
+	var SE = Vector2(coord.x + 1, coord.y + 1)
+	var NW = Vector2(coord.x - 1, coord.y - 1)
+	var SW = Vector2(coord.x - 1, coord.y + 1)
+	for v in [N, S, W, E, NW, NE, SW, SE]:
 		if v.x < 0 or v.x >= MAP_SIZE_X or v.y < 0 or v.y >= MAP_SIZE_Y:
 			continue
-		neighbors.append(map[v.x + v.y * MAP_SIZE_X]) 
+		neighbors.append(map[v.x + v.y * MAP_SIZE_X])
 	return neighbors
-				
+
+
 func _create_land():
 	var land_budget = round(len(map) * LAND_PERCENTAGE)
 	while land_budget > 0:
@@ -186,6 +194,7 @@ func _create_land():
 			land_budget = sink_terrain(chunk_size, land_budget)
 		else:
 			land_budget = raise_terrain(chunk_size, land_budget)
+
 
 func _run():
 	_init_map()

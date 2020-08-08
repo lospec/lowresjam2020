@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "PriorityQueue",
 "language": "GDScript",
-"path": "res://World/MapGen/priority_queue.gd"
+"path": "res://World/MapGen/PriorityQueue.gd"
 } ]
 _global_script_class_icons={
 "AI_Behaviour": "",
