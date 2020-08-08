@@ -14,6 +14,23 @@ enum Combat_Action {
 # maybe make it a variable per char or something
 const MULTIPLIER_PER_COMBO: int = 1
 
+static func GetActionName(action: int) -> String:
+	match action:
+		Combat_Action.QUICK:
+			return "Quick"
+		
+		Combat_Action.COUNTER:
+			return "Counter"
+		
+		Combat_Action.HEAVY:
+			return "Heavy"
+		
+		Combat_Action.FLEE:
+			return "Flee"
+		
+		_:
+			return "INVALID"
+
 static func GetActionWeakness(action: int) -> int:
 	#print("WEAKNESS: %s" % action)
 	match (action):
@@ -28,6 +45,20 @@ static func GetActionWeakness(action: int) -> int:
 	return Combat_Action.INVALID
 
 static func ActionCompare(action1: int, action2: int) -> int:
+	if action1 == Combat_Action.FLEE:
+		if action2 == action1 or action2 == Combat_Action.COUNTER:
+			return 1
+		
+		else:
+			return 2
+	
+	if action2 == Combat_Action.FLEE:
+		if action1 == action2 or action1 == Combat_Action.COUNTER:
+			return 2
+		
+		else:
+			return 1
+	
 	if action1 == action2:
 		return 0
 	elif GetActionWeakness(action2) == action1:
@@ -36,7 +67,7 @@ static func ActionCompare(action1: int, action2: int) -> int:
 		return 2
 	return -1
 
-static func GetCombatActionColor(action: int) -> Color:
+static func GetActionColor(action: int) -> Color:
 	match action:
 		Combat_Action.QUICK:
 			return color_values.att_quick

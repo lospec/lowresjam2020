@@ -49,6 +49,9 @@ func TakeTurn(playerAction):
 	var enemyAction = enemy_combat.get_action()#playerAction#
 	combat_menu.set_buttons_visible(false)
 	
+	# Show the player and the enemies choices
+	yield(combat_menu.show_turn_result(playerAction, enemyAction), "completed")
+	
 	if playerAction == combat_util.Combat_Action.FLEE:
 		var flee = yield(PlayerFlee(enemyAction), "completed")
 		if flee:
@@ -72,6 +75,8 @@ func TakeTurn(playerAction):
 			_:
 				yield(combat_menu.show_combat_label("ERROR: Invalid win check", 2), "completed")
 	
+	combat_menu.hide_turn_result()
+	
 	# PLACEHOLDER END CONDITIONS
 	if player_instance.health <= 0:
 		yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
@@ -86,11 +91,11 @@ func TakeTurn(playerAction):
 		combat_menu.combat_label.visible = true
 		end_combat(true)
 		return
-		
+	
 	combat_menu.reset_ui()
 
 
-func PlayerFlee(enemyAction):
+func PlayerFlee(enemyAction): # Should be replaced with CharFlee so the enemy can have a chance to flee to
 	var enemyDmg = enemy_combat.get_base_damage(enemyAction);
 	var success = false
 	
@@ -100,17 +105,17 @@ func PlayerFlee(enemyAction):
 			success = true
 		
 		combat_util.Combat_Action.QUICK:
-			yield(combat_menu.show_combat_label("The Enemy attacked", 2), "completed")
 			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
+			
 			player_combat.take_damage(enemyDmg)
-			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+			combat_menu.animate_player_hurt(enemyDmg)
 		
 		combat_util.Combat_Action.HEAVY:
-			yield(combat_menu.show_combat_label("The Enemy charges up", 2), "completed")
 			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
+			
 			enemyDmg *= 2
 			player_combat.take_damage(enemyDmg)
-			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+			combat_menu.animate_player_hurt(enemyDmg)
 	
 	return success
 
@@ -118,7 +123,6 @@ func PlayerFlee(enemyAction):
 #### i left some suggestion comment in each of the cases
 
 func PlayerWin(playerAction):
-	#yield(combat_menu.show_combat_label("Player win case is still in progress", 2), "completed")
 	var playerDmg = player_combat.get_base_damage(playerAction);
 	player_combat.hit_combo += 1
 	
@@ -128,24 +132,27 @@ func PlayerWin(playerAction):
 		combat_util.Combat_Action.QUICK:
 			# Player QUICK vs Enemy HEAVY
 			# Already do-able: Just show the player attack the enemy immediately
-			combat_menu.show_combat_label("Attack hit!")
+			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(playerDmg)
 		
 		combat_util.Combat_Action.COUNTER:
 			# Player COUNTER vs Enemy QUICK
 			# Show the player blocking THEN show the attack effect
-			combat_menu.show_combat_label("Countered!")
+			#combat_menu.show_combat_label("Countered!")
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(playerDmg)
 		
 		combat_util.Combat_Action.HEAVY:
 			# Player HEAVY vs Enemy COUNTER
 			# Show the player charging THEN show the attack effect
-			combat_menu.show_combat_label("Attack hit!")
+			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(playerDmg)
 		
@@ -161,7 +168,8 @@ func EnemyWin(enemyAction):
 			# Player HEAVY vs Enemy QUICK
 			# Show the player charge up maybe about half way THEN show
 			# the player take damage
-			combat_menu.show_combat_label("The Enemy attacked first!")
+			#combat_menu.show_combat_label("The Enemy attacked first!")
+			
 			player_combat.take_damage(enemyDmg)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
@@ -170,21 +178,23 @@ func EnemyWin(enemyAction):
 			# if there's enough time, maybe make enemy block sprite to show that
 			# the enemy is indeed blocking the players attack THEN show
 			# the player take damage
-			combat_menu.show_combat_label("Enemy countered!")
+			#combat_menu.show_combat_label("Enemy countered!")
+			
 			enemyDmg /= 2
 			player_combat.take_damage(enemyDmg)
-			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
+			yield(combat_menu.animate_player_hurt(enemyDmg, true), "completed")
 		
 		combat_util.Combat_Action.HEAVY:
 			# Player COUNTER vs Enemy HEAVY
 			# maybe show the player blocking(same as in the PlayerWin counter state)
 			# but instead of showing the player attack, show the player take damage instead
-			combat_menu.show_combat_label("The Enemy broke your counter!")
+			#combat_menu.show_combat_label("The Enemy broke your counter!")
 			
 			player_combat.take_damage(enemyDmg)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
 		_:
+			combat_menu.hide_turn_result()
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on EnemyWin()", 2), "completed")
 
 func Tie(action):
@@ -196,25 +206,26 @@ func Tie(action):
 			# Player QUICK vs Enemy QUICK
 			# Already doable: Show the player attack and the player take damage
 			# at the same time
-			combat_menu.show_combat_label("The enemy attacked!")
+			#combat_menu.show_combat_label("The enemy attacked!")
 			yield(combat_menu.animate_player_attack(action), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(playerDmg)
 			
 			player_combat.take_damage(enemyDmg)
-			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+			combat_menu.animate_player_hurt(enemyDmg)
 		
 		combat_util.Combat_Action.COUNTER:
 			# Player COUNTER vs Enemy COUNTER
 			# Show both the enemy and the player blocking, but nothing happen after that
-			yield(combat_menu.show_combat_label("Nothing happened", 2), "completed")
+			#yield(combat_menu.show_combat_label("Nothing happened", 2), "completed")
+			yield(get_tree().create_timer(1.5), "timeout")
 		
 		combat_util.Combat_Action.HEAVY:
 			# Player HEAVY vs Enemy HEAVY
 			# Show the player charge THEN show the player attack and the player
 			# take damage at the same time
-			combat_menu.show_combat_label("The enemy used heavy attack!")
+			#combat_menu.show_combat_label("The enemy used heavy attack!")
 			yield(combat_menu.animate_player_attack(action), "completed")
 			
 			playerDmg /= 2
@@ -223,7 +234,7 @@ func Tie(action):
 			
 			enemyDmg /= 2
 			player_combat.take_damage(enemyDmg)
-			yield(combat_menu.show_combat_label("You take %s dmg" % enemyDmg, 2), "completed")
+			combat_menu.animate_player_hurt(enemyDmg)
 		
 		_:
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on Tie()", 2), "completed")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
@@ -30,6 +30,9 @@
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
 [ext_resource path="res://Combat/Effects/blunt_animation_test.tres" type="Texture" id=29]
 [ext_resource path="res://Combat/CombatAttackAnim.gd" type="Script" id=30]
+[ext_resource path="res://Combat/CombatEnemyTexture.gd" type="Script" id=31]
+[ext_resource path="res://Combat/Effects/Placeholder_Counter/placeholder_counter_anim.tres" type="Texture" id=32]
+[ext_resource path="res://Combat/CombatTurnResultUI.gd" type="Script" id=33]
 
 [node name="Combat" type="CanvasLayer"]
 pause_mode = 2
@@ -45,6 +48,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 blunt_attack_anim = ExtResource( 29 )
+counter_anim = ExtResource( 32 )
 
 [node name="Background" type="TextureRect" parent="CombatMenu"]
 margin_right = 64.0
@@ -106,6 +110,7 @@ margin_bottom = 37.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 3 )
+script = ExtResource( 31 )
 
 [node name="PlayerHUD" type="VBoxContainer" parent="CombatMenu/VBoxContainer"]
 margin_top = 44.0
@@ -309,45 +314,84 @@ align = 1
 autowrap = true
 clip_text = true
 
-[node name="NewCombatLabel" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
+[node name="CombatTurnResult" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
 visible = false
 margin_right = 64.0
 margin_bottom = 16.0
 mouse_filter = 2
-custom_constants/margin_right = 4
+custom_constants/margin_right = 3
 custom_constants/margin_top = 1
 custom_constants/margin_left = 3
 custom_constants/margin_bottom = 1
+script = ExtResource( 33 )
 
-[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel"]
+[node name="WinResultContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
 margin_left = 3.0
 margin_top = 1.0
-margin_right = 60.0
+margin_right = 61.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/WinResultContainer"]
+margin_right = 58.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 21 )
-text = "|"
+text = "Player"
 align = 1
 autowrap = true
 clip_text = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel"]
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/WinResultContainer"]
+modulate = Color( 0.737255, 0.207843, 0.207843, 1 )
+margin_top = 7.0
+margin_right = 58.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Counter"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="LineLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
 margin_left = 3.0
 margin_top = 1.0
-margin_right = 60.0
+margin_right = 61.0
 margin_bottom = 15.0
-custom_constants/separation = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 21 )
+text = "|
+|"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="CompareContainer" type="HBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 61.0
+margin_bottom = 15.0
+custom_constants/separation = 2
 alignment = 1
 
-[node name="PlayerActionContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer"]
+[node name="PlayerTurnContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer"]
 margin_right = 28.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="CombatLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer/PlayerActionContainer"]
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/PlayerTurnContainer"]
 margin_right = 28.0
 margin_bottom = 7.0
 size_flags_horizontal = 3
@@ -358,27 +402,29 @@ align = 1
 autowrap = true
 clip_text = true
 
-[node name="CombatLabel2" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer/PlayerActionContainer"]
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/PlayerTurnContainer"]
+modulate = Color( 0.737255, 0.207843, 0.207843, 1 )
 margin_top = 7.0
 margin_right = 28.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 5 )
 text = "Counter"
 align = 1
+valign = 1
 autowrap = true
 clip_text = true
 
-[node name="PlayerActionContainer2" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer"]
-margin_left = 29.0
-margin_right = 57.0
+[node name="EnemyTurnContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer"]
+margin_left = 30.0
+margin_right = 58.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="CombatLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer/PlayerActionContainer2"]
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/EnemyTurnContainer"]
 margin_right = 28.0
 margin_bottom = 7.0
 size_flags_horizontal = 3
@@ -389,15 +435,17 @@ align = 1
 autowrap = true
 clip_text = true
 
-[node name="CombatLabel3" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/NewCombatLabel/HBoxContainer/PlayerActionContainer2"]
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/EnemyTurnContainer"]
+modulate = Color( 0.207843, 0.686275, 0.207843, 1 )
 margin_top = 7.0
 margin_right = 28.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 5 )
 text = "Counter"
 align = 1
+valign = 1
 autowrap = true
 clip_text = true
 

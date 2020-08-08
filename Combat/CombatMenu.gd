@@ -15,6 +15,7 @@ enum MENU_SELECTED {
 # should probably put this in somewhere else
 # maybe the weapon/weaponUtil script or something
 export(Texture) var blunt_attack_anim
+export(Texture) var counter_anim
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
@@ -27,6 +28,7 @@ onready var buttons = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons
 onready var main_buttons_menu = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu
 onready var attack_buttons_menu = $VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu
 onready var combat_label = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel
+onready var combat_turn_result = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult
 onready var player_health_label = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/Health
 onready var player_health_icon = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/MarginContainer/HealthIcon
 onready var enemy_health_bar = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar
@@ -59,6 +61,7 @@ func update_enemy_health_value(new_health):
 
 
 func reset_ui():
+	hide_turn_result()
 	buttons.visible = true
 	match current_menu:
 		MENU_SELECTED.MAIN:
@@ -72,28 +75,46 @@ func reset_ui():
 func set_buttons_visible(visible = true):
 	buttons.visible = visible
 
-func show_combat_label(text, time = 0):
+func hide_turn_result():
+	combat_turn_result.win_container.visible = false
+	combat_turn_result.compare_container.visible = false
+
+func show_turn_result(playerAction, enemyAction):
+	combat_turn_result.visible = true
+	yield(combat_turn_result.show_turn_compare(playerAction, enemyAction, 1.5), "completed")
+	combat_turn_result.show_win_result(playerAction, enemyAction)
+
+func show_combat_label(text, duration = 0):
 	combat_label.text = text
 	combat_label.visible = true
 	
-	if time > 0:
-		yield(get_tree().create_timer(time), "timeout")
+	if duration > 0:
+		yield(get_tree().create_timer(duration), "timeout")
 		combat_label.visible = false
 
 # still needed to implement argument to get what animation to play
 func animate_player_attack(action: int):
-	attack_effect.play(blunt_attack_anim, combat_util.GetCombatActionColor(action))
+	if action == combat_util.Combat_Action.COUNTER:
+		attack_effect.play(counter_anim, combat_util.GetActionColor(action))
+		yield(attack_effect, "effect_done")
+	
+	attack_effect.play(blunt_attack_anim, combat_util.GetActionColor(action))
 	yield(attack_effect, "effect_done")
 
-func animate_player_hurt(damage):
+func animate_player_hurt(damage, enemyCountered: bool = false):
+	if enemyCountered:
+		attack_effect.play(counter_anim, combat_util.GetActionColor(combat_util.Combat_Action.HEAVY))
+		yield(attack_effect, "effect_done")
+	
 	shake(1, 20, 1)
-	yield(show_combat_label("You take %s dmg" % damage, 2), "completed")
+	yield(get_tree().create_timer(1.5), "timeout")
+	#yield(show_combat_label("You take %s dmg" % damage, 2), "completed")
 	# how do i blink the player health icon?
 	# i want to shake the player health icon but don't know how
 
 func animate_enemy_hurt(damage):
 	spawn_enemy_damage_label(damage)
-	# i want to shake the enemy but don't know how
+	enemy_image.shake(1, 15, 1)
 
 func spawn_enemy_damage_label(damage):
 	var damage_label = DamageLabel.instance()
