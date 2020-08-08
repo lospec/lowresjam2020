@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://guild_hall/guild_hall_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Camera/Camera.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://guild_hall/chest/chest.tscn" type="PackedScene" id=5]
 [ext_resource path="res://guild_hall/chest/chest_gui.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/pause_menu/pause_menu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://guild_hall/desk/Desk.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 32 )
@@ -61,6 +62,9 @@ position = Vector2( 0, 29 )
 
 [node name="Chest" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 19, -8 )
+
+[node name="Desk" parent="YSort" instance=ExtResource( 8 )]
+position = Vector2( -16, -8 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 7 )]
 
