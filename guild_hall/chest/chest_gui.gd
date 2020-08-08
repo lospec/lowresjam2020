@@ -67,7 +67,7 @@ func open(player_instance, chest_instance):
 	_player_instance = player_instance
 	_chest_instance = chest_instance
 	
-	_opened_chest_id = _chest_instance.get_index() - 1 # -1 for the player
+	_opened_chest_id = _chest_instance.chest_id
 	_chest_instance.contents = SaveData.chest_contents[_opened_chest_id]
 	
 	get_tree().paused = true
