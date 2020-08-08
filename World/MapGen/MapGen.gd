@@ -21,17 +21,14 @@ const SINK_PROBABILITY = 0.2
 const ELEVATION_MIN = -2
 const ELEVATION_MAX = 8
 
-const MAP_BORDER_X = 15
+const MAP_BORDER_X = 5
 const MAP_BORDER_Y = 5
+const REGION_BORDER = 5
 
-var xMin
-var xMax
-var yMin
-var yMax
+# range(1-4)
+const REGION_COUNT = 4
 
-enum TERRAIN_TYPES{
-	FOREST, DESERT, BEACH, POLAR, WATER
-}
+enum TERRAIN_TYPES { FOREST, DESERT, BEACH, POLAR, WATER }
 
 var TERRAIN_COLOR = {
 	TERRAIN_TYPES.FOREST: Color.green,
@@ -40,6 +37,13 @@ var TERRAIN_COLOR = {
 	TERRAIN_TYPES.POLAR: Color.white,
 	TERRAIN_TYPES.WATER: Color.aliceblue
 }
+
+
+class Region:
+	var xMin: float
+	var xMax: float
+	var yMin: float
+	var yMax: float
 
 
 class Tile:
@@ -53,7 +57,7 @@ class Tile:
 	var next_with_same_priority = null
 	var elevation = 0
 	var water_level = WATER_LEVEL
-	
+
 	func _to_string():
 		return str(distance)
 
@@ -63,9 +67,8 @@ class Tile:
 	func _get_priority():
 		return distance + search_heuristic
 
-	func _init(idx: int, value = null):
-		self.idx = idx
-		self.value = value
+	func _init(_idx: int):
+		self.idx = _idx
 
 
 var image: Image
@@ -73,6 +76,8 @@ var image: Image
 var map = []
 var search_frontier = PriorityQueue.new()
 var search_frontier_phase = 0
+
+var regions: Array
 
 
 func _init_map():
@@ -82,7 +87,7 @@ func _init_map():
 	map.resize(MAP_SIZE_X * MAP_SIZE_Y)
 
 	for i in range(0, map.size()):
-		map[i] = Tile.new(i, 0)
+		map[i] = Tile.new(i)
 
 
 func _save():
@@ -104,15 +109,15 @@ func _save():
 	print("image saved")
 
 
-func _get_random_tile():
-	var x = int(rand_range(xMin, xMax))
-	var y = int(rand_range(yMin, yMax))
+func _get_random_tile(region: Region):
+	var x = int(rand_range(region.xMin, region.xMax))
+	var y = int(rand_range(region.yMin, region.yMax))
 	return map[x + (y * MAP_SIZE_X)]
 
 
-func raise_terrain(chunk_size: int, budget: int):
+func raise_terrain(chunk_size: int, budget: int, region: Region):
 	search_frontier_phase += 1
-	var first_tile: Tile = _get_random_tile()
+	var first_tile: Tile = _get_random_tile(region)
 	first_tile.search_phase = search_frontier_phase
 	first_tile.distance = 0
 	first_tile.search_heuristic = 0
@@ -146,9 +151,9 @@ func raise_terrain(chunk_size: int, budget: int):
 	return budget
 
 
-func sink_terrain(chunk_size: int, budget: int):
+func sink_terrain(chunk_size: int, budget: int, region: Region):
 	search_frontier_phase += 1
-	var first_tile: Tile = _get_random_tile()
+	var first_tile: Tile = _get_random_tile(region)
 	first_tile.search_phase = search_frontier_phase
 	first_tile.distance = 0
 	first_tile.search_heuristic = 0
@@ -201,22 +206,111 @@ func _get_neighbors(current: Tile):
 func _create_land():
 	var land_budget = round(len(map) * LAND_PERCENTAGE)
 	var guard = 0
-	while land_budget > 0 and guard < 10000:
+	while guard < 10000:
 		guard += 1
-		var chunk_size = int(rand_range(CHUNK_SIZE_MIN, CHUNK_SIZE_MAX))
-		if randf() < SINK_PROBABILITY:
-			land_budget = sink_terrain(chunk_size, land_budget)
-		else:
-			land_budget = raise_terrain(chunk_size, land_budget)
+		var sink = randf() < SINK_PROBABILITY
+		for region in regions:
+			var chunk_size = int(rand_range(CHUNK_SIZE_MIN, CHUNK_SIZE_MAX))
+			if sink:
+				land_budget = sink_terrain(chunk_size, land_budget, region)
+			else:
+				land_budget = raise_terrain(chunk_size, land_budget, region)
+				if land_budget == 0:
+					return
+
 	if land_budget > 0:
 		push_warning("%s land budget not used!" % str(land_budget))
 
 
+func _create_regions():
+	if not regions:
+		regions = []
+	else:
+		regions.clear()
+
+	match int(clamp(REGION_COUNT, 1, 4)):
+		2:
+			if randf() < 0.5:
+				var region := Region.new()
+				region.xMin = MAP_BORDER_X
+				region.xMax = MAP_SIZE_X / 2.0 - REGION_BORDER
+				region.yMin = MAP_BORDER_Y
+				region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+				regions.append(region)
+				region = Region.new()
+				region.xMin = MAP_SIZE_X / 2.0 + REGION_BORDER
+				region.xMax = MAP_SIZE_X - MAP_BORDER_X
+				region.yMin = MAP_BORDER_Y
+				region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+				regions.append(region)
+			else:
+				var region := Region.new()
+				region.xMin = MAP_BORDER_X
+				region.xMax = MAP_SIZE_X - MAP_BORDER_X
+				region.yMin = MAP_BORDER_Y
+				region.yMax = MAP_SIZE_Y / 2.0 - REGION_BORDER
+				regions.append(region)
+				region = Region.new()
+				region.xMin = MAP_BORDER_X
+				region.xMax = MAP_SIZE_X - MAP_BORDER_X
+				region.yMin = MAP_SIZE_Y / 2.0 + REGION_BORDER
+				region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+				regions.append(region)
+		3:
+			var region := Region.new()
+			region.xMin = MAP_BORDER_X
+			region.xMax = MAP_SIZE_X / 3.0 - REGION_BORDER
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+			region = Region.new()
+			region.xMin = MAP_SIZE_Y / 3.0 + REGION_BORDER
+			region.xMax = MAP_SIZE_X * 2.0 / 3.0 - REGION_BORDER
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+			region = Region.new()
+			region.xMin = MAP_SIZE_X * 2.0 / 3.0 + REGION_BORDER
+			region.xMax = MAP_SIZE_X - MAP_BORDER_X
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+		4:
+			var region := Region.new()
+			region.xMin = MAP_BORDER_X
+			region.xMax = MAP_SIZE_X / 2.0 - REGION_BORDER
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y / 2.0 - REGION_BORDER
+			regions.append(region)
+			region = Region.new()
+			region.xMin = MAP_SIZE_X / 2.0 + REGION_BORDER
+			region.xMax = MAP_SIZE_X - MAP_BORDER_X
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y / 2.0 - REGION_BORDER
+			regions.append(region)
+			region = Region.new()
+			region.xMin = MAP_SIZE_X / 2.0 + REGION_BORDER
+			region.xMax = MAP_SIZE_X - MAP_BORDER_X
+			region.yMin = MAP_SIZE_Y / 2.0 + REGION_BORDER
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+			region = Region.new()
+			region.xMin = MAP_BORDER_X
+			region.xMax = MAP_SIZE_X / 2.0 - REGION_BORDER
+			region.yMin = MAP_SIZE_Y / 2.0 + REGION_BORDER
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+		_:
+			var region := Region.new()
+			region.xMin = MAP_BORDER_X
+			region.xMax = MAP_SIZE_X - MAP_BORDER_X
+			region.yMin = MAP_BORDER_Y
+			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
+			regions.append(region)
+
+
 func _run():
 	_init_map()
-	xMin = MAP_BORDER_X
-	xMax = MAP_SIZE_X - MAP_BORDER_X
-	yMin = MAP_BORDER_Y
-	yMax = MAP_SIZE_Y - MAP_BORDER_Y
+	_create_regions()
 	_create_land()
 	_save()
