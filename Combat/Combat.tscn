@@ -315,7 +315,6 @@ autowrap = true
 clip_text = true
 
 [node name="CombatTurnResult" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
-visible = false
 margin_right = 64.0
 margin_bottom = 16.0
 mouse_filter = 2
@@ -448,6 +447,8 @@ align = 1
 valign = 1
 autowrap = true
 clip_text = true
+
+[node name="Tween" type="Tween" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
 
 [node name="EffectsContainer" type="Control" parent="CombatMenu"]
 margin_right = 64.0
