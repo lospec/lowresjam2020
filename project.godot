@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "EntityResource",
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
+}, {
+"base": "Reference",
+"class": "PriorityQueue",
+"language": "GDScript",
+"path": "res://World/MapGen/priority_queue.gd"
 } ]
 _global_script_class_icons={
 "AI_Behaviour": "",
 "BaseEntity": "",
 "CameraController": "",
 "CombatChar": "",
-"EntityResource": ""
+"EntityResource": "",
+"PriorityQueue": ""
 }
 
 [application]
