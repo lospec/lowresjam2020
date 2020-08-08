@@ -14,19 +14,20 @@ const DIR = "res://World/MapGen/"
 const JITTER_PROBABILITY = 0.25
 const CHUNK_SIZE_MIN = 30
 const CHUNK_SIZE_MAX = 200
-const LAND_PERCENTAGE = 0.4
+const LAND_PERCENTAGE = 0.6
 const WATER_LEVEL = 3
 const HIGH_RISE_PROBABILITY = 0.25
-const SINK_PROBABILITY = 0.2
+const SINK_PROBABILITY = 0.3
 const ELEVATION_MIN = -2
-const ELEVATION_MAX = 8
+const ELEVATION_MAX = 12
+const EROSIAN_PERCENTAGE = 0.4
 
-const MAP_BORDER_X = 5
+const MAP_BORDER_X = 10
 const MAP_BORDER_Y = 5
 const REGION_BORDER = 5
 
 # range(1-4)
-const REGION_COUNT = 4
+const REGION_COUNT = 1
 
 enum TERRAIN_TYPES { FOREST, DESERT, BEACH, POLAR, WATER }
 
@@ -57,9 +58,6 @@ class Tile:
 	var next_with_same_priority = null
 	var elevation = 0
 	var water_level = WATER_LEVEL
-
-	func _to_string():
-		return str(distance)
 
 	func _get_coordinate():
 		return Vector2(idx % MAP_SIZE_X, floor(idx / MAP_SIZE_X))
@@ -93,6 +91,7 @@ func _init_map():
 func _save():
 	image.lock()
 	var idx = 0
+	var height_color_step = 0.8 / (ELEVATION_MAX - WATER_LEVEL +1)
 	for y in MAP_SIZE_Y:
 		for x in MAP_SIZE_X:
 			var elevation = map[idx].elevation
@@ -100,7 +99,7 @@ func _save():
 			if elevation < WATER_LEVEL:
 				color = Color.aqua
 			else:
-				var v = elevation * 0.1
+				var v = height_color_step * (elevation - WATER_LEVEL) + 0.2
 				color = Color(v, v, v)
 			image.set_pixel(x, y, color)
 			idx += 1
@@ -185,7 +184,7 @@ func sink_terrain(chunk_size: int, budget: int, region: Region):
 	return budget
 
 
-func _get_neighbors(current: Tile):
+func _get_neighbors(current: Tile, diagonals = true):
 	var neighbors = []
 	var coord = current.coordinate
 	var N = Vector2(coord.x, coord.y - 1)
@@ -196,7 +195,9 @@ func _get_neighbors(current: Tile):
 	var SE = Vector2(coord.x + 1, coord.y + 1)
 	var NW = Vector2(coord.x - 1, coord.y - 1)
 	var SW = Vector2(coord.x - 1, coord.y + 1)
-	for v in [N, S, W, E, NW, NE, SW, SE]:
+	var directions = [N, S, W, E, NE, NW, SE, SW]
+	for i in range(len(directions) - (0 if diagonals else 4)):
+		var v = directions[i]
 		if v.x < 0 or v.x >= MAP_SIZE_X or v.y < 0 or v.y >= MAP_SIZE_Y:
 			continue
 		neighbors.append(map[v.x + v.y * MAP_SIZE_X])
@@ -308,9 +309,67 @@ func _create_regions():
 			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
 			regions.append(region)
 
+func _is_erodibe(tile: Tile):
+	var erodible_elevation = tile.elevation - 2
+	var neighbors = _get_neighbors(tile, false)
+	for neighbor in neighbors:
+		if neighbor and neighbor.elevation <= erodible_elevation:
+			return true
+	return false
+
+
+func _get_erosion_target(tile: Tile):
+	var candidates = []
+	var erodible_elevation = tile.elevation - 2
+	var neighbors = _get_neighbors(tile, false)
+	for neighbor in neighbors:
+		if neighbor and neighbor.elevation <= erodible_elevation:
+			candidates.append(neighbor)
+
+	var target = candidates[int(rand_range(0, len(candidates)))]
+	return target
+
+
+func _erode_land():
+	var erodible_tiles = []
+	for tile in map:
+		if _is_erodibe(tile):
+			erodible_tiles.append(tile)
+	var target_erodible_count = int(len(erodible_tiles) * (1.0 - EROSIAN_PERCENTAGE))
+
+	while len(erodible_tiles) > target_erodible_count:
+		var index = randi() % len(erodible_tiles)
+		var tile = erodible_tiles[index]
+		var target = _get_erosion_target(tile)
+		tile.elevation -= 1
+		target.elevation += 1
+		if not _is_erodibe(tile):
+			erodible_tiles.remove(index)
+
+		for neighbor in _get_neighbors(tile, false):
+			if (
+				neighbor
+				and neighbor.elevation == tile.elevation + 2
+				and not erodible_tiles.has(neighbor)
+			):
+				erodible_tiles.append(neighbor)
+
+		if _is_erodibe(target) and not erodible_tiles.has(target):
+			erodible_tiles.append(target)
+
+		for neighbor in _get_neighbors(target, false):
+			if (
+				neighbor
+				and neighbor != tile
+				and neighbor.elevation == target.elevation + 1
+				and not _is_erodibe(neighbor)
+			):
+				erodible_tiles.erase(neighbor)
+
 
 func _run():
 	_init_map()
 	_create_regions()
 	_create_land()
+	_erode_land()
 	_save()
