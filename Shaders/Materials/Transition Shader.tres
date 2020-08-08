@@ -5,8 +5,11 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/transition_t = 1.0
+shader_param/transition_time = 0.256
 shader_param/transition_feather = 0.2
 shader_param/transition_col = Color( 0, 0, 0, 1 )
-shader_param/transition_invert = false
+shader_param/transition_invert_mask = false
+shader_param/transition_invert_time = false
+shader_param/transition_flip_x = false
+shader_param/transition_flip_y = false
 shader_param/mask_tex = ExtResource( 2 )
