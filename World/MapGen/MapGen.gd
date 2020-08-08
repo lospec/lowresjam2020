@@ -1,6 +1,7 @@
 tool
 extends EditorScript
 
+const CELL_SIZE = 4
 const CHUNK_SIZE = 4
 const MAP_CHUNK_SIZE_X = 24
 const MAP_CHUNK_SIZE_Y = 16
