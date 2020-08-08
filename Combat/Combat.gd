@@ -52,6 +52,8 @@ func TakeTurn(playerAction):
 	# Show the player and the enemies choices
 	yield(combat_menu.show_turn_result(playerAction, enemyAction), "completed")
 	
+	var timer = get_tree().create_timer(1.5)
+	
 	if playerAction == combat_util.Combat_Action.FLEE:
 		var flee = yield(PlayerFlee(enemyAction), "completed")
 		if flee:
@@ -74,6 +76,9 @@ func TakeTurn(playerAction):
 			
 			_:
 				yield(combat_menu.show_combat_label("ERROR: Invalid win check", 2), "completed")
+	
+	if timer.time_left > 0:
+		yield(timer, "timeout")
 	
 	combat_menu.hide_turn_result()
 	
@@ -136,7 +141,7 @@ func PlayerWin(playerAction):
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(playerDmg)
+			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.COUNTER:
 			# Player COUNTER vs Enemy QUICK
@@ -145,7 +150,7 @@ func PlayerWin(playerAction):
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(playerDmg)
+			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.HEAVY:
 			# Player HEAVY vs Enemy COUNTER
@@ -154,7 +159,7 @@ func PlayerWin(playerAction):
 			yield(combat_menu.animate_player_attack(playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(playerDmg)
+			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		_:
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on PlayerWin()", 2), "completed")
@@ -210,7 +215,7 @@ func Tie(action):
 			yield(combat_menu.animate_player_attack(action), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(playerDmg)
+			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
 			player_combat.take_damage(enemyDmg)
 			combat_menu.animate_player_hurt(enemyDmg)
@@ -230,7 +235,7 @@ func Tie(action):
 			
 			playerDmg /= 2
 			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(playerDmg)
+			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
 			enemyDmg /= 2
 			player_combat.take_damage(enemyDmg)

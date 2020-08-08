@@ -112,9 +112,13 @@ func animate_player_hurt(damage, enemyCountered: bool = false):
 	# how do i blink the player health icon?
 	# i want to shake the player health icon but don't know how
 
-func animate_enemy_hurt(damage):
+func animate_enemy_hurt(enemy_instance, damage):
 	spawn_enemy_damage_label(damage)
 	enemy_image.shake(1, 15, 1)
+	
+	enemy_image.texture = enemy_instance.battle_texture_hurt
+	yield(get_tree().create_timer(1), "timeout")
+	enemy_image.texture = enemy_instance.battle_texture_normal
 
 func spawn_enemy_damage_label(damage):
 	var damage_label = DamageLabel.instance()
