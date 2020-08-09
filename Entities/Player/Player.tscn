@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -10,8 +10,11 @@ radius = 7.34592
 [sub_resource type="CircleShape2D" id=2]
 radius = 6.0
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 11.4291
+
 [node name="Player" instance=ExtResource( 1 )]
-collision_mask = 27
+collision_mask = 59
 script = ExtResource( 2 )
 
 [node name="EntityDetector" type="Area2D" parent="." index="2"]
@@ -30,20 +33,15 @@ collision_mask = 2147483664
 position = Vector2( 0, -2.5 )
 shape = SubResource( 2 )
 
-[node name="HUD" parent="." index="5" instance=ExtResource( 3 )]
+[node name="DeskDetector" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 2147483680
 
-[node name="HealthMargin" parent="HUD/MarginContainer" index="1"]
-margin_left = 27.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeskDetector" index="0"]
+position = Vector2( 0, -2.5 )
+shape = SubResource( 3 )
 
-[node name="TextureRect" parent="HUD/MarginContainer/HealthMargin" index="0"]
-margin_right = 37.0
-
-[node name="MarginContainer" parent="HUD/MarginContainer/HealthMargin" index="1"]
-margin_right = 37.0
-
-[node name="HBoxContainer" parent="HUD/MarginContainer/HealthMargin/MarginContainer" index="0"]
-margin_left = 4.0
-margin_right = 36.0
+[node name="HUD" parent="." index="6" instance=ExtResource( 3 )]
 [connection signal="tree_exiting" from="." to="." method="_on_Player_tree_exiting"]
 [connection signal="body_entered" from="EntityDetector" to="." method="_on_EntityDetector_body_entered"]
 [connection signal="pressed" from="HUD/MarginContainer/MarginContainer/Inventory" to="." method="_on_Inventory_pressed"]

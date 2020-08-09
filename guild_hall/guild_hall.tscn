@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://guild_hall/guild_hall_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Camera/Camera.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://guild_hall/chest/chest_gui.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/pause_menu/pause_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://guild_hall/desk/Desk.tscn" type="PackedScene" id=8]
+[ext_resource path="res://guild_hall/guild_interface/guild_interface.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 32 )
@@ -69,6 +70,9 @@ position = Vector2( -16, -8 )
 [node name="PauseMenu" parent="." instance=ExtResource( 7 )]
 
 [node name="ChestGUI" parent="." instance=ExtResource( 6 )]
+
+[node name="GuildInterface" parent="." instance=ExtResource( 9 )]
 [connection signal="body_entered" from="DoorDetection" to="." method="_on_DoorDetection_body_entered"]
+[connection signal="guild_hall_desk_input_received" from="YSort/Player" to="." method="_on_Player_guild_hall_desk_input_received"]
 [connection signal="inventory_button_pressed" from="YSort/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
 [connection signal="open_chest_input_received" from="YSort/Player" to="." method="_on_Player_open_chest_input_received"]

@@ -5,6 +5,7 @@ var item_name: String
 
 # Onready Variables
 onready var hover_signifier := $HoverSignifier
+onready var item_texture_button := $MarginContainer/Item
 
 
 func _ready():
@@ -17,4 +18,3 @@ func _on_InventoryItem_mouse_entered():
 
 func _on_InventoryItem_mouse_exited():
 	hover_signifier.visible = false
-

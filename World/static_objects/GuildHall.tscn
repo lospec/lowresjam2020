@@ -19,27 +19,27 @@ centered = false
 position = Vector2( 10, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Flag2" type="AnimatedSprite" parent="."]
 position = Vector2( 63, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="Flag3" type="AnimatedSprite" parent="."]
 position = Vector2( 9, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="Flag4" type="AnimatedSprite" parent="."]
 position = Vector2( 64, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

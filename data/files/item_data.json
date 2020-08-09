@@ -1,8 +1,8 @@
 {
   "Stick": {
     "type": "weapon",
-    "sell value": 1,
-    "buy value": 0,
+    "buy_value": 1,
+    "sell_value": 0,
     "quick_damage": 1,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "none",
@@ -18,8 +18,8 @@
   },
   "Devilfork": {
     "type": "weapon",
-    "sell value": 0,
-    "buy value": 100,
+    "buy_value": 0,
+    "sell_value": 100,
     "quick_damage": 12,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "OnFire",
@@ -35,8 +35,8 @@
   },
   "Devilpick": {
     "type": "weapon",
-    "sell value": 25,
-    "buy value": 20,
+    "buy_value": 25,
+    "sell_value": 20,
     "quick_damage": 8,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "OnFire",
@@ -52,8 +52,8 @@
   },
   "Sword": {
     "type": "weapon",
-    "sell value": 30,
-    "buy value": 35,
+    "buy_value": 30,
+    "sell_value": 35,
     "quick_damage": 8,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "none",
@@ -69,8 +69,8 @@
   },
   "Knife": {
     "type": "weapon",
-    "sell value": 12,
-    "buy value": 14,
+    "buy_value": 12,
+    "sell_value": 14,
     "quick_damage": 3,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "none",
@@ -104,8 +104,8 @@
   },
   "Basher": {
     "type": "weapon",
-    "sell value": 30,
-    "buy value": 40,
+    "buy_value": 30,
+    "sell_value": 40,
     "quick_damage": 2,
     "quick_damage_type": "Blunt",
     "quick_status_effect": "Confused",
@@ -138,8 +138,8 @@
   },
   "Spear": {
     "type": "weapon",
-    "sell value": 15,
-    "buy value": 17,
+    "buy_value": 15,
+    "sell_value": 17,
     "quick_damage_type": "Pierce",
     "quick_status_effect": "none",
     "heavy_damage_type": "Pierce",
@@ -149,8 +149,8 @@
   },
   "Shortstaff": {
     "type": "weapon",
-    "sell value": 8,
-    "buy value": 9,
+    "buy_value": 8,
+    "sell_value": 9,
     "quick_damage_type": "Blunt",
     "quick_status_effect": "none",
     "heavy_damage_type": "Blunt",
@@ -158,81 +158,253 @@
     "counter_damage_type": "Blunt",
     "counter_status_effect": "none"
   },
-  "StickyWhip  (sprite needed)": {
-    "type": "weapon",
-    "sell value": 0,
-    "buy value": 101,
-    "quick_damage": 2,
-    "quick_damage_type": "Blunt",
-    "quick_status_effect": "Confused",
-    "quick_effect_chance": 0.2,
-    "heavy_damage": 5,
-    "heavy_damage_type": "Blunt",
-    "heavy_status_effect": "Poisoned",
-    "heavy_effect_chance": 0.3
-  },
-  "Firewhip (sprite needed)": {
-    "type": "weapon"
-  },
-  "Waterwhip  (sprite needed)": {
-    "type": "weapon"
-  },
   "Godobat": {
     "type": "weapon",
-    "buy value": 200
+    "sell_value": 200
+  },
+  "StickyWhip ": {
+    "type": "weapon",
+    "sell_value": 50,
+    "quick_damage_type": "Blunt",
+    "quick_status_effect": "Confused",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Blunt",
+    "heavy_status_effect": "Poisoned",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Blunt",
+    "counter_status_effect": "Confused",
+    "counter_effect_chance": 0.2
+  },
+  "EmberWhip": {
+    "type": "weapon",
+    "sell_value": 50,
+    "quick_damage_type": "Blunt",
+    "quick_status_effect": "OnFire",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Fire",
+    "heavy_status_effect": "OnFire",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Fire",
+    "counter_status_effect": "OnFire",
+    "counter_effect_chance": 0.2
+  },
+  "CoolWhip": {
+    "type": "weapon",
+    "sell_value": 50,
+    "quick_damage_type": "Blunt",
+    "quick_status_effect": "Frozen",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Water",
+    "heavy_status_effect": "Frozen",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Water",
+    "counter_status_effect": "Frozen",
+    "counter_effect_chance": 0.2
+  },
+  "BoltWhip": {
+    "type": "weapon",
+    "sell_value": 50,
+    "quick_damage_type": "Blunt",
+    "quick_status_effect": "Charged",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Electricity",
+    "heavy_status_effect": "Charged",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Electricity",
+    "counter_status_effect": "Charged",
+    "counter_effect_chance": 0.2
+  },
+  "TwisterWhip": {
+    "type": "weapon",
+    "sell_value": 50,
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Weak",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Weak",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Weak",
+    "counter_effect_chance": 0.2
+  },
+  "SwordOfRehd": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "OnFire",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Fire",
+    "heavy_status_effect": "OnFire",
+    "heavy_effect_chance": 0.5,
+    "counter_damage_type": "Fire",
+    "counter_status_effect": "OnFire",
+    "counter_effect_chance": 0.25
+  },
+  "SwordOfGrean": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Weak",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Weak",
+    "heavy_effect_chance": 0.5,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Weak",
+    "counter_effect_chance": 0.25
+  },
+  "SwordOfBloo": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Frozen",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Water",
+    "heavy_status_effect": "Frozen",
+    "heavy_effect_chance": 0.5,
+    "counter_damage_type": "Water",
+    "counter_status_effect": "Frozen",
+    "counter_effect_chance": 0.25
+  },
+  "TorchDagger": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "OnFire",
+    "quick_effect_chance": 0.2,
+    "heavy_damage_type": "Fire",
+    "heavy_status_effect": "OnFire",
+    "heavy_effect_chance": 0.5,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "OnFire",
+    "counter_effect_chance": 0.1
+  },
+  "TheCyepher": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Asleep",
+    "quick_effect_chance": 0.3,
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Confused",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Weak",
+    "counter_effect_chance": 0.3
+  },
+  "Sickle": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "none",
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Weak",
+    "heavy_effect_chance": 0.2,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "none"
+  },
+  "ButterBlade": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Confused",
+    "quick_effect_chance": 0.2,
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Weak",
+    "heavy_effect_chance": 0.4,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Weak",
+    "counter_effect_chance": 0.2
+  },
+  "ButterKnife": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "quick_status_effect": "Confused",
+    "quick_effect_chance": 0.1,
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Confused",
+    "heavy_effect_chance": 0.4,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Confused",
+    "counter_effect_chance": 0.2
+  },
+  "Greatsword": {
+    "type": "weapon",
+    "quick_damage_type": "Blunt",
+    "quick_status_effect": "none",
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "Weak",
+    "heavy_effect_chance": 0.3,
+    "counter_damage_type": "Pierce",
+    "counter_status_effect": "Charged",
+    "counter_effect_chance": 0.3
   },
   "Spore Bag": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 27
+    "buy_value": 0,
+    "sell_value": 27
   },
   "Fish Rod": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 45
+    "buy_value": 0,
+    "sell_value": 45
   },
   "Gem": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 58
+    "buy_value": 0,
+    "sell_value": 58
   },
   "Horn": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 10
+    "buy_value": 0,
+    "sell_value": 10
   },
   "Gnoggles": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 999
+    "buy_value": 0,
+    "sell_value": 999
   },
   "Goo": {
     "type": "item",
-    "sell value": 0,
-    "buy value": 1
+    "buy_value": 0,
+    "sell_value": 1
   },
   "Leather": {
     "type": "armor",
-    "sell value": 10,
-    "buy value": 4,
+    "buy_value": 10,
+    "sell_value": 4,
     "health_added": 2
   },
   "Chainmail": {
     "type": "armor",
-    "sell value": 20,
-    "buy value": 16,
+    "buy_value": 20,
+    "sell_value": 16,
     "health_added": 4
   },
   "Platemail": {
     "type": "armor",
-    "sell value": 50,
-    "buy value": 45,
+    "buy_value": 50,
+    "sell_value": 45,
     "health_added": 10
   },
   "Hotdog": {
     "type": "usable",
-    "sell value": 2,
-    "buy value": 0,
+    "buy_value": 2,
+    "sell_value": 0,
+    "usable": true,
+    "health_gained": 10
+  },
+  "Kimchi": {
+    "type": "usable",
+    "buy_value": 5,
+    "sell_value": 2,
+    "usable": true,
+    "health_gained": 25
+  },
+  "Steak": {
+    "type": "usable",
+    "buy_value": 15,
+    "sell_value": 10,
+    "usable": true,
+    "health_gained": 30
+  },
+  "MonsterMeat": {
+    "type": "usable",
+    "buy_value": 0,
+    "sell_value": 5,
     "usable": true,
     "health_gained": 10
   },

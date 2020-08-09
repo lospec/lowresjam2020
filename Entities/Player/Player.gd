@@ -4,6 +4,7 @@ extends "res://Entities/BaseEntity/BaseEntity.gd"
 signal enemy_detected(player, enemy)
 signal inventory_button_pressed(player)
 signal open_chest_input_received(chest)
+signal guild_hall_desk_input_received(desk)
 
 # Public Variables
 var coins: int
@@ -15,6 +16,7 @@ var equipped_armor: String
 onready var hud_margin = $HUD/MarginContainer
 onready var hud_health_label = $HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health
 onready var chest_detector = $ChestDetector
+onready var desk_detector = $DeskDetector
 
 
 func _ready():
@@ -60,15 +62,22 @@ func _on_Inventory_pressed():
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("open_chest"):
 		var chests = chest_detector.get_overlapping_bodies()
-		if not chests:
+		if chests:
+			var closest_chest
+			var closest_dist = -1
+			for chest in chests:
+				var dist = position.distance_to(chest.position)
+				if dist < closest_dist or closest_dist == -1:
+					closest_dist = dist
+					closest_chest = chest
+			
+			emit_signal("open_chest_input_received", closest_chest)
+	
+	if Input.is_action_just_pressed("guild_hall_desk_interact"):
+		var desks = desk_detector.get_overlapping_bodies()
+		if not desks:
 			return
 		
-		var closest_chest
-		var closest_dist = -1
-		for chest in chests:
-			var dist = position.distance_to(chest.position)
-			if dist < closest_dist or closest_dist == -1:
-				closest_dist = dist
-				closest_chest = chest
+		var desk = desks[0]
 		
-		emit_signal("open_chest_input_received", closest_chest)
+		emit_signal("guild_hall_desk_input_received", desk)
