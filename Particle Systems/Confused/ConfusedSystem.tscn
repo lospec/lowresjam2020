@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Particle Systems/Hoglet_Battle.png" type="Texture" id=1]
 [ext_resource path="res://Particle Systems/Confused/question_mark.png" type="Texture" id=2]
 [ext_resource path="res://Particle Systems/Confused/spiral.png" type="Texture" id=3]
+[ext_resource path="res://Particle Systems/Confused/ConfusedCurve.tres" type="Curve" id=4]
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.220779, 0.753247, 1 )
@@ -28,6 +28,7 @@ texture = ExtResource( 2 )
 emission_shape = 2
 emission_rect_extents = Vector2( 15, 1 )
 gravity = Vector2( 0, -10 )
+angle_curve = ExtResource( 4 )
 color_ramp = SubResource( 3 )
 
 [node name="Spirals" type="CPUParticles2D" parent="."]
@@ -40,7 +41,3 @@ gravity = Vector2( 0, 0 )
 angular_velocity_random = 1.0
 color_ramp = SubResource( 5 )
 anim_speed = 1.5
-
-[node name="Hoglet_Battle" type="Sprite" parent="."]
-position = Vector2( 16.2566, -7.25305 )
-texture = ExtResource( 1 )
