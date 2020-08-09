@@ -11,6 +11,8 @@ var _held_chest_item_instance
 var _held_inventory_item_instance
 
 # Onready Variables
+onready var tree = get_tree()
+
 onready var margin = $MarginContainer
 onready var inventory_contents = $MarginContainer/MarginContainer/HBoxContainer/InventoryScroll/InventoryContents
 onready var chest_contents = $MarginContainer/MarginContainer/HBoxContainer/ChestContents
@@ -70,7 +72,8 @@ func open(player_instance, chest_instance):
 	_opened_chest_id = _chest_instance.chest_id
 	_chest_instance.contents = SaveData.chest_contents[_opened_chest_id]
 	
-	get_tree().paused = true
+	tree.paused = true
+	_player_instance.hud_margin.visible = false
 	
 	update_chest_ui()
 	update_inventory_ui()
@@ -86,7 +89,8 @@ func close():
 	_opened_chest_id = -1
 	_chest_instance = null
 	
-	get_tree().paused = false
+	tree.paused = false
+	_player_instance.hud_margin.visible = true
 
 
 func _on_inventory_item_left_clicked(inventory_item_instance):
