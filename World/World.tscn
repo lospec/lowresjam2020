@@ -39,7 +39,7 @@ node_to_follow = NodePath("../Entities/Player")
 [node name="Combat" parent="." instance=ExtResource( 8 )]
 
 [node name="PoisonedSystem" parent="." instance=ExtResource( 9 )]
-position = Vector2( -32.8805, -20.1525 )
+position = Vector2( -32.5785, -31.7839 )
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
 [connection signal="enemy_detected" from="Entities/Player" to="Combat" method="_on_Player_enemy_detected"]
 [connection signal="health_changed" from="Entities/Player" to="Combat" method="_on_Player_health_changed"]
