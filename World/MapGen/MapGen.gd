@@ -3,8 +3,8 @@ extends EditorScript
 
 const CELL_SIZE = 4
 const CHUNK_SIZE = 4
-const MAP_CHUNK_SIZE_X = 24
-const MAP_CHUNK_SIZE_Y = 16
+const MAP_CHUNK_SIZE_X = 32
+const MAP_CHUNK_SIZE_Y = 24
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
@@ -14,17 +14,22 @@ const DIR = "res://World/MapGen/"
 const JITTER_PROBABILITY = 0.25
 const CHUNK_SIZE_MIN = 30
 const CHUNK_SIZE_MAX = 200
-const LAND_PERCENTAGE = 0.6
-const WATER_LEVEL = 3
+const LAND_PERCENTAGE = 0.45
+const WATER_LEVEL = 2
 const HIGH_RISE_PROBABILITY = 0.25
 const SINK_PROBABILITY = 0.3
-const ELEVATION_MIN = -2
-const ELEVATION_MAX = 12
-const EROSIAN_PERCENTAGE = 0.4
+const ELEVATION_MIN = -4
+const ELEVATION_MAX = 6
+const EROSIAN_PERCENTAGE = 0.8
 
 const MAP_BORDER_X = 10
-const MAP_BORDER_Y = 5
+const MAP_BORDER_Y = 10
 const REGION_BORDER = 5
+
+const CELLULAR_AUTOMATA_CYCLE = 2
+const CELLULAR_AUTOMATA_LIVE = 4
+const CELLULAR_AUTOMATA_DEAD = 3
+const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 1
 
 # range(1-4)
 const REGION_COUNT = 1
@@ -55,9 +60,12 @@ class Tile:
 	var search_heuristic
 	var search_priority setget , _get_priority
 	var coordinate: Vector2 setget , _get_coordinate
+	var is_land: bool setget , _is_land
 	var next_with_same_priority = null
 	var elevation = 0
-	var water_level = WATER_LEVEL
+
+	func _is_land():
+		return elevation >= WATER_LEVEL
 
 	func _get_coordinate():
 		return Vector2(idx % MAP_SIZE_X, floor(idx / MAP_SIZE_X))
@@ -91,7 +99,7 @@ func _init_map():
 func _save():
 	image.lock()
 	var idx = 0
-	var height_color_step = 0.8 / (ELEVATION_MAX - WATER_LEVEL +1)
+	var height_color_step = 0.8 / (ELEVATION_MAX - WATER_LEVEL + 1)
 	for y in MAP_SIZE_Y:
 		for x in MAP_SIZE_X:
 			var elevation = map[idx].elevation
@@ -231,7 +239,7 @@ func _create_regions():
 
 	match int(clamp(REGION_COUNT, 1, 4)):
 		2:
-			if randf() < 0.5:
+			if MAP_SIZE_X >= MAP_SIZE_Y:
 				var region := Region.new()
 				region.xMin = MAP_BORDER_X
 				region.xMax = MAP_SIZE_X / 2.0 - REGION_BORDER
@@ -309,6 +317,7 @@ func _create_regions():
 			region.yMax = MAP_SIZE_Y - MAP_BORDER_Y
 			regions.append(region)
 
+
 func _is_erodibe(tile: Tile):
 	var erodible_elevation = tile.elevation - 2
 	var neighbors = _get_neighbors(tile, false)
@@ -367,9 +376,36 @@ func _erode_land():
 				erodible_tiles.erase(neighbor)
 
 
+func _smooth_land():
+	for _cycle in range(0, CELLULAR_AUTOMATA_CYCLE):
+		var next = map.duplicate()
+		for tile in map:
+			var land_count = 0
+			var avg_elevation = 0
+
+			for neighbor in _get_neighbors(tile):
+				if not neighbor.is_land:
+					continue
+				land_count += 1
+				avg_elevation += neighbor.elevation
+
+			if (
+				(not tile.is_land or _cycle < CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES)
+				and land_count > CELLULAR_AUTOMATA_LIVE
+			):
+				tile.elevation = avg_elevation / land_count
+			if tile.is_land and land_count < CELLULAR_AUTOMATA_DEAD:
+				tile.elevation = WATER_LEVEL - 1
+
+		map = next
+
+
 func _run():
+	var current_seed = 1234567890
+	seed(current_seed)
 	_init_map()
 	_create_regions()
 	_create_land()
+	_smooth_land()
 	_erode_land()
 	_save()
