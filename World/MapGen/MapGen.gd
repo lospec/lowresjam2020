@@ -2,36 +2,50 @@ tool
 extends EditorScript
 
 const CELL_SIZE = 4
+const CELL_SOLID_SIZE = 2
 const CHUNK_SIZE = 4
-const MAP_CHUNK_SIZE_X = 32
-const MAP_CHUNK_SIZE_Y = 24
+
+# Map Size
+const MAP_CHUNK_SIZE_X = 64
+const MAP_CHUNK_SIZE_Y = 48
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
-const DIR = "res://World/MapGen/"
+# Randomness of land shape when raising and sinking, doesnt make too much of a difference
+const JITTER_PROBABILITY = 0.4
 
-const JITTER_PROBABILITY = 0.25
-const CHUNK_SIZE_MIN = 30
-const CHUNK_SIZE_MAX = 200
-const LAND_PERCENTAGE = 0.45
+# Size of land shape when raising or sinking, lower maximum size leaves more water through the map (good for many islands)
+const CHUNK_SIZE_MIN = 900
+const CHUNK_SIZE_MAX = 2400
+
+# Amount of land that will be generate, too high values will create rectangular shapes
+const LAND_PERCENTAGE = 0.55
+
+# Notable difference
 const WATER_LEVEL = 2
-const HIGH_RISE_PROBABILITY = 0.25
-const SINK_PROBABILITY = 0.3
 const ELEVATION_MIN = -4
 const ELEVATION_MAX = 6
-const EROSIAN_PERCENTAGE = 0.8
 
-const MAP_BORDER_X = 10
+# Elevation changes
+const HIGH_RISE_PROBABILITY = 0.1
+const SINK_PROBABILITY = 0.05
+const EROSIAN_PERCENTAGE = 0.4
+
+# Notable difference
+const MAP_BORDER_X = 15
 const MAP_BORDER_Y = 10
 const REGION_BORDER = 5
 
-const CELLULAR_AUTOMATA_CYCLE = 2
+# these are probably good
+const CELLULAR_AUTOMATA_CYCLE = 3
 const CELLULAR_AUTOMATA_LIVE = 4
 const CELLULAR_AUTOMATA_DEAD = 3
-const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 1
+# make 1 for more variation in elevation
+const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
-# range(1-4)
+# number of continents
+# not guaranteed to work if land percentage too high or border size too low
 const REGION_COUNT = 1
 
 enum TERRAIN_TYPES { FOREST, DESERT, BEACH, POLAR, WATER }
@@ -44,6 +58,7 @@ var TERRAIN_COLOR = {
 	TERRAIN_TYPES.WATER: Color.aliceblue
 }
 
+const DIR = "res://World/MapGen/"
 
 class Region:
 	var xMin: float
@@ -401,11 +416,14 @@ func _smooth_land():
 
 
 func _run():
-	var current_seed = 1234567890
-	seed(current_seed)
+	var time = OS.get_ticks_msec()
+	randomize()
 	_init_map()
 	_create_regions()
 	_create_land()
-	_smooth_land()
 	_erode_land()
+	_smooth_land()
+	time =  OS.get_ticks_msec() - time
+	print(time)
 	_save()
+	
