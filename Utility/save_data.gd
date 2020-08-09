@@ -1,7 +1,7 @@
 extends Node
 
 var world_position: Vector2
-var coins := 10000
+var coins := 100
 var inventory := [
 	"Stick", "Gem", "Hotdog", "Leather",
 	"Knife", "Gem", "Stick", "Stick",
