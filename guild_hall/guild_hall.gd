@@ -1,14 +1,36 @@
 extends Node
 
+# Constants
+const CHEST_RESOURCE = preload("res://guild_hall/chest/chest.tscn")
+const CHEST_GAP_X = 10
+const CHEST_GAP_Y = 0
+const TOP_POS_Y = -8
+const BOTTOM_POS_Y = 6
+const BLACK_TILES_POS_Y = 7
+const PLANK_START_POS_Y = -2
+enum Tiles {
+	EMPTY = -1,
+	PLANK_ODD,
+	PLANK_EVEN,
+	BLACK,
+	DOOR,
+	WALL
+}
+
 # Public Variables
 var currently_opened_chest = null
 var guild_interface_open = false
 
 # Onready Variables
 onready var chest_gui = $ChestGUI
-onready var player = $YSort/Player
+onready var objects_ysort = $Objects
+onready var player = objects_ysort.get_node("Player")
 onready var pause_menu = $PauseMenu
 onready var guild_interface = $GuildInterface
+onready var extended_tilemap = $Extended
+onready var first_chest_position = $FirstChestPosition.position
+onready var camera = $Camera2D
+onready var right_border = $Borders/Right
 
 
 func _ready():
@@ -60,4 +82,58 @@ func _on_GuildInterface_guild_hall_level_up():
 
 
 func update_guild_from_level():
-	print_debug("TODO!")
+	# Clear extended tilemap
+	for tile in extended_tilemap.get_used_cells():
+		extended_tilemap.set_cellv(tile, Tiles.EMPTY)
+	
+	SaveData.guild_level = 10
+	
+	for i in SaveData.guild_level:
+		# Append chest contents array
+		if i >= SaveData.chest_contents.size():
+			SaveData.chest_contents.append({
+				0: "",
+				1: "",
+				2: "",
+				3: "",
+				4: "",
+				5: "",
+				6: "",
+				7: "",
+			})
+		
+		# Place chest
+		var pos = first_chest_position + Vector2(CHEST_GAP_X * i, CHEST_GAP_Y * i)
+		
+		var chest_instance = CHEST_RESOURCE.instance()
+		chest_instance.position = pos
+		chest_instance.chest_id = i
+		
+		objects_ysort.add_child(chest_instance)
+		
+		# Place tiles
+		var x = i
+		
+		extended_tilemap.set_cell(x, BLACK_TILES_POS_Y, Tiles.BLACK)
+		
+		for y in range(TOP_POS_Y, BOTTOM_POS_Y + 1):
+			x = i
+			
+			if y % 2 == 0:
+				x += 1
+			
+			var tile = Tiles.WALL
+			
+			if y >= PLANK_START_POS_Y:
+				if y % 2 == 0:
+					tile = Tiles.PLANK_EVEN
+				else:
+					tile = Tiles.PLANK_ODD
+			
+			extended_tilemap.set_cell(x, y, tile)
+	
+	# Set right border position
+	right_border.position.x = 38 + CHEST_GAP_X * (SaveData.guild_level - 1)
+	
+	# Set camera right limit
+	camera.limit_right = 32 + CHEST_GAP_X * (SaveData.guild_level - 1)

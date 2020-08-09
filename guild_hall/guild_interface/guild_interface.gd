@@ -99,7 +99,6 @@ onready var next_level_progress_text = deposit_progress_vbox.get_node("ProgressT
 onready var whole_progress_bar_margin = deposit_progress_vbox.get_node("WholeProgressBarMargin")
 onready var progress_bar_margin = whole_progress_bar_margin.get_node("ProgressBarMargin")
 onready var deposit_progress_bar = progress_bar_margin.get_node("Progress")
-onready var deposit_progress_bar_tween = progress_bar_margin.get_node("Tween")
 
 
 func _ready():

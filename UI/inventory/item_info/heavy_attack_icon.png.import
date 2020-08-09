@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/heavy_attack_icon.png-a59f42e9b337fb12943981abbd578317.stex"
+path="res://.import/heavy_attack_icon.png-6c00359251af7ea970cffc2acb9039de.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Inventory/item_info/heavy_attack_icon.png"
-dest_files=[ "res://.import/heavy_attack_icon.png-a59f42e9b337fb12943981abbd578317.stex" ]
+source_file="res://UI/inventory/item_info/heavy_attack_icon.png"
+dest_files=[ "res://.import/heavy_attack_icon.png-6c00359251af7ea970cffc2acb9039de.stex" ]
 
 [params]
 

@@ -13,18 +13,7 @@ var equipped_armor: String
 var max_health := 10
 var health := 10
 
-var chest_contents = [
-	{
-		0: "",
-		1: "",
-		2: "",
-		3: "",
-		4: "",
-		5: "",
-		6: "",
-		7: "",
-	},
-]
+var chest_contents = []
 
 var guild_level := 1
 var coins_deposited := 0
