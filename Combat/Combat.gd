@@ -11,10 +11,13 @@ onready var combat_label = $CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatL
 onready var enemy_image = $CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/Enemy
 
 func _on_Player_enemy_detected(player, enemy):
-	get_tree().paused = true
+	var tree = get_tree()
+	tree.paused = true
 	
 	player_instance = player
 	enemy_instance = enemy
+	
+	player.hud_margin.visible = tree.paused
 	
 	combat_menu.set_player_health_value(player_instance.max_health,
 			player_instance.health)

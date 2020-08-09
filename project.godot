@@ -10,19 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "AIState",
+"class": "AI_Behaviour",
 "language": "GDScript",
-"path": "res://Entities/AI/AIState.gd"
+"path": "res://AI/AI_Behaviour.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "BaseEntity",
+"language": "GDScript",
+"path": "res://Entities/BaseEntity/BaseEntity.gd"
 }, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
-}, {
-"base": "StateAction",
-"class": "ChaseAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
 "base": "Node",
 "class": "CombatChar",
@@ -33,25 +33,13 @@ _global_script_classes=[ {
 "class": "EntityResource",
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
-}, {
-"base": "Resource",
-"class": "StateAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/StateAction.gd"
-}, {
-"base": "StateAction",
-"class": "WanderAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/WanderState.gd"
 } ]
 _global_script_class_icons={
-"AIState": "",
+"AI_Behaviour": "",
+"BaseEntity": "",
 "CameraController": "",
-"ChaseAction": "",
 "CombatChar": "",
-"EntityResource": "",
-"StateAction": "",
-"WanderAction": ""
+"EntityResource": ""
 }
 
 [application]
@@ -62,12 +50,15 @@ boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
+Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
-Data="*res://data/import_data.gd"
-AttackTypes="*res://attack_types/AttackTypes.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
 
 [display]
@@ -79,6 +70,10 @@ window/size/test_height=512
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [importer_defaults]
 

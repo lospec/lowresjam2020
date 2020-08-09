@@ -17,12 +17,10 @@ void fragment() {
 	vec4 col = texture(SCREEN_TEXTURE, SCREEN_UV);
 	
 	// Iterate through palette colors and choose best fit
-	//vec2 palette_pixel_size = 1.0 / vec2(textureSize(palette_tex, 0));
 	vec2 palette_pixel_size = 1.0 / palette_size;
 	
 	float current_best_closeness;
 	vec4 closest_palette_col;
-	//for (int i = 0; i < textureSize(palette_tex, 0).x; i++) {
 	for (int i = 0; i < int(palette_size.x); i++) {
 		vec4 palette_col = texture(palette_tex, palette_pixel_size * float(i));
 		float closeness_distance = sqrt(

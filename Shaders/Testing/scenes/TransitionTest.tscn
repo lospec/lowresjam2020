@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Shaders/Testing/sprite/test/battle_mockup_fg.png" type="Texture" id=1]
+[ext_resource path="res://Shaders/Materials/Transition Shader.tres" type="Material" id=2]
+[ext_resource path="res://Shaders/Testing/shaders/transitionTestBackground.shader" type="Shader" id=3]
+[ext_resource path="res://Shaders/Testing/scenes/Button.gd" type="Script" id=4]
+[ext_resource path="res://Shaders/Testing/sprite/transition.png" type="Texture" id=5]
+[ext_resource path="res://Shaders/Testing/ui/theme.tres" type="Theme" id=6]
+[ext_resource path="res://Shaders/Testing/sprite/test/battle_mockup_bg.png" type="Texture" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/camerazoom = Vector2( 0.1, 0.1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeIn"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:material:shader_param/transition_time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.1, 0, 0.1, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:material:shader_param/transition_time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.1, 0, 0.1, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[node name="TransitionTestScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="Background" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Background2" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="TransitionQuad" type="TextureRect" parent="."]
+material = ExtResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 5 )
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionQuad"]
+playback_default_blend_time = 0.1
+anims/FadeIn = SubResource( 2 )
+anims/FadeOut = SubResource( 3 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 23.0
+margin_top = 52.0
+margin_right = 43.0
+margin_bottom = 62.0
+theme = ExtResource( 6 )
+text = "IN"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="Button" method="_on_Button_pressed"]
