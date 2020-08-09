@@ -9,6 +9,7 @@ class Actions:
 	const ReturnToOrigin = preload("res://AI/Actions/AI_Action_ReturnToOrigin.gd")
 	const SearchForPlayer = preload("res://AI/Actions/AI_Action_SearchForPlayer.gd")
 	const WaitTime = preload("res://AI/Actions/AI_Action_WaitTime.gd")
+	const Wander = preload("res://AI/Actions/AI_Action_Wander.gd")
 
 
 class Conditions:
@@ -18,7 +19,7 @@ class Conditions:
 
 
 onready var action_list = [
-	Actions.MoveToTarget, Actions.ReturnToOrigin, Actions.SearchForPlayer, Actions.WaitTime
+	Actions.MoveToTarget, Actions.ReturnToOrigin, Actions.SearchForPlayer, Actions.WaitTime, Actions.Wander
 ]
 
 onready var condition_list = [
