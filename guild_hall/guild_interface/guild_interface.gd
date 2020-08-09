@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+# Signals
+signal guild_hall_level_up
+
 # Constants
 const SELLABLE_ITEM_SCENE := preload("res://UI/inventory/InventoryItem.tscn")
 
@@ -167,6 +170,7 @@ func toggle(player):
 	_player_instance = player
 	tree.paused = not tree.paused
 	margin.visible = tree.paused
+	item_price_margin.visible = false
 	
 	_player_instance.hud_margin.visible = not tree.paused
 	if tree.paused:
@@ -280,6 +284,8 @@ func _on_Deposit_pressed():
 	while SaveData.coins_deposited > total_coins_for_next_level:
 		SaveData.coins_deposited -= total_coins_for_next_level
 		SaveData.guild_level += 1
+		
+		emit_signal("guild_hall_level_up")
 	
 	update_coins()
 	update_guild_level()

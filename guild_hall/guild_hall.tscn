@@ -76,3 +76,4 @@ position = Vector2( -16, -8 )
 [connection signal="guild_hall_desk_input_received" from="YSort/Player" to="." method="_on_Player_guild_hall_desk_input_received"]
 [connection signal="inventory_button_pressed" from="YSort/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
 [connection signal="open_chest_input_received" from="YSort/Player" to="." method="_on_Player_open_chest_input_received"]
+[connection signal="guild_hall_level_up" from="GuildInterface" to="." method="_on_GuildInterface_guild_hall_level_up"]

@@ -11,6 +11,10 @@ onready var pause_menu = $PauseMenu
 onready var guild_interface = $GuildInterface
 
 
+func _ready():
+	update_guild_from_level()
+
+
 func _on_DoorDetection_body_entered(body):
 	if not body.is_in_group("enemies"):
 		Transitions.change_scene_double_transition("res://World/World.tscn",
@@ -49,3 +53,11 @@ func _unhandled_input(_event):
 func _on_Player_guild_hall_desk_input_received(_desk):
 	guild_interface_open = true
 	guild_interface.toggle(player)
+
+
+func _on_GuildInterface_guild_hall_level_up():
+	update_guild_from_level()
+
+
+func update_guild_from_level():
+	print_debug("TODO!")
