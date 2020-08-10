@@ -7,6 +7,7 @@
 
 [node name="Palette Swap" type="CanvasLayer"]
 script = ExtResource( 2 )
+enabled = true
 palette = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
