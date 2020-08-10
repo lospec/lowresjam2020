@@ -3,10 +3,10 @@ extends Node
 var world_position: Vector2
 var coins := 100
 var inventory := [
-	"Stick", "Gem", "Hotdog", "Leather",
-	"Knife", "Gem", "Stick", "Stick",
-	"Stick", "Stick", "Stick", "Stick",
-	"Stick",
+	"Stick", "Gem", "Gem", "Gem",
+	"Gem", "Gem", "Gem", "Gem",
+	"Gem", "Gem", "Gem", "Gem",
+	"Gem",
 	]
 var equipped_weapon := "Stick"
 var equipped_armor: String
