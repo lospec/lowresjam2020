@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/electricity_type_icon.png-d2832ad679e2f4dd8cfc88ac25cd618f.stex"
+path="res://.import/electricity_type_icon.png-ce09b0ced20f46266838b26a13c43fe2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/type_icons/electricity_type_icon.png"
-dest_files=[ "res://.import/electricity_type_icon.png-d2832ad679e2f4dd8cfc88ac25cd618f.stex" ]
+source_file="res://UI/Inventory/item_info/type_icons/electricity_type_icon.png"
+dest_files=[ "res://.import/electricity_type_icon.png-ce09b0ced20f46266838b26a13c43fe2.stex" ]
 
 [params]
 

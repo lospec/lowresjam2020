@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/poison_status_icon.png-b2e57eb11eb6e7aed4c0e494f53bade3.stex"
+path="res://.import/poison_status_icon.png-93d4e85141e4585c72f2f3be9ca3c515.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/status_icons/poison_status_icon.png"
-dest_files=[ "res://.import/poison_status_icon.png-b2e57eb11eb6e7aed4c0e494f53bade3.stex" ]
+source_file="res://UI/Inventory/item_info/status_icons/poison_status_icon.png"
+dest_files=[ "res://.import/poison_status_icon.png-93d4e85141e4585c72f2f3be9ca3c515.stex" ]
 
 [params]
 
