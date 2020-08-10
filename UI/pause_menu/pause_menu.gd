@@ -37,7 +37,6 @@ const MENU_BACKGROUND = {
 	Menu.INVENTORY: preload("res://UI/inventory/background.png"),
 }
 
-
 # Public Variables
 var inventory_item_scene := preload("res://UI/Inventory/InventoryItem.tscn")
 var current_menu = Menu.INVENTORY
@@ -98,16 +97,16 @@ func toggle_pause(player):
 		update_inventory()
 		update_equipped_items()
 		update_menu_state()
-		coins_label.text = "%s:COIN" % player.coins
+		coins_label.text = "%s:COIN" % player_instance.coins
 
 
 func update_inventory():
-	Utility.free_all_children(inventory_items_grid)
+	Utility.queue_free_all_children(inventory_items_grid)
 	for item in player_instance.inventory:
 		var inventory_item = inventory_item_scene.instance()
 		inventory_item.item_name = item
 		var item_texture_button = inventory_item.get_node("MarginContainer/Item")
-		item_texture_button.texture_normal = load("res://items/inventory_sprites/%s.png" % item.to_lower().replace(" ", "_"))
+		item_texture_button.texture_normal = Utility.get_inventory_item_resource(item)
 		inventory_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [item])
 		inventory_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
 		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [item, player_instance])
@@ -156,7 +155,6 @@ func update_menu_state():
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
-		
 		Menu.INFO:
 			settings_button.pressed = false
 			info_button.pressed = true
@@ -166,7 +164,6 @@ func update_menu_state():
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
-		
 		Menu.INVENTORY:
 			settings_button.pressed = false
 			info_button.pressed = false
@@ -194,10 +191,8 @@ func _on_Button_button_down(button):
 	match button:
 		settings_button:
 			current_menu = Menu.SETTINGS
-		
 		info_button:
 			current_menu = Menu.INFO
-		
 		inventory_button:
 			current_menu = Menu.INVENTORY
 		
