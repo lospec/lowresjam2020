@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://UI/Inventory/background.png" type="Texture" id=1]
+[ext_resource path="res://UI/inventory/background.png" type="Texture" id=1]
 [ext_resource path="res://UI/pause_menu/pause_menu.gd" type="Script" id=2]
 [ext_resource path="res://UI/inventory/inventory_scroll_theme.tres" type="Theme" id=3]
 [ext_resource path="res://UI/pause_menu/inventory_button_normal.png" type="Texture" id=4]
@@ -13,7 +13,7 @@
 [ext_resource path="res://UI/pause_menu/header_decor.png" type="Texture" id=11]
 [ext_resource path="res://UI/pause_menu/coin_decor.png" type="Texture" id=12]
 [ext_resource path="res://UI/Fonts/Mini3x4.ttf" type="DynamicFontData" id=13]
-[ext_resource path="res://UI/Inventory/InventoryItem.tscn" type="PackedScene" id=14]
+[ext_resource path="res://UI/inventory/InventoryItem.tscn" type="PackedScene" id=14]
 [ext_resource path="res://UI/inventory/ItemStatsPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.tscn" type="PackedScene" id=16]
 

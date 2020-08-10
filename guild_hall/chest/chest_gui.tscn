@@ -1,0 +1,146 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://guild_hall/chest/chest_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://guild_hall/chest/chest_gui_inventory_scroll_theme.tres" type="Theme" id=2]
+[ext_resource path="res://guild_hall/chest/chest_gui.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="Theme" id=2]
+VSeparator/constants/separation = 4
+VSeparator/styles/separator = SubResource( 1 )
+
+[node name="ChestGUI" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="MarginContainer"]
+margin_right = 64.0
+margin_bottom = 65.0
+color = Color( 0.47451, 0.372549, 0.105882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+margin_right = 64.0
+margin_bottom = 65.0
+custom_constants/margin_right = 1
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 63.0
+margin_bottom = 64.0
+theme = SubResource( 2 )
+custom_constants/separation = -1
+
+[node name="ChestContents" type="GridContainer" parent="MarginContainer/MarginContainer/HBoxContainer"]
+margin_right = 31.0
+margin_bottom = 63.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 1
+custom_constants/hseparation = 1
+columns = 2
+
+[node name="ChestItem" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="ChestItem2" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_right = 29.0
+margin_bottom = 14.0
+
+[node name="ChestItem3" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 15.0
+margin_right = 14.0
+margin_bottom = 29.0
+
+[node name="ChestItem4" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 29.0
+margin_bottom = 29.0
+
+[node name="ChestItem5" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 30.0
+margin_right = 14.0
+margin_bottom = 44.0
+
+[node name="ChestItem6" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_top = 30.0
+margin_right = 29.0
+margin_bottom = 44.0
+
+[node name="ChestItem7" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 45.0
+margin_right = 14.0
+margin_bottom = 59.0
+
+[node name="ChestItem8" parent="MarginContainer/MarginContainer/HBoxContainer/ChestContents" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_top = 45.0
+margin_right = 29.0
+margin_bottom = 59.0
+
+[node name="InventoryScroll" type="ScrollContainer" parent="MarginContainer/MarginContainer/HBoxContainer"]
+margin_left = 30.0
+margin_right = 62.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 0, 33 )
+rect_clip_content = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+scroll_horizontal_enabled = false
+
+[node name="InventoryContents" type="GridContainer" parent="MarginContainer/MarginContainer/HBoxContainer/InventoryScroll"]
+margin_right = 32.0
+margin_bottom = 63.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 1
+custom_constants/hseparation = 1
+columns = 2
+
+[node name="DraggableItem" type="TextureRect" parent="."]
+margin_right = 10.0
+margin_bottom = 10.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
