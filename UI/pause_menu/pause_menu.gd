@@ -38,7 +38,7 @@ const MENU_BACKGROUND = {
 }
 
 # Public Variables
-var inventory_item_scene := preload("res://UI/Inventory/InventoryItem.tscn")
+var inventory_item_scene := preload("res://UI/inventory/InventoryItem.tscn")
 var current_menu = Menu.INVENTORY
 var player_instance
 

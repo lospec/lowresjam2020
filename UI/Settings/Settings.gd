@@ -5,15 +5,15 @@ func _unhandled_input(_event):
 		exit_to_main_menu()
 
 func _on_Audio_pressed():
-	if get_tree().change_scene("res://UI/Settings/Audio Settings/Audio Settings.tscn") != OK:
+	if get_tree().change_scene("res://UI/settings/Audio Settings/Audio Settings.tscn") != OK:
 		print_debug("An error occured while attempting to change to the main menu scene")
 
 func _on_Controls_pressed():
-	if get_tree().change_scene("res://UI/Settings/Control Settings/Control Settings.tscn") != OK:
+	if get_tree().change_scene("res://UI/settings/Control Settings/Control Settings.tscn") != OK:
 		print_debug("An error occured while attempting to change to the main menu scene")
 
 func _on_Accessibility_pressed():
-	if get_tree().change_scene("res://UI/Settings/Accessibility Settings/Accessibility Settings.tscn") != OK:
+	if get_tree().change_scene("res://UI/settings/Accessibility Settings/Accessibility Settings.tscn") != OK:
 		print_debug("An error occured while attempting to change to the main menu scene")
 
 func exit_to_main_menu():
