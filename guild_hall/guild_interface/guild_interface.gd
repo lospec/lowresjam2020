@@ -256,7 +256,7 @@ func sell_item(item):
 	var item_data = Data.item_data[item_name]
 	var item_sell_value = item_data.sell_value
 	
-	_player_instance.inventory.remove(item_name)
+	_player_instance.inventory.erase(item_name)
 	
 	_player_instance.coins += item_sell_value
 	
