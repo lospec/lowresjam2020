@@ -2,8 +2,8 @@ tool
 extends Node
 
 export (TileSet) var tileset
-export (bool) var run_generator
-export (bool) var print_properties
+export (bool) var run_generator = false setget ,_run
+export (bool) var print_properties = false setget , _print_prop
 
 class TilemapManager:
 	var _parent
@@ -47,19 +47,19 @@ var tilemap_manager = TilemapManager.new(self)
 var map_node: Node
 
 
-func _process(_delta):
-	if run_generator:
-		run_generator = false
-		map_generator = preload("res://World/MapGen/MapGen.gd").new()
-		_run()
-	if print_properties:
-		print_properties = false
-		map_generator = preload("res://World/MapGen/MapGen.gd").new()
-		map_generator._print_prop()
+func _print_prop():
+	if not Engine.editor_hint or not print_properties:
+		return
+	print_properties = false
+	map_generator = preload("res://World/MapGen/MapGen.gd").new()
+	map_generator._print_prop()
 		
 
-
 func _run():
+	if not Engine.editor_hint or not run_generator:
+		return
+	run_generator = false
+	map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	print("# Starting Map Generation")
 	var elapsed = OS.get_ticks_msec()
 	tilemap_manager = TilemapManager.new(self)
