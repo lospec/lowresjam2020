@@ -1,6 +1,5 @@
 extends Reference
 
-const WorldGen = preload("res://World/MapGen/WorldGen.gd")
 
 const CHUNK_SIZE = 64
 
@@ -10,7 +9,8 @@ const MAP_CHUNK_SIZE_Y = 8
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
-const JITTER_PROBABILITY = 1
+const JITTER_PROBABILITY = 0.2
+const JITTER_STRENGTH = 0.0075
 
 const CHUNK_SIZE_MIN = 100
 const CHUNK_SIZE_MAX = 48000
@@ -30,10 +30,10 @@ const MAP_BORDER_X = 256
 const MAP_BORDER_Y = 96
 const REGION_BORDER = 20
 
-const CELLULAR_AUTOMATA_CYCLE = 3
+const CELLULAR_AUTOMATA_CYCLE = 6
 const CELLULAR_AUTOMATA_LIVE = 5
-const CELLULAR_AUTOMATA_DEAD = 3
-const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
+const CELLULAR_AUTOMATA_DEAD = 4
+const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 3
 
 const REGION_COUNT = 1
 
@@ -165,7 +165,8 @@ func raise_terrain(chunk_size: int, budget: int, region: Region):
 				neighbor.search_phase = search_frontier_phase
 				var v = neighbor.coordinate
 				neighbor.distance = v.distance_to(center)
-				neighbor.search_heuristic = int(rand_range(1,4)) if randf() < JITTER_PROBABILITY else 0
+				var max_jitter = max(chunk_size * JITTER_STRENGTH, 3)
+				neighbor.search_heuristic = int(rand_range(1,max_jitter)) if randf() < JITTER_PROBABILITY else 0
 				search_frontier.enqueue(neighbor, neighbor.search_priority)
 
 	search_frontier.clear()
@@ -199,7 +200,8 @@ func sink_terrain(chunk_size: int, budget: int, region: Region):
 				neighbor.search_phase = search_frontier_phase
 				var v = neighbor.coordinate
 				neighbor.distance = v.distance_to(center)
-				neighbor.search_heuristic = 1 if randf() < JITTER_PROBABILITY else 0
+				var max_jitter = max(chunk_size * JITTER_STRENGTH, 3)
+				neighbor.search_heuristic = int(rand_range(1,max_jitter)) if randf() < JITTER_PROBABILITY else 0
 				search_frontier.enqueue(neighbor, neighbor.search_priority)
 
 	search_frontier.clear()
@@ -449,7 +451,7 @@ func _smooth_land():
 				(not tile.is_land or _cycle < CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES)
 				and land_count > CELLULAR_AUTOMATA_LIVE
 			):
-				tile.elevation = avg_elevation / land_count
+				tile.elevation = int(avg_elevation / land_count)
 			if tile.is_land and land_count < CELLULAR_AUTOMATA_DEAD:
 				tile.elevation = WATER_LEVEL - 1
 
@@ -552,7 +554,7 @@ func _print_prop():
 	print("map border = x: {} , y: {}".format([MAP_BORDER_X, MAP_BORDER_Y], "{}"))
 	print("---------------------------------")
 
-func generate_map(world: WorldGen):
+func generate_map(world):
 	_print_prop()
 	_run()
 	for item in map:
@@ -575,7 +577,6 @@ func generate_map(world: WorldGen):
 
 
 func _run():
-	randomize()
 	_init_map()
 	_create_regions()
 	_create_land()
