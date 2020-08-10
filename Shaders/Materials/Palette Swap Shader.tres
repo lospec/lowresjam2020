@@ -5,5 +5,4 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/enabled = null
-shader_param/palette_size = Vector2( 0, 0 )
 shader_param/palette_transition = 1.0

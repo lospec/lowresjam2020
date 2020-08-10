@@ -24,22 +24,46 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
 }, {
+"base": "TextureRect",
+"class": "CombatAttackAnim",
+"language": "GDScript",
+"path": "res://Combat/CombatAttackAnim.gd"
+}, {
 "base": "Node",
 "class": "CombatChar",
 "language": "GDScript",
 "path": "res://Combat/CombatChar.gd"
 }, {
+"base": "TextureRect",
+"class": "CombatEnemyTexture",
+"language": "GDScript",
+"path": "res://Combat/CombatEnemyTexture.gd"
+}, {
+"base": "ShakableControl",
+"class": "CombatMenu",
+"language": "GDScript",
+"path": "res://Combat/CombatMenu.gd"
+}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
+}, {
+"base": "Control",
+"class": "ShakableControl",
+"language": "GDScript",
+"path": "res://Combat/CombatShake.gd"
 } ]
 _global_script_class_icons={
 "AI_Behaviour": "",
 "BaseEntity": "",
 "CameraController": "",
+"CombatAttackAnim": "",
 "CombatChar": "",
-"EntityResource": ""
+"CombatEnemyTexture": "",
+"CombatMenu": "",
+"EntityResource": "",
+"ShakableControl": ""
 }
 
 [application]
