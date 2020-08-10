@@ -70,6 +70,18 @@ pause_mode = 1
 [node name="GuildHall" parent="EntitiesAndStaticObjects" instance=ExtResource( 4 )]
 position = Vector2( -29, -43 )
 
+[node name="Flag" parent="EntitiesAndStaticObjects/GuildHall" index="1"]
+frame = 1
+
+[node name="Flag2" parent="EntitiesAndStaticObjects/GuildHall" index="2"]
+frame = 2
+
+[node name="Flag3" parent="EntitiesAndStaticObjects/GuildHall" index="3"]
+frame = 3
+
+[node name="Flag4" parent="EntitiesAndStaticObjects/GuildHall" index="4"]
+frame = 0
+
 [node name="Player" parent="EntitiesAndStaticObjects" instance=ExtResource( 2 )]
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]

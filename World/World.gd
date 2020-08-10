@@ -10,6 +10,9 @@ onready var chunks_collection = $Chunks
 
 func _ready():
 	player.position = SaveData.world_position
+	
+	if AudioSystem.currently_playing_music == AudioSystem.Music.NONE:
+		AudioSystem.play_music(AudioSystem.Music.OVERWORLD)
 
 
 func _on_Chunks_enemy_instanced(enemy):

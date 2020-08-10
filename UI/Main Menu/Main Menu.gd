@@ -1,7 +1,15 @@
 extends MarginContainer
 
+# Onready Variables
+onready var play_button = $"Middle/Buttons/Play Button"
+onready var credits_button = $"Middle/Buttons/Credits Button"
+onready var settings_button = $"Middle/Buttons/Settings Button"
+
 
 func _on_Play_Button_pressed():
+	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			play_button.rect_global_position)
+	
 	if get_tree().change_scene("res://World/World.tscn") != OK:
 		print_debug("An error occured while attempting to change to the world scene")
 
