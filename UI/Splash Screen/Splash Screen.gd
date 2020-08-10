@@ -25,5 +25,5 @@ func go_to_main_menu():
 	going_to_main_menu = true
 	yield(Transitions.change_scene_double_transition("res://UI/Main Menu/Main Menu.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
-			0.3), "completed")
+			0.15), "completed")
 	PaletteSwap.enabled = true
