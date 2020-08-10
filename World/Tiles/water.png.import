@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/test.png-c6c521e71bdcecf95f6bf2e2a2628b9e.stex"
+path="res://.import/water.png-55752a6bbad773c9ee7e64853e3362ea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/MapGen/test.png"
-dest_files=[ "res://.import/test.png-c6c521e71bdcecf95f6bf2e2a2628b9e.stex" ]
+source_file="res://World/Tiles/water.png"
+dest_files=[ "res://.import/water.png-55752a6bbad773c9ee7e64853e3362ea.stex" ]
 
 [params]
 
