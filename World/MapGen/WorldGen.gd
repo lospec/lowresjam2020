@@ -1,0 +1,95 @@
+tool
+extends Node
+
+export (TileSet) var tileset
+export (bool) var run_generator
+export (bool) var print_properties
+
+class TilemapManager:
+	var _parent
+	var _water_level
+	var height_tilemaps: Dictionary = {}
+
+	func _make_scene_for_elevation(elevation):
+		for i in range(_water_level, elevation + 1):
+			if height_tilemaps.has(i):
+				continue
+
+			var tilemap: TileMap = TileMap.new()
+			tilemap.cell_size = Vector2(4, 4)
+			tilemap.tile_set = _parent.tileset
+			tilemap.name = "height_%s" % str(i - _water_level)
+			_parent.map_node.add_child(tilemap)
+			tilemap.owner = _parent
+			height_tilemaps[i] = tilemap
+
+	func get_tilemap_for_elevation(elevation: int) -> TileMap:
+		if not height_tilemaps.has(elevation):
+			_make_scene_for_elevation(elevation)
+		return height_tilemaps[elevation]
+
+	func update_bitmask():
+		for item in height_tilemaps.values():
+			var tilemap: TileMap = item
+			tilemap.update_bitmask_region()
+
+	func _init(parent):
+		_parent = parent
+		_water_level = _parent.map_generator.WATER_LEVEL
+
+
+enum TileType { Grass, Water, Cliff }
+const Tiles = {TileType.Cliff: 2, TileType.Grass: 0, TileType.Water: 1}
+
+
+var map_generator = preload("res://World/MapGen/MapGen.gd").new()
+var tilemap_manager = TilemapManager.new(self)
+var map_node: Node
+
+
+func _process(_delta):
+	if run_generator:
+		run_generator = false
+		map_generator = preload("res://World/MapGen/MapGen.gd").new()
+		_run()
+	if print_properties:
+		print_properties = false
+		map_generator = preload("res://World/MapGen/MapGen.gd").new()
+		map_generator._print_prop()
+		
+
+
+func _run():
+	print("# Starting Map Generation")
+	var elapsed = OS.get_ticks_msec()
+	tilemap_manager = TilemapManager.new(self)
+	map_node = find_node("Map")
+	if map_node:
+		remove_child(map_node)
+
+	map_node = Node2D.new()
+	map_node.name = "Map"
+	add_child(map_node)
+	map_node.owner = self
+	map_generator.generate_map(self)
+	tilemap_manager.update_bitmask()
+	
+	elapsed = OS.get_ticks_msec() - elapsed
+	print("# Map Generation Process Complete")
+	print("Time (ms) elapsed: %s" % str(elapsed))
+
+
+func add_grass_tile(position: Vector2, elevation: int):
+	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
+	tilemap.set_cellv(position, Tiles[TileType.Grass])
+
+
+func add_water_tile(position: Vector2):
+	var elevation = map_generator.WATER_LEVEL
+	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
+	tilemap.set_cellv(position, Tiles[TileType.Water])
+
+
+func add_cliff_tile(position: Vector2, elevation: int):
+	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
+	tilemap.set_cellv(position, Tiles[TileType.Cliff])

@@ -1,51 +1,40 @@
-tool
-extends EditorScript
+extends Reference
 
-const CELL_SIZE = 4
-const CELL_SOLID_SIZE = 2
-const CHUNK_SIZE = 4
+const WorldGen = preload("res://World/MapGen/WorldGen.gd")
 
-# Map Size
-const MAP_CHUNK_SIZE_X = 64
-const MAP_CHUNK_SIZE_Y = 48
+const CHUNK_SIZE = 64
+
+const MAP_CHUNK_SIZE_X = 14
+const MAP_CHUNK_SIZE_Y = 8
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
-# Randomness of land shape when raising and sinking, doesnt make too much of a difference
-const JITTER_PROBABILITY = 0.4
+const JITTER_PROBABILITY = 1
 
-# Size of land shape when raising or sinking, lower maximum size leaves more water through the map (good for many islands)
-const CHUNK_SIZE_MIN = 300
-const CHUNK_SIZE_MAX = 2200
+const CHUNK_SIZE_MIN = 100
+const CHUNK_SIZE_MAX = 48000
 
-# Amount of land that will be generate, too high values will create rectangular shapes
-const LAND_PERCENTAGE = 0.55
+const LAND_PERCENTAGE = 0.3
 
-# Notable difference
-const WATER_LEVEL = 3
+const WATER_LEVEL = 4
 const ELEVATION_MIN = -4
-const ELEVATION_MAX = 9
+const ELEVATION_MAX = 8
 
-# Elevation changes
-const HIGH_RISE_PROBABILITY = 0.3
-const SINK_PROBABILITY = 0.1
+const HIGH_RISE_PROBABILITY = 0.2
+const SINK_PROBABILITY = 0.15
 const EROSIAN_PERCENTAGE = 0.6
+const EROSIAN_CYCLE = 1
 
-# Notable difference
-const MAP_BORDER_X = 25
-const MAP_BORDER_Y = 20
-const REGION_BORDER = 5
+const MAP_BORDER_X = 256
+const MAP_BORDER_Y = 96
+const REGION_BORDER = 20
 
-# these are probably good
 const CELLULAR_AUTOMATA_CYCLE = 3
-const CELLULAR_AUTOMATA_LIVE = 4
+const CELLULAR_AUTOMATA_LIVE = 5
 const CELLULAR_AUTOMATA_DEAD = 3
-# make 1 for more variation in elevation
 const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
-# number of continents
-# not guaranteed to work if land percentage too high or border size too low
 const REGION_COUNT = 1
 
 # climate
@@ -58,16 +47,6 @@ const WIND_STRENGTH = 4.0
 const INITIAL_MOISTURE = 0.1
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
-
-enum TERRAIN_TYPES { FOREST, DESERT, BEACH, POLAR, WATER }
-
-var TERRAIN_COLOR = {
-	TERRAIN_TYPES.FOREST: Color.green,
-	TERRAIN_TYPES.DESERT: Color.orange,
-	TERRAIN_TYPES.BEACH: Color.yellow,
-	TERRAIN_TYPES.POLAR: Color.white,
-	TERRAIN_TYPES.WATER: Color.aliceblue
-}
 
 const DIR = "res://World/MapGen/"
 
@@ -122,7 +101,6 @@ var _max_moisture_value: float
 
 
 func _init_map():
-	print("map initializing")
 	map.resize(MAP_SIZE_X * MAP_SIZE_Y)
 	for i in range(0, map.size()):
 		map[i] = Tile.new(i)
@@ -187,7 +165,7 @@ func raise_terrain(chunk_size: int, budget: int, region: Region):
 				neighbor.search_phase = search_frontier_phase
 				var v = neighbor.coordinate
 				neighbor.distance = v.distance_to(center)
-				neighbor.search_heuristic = 1 if randf() < JITTER_PROBABILITY else 0
+				neighbor.search_heuristic = int(rand_range(1,4)) if randf() < JITTER_PROBABILITY else 0
 				search_frontier.enqueue(neighbor, neighbor.search_priority)
 
 	search_frontier.clear()
@@ -250,6 +228,41 @@ func _get_neighbors(current: Tile, diagonals = true, _map = null):
 	return neighbors
 
 
+func _get_neighbor(tile: Tile, direction):
+	var coord = tile.coordinate
+	match direction:
+		Direction.N:
+			coord.y -= 1
+		Direction.NE:
+			coord.y -= 1
+			coord.x += 1
+		Direction.E:
+			coord.x += 1
+		Direction.SE:
+			coord.x += 1
+			coord.y += 1
+		Direction.S:
+			coord.y += 1
+		Direction.SW:
+			coord.y += 1
+			coord.x -= 1
+		Direction.W:
+			coord.x -= 1
+		Direction.NW:
+			coord.x -= 1
+			coord.y -= 1
+	
+	if coord.x < 0 or coord.x >= MAP_SIZE_X or coord.y < 0 or coord.y >= MAP_SIZE_Y:
+		return null
+			
+	var idx = coord.x + (coord.y * MAP_SIZE_X)
+	if idx < 0 or idx >= len(map):
+		return null
+	
+	return map[idx]
+
+var large_count = 0
+
 func _create_land():
 	var land_budget = round(len(map) * LAND_PERCENTAGE)
 	var guard = 0
@@ -257,7 +270,11 @@ func _create_land():
 		guard += 1
 		var sink = randf() < SINK_PROBABILITY
 		for region in regions:
-			var chunk_size = int(rand_range(CHUNK_SIZE_MIN, CHUNK_SIZE_MAX))
+			
+			var chunk_size = int(rand_range(CHUNK_SIZE_MIN, CHUNK_SIZE_MAX if large_count < 2 else CHUNK_SIZE_MAX * 0.75))
+			if chunk_size > CHUNK_SIZE_MAX * 0.8:
+				large_count += 1
+				
 			if sink:
 				land_budget = sink_terrain(chunk_size, land_budget, region)
 			else:
@@ -378,40 +395,41 @@ func _get_erosion_target(tile: Tile):
 
 
 func _erode_land():
-	var erodible_tiles = []
-	for tile in map:
-		if _is_erodibe(tile):
-			erodible_tiles.append(tile)
-	var target_erodible_count = int(len(erodible_tiles) * (1.0 - EROSIAN_PERCENTAGE))
-
-	while len(erodible_tiles) > target_erodible_count:
-		var index = randi() % len(erodible_tiles)
-		var tile = erodible_tiles[index]
-		var target = _get_erosion_target(tile)
-		tile.elevation -= 1
-		target.elevation += 1
-		if not _is_erodibe(tile):
-			erodible_tiles.remove(index)
-
-		for neighbor in _get_neighbors(tile, false):
-			if (
-				neighbor
-				and neighbor.elevation == tile.elevation + 2
-				and not erodible_tiles.has(neighbor)
-			):
-				erodible_tiles.append(neighbor)
-
-		if _is_erodibe(target) and not erodible_tiles.has(target):
-			erodible_tiles.append(target)
-
-		for neighbor in _get_neighbors(target, false):
-			if (
-				neighbor
-				and neighbor != tile
-				and neighbor.elevation == target.elevation + 1
-				and not _is_erodibe(neighbor)
-			):
-				erodible_tiles.erase(neighbor)
+	for _cycle in range(EROSIAN_CYCLE):
+		var erodible_tiles = []
+		for tile in map:
+			if _is_erodibe(tile):
+				erodible_tiles.append(tile)
+		var target_erodible_count = int(len(erodible_tiles) * (1.0 - EROSIAN_PERCENTAGE))
+	
+		while len(erodible_tiles) > target_erodible_count:
+			var index = randi() % len(erodible_tiles)
+			var tile = erodible_tiles[index]
+			var target = _get_erosion_target(tile)
+			tile.elevation -= 1
+			target.elevation += 1
+			if not _is_erodibe(tile):
+				erodible_tiles.remove(index)
+	
+			for neighbor in _get_neighbors(tile, false):
+				if (
+					neighbor
+					and neighbor.elevation == tile.elevation + 2
+					and not erodible_tiles.has(neighbor)
+				):
+					erodible_tiles.append(neighbor)
+	
+			if _is_erodibe(target) and not erodible_tiles.has(target):
+				erodible_tiles.append(target)
+	
+			for neighbor in _get_neighbors(target, false):
+				if (
+					neighbor
+					and neighbor != tile
+					and neighbor.elevation == target.elevation + 1
+					and not _is_erodibe(neighbor)
+				):
+					erodible_tiles.erase(neighbor)
 
 
 func _smooth_land():
@@ -451,7 +469,7 @@ func _evolve_climate(tile: Tile, _map):
 	tile.clouds -= precipitation
 	tile.moisture += precipitation
 	var cloud_maximum = 1 - (tile.elevation - WATER_LEVEL) / (ELEVATION_MAX + 1)
-	
+
 	if tile.clouds > cloud_maximum:
 		tile.moisture += tile.clouds - cloud_maximum
 		tile.clouds = cloud_maximum
@@ -525,18 +543,45 @@ func _save_moisture_map():
 	print("moisture_map saved")
 
 
+func _print_prop():
+	print("----- Generator Properties ------")
+	print("map size = {}x{}".format([MAP_SIZE_X, MAP_SIZE_Y], "{}") )
+	print("chunk size = {}-{}".format([CHUNK_SIZE_MIN, CHUNK_SIZE_MAX], "{}"))
+	print("elevation = ({})-({})-({})".format([ELEVATION_MIN, WATER_LEVEL, ELEVATION_MAX], "{}"))
+	print("land percentage = %s" % str(LAND_PERCENTAGE))
+	print("map border = x: {} , y: {}".format([MAP_BORDER_X, MAP_BORDER_Y], "{}"))
+	print("---------------------------------")
+
+func generate_map(world: WorldGen):
+	_print_prop()
+	_run()
+	for item in map:
+		var tile: Tile = item
+		if not tile.is_land:
+			world.add_water_tile(tile.coordinate)
+		else:
+			world.add_grass_tile(tile.coordinate, tile.elevation)
+
+			for neighbor in _get_neighbors(tile):
+				if neighbor.is_land and neighbor.elevation < tile.elevation:
+					world.add_grass_tile(tile.coordinate, neighbor.elevation)
+			
+			var elevation_above_water = tile.elevation - WATER_LEVEL
+			if elevation_above_water > 0:
+				var neighbor = _get_neighbor(tile, Direction.S)
+				if neighbor and neighbor.elevation < tile.elevation:
+					world.add_cliff_tile(neighbor.coordinate, tile.elevation)
+
+
+
 func _run():
-	var time = OS.get_ticks_msec()
 	randomize()
 	_init_map()
 	_create_regions()
 	_create_land()
 	_erode_land()
 	_smooth_land()
-	_save_height_map()
-	_create_climate()
-	_save_cloud_map()
-	_save_moisture_map()
-
-	time = OS.get_ticks_msec() - time
-	print(time)
+	# _save_height_map()
+	# _create_climate()
+	# _save_cloud_map()
+	# _save_moisture_map()
