@@ -107,18 +107,20 @@ func animate_player_hurt(damage, enemyCountered: bool = false):
 		yield(attack_effect, "effect_done")
 	
 	shake(1, 20, 1)
+	player_health_icon.blink(1, 6)
 	yield(get_tree().create_timer(1.5), "timeout")
-	#yield(show_combat_label("You take %s dmg" % damage, 2), "completed")
-	# how do i blink the player health icon?
-	# i want to shake the player health icon but don't know how
 
 func animate_enemy_hurt(enemy_instance, damage):
 	spawn_enemy_damage_label(damage)
 	enemy_image.shake(1, 15, 1)
 	
 	enemy_image.texture = enemy_instance.battle_texture_hurt
-	yield(get_tree().create_timer(1), "timeout")
-	enemy_image.texture = enemy_instance.battle_texture_normal
+	
+	if enemy_instance.health > 0:
+		yield(get_tree().create_timer(1), "timeout")
+		enemy_image.texture = enemy_instance.battle_texture_normal
+	else:
+		enemy_image.modulate.a 
 
 func spawn_enemy_damage_label(damage):
 	var damage_label = DamageLabel.instance()
@@ -132,6 +134,8 @@ func spawn_enemy_damage_label(damage):
 	damage_label.rect_position = Vector2(x, y)
 	damage_label.text = str(damage)
 
+func blink(duration, frequency):
+	pass
 
 func open_main_menu():
 	current_menu = MENU_SELECTED.MAIN

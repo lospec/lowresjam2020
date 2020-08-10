@@ -4,6 +4,7 @@ class_name CombatChar
 
 # Signals
 signal damage_taken(new_health)
+signal died()
 
 # Constants
 
@@ -15,6 +16,10 @@ var char_instance
 
 func take_damage(dmg):
 	char_instance.health -= dmg
+	
+	if char_instance.health <= 0:
+		char_instance.health = 0
+	
 	hit_combo = 0
 
 #warning-ignore:unused_argument
