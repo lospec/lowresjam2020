@@ -1,15 +1,18 @@
 extends MarginContainer
 
 # Onready Variables
-onready var play_button = $"Middle/Buttons/Play Button"
-onready var credits_button = $"Middle/Buttons/Credits Button"
-onready var settings_button = $"Middle/Buttons/Settings Button"
+onready var buttons = $Middle/Buttons
+
+
+func _ready():
+	for button in buttons.get_children():
+		button.connect("pressed", self, "_on_Button_pressed",
+				[button])
+		button.connect("mouse_entered", self, "_on_Button_mouse_entered",
+				[button])
 
 
 func _on_Play_Button_pressed():
-	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-			play_button.rect_global_position)
-	
 	if get_tree().change_scene("res://World/World.tscn") != OK:
 		print_debug("An error occured while attempting to change to the world scene")
 
@@ -36,3 +39,13 @@ func _unhandled_input(event):
 func _on_TransitionTest_Button_pressed():
 	if get_tree().change_scene("res://Shaders/Testing/scenes/TransitionTest.tscn") != OK:
 		print_debug("An error occured while attempting to change to the transition test scene")
+
+
+func _on_Button_pressed(button):
+	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			button.rect_global_position)
+
+
+func _on_Button_mouse_entered(button):
+	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK_SHORT,
+			button.rect_global_position)

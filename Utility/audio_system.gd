@@ -11,9 +11,11 @@ const MUSIC_RESOURCES = {
 
 enum SFX {
 	BUTTON_CLICK,
+	BUTTON_CLICK_SHORT,
 }
 const SFX_RESOURCES = {
 	SFX.BUTTON_CLICK: preload("res://UI/sfx/click.wav"),
+	SFX.BUTTON_CLICK_SHORT: preload("res://UI/sfx/click_short.wav"),
 }
 
 # Public Variables
