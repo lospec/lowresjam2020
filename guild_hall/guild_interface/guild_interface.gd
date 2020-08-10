@@ -385,11 +385,11 @@ func buy_item(item) -> bool: # Returns true if successful
 	var item_name = item.item_name
 	var item_data = Data.item_data[item_name]
 	
-	if _player_instance.coins < item_data.sell_value:
+	if _player_instance.coins < item_data.buy_value:
 		return false
 	
 	_player_instance.inventory.append(item_name)
-	_player_instance.coins -= item_data.sell_value
+	_player_instance.coins -= item_data.buy_value
 	
 	update_inventory()
 	update_coins()
