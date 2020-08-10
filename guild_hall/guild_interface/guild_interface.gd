@@ -4,7 +4,7 @@ extends CanvasLayer
 signal guild_hall_level_up
 
 # Constants
-const SELLABLE_ITEM_SCENE := preload("res://UI/inventory/InventoryItem.tscn")
+const POPUP_ITEM_SCENE := preload("res://UI/inventory/InventoryItem.tscn")
 
 enum Menu {
 	DEPOSIT,
@@ -49,10 +49,13 @@ const DEPOSIT_AMOUNTS = [
 	1000, 2000, 5000,
 	10000, 20000, 50000
 	]
+const MAX_MARKET_ITEMS = 12
+const MAX_MARKET_PRICE_LEVEL_MULTIPLIER = 25
 
 # Public Variables
 var current_menu = Menu.MARKET
 var selected_item
+var selected_market_item
 
 # Private Variables
 var _player_instance
@@ -85,6 +88,7 @@ onready var inventory_scroll = inventory_margin.get_node("InventoryScrollContain
 onready var inventory_grid = inventory_scroll.get_node("InventoryItems")
 
 onready var item_price_margin = $ItemPriceMargin
+onready var market_item_price_margin = $MarketItemPriceMargin
 
 onready var deposit_margin = vbox.get_node("DepositMargin")
 onready var deposit_vbox = deposit_margin.get_node("DepositVBox")
@@ -99,6 +103,9 @@ onready var next_level_progress_text = deposit_progress_vbox.get_node("ProgressT
 onready var whole_progress_bar_margin = deposit_progress_vbox.get_node("WholeProgressBarMargin")
 onready var progress_bar_margin = whole_progress_bar_margin.get_node("ProgressBarMargin")
 onready var deposit_progress_bar = progress_bar_margin.get_node("Progress")
+
+onready var market_margin = vbox.get_node("MarketMargin")
+onready var market_items_grid = market_margin.get_node("MarketItems")
 
 
 func _ready():
@@ -136,6 +143,7 @@ func update_menu_state():
 			
 			inventory_margin.visible = false
 			deposit_margin.visible = true
+			market_margin.visible = false
 		Menu.SELL:
 			shop_tab_button.pressed = false
 			sell_tab_button.pressed = true
@@ -144,6 +152,7 @@ func update_menu_state():
 			
 			inventory_margin.visible = true
 			deposit_margin.visible = false
+			market_margin.visible = false
 		Menu.MARKET:
 			shop_tab_button.pressed = true
 			sell_tab_button.pressed = false
@@ -152,6 +161,7 @@ func update_menu_state():
 			
 			inventory_margin.visible = false
 			deposit_margin.visible = false
+			market_margin.visible = true
 	
 	background.texture = MENU_BACKGROUND[current_menu]
 	
@@ -169,7 +179,9 @@ func toggle(player):
 	_player_instance = player
 	tree.paused = not tree.paused
 	margin.visible = tree.paused
+	
 	item_price_margin.visible = false
+	market_item_price_margin.visible = false
 	
 	_player_instance.hud_margin.visible = not tree.paused
 	if tree.paused:
@@ -178,6 +190,7 @@ func toggle(player):
 		update_coins()
 		update_guild_level()
 		update_progress_bar_instantly()
+		update_market()
 
 
 func update_inventory():
@@ -188,10 +201,10 @@ func update_inventory():
 	sellable_items.erase(_player_instance.equipped_armor)
 	
 	for item_name in sellable_items:
-		var sellable_item = SELLABLE_ITEM_SCENE.instance()
+		var sellable_item = POPUP_ITEM_SCENE.instance()
 		inventory_grid.add_child(sellable_item)
 		sellable_item.item_name = item_name
-		sellable_item.item_texture_button.texture_normal = \
+		sellable_item.item_texture_button.texture_normal =\
 				Utility.get_inventory_item_resource(item_name)
 		
 		sellable_item.connect("mouse_entered", self, "_on_InventoryItem_mouse_entered",
@@ -306,3 +319,79 @@ func update_progress_bar_instantly():
 	deposit_progress_bar.max_value = total_coins_for_next_level
 	
 	deposit_progress_bar.value = SaveData.coins_deposited
+
+
+func update_market():
+	Utility.queue_free_all_children(market_items_grid)
+	if market_items_grid.get_child_count():
+		# Wait for last child to be freed
+		yield(market_items_grid.get_child(market_items_grid.get_child_count() - 1),
+				"tree_exited")
+	
+	var buyable_items = []
+	for item_name in Data.item_data:
+		var item_data = Data.item_data[item_name]
+		if item_data.has("buy_value") and item_data.buy_value > 0 and \
+				item_data.buy_value <= SaveData.guild_level * MAX_MARKET_PRICE_LEVEL_MULTIPLIER:
+			buyable_items.append(item_name)
+	
+	while market_items_grid.get_child_count() < MAX_MARKET_ITEMS:
+		var market_item = POPUP_ITEM_SCENE.instance()
+		market_items_grid.add_child(market_item)
+		
+		var item_name = Utility.rand_element(buyable_items)
+		market_item.item_name = item_name
+		market_item.item_texture_button.texture_normal = \
+				Utility.get_inventory_item_resource(item_name)
+		
+		market_item.connect("mouse_entered", self, "_on_MarketItem_mouse_entered",
+				[market_item])
+		market_item.connect("mouse_exited", self, "_on_MarketItem_mouse_exited")
+		
+		market_item.item_texture_button.connect("pressed", self,
+				"_on_MarketItem_pressed", [market_item])
+
+
+func _on_MarketItem_mouse_entered(item):
+	selected_market_item = item
+	
+	market_item_price_margin.rect_position = item.rect_global_position + \
+			Vector2(item.rect_size.x, 0)
+	if market_item_price_margin.rect_position.x >= 32:
+		market_item_price_margin.rect_position.x -= \
+				market_item_price_margin.rect_size.x + item.rect_size.x
+	
+	var item_name = item.item_name
+	var item_data = Data.item_data[item_name]
+	
+	var item_price_label = market_item_price_margin.get_node("ItemPriceTextMargin/ItemPrice")
+	item_price_label.text = "%s:c" % item_data.buy_value
+	
+	market_item_price_margin.visible = true
+
+
+func _on_MarketItem_mouse_exited():
+	selected_market_item = null
+	market_item_price_margin.visible = false
+
+
+func _on_MarketItem_pressed(item):
+	if buy_item(item) and selected_market_item == item:
+		selected_market_item = null
+		market_item_price_margin.visible = false
+
+
+func buy_item(item) -> bool: # Returns true if successful
+	var item_name = item.item_name
+	var item_data = Data.item_data[item_name]
+	
+	if _player_instance.coins < item_data.sell_value:
+		return false
+	
+	_player_instance.inventory.append(item_name)
+	_player_instance.coins -= item_data.sell_value
+	
+	update_inventory()
+	update_coins()
+	
+	return true
