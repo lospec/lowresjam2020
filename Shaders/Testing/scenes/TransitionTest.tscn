@@ -16,7 +16,7 @@ shader_param/camerazoom = Vector2( 0.1, 0.1 )
 resource_name = "FadeIn"
 length = 0.5
 tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:material:shader_param/transition_t")
+tracks/0/path = NodePath(".:material:shader_param/transition_time")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -29,7 +29,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:material:shader_param/transition_t")
+tracks/0/path = NodePath(".:material:shader_param/transition_time")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false

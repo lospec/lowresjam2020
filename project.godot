@@ -10,19 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "AIState",
+"class": "AI_Behaviour",
 "language": "GDScript",
-"path": "res://Entities/AI/AIState.gd"
+"path": "res://AI/AI_Behaviour.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "BaseEntity",
+"language": "GDScript",
+"path": "res://Entities/BaseEntity/BaseEntity.gd"
 }, {
 "base": "Camera2D",
 "class": "CameraController",
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
-}, {
-"base": "StateAction",
-"class": "ChaseAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/ChaseAction.gd"
 }, {
 "base": "Node",
 "class": "CombatChar",
@@ -33,25 +33,13 @@ _global_script_classes=[ {
 "class": "EntityResource",
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
-}, {
-"base": "Resource",
-"class": "StateAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/StateAction.gd"
-}, {
-"base": "StateAction",
-"class": "WanderAction",
-"language": "GDScript",
-"path": "res://Entities/AI/Actions/WanderState.gd"
 } ]
 _global_script_class_icons={
-"AIState": "",
+"AI_Behaviour": "",
+"BaseEntity": "",
 "CameraController": "",
-"ChaseAction": "",
 "CombatChar": "",
-"EntityResource": "",
-"StateAction": "",
-"WanderAction": ""
+"EntityResource": ""
 }
 
 [application]
@@ -84,6 +72,10 @@ window/size/test_height=512
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [importer_defaults]
 

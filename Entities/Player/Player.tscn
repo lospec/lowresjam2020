@@ -15,6 +15,9 @@ radius = 11.4291
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_mask = 59
+[node name="Player" groups=[
+"PlayerGroup",
+] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="EntityDetector" type="Area2D" parent="." index="2"]
