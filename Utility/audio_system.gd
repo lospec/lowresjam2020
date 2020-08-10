@@ -18,18 +18,29 @@ const SFX_RESOURCES = {
 	SFX.BUTTON_CLICK_SHORT: preload("res://UI/sfx/click_short.wav"),
 }
 
+const FADE_IN_START_VOLUME = -80
+const FADE_IN_DURATION = 0.5
+
 # Public Variables
 var currently_playing_music: int = Music.NONE
 
 # Onready Variables
 onready var music_player = $Music
+onready var tween = $Tween
 
 
 func play_music(music: int,
-		volume_db: float = 0, pitch_scale: float = 1) -> void:
+		volume_db: float = 0, pitch_scale: float = 1,
+		fade_in: bool = true) -> void:
 	currently_playing_music = music
 	music_player.stream = MUSIC_RESOURCES[music]
-	music_player.volume_db = volume_db
+	if fade_in:
+		music_player.volume_db = FADE_IN_START_VOLUME
+		tween.interpolate_property(music_player, "volume_db",
+		FADE_IN_START_VOLUME, volume_db, FADE_IN_DURATION)
+		tween.start()
+	else:
+		music_player.volume_db = volume_db
 	music_player.pitch_scale = pitch_scale
 	music_player.play()
 
