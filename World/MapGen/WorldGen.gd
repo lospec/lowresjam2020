@@ -4,6 +4,8 @@ extends Node
 export (TileSet) var tileset
 export (bool) var run_generator = false setget ,_run
 export (bool) var print_properties = false setget , _print_prop
+export (int) var map_seed = 1234567890
+export (bool) var use_seed = false
 
 class TilemapManager:
 	var _parent
@@ -58,6 +60,14 @@ func _print_prop():
 func _run():
 	if not Engine.editor_hint or not run_generator:
 		return
+	
+	randomize()
+	
+	if not use_seed:
+		map_seed = randi()
+		
+	seed(map_seed)
+		
 	run_generator = false
 	map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	print("# Starting Map Generation")
@@ -77,7 +87,8 @@ func _run():
 	elapsed = OS.get_ticks_msec() - elapsed
 	print("# Map Generation Process Complete")
 	print("Time (ms) elapsed: %s" % str(elapsed))
-
+	
+	randomize()
 
 func add_grass_tile(position: Vector2, elevation: int):
 	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
