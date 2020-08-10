@@ -86,8 +86,6 @@ func update_guild_from_level():
 	for tile in extended_tilemap.get_used_cells():
 		extended_tilemap.set_cellv(tile, Tiles.EMPTY)
 	
-	SaveData.guild_level = 10
-	
 	for i in SaveData.guild_level:
 		# Append chest contents array
 		if i >= SaveData.chest_contents.size():
