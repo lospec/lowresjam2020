@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name BaseEntity
 
 # Signals
 signal health_changed(old_health, new_health)
@@ -47,9 +48,9 @@ const ANIM_FRAME_LENGTH = {
 	Animations.RUN_UP: 6,
 }
 const ANIM_FPS_SPEED = {
-	Animations.IDLE_DOWN: 100,
-	Animations.IDLE_UP: 100,
-	Animations.IDLE_SIDE: 100,
+	Animations.IDLE_DOWN: 10,
+	Animations.IDLE_UP: 10,
+	Animations.IDLE_SIDE: 10,
 	Animations.RUN_DOWN: 10,
 	Animations.RUN_SIDE: 8,
 	Animations.RUN_UP: 10,
@@ -76,20 +77,25 @@ onready var anim_wait_time = {
 	Animations.RUN_UP: calculate_wait_time(ANIM_FPS_SPEED[Animations.RUN_UP]),
 }
 
+
 func _ready():
 	if max_health <= 0:
 		return
 	health = max_health
 
+
 func _physics_process(_delta):
 	movement()
 	animate()
 
+
 func movement():
 	velocity = move_and_slide(velocity)
 
+
 func calculate_wait_time(fps):
 	return 1.0/fps
+
 
 func animate():
 	if velocity.length() > 0:
@@ -122,6 +128,7 @@ func animate():
 func _on_NextFrameTimer_timeout():
 	var anim_length = ANIM_FRAME_LENGTH[current_anim]
 	anim_frame = (sprite.frame + 1) % anim_length
+
 
 func set_health(value):
 	var old_health = health

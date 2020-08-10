@@ -6,6 +6,7 @@ signal enemy_instanced(enemy)
 # Public Variables
 var base_enemy_scene = load("res://Entities/enemies/base_enemy/base_enemy.tscn")
 
+
 func _ready():
 	yield(get_parent(), "ready")
 	

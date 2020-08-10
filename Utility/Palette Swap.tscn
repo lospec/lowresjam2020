@@ -6,7 +6,9 @@
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="Palette Swap" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 2 )
+enabled = true
 palette = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]

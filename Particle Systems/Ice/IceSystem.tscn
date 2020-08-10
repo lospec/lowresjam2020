@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Particle Systems/Ice/snowflakes.png" type="Texture" id=1]
+[ext_resource path="res://Particle Systems/Ice/particles.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.71223, 0.932331, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.587425, 0.814945, 0.884593, 1, 0.282353, 0.647059, 0.898039, 1, 0.0862745, 0.541176, 0.905882, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.266917, 0.691729, 0.906015 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.234863, 0.541733, 0.8125, 0 )
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 28.6228, 25.2554 )
+
+[node name="SnowFlakes" type="CPUParticles2D" parent="."]
+material = SubResource( 1 )
+position = Vector2( -0.00729752, -0.826847 )
+lifetime = 0.8
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2( 2, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 0.1
+angular_velocity_random = 1.0
+orbit_velocity = 0.5
+linear_accel = 100.0
+color_ramp = SubResource( 2 )
+anim_speed = 2.0
+
+[node name="SmallParticles" type="CPUParticles2D" parent="."]
+material = SubResource( 3 )
+amount = 48
+texture = ExtResource( 3 )
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 18.76
+orbit_velocity = 1.0
+orbit_velocity_random = 1.0
+color_ramp = SubResource( 4 )
