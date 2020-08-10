@@ -43,9 +43,9 @@ func _on_TransitionTest_Button_pressed():
 
 func _on_Button_pressed(button):
 	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-			button.rect_global_position)
+			button.rect_global_position, -15)
 
 
 func _on_Button_mouse_entered(button):
 	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK_SHORT,
-			button.rect_global_position)
+			button.rect_global_position, -20)

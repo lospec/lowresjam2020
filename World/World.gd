@@ -12,7 +12,7 @@ func _ready():
 	player.position = SaveData.world_position
 	
 	if AudioSystem.currently_playing_music == AudioSystem.Music.NONE:
-		AudioSystem.play_music(AudioSystem.Music.OVERWORLD)
+		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
 
 
 func _on_Chunks_enemy_instanced(enemy):

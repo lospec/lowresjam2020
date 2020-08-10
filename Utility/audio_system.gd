@@ -26,7 +26,7 @@ onready var music_player = $Music
 
 
 func play_music(music: int,
-		volume_db: float = -30, pitch_scale: float = 1) -> void:
+		volume_db: float = 0, pitch_scale: float = 1) -> void:
 	currently_playing_music = music
 	music_player.stream = MUSIC_RESOURCES[music]
 	music_player.volume_db = volume_db
