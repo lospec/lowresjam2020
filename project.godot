@@ -62,6 +62,7 @@ Utility="*res://Utility/Utility.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
 Transitions="*res://Utility/Transitions.tscn"
 SaveData="*res://Utility/save_data.gd"
+AudioSystem="*res://Utility/audio_system.tscn"
 
 [display]
 
