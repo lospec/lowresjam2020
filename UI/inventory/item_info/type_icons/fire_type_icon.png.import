@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_type_icon.png-4b3bcd3c7ab52b946139059b6acf3d40.stex"
+path="res://.import/fire_type_icon.png-3dc307bd525a8ee45566b6ee36d92eb1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Inventory/item_info/type_icons/fire_type_icon.png"
-dest_files=[ "res://.import/fire_type_icon.png-4b3bcd3c7ab52b946139059b6acf3d40.stex" ]
+source_file="res://UI/inventory/item_info/type_icons/fire_type_icon.png"
+dest_files=[ "res://.import/fire_type_icon.png-3dc307bd525a8ee45566b6ee36d92eb1.stex" ]
 
 [params]
 
