@@ -4,7 +4,12 @@ var _is_init = false
 
 
 func set_move(stateMachine, direction: Vector2, speed_factor: float):
-	stateMachine.entity.velocity = direction * (stateMachine.entity.move_speed * speed_factor)
+	var velocity = direction * (stateMachine.entity.move_speed * speed_factor)
+	stateMachine.entity.velocity = velocity
+	return velocity
+
+func set_velocity(stateMachine, velocity: Vector2):
+	stateMachine.entity.velocity = velocity
 
 
 func _on_start():
