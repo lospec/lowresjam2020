@@ -21,10 +21,10 @@ __meta__ = {
 }
 
 [node name="Main Credits" type="VBoxContainer" parent="."]
-margin_left = 229.0
-margin_top = 171.0
-margin_right = 283.0
-margin_bottom = 341.0
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 59.0
+margin_bottom = 171.0
 mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -153,10 +153,10 @@ margin_right = 54.0
 text = "nobody"
 
 [node name="Thanks" type="Label" parent="."]
-margin_left = 237.0
-margin_top = 247.0
-margin_right = 275.0
-margin_bottom = 265.0
+margin_left = 13.0
+margin_top = 77.0
+margin_right = 51.0
+margin_bottom = 95.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
 custom_constants/line_spacing = 0

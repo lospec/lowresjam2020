@@ -4,7 +4,7 @@ extends MarginContainer
 const SCROLL_SPEED = 5
 const THANKS_GAP = 20
 const MAX_THANKS_POS_Y = 0
-const START_SCROLL_POS = 50
+const START_SCROLL_POS = 43
 
 # Onready Variables
 onready var main_credits_vbox = $"Main Credits"

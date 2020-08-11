@@ -1,25 +1,27 @@
 extends Node
 
 # Public Variables
-var going_to_main_menu = false
+var going_to_main_menu := false
 
 # Onready Variables
-onready var animated_sprite = $AnimatedSprite
+#onready var animation_player = $AnimationPlayer
+
 
 func _ready():
 	PaletteSwap.enabled = false
-	
-	animated_sprite.frame = 0
-	animated_sprite.playing = true
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton or event is InputEventKey:
 		if not going_to_main_menu:
 			go_to_main_menu()
 
-func _on_AnimatedSprite_animation_finished():
+
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	if not going_to_main_menu:
+		going_to_main_menu = true
 		go_to_main_menu()
+
 
 func go_to_main_menu():
 	going_to_main_menu = true
