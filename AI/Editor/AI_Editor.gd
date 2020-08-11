@@ -10,6 +10,7 @@ class Actions:
 	const SearchForPlayer = preload("res://AI/Actions/AI_Action_SearchForPlayer.gd")
 	const WaitTime = preload("res://AI/Actions/AI_Action_WaitTime.gd")
 	const Wander = preload("res://AI/Actions/AI_Action_Wander.gd")
+	const RunFromTarget = preload("res://AI/Actions/AI_Action_RunFromTarget.gd")
 
 
 class Conditions:
@@ -19,7 +20,12 @@ class Conditions:
 
 
 onready var action_list = [
-	Actions.MoveToTarget, Actions.ReturnToOrigin, Actions.SearchForPlayer, Actions.WaitTime, Actions.Wander
+	Actions.MoveToTarget,
+	 Actions.ReturnToOrigin,
+	 Actions.SearchForPlayer,
+	 Actions.WaitTime,
+	 Actions.Wander,
+	 Actions.RunFromTarget
 ]
 
 onready var condition_list = [
@@ -385,7 +391,9 @@ func _on_action_confirm_button_pressed(
 ):
 	if ai_action:
 		ai_state.actions.remove(ai_state.actions.find(ai_action))
-	ai_state.actions.append(_selected_action)
+	if _selected_action:
+		ai_state.actions.append(_selected_action)
+		
 	_init_state_control(ai_behaviour, ai_state)
 	_disconnect_action_control()
 	_clear_node(action_property_container)
@@ -735,11 +743,13 @@ func _on_transition_confirm_button_pressed(
 		transition_error_message.show()
 		return
 
-	var idx = ai_state.transitions.find(ai_transition)
-	if idx == -1:
-		print("appending new transition")
-		ai_state.transitions.append(ai_transition)
-	ai_state.transitions[idx] = ai_transition
+	if ai_transition:
+		var idx = ai_state.transitions.find(ai_transition)
+		if idx == -1:
+			print("appending new transition")
+			ai_state.transitions.append(ai_transition)
+		ai_state.transitions[idx] = ai_transition
+		
 	_init_state_control(ai_behaviour, ai_state)
 	_disconnect_transition_control()
 	_clear_node(transition_true_state_container)
