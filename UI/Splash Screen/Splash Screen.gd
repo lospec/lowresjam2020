@@ -4,15 +4,11 @@ extends Node
 var going_to_main_menu := false
 
 # Onready Variables
-onready var animated_sprite := $AnimatedSprite
-onready var flag_animated_sprite := $Flag
+#onready var animation_player = $AnimationPlayer
 
 
 func _ready():
 	PaletteSwap.enabled = false
-	
-	animated_sprite.play("walk")
-	flag_animated_sprite.visible = false
 
 
 func _unhandled_input(event):
@@ -21,19 +17,7 @@ func _unhandled_input(event):
 			go_to_main_menu()
 
 
-func _on_AnimatedSprite_animation_finished():
-	var next_anim: String
-	match animated_sprite.animation:
-		"walk":
-			next_anim = "plant_flag"
-		"plant_flag":
-			flag_animated_sprite.visible = true
-			flag_animated_sprite.play()
-	if next_anim != "":
-		animated_sprite.play(next_anim)
-
-
-func _on_Flag_animation_finished():
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	if not going_to_main_menu:
 		going_to_main_menu = true
 		go_to_main_menu()
