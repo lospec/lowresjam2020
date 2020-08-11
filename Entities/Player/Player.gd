@@ -7,6 +7,7 @@ signal open_chest_input_received(chest)
 signal guild_hall_desk_input_received(desk)
 
 # Public Variables
+var character_name := "Barbra"
 var coins: int
 var inventory: Array
 var equipped_weapon: String
@@ -26,6 +27,10 @@ func _ready():
 	equipped_armor = SaveData.equipped_armor 
 	max_health = SaveData.max_health
 	health = SaveData.health
+	
+	var texture = load("res://Entities/Player/spritesheets/%s_Overworld.png"
+			% character_name)
+	sprite.texture = texture
 
 
 func _on_Player_tree_exiting():
