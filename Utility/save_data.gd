@@ -1,6 +1,7 @@
 extends Node
 
 var world_position: Vector2
+var character_name: String
 var coins := 100
 var inventory := [
 	"Stick", "Gem", "Gem", "Gem",

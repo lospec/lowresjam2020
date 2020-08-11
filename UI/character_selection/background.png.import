@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player_Overworld.png-e9d3912d15409f99eda1e7e7c057d5bf.stex"
+path="res://.import/background.png-86042a114ffbe3144df306d3c7e1e14c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/Frames/Player_Overworld.png"
-dest_files=[ "res://.import/Player_Overworld.png-e9d3912d15409f99eda1e7e7c057d5bf.stex" ]
+source_file="res://UI/character_selection/background.png"
+dest_files=[ "res://.import/background.png-86042a114ffbe3144df306d3c7e1e14c.stex" ]
 
 [params]
 
