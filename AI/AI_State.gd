@@ -13,6 +13,8 @@ func update_state(stateMachine, _delta):
 
 func _on_start(stateMachine):
 	for action in actions:
+		if not action:
+			continue
 		if action._is_init:
 			continue
 		action._on_start(stateMachine)
