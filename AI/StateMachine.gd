@@ -21,6 +21,10 @@ signal on_collision(_stateMachine, slide_count)
 
 
 func _ready():
+	if entity.has_signal("stats_loaded"):
+		# Wait for the stats (specifically, AI behaviour) to be loaded
+		yield(entity, "stats_loaded")
+	
 	origin_position = entity.position
 	behaviour.set_starting_state(self)
 

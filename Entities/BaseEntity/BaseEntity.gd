@@ -5,7 +5,6 @@ class_name BaseEntity
 signal health_changed(old_health, new_health)
 
 # Constants
-const SPEED = 20
 const MIN_SPEED_FOR_RUN_ANIM = 0
 enum Animations {
 	IDLE_DOWN,

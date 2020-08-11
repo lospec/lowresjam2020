@@ -1,5 +1,8 @@
 extends "res://Entities/BaseEntity/BaseEntity.gd"
 
+# Signals
+signal stats_loaded
+
 # Exported Variables
 export(String) var enemy_name
 
@@ -37,24 +40,36 @@ onready var stateMachine = $StateMachine
 
 
 func load_enemy(enemy_data_name):
+	# Check for data
 	if not Data.enemy_data.has(enemy_data_name):
 		push_error("Enemy data for %s not found" % enemy_data_name)
 		return
 	
+	# Set Properties
 	var enemy_stats = Data.enemy_data[enemy_data_name]
 	for property in enemy_stats:
 		var value = enemy_stats[property]
-		if get(property) == null:
+		if get(property) == null and not property in ["ai_type"]:
 			push_error("No corresponding variable found for %s" % property)
 		set(property, value)
 	
-	if sprite == null:
-		yield(self, "ready")
+	# Set Battle Textures
 	var enemy_name_lower = enemy_data_name.to_lower()
-	sprite.texture = load("res://Entities/enemies/overworld_sprites/%s_overworld.png" % enemy_name_lower)
 	battle_texture_normal = load("res://Entities/enemies/battle_sprites/%s_battle_normal.png" % enemy_name_lower)
 	battle_texture_hurt = load("res://Entities/enemies/battle_sprites/%s_battle_hurt.png" % enemy_name_lower)
-
+	
+	# Wait for onready variables to be set
+	if sprite == null or stateMachine == null:
+		yield(self, "ready")
+	
+	# Set Sprite Texture
+	sprite.texture = load("res://Entities/enemies/overworld_sprites/%s_overworld.png" % enemy_name_lower)
+	
+	# Set AI Resource
+	stateMachine.behaviour = load("res://AI/Resources/%s_behaviour.tres" %
+			enemy_stats.ai_type.to_lower())
+	
+	emit_signal("stats_loaded")
 
 func is_in_allowed_tile() -> bool:
 	var is_spawn_safe_area2d = $IsSpawnSafeArea2D
