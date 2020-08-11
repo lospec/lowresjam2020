@@ -87,7 +87,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 2.6, 4.5, 4.7 ),
+"times": PoolRealArray( 0, 2.6, 4.5, 4.9 ),
 "transitions": PoolRealArray( 0, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -99,7 +99,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 4, 4.5 ),
+"times": PoolRealArray( 0, 4.7, 5.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -111,7 +111,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 4.9, 5.6 ),
+"times": PoolRealArray( 0, 4.9, 5.5 ),
 "transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
 "values": [ Vector2( 44, 0 ), Vector2( 44, 0 ), Vector2( 0, 0 ) ]
@@ -135,9 +135,11 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -64, 16 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -10, 16 )
 frames = ExtResource( 2 )
-animation = "walk"
+animation = "plant_flag"
+frame = 4
 
 [node name="Flag" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -146,8 +148,8 @@ frames = ExtResource( 3 )
 frame = 11
 
 [node name="Logo" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 44, 0 )
+modulate = Color( 1, 1, 1, 0.875 )
+position = Vector2( 1.22222, 0 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
