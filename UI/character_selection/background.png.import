@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Dexos.png-4e7304c1d2d68ec129dd6faac9d7455f.stex"
+path="res://.import/background.png-86042a114ffbe3144df306d3c7e1e14c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Dexos.png"
-dest_files=[ "res://.import/Dexos.png-4e7304c1d2d68ec129dd6faac9d7455f.stex" ]
+source_file="res://UI/character_selection/background.png"
+dest_files=[ "res://.import/background.png-86042a114ffbe3144df306d3c7e1e14c.stex" ]
 
 [params]
 
