@@ -31,9 +31,9 @@ const MAP_BORDER_Y = 96
 const REGION_BORDER = 20
 
 const CELLULAR_AUTOMATA_CYCLE = 6
-const CELLULAR_AUTOMATA_LIVE = 5
+const CELLULAR_AUTOMATA_LIVE = 3
 const CELLULAR_AUTOMATA_DEAD = 4
-const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 3
+const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
 const REGION_COUNT = 1
 
@@ -386,7 +386,7 @@ func _is_erodibe(tile: Tile):
 
 func _get_erosion_target(tile: Tile):
 	var candidates = []
-	var erodible_elevation = tile.elevation - 2
+	var erodible_elevation = tile.elevation - 1
 	var neighbors = _get_neighbors(tile, false)
 	for neighbor in neighbors:
 		if neighbor and neighbor.elevation <= erodible_elevation:
