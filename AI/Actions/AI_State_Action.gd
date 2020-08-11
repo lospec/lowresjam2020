@@ -2,7 +2,6 @@ extends Resource
 
 var _is_init = false
 
-
 func set_move(stateMachine, direction: Vector2, speed_factor: float):
 	var velocity = direction * (stateMachine.entity.move_speed * speed_factor)
 	stateMachine.entity.velocity = velocity
@@ -18,6 +17,4 @@ func _on_start(_stateMachine):
 
 
 func perform(_stateMachine, _delta, _interrupt):
-	if not _is_init:
-		_is_init = true
-		_on_start(_stateMachine)
+	pass

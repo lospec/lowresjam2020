@@ -11,6 +11,12 @@ func update_state(stateMachine, _delta):
 	_perform_actions(stateMachine, _delta)
 	_check_all_transitions(stateMachine)
 
+func _on_start(stateMachine):
+	for action in actions:
+		if action._is_init:
+			continue
+		action._on_start(stateMachine)
+		action._is_init = true
 
 func _perform_actions(stateMachine, _delta):
 	var _interrupt = false

@@ -23,7 +23,7 @@ signal on_collision(_stateMachine, slide_count)
 
 func _ready():
 	origin_position = entity.position
-	current_state = behaviour.get_starting_state()
+	behaviour.set_starting_state(self)
 
 
 func _process(_delta):
@@ -65,6 +65,7 @@ func transition_to_state(state_index):
 	if not state:
 		return false
 	current_state = state
+	current_state._on_start(self)
 	return true
 
 

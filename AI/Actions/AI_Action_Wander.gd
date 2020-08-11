@@ -14,13 +14,14 @@ func set_new_velocity(_stateMachine):
 
 func _on_start(_stateMachine):
 	_timer = update_time
-	_stateMachine.connect_to_signal("on_collision", self, "set_new_velocity")
+	_stateMachine.connect("on_collision", self, "set_new_velocity")
 
 
 func perform(_stateMachine, _delta, _interrupt):
 	_timer += _delta
 	if _timer >= update_time:
 		_timer = 0
+		set_new_velocity(_stateMachine)
 		return
-
+	
 	.set_velocity(_stateMachine, _current_velocity)
