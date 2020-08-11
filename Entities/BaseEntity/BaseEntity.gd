@@ -58,6 +58,7 @@ const ANIM_FPS_SPEED = {
 
 # Exported Variables
 export (int) var max_health = 10
+export (float) var move_speed = 10
 
 # Public Variables
 var health: int setget set_health
