@@ -18,6 +18,8 @@ var _collision_circle_size: float setget _set_collision_circle_size, _get_collis
 
 var origin_position: Vector2
 
+signal on_collision(_stateMachine, slide_count)
+
 
 func _ready():
 	origin_position = entity.position
@@ -26,6 +28,8 @@ func _ready():
 
 func _process(_delta):
 	_update_current_state(_delta)
+	if entity.get_slide_count() > 0:
+		emit_signal("on_collision", self)
 
 
 func _get_collision_circle_size() -> float:
@@ -56,7 +60,7 @@ func _update_current_state(_delta):
 func transition_to_state(state_index):
 	if state_index == -1:
 		return false
-		
+
 	var state = behaviour.states[state_index]
 	if not state:
 		return false
