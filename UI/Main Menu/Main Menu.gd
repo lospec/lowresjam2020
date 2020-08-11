@@ -13,18 +13,18 @@ func _ready():
 
 
 func _on_Play_Button_pressed():
-	if get_tree().change_scene("res://World/World.tscn") != OK:
-		print_debug("An error occured while attempting to change to the world scene")
+	Transitions.change_scene_double_transition("res://World/World.tscn",
+			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 func _on_Credits_Button_pressed():
-	if get_tree().change_scene("res://UI/Credits/Credits.tscn") != OK:
-		print_debug("An error occured while attempting to change to the credits scene")
+	Transitions.change_scene_double_transition("res://UI/Credits/Credits.tscn",
+			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 func _on_Settings_Button_pressed():
-	if get_tree().change_scene("res://UI/settings/Settings.tscn") != OK:
-		print_debug("An error occured while attempting to change to the settings scene")
+	Transitions.change_scene_double_transition("res://UI/settings/Settings.tscn",
+			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 # DEBUG AI SCENE. REMOVE FOR RELEASE BUILD
