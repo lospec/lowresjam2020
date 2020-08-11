@@ -41,6 +41,8 @@ onready var BASE_OPTIONS_BUTTON = $BASE_OPTIONS_BUTTON
 # Main
 onready var main_control = $Main
 onready var main_new_behaviour_button = $Main/VBoxContainer/NewBehaviourButton
+onready var main_load_behaviour_button = $Main/VBoxContainer/LoadBehaviourButton
+onready var main_file_dialog = $Main/FileDialog
 
 # behaviour
 onready var behaviour_control = $Behaviour
@@ -148,6 +150,17 @@ func _show_control(control: Control):
 
 func _init_main_control():
 	main_new_behaviour_button.connect("button_down", self, "_on_main_new_behaviour_button_pressed")
+	main_load_behaviour_button.connect("button_down", self, "_on_main_load_behaviour_button_pressed")
+	
+func _on_main_load_behaviour_button_pressed():
+	main_file_dialog.popup()
+	main_file_dialog.connect("file_selected", self, "_on_main_file_selected")
+
+
+func _on_main_file_selected(path: String):
+	main_file_dialog.hide()
+	var behaviour = ResourceLoader.load(path)
+	_init_behaviour_control(behaviour)
 
 
 func _init_behaviour_control(ai_behaviour: AI_Behaviour):
@@ -171,6 +184,10 @@ func _on_save_behaviour_button_pressed(ai_behaviour: AI_Behaviour):
 	
 	var path = "res://AI/Resources/" + ai_behaviour.resource_name + ".tres"
 	print("saving resource to %s" % path)
+	if ResourceLoader.exists(path):
+		var dir = Directory.new()
+		dir.remove(path)
+		print("overwriting")
 	ResourceSaver.save(path, ai_behaviour) 
 	
 
@@ -720,8 +737,8 @@ func _on_transition_confirm_button_pressed(
 
 	var idx = ai_state.transitions.find(ai_transition)
 	if idx == -1:
+		print("appending new transition")
 		ai_state.transitions.append(ai_transition)
-
 	ai_state.transitions[idx] = ai_transition
 	_init_state_control(ai_behaviour, ai_state)
 	_disconnect_transition_control()
