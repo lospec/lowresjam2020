@@ -1,16 +1,18 @@
 extends "res://Combat/CombatChar.gd"
 
 func get_base_damage(action) -> int:
+	var player_weapon_data = Data.item_data[char_instance.equipped_weapon]
+	
 	var damage
 	match action:
 		combat_util.Combat_Action.QUICK:
-			damage = char_instance.equipped_weapon.quick_damage
+			damage = player_weapon_data.quick_damage
 		
 		combat_util.Combat_Action.HEAVY:
-			damage = char_instance.equipped_weapon.heavy_damage
+			damage = player_weapon_data.heavy_damage
 		
 		combat_util.Combat_Action.COUNTER:
-			damage = char_instance.equipped_weapon.counter_damage
+			damage = player_weapon_data.counter_damage
 	
 	# Should probably make better calculation for this but this'll do for now
 	damage = damage * (1 + combat_util.MULTIPLIER_PER_COMBO * hit_combo)
