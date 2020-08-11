@@ -528,7 +528,7 @@ func _init_condition_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_
 	
 	condition_condition_name_edit.text = ""
 	if ai_condition:
-		_selected_action = ai_condition
+		_selected_condition = ai_condition
 		condition_condition_name_edit.text = ai_condition.resource_name
 		_set_condition_properties(ai_condition)
 	
