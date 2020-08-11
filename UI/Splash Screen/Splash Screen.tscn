@@ -7,7 +7,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "splash_screen"
-length = 6.5
+length = 7.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:position")
 tracks/0/interp = 1
@@ -51,10 +51,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 2.6 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 2.6, 4.3, 4.7 ),
+"transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 15, -3 ) ]
+"values": [ Vector2( 15, -3 ), Vector2( 15, -3 ), Vector2( 40, -3 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Flag:frame")
@@ -114,7 +114,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0, 4.9, 5.5 ),
 "transitions": PoolRealArray( 1, 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 44, 0 ), Vector2( 44, 0 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 44, 0 ), Vector2( 71, 0 ), Vector2( 0, 0 ) ]
 }
 
 [node name="Splash Screen" type="Node"]
@@ -135,21 +135,19 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( -10, 16 )
+position = Vector2( -64, 16 )
 frames = ExtResource( 2 )
-animation = "plant_flag"
-frame = 4
+animation = "walk"
 
 [node name="Flag" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 15, -3 )
+position = Vector2( 40, -3 )
 frames = ExtResource( 3 )
 frame = 11
 
 [node name="Logo" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.875 )
-position = Vector2( 1.22222, 0 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 44, 0 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
