@@ -14,7 +14,6 @@ var current_state: AI_State = null
 var target: BaseEntity
 var distance_to_target: float setget , _get_distance_to_target
 var distance_to_origin: float setget , _get_distance_to_origin
-var _collision_circle_size: float setget _set_collision_circle_size, _get_collision_circle_size
 
 var origin_position: Vector2
 
@@ -30,15 +29,6 @@ func _process(_delta):
 	_update_current_state(_delta)
 	if entity.get_slide_count() > 0:
 		emit_signal("on_collision", self)
-
-
-func _get_collision_circle_size() -> float:
-	return _collision_circle_shape.shape.radius
-
-
-func _set_collision_circle_size(value: float):
-	_collision_circle_shape.shape.radius = value
-
 
 func _get_distance_to_origin() -> float:
 	return entity.position.distance_to(origin_position)
@@ -70,6 +60,6 @@ func transition_to_state(state_index):
 
 
 func find_bodies_in_range(range_size: float):
-	if _collision_circle_size != range_size:
-		_collision_circle_size = range_size
+	if _collision_circle_shape.shape.radius != range_size:
+		_collision_circle_shape.shape.radius = range_size
 	return _circle_area.get_overlapping_bodies()
