@@ -63,25 +63,25 @@ func movement():
 
 
 func calculate_wait_time(fps):
-	return 1.0/fps
+	return 1.0 / fps
 
 
 func animate():
 	if velocity.length() > 0:
 		sprite.flip_h = velocity.x < 0
-	
+
 	# Get current animation
 	var old_anim = current_anim
-	
-	if velocity.length() > MIN_SPEED_FOR_RUN_ANIM: # Running
+
+	if velocity.length() > MIN_SPEED_FOR_RUN_ANIM:  # Running
 		var anim_dir = velocity.normalized()
-		# If running diagonally, choose vertical run anim
+		
 		if abs(anim_dir.x) > MIN_SPEED_FOR_RUN_ANIM and abs(anim_dir.y) > MIN_SPEED_FOR_RUN_ANIM:
-			anim_dir = Vector2(0, anim_dir.y).normalized()
+			anim_dir = (Vector2(0, anim_dir.y) if abs(anim_dir.y) >= abs(anim_dir.x) else Vector2(anim_dir.x, 0)).normalized()
 		current_anim = DIR_TO_ANIM[anim_dir]
 	elif not current_anim in IDLE_ANIMS:
 		current_anim = RUN_ANIM_TO_IDLE_ANIM[current_anim]
-	
+
 	# If a change in animation has taken place
 	if current_anim != old_anim:
 		animation_player.play(Animations.keys()[current_anim].to_lower())
