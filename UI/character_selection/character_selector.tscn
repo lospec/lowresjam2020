@@ -167,3 +167,4 @@ size_flags_horizontal = 4
 texture = ExtResource( 2 )
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollLeft" to="." method="_on_ScrollLeft_gui_input"]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollRight" to="." method="_on_ScrollRight_gui_input"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox/Select" to="." method="_on_Select_pressed"]

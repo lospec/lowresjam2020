@@ -13,17 +13,20 @@ func _ready():
 
 
 func _on_Play_Button_pressed():
-	Transitions.change_scene_double_transition("res://World/World.tscn",
+	Transitions.change_scene_double_transition(
+			"res://UI/character_selection/character_selector.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 func _on_Credits_Button_pressed():
-	Transitions.change_scene_double_transition("res://UI/Credits/Credits.tscn",
+	Transitions.change_scene_double_transition(
+			"res://UI/Credits/Credits.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 func _on_Settings_Button_pressed():
-	Transitions.change_scene_double_transition("res://UI/settings/Settings.tscn",
+	Transitions.change_scene_double_transition(
+			"res://UI/settings/Settings.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 

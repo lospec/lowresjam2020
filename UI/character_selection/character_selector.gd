@@ -4,6 +4,9 @@ extends MarginContainer
 const CHARACTER_RESOURCE = preload("res://UI/character_selection/character.tscn")
 const SCROLL_AMOUNT = 40
 
+# Public Variables
+var selected_character_name: String
+
 # Private Variables
 var _scroll_left_held := false
 var _scroll_right_held := false
@@ -36,7 +39,6 @@ func update_characters():
 			continue
 		character.character_button.connect("pressed", self,
 				"_on_Character_pressed", [character])
-		
 
 
 func _on_ScrollLeft_gui_input(event):
@@ -64,4 +66,11 @@ func _process(delta):
 
 func _on_Character_pressed(character):
 	select_vbox.visible = true
+	selected_character_name = character.character_name
 	name_label.text = character.character_name
+
+
+func _on_Select_pressed():
+	SaveData.character_name = selected_character_name
+	Transitions.change_scene_double_transition("res://World/World.tscn",
+		Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
