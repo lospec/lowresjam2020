@@ -1,47 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Splash Screen/Splash Screen.gd" type="Script" id=1]
-[ext_resource path="res://UI/Splash Screen/Splash Screen.png" type="Texture" id=2]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 448, 0, 64, 64 )
-
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
+[ext_resource path="res://UI/Splash Screen/splash_screen_frames.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://UI/Splash Screen/flag_frames.tres" type="SpriteFrames" id=3]
 
 [node name="Splash Screen" type="Node"]
 script = ExtResource( 1 )
@@ -50,5 +11,11 @@ script = ExtResource( 1 )
 current = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 9 )
+frames = ExtResource( 2 )
+animation = "plant_flag"
+
+[node name="Flag" type="AnimatedSprite" parent="."]
+position = Vector2( 26, -14 )
+frames = ExtResource( 3 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="Flag" to="." method="_on_Flag_animation_finished"]
