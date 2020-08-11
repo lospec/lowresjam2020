@@ -35,7 +35,7 @@ transitions = [ SubResource( 3 ) ]
 [sub_resource type="Resource" id=5]
 resource_name = "MoveToTarget"
 script = ExtResource( 2 )
-move_speed = 8.0
+move_speed_factor = 1.0
 
 [sub_resource type="Resource" id=6]
 resource_name = "FarFromOrigin"
@@ -58,7 +58,7 @@ transitions = [ SubResource( 7 ) ]
 [sub_resource type="Resource" id=9]
 resource_name = "ReturnToOrigin"
 script = ExtResource( 3 )
-move_speed = 10.0
+move_speed_factor = 1.0
 
 [sub_resource type="Resource" id=10]
 resource_name = "FarFromOrigin"

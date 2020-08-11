@@ -1,0 +1,122 @@
+[gd_resource type="Resource" load_steps=29 format=2]
+
+[ext_resource path="res://AI/Actions/AI_Action_RunFromTarget.gd" type="Script" id=1]
+[ext_resource path="res://AI/Conditions/AI_Condition_HasTarget.gd" type="Script" id=2]
+[ext_resource path="res://AI/Actions/AI_Action_SearchForPlayer.gd" type="Script" id=3]
+[ext_resource path="res://AI/Actions/AI_Action_Wander.gd" type="Script" id=4]
+[ext_resource path="res://AI/Conditions/AI_Condition_FarFromOrigin.gd" type="Script" id=5]
+[ext_resource path="res://AI/AI_Transition.gd" type="Script" id=6]
+[ext_resource path="res://AI/Actions/AI_Action_ReturnToOrigin.gd" type="Script" id=7]
+[ext_resource path="res://AI/AI_State.gd" type="Script" id=8]
+[ext_resource path="res://AI/Conditions/AI_Condition_TargetInRange.gd" type="Script" id=9]
+[ext_resource path="res://AI/AI_Behaviour.gd" type="Script" id=10]
+
+[sub_resource type="Resource" id=1]
+resource_name = "SearchForPlayer"
+script = ExtResource( 3 )
+search_range = 32.0
+
+[sub_resource type="Resource" id=2]
+resource_name = "Wander"
+script = ExtResource( 4 )
+move_speed_factor = 1.0
+update_time = 5.0
+
+[sub_resource type="Resource" id=3]
+resource_name = "FarFromOrigin"
+script = ExtResource( 5 )
+distance_from_origin = 32.0
+
+[sub_resource type="Resource" id=4]
+resource_name = "is_far"
+script = ExtResource( 6 )
+condition = SubResource( 3 )
+true_state_index = 2
+false_state_index = -1
+
+[sub_resource type="Resource" id=5]
+resource_name = "HasTarget"
+script = ExtResource( 2 )
+has_target = true
+
+[sub_resource type="Resource" id=6]
+resource_name = "found_player"
+script = ExtResource( 6 )
+condition = SubResource( 5 )
+true_state_index = 1
+false_state_index = -1
+
+[sub_resource type="Resource" id=7]
+resource_name = "search"
+script = ExtResource( 8 )
+actions = [ SubResource( 1 ), SubResource( 2 ) ]
+transitions = [ SubResource( 4 ), SubResource( 6 ) ]
+
+[sub_resource type="Resource" id=8]
+resource_name = "RunFromTarget"
+script = ExtResource( 1 )
+move_speed_factor = 1.0
+
+[sub_resource type="Resource" id=9]
+resource_name = "TargetInRange"
+script = ExtResource( 9 )
+max_range = 48.0
+
+[sub_resource type="Resource" id=10]
+resource_name = "player_away"
+script = ExtResource( 6 )
+condition = SubResource( 9 )
+true_state_index = -1
+false_state_index = 2
+
+[sub_resource type="Resource" id=11]
+resource_name = "run"
+script = ExtResource( 8 )
+actions = [ SubResource( 8 ) ]
+transitions = [ SubResource( 10 ) ]
+
+[sub_resource type="Resource" id=12]
+resource_name = "ReturnToOrigin"
+script = ExtResource( 7 )
+move_speed_factor = 1.0
+
+[sub_resource type="Resource" id=13]
+resource_name = "SearchForPlayer"
+script = ExtResource( 3 )
+search_range = 32.0
+
+[sub_resource type="Resource" id=14]
+resource_name = "FarFromOrigin"
+script = ExtResource( 5 )
+distance_from_origin = 5.0
+
+[sub_resource type="Resource" id=15]
+resource_name = "is_back"
+script = ExtResource( 6 )
+condition = SubResource( 14 )
+true_state_index = -1
+false_state_index = 0
+
+[sub_resource type="Resource" id=16]
+resource_name = "HasTarget"
+script = ExtResource( 2 )
+has_target = true
+
+[sub_resource type="Resource" id=17]
+resource_name = "found_player"
+script = ExtResource( 6 )
+condition = SubResource( 16 )
+true_state_index = 1
+false_state_index = -1
+
+[sub_resource type="Resource" id=18]
+resource_name = "return"
+script = ExtResource( 8 )
+actions = [ SubResource( 12 ), SubResource( 13 ) ]
+transitions = [ SubResource( 15 ), SubResource( 17 ) ]
+
+[resource]
+resource_name = "coward_behaviour"
+script = ExtResource( 10 )
+states = [ SubResource( 7 ), SubResource( 11 ), SubResource( 18 ) ]
+start_state_index = 0
