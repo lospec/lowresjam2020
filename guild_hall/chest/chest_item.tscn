@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://guild_hall/chest/chest_item.gd" type="Script" id=1]
+[ext_resource path="res://guild_hall/chest/chest_slot.png" type="Texture" id=2]
+
+[node name="ChestItem" type="MarginContainer"]
+anchor_right = 0.21875
+anchor_bottom = 0.21875
+mouse_filter = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Box" type="TextureRect" parent="."]
+margin_right = 14.0
+margin_bottom = 14.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+
+[node name="ItemCenter" type="CenterContainer" parent="."]
+margin_right = 14.0
+margin_bottom = 14.0
+mouse_filter = 1
+
+[node name="Item" type="TextureRect" parent="ItemCenter"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 7.0
+[connection signal="gui_input" from="ItemCenter/Item" to="." method="_on_Item_gui_input"]

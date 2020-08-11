@@ -24,22 +24,46 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Camera/CameraController.gd"
 }, {
+"base": "TextureRect",
+"class": "CombatAttackAnim",
+"language": "GDScript",
+"path": "res://Combat/CombatAttackAnim.gd"
+}, {
 "base": "Node",
 "class": "CombatChar",
 "language": "GDScript",
 "path": "res://Combat/CombatChar.gd"
 }, {
+"base": "TextureRect",
+"class": "CombatEnemyTexture",
+"language": "GDScript",
+"path": "res://Combat/CombatEnemyTexture.gd"
+}, {
+"base": "ShakableControl",
+"class": "CombatMenu",
+"language": "GDScript",
+"path": "res://Combat/CombatMenu.gd"
+}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
+}, {
+"base": "Control",
+"class": "ShakableControl",
+"language": "GDScript",
+"path": "res://Combat/CombatShake.gd"
 } ]
 _global_script_class_icons={
 "AI_Behaviour": "",
 "BaseEntity": "",
 "CameraController": "",
+"CombatAttackAnim": "",
 "CombatChar": "",
-"EntityResource": ""
+"CombatEnemyTexture": "",
+"CombatMenu": "",
+"EntityResource": "",
+"ShakableControl": ""
 }
 
 [application]
@@ -60,6 +84,9 @@ Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
 PaletteSwap="*res://Utility/Palette Swap.tscn"
+Transitions="*res://Utility/Transitions.tscn"
+SaveData="*res://Utility/save_data.gd"
+AudioSystem="*res://Utility/audio_system.tscn"
 
 [display]
 
@@ -124,12 +151,43 @@ player_move_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
+open_chest={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+close_chest={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
+ ]
+}
+guild_hall_desk_interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 
 [layer_names]
 
 2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Static Objects"
 2d_physics/layer_3="Entities"
+2d_physics/layer_4="Guild Hall Door"
+2d_physics/layer_5="Chests"
+2d_physics/layer_6="Guild Hall Desk"
 
 [network]
 

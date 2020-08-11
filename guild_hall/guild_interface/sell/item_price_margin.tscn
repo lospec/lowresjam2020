@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
+[ext_resource path="res://guild_hall/guild_interface/sell/sellable_item_price_decor.png" type="Texture" id=2]
+
+[node name="ItemPriceMargin" type="MarginContainer"]
+margin_right = 28.0
+margin_bottom = 11.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemPriceDecor" type="TextureRect" parent="."]
+margin_right = 28.0
+margin_bottom = 11.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="ItemPriceTextMargin" type="MarginContainer" parent="."]
+margin_right = 28.0
+margin_bottom = 11.0
+mouse_filter = 2
+custom_constants/margin_right = 4
+custom_constants/margin_left = 3
+
+[node name="ItemPrice" type="Label" parent="ItemPriceTextMargin"]
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 24.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.776471, 0.262745, 1 )
+text = "1000:c"
+align = 2
