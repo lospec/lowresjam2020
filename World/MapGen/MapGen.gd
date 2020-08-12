@@ -597,7 +597,7 @@ func _print_prop():
 	print("map border = x: {} , y: {}".format([MAP_BORDER_X, MAP_BORDER_Y], "{}"))
 	print("---------------------------------")
 
-func generate_map(world, run_climate):
+func generate_map(world, run_climate, create_climate_texture_maps):
 	_print_prop()
 	_init_map()
 	_create_regions()
@@ -608,8 +608,9 @@ func generate_map(world, run_climate):
 	
 	if run_climate:
 		_create_climate()
-		_save_cloud_map()
-		_save_moisture_map()
+		if create_climate_texture_maps:
+			_save_cloud_map()
+			_save_moisture_map()
 		
 	_upscale_map()
 	for item in map:

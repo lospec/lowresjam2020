@@ -7,6 +7,7 @@ export (bool) var print_properties = false setget , _print_prop
 export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
 export (bool) var run_climate_simulation = true
+export (bool) var create_climate_texture_maps = true
 
 class TilemapManager:
 	var _parent
@@ -82,7 +83,7 @@ func _run():
 	map_node.name = "Map"
 	add_child(map_node)
 	map_node.owner = self
-	map_generator.generate_map(self, run_climate_simulation)
+	map_generator.generate_map(self, run_climate_simulation, create_climate_texture_maps)
 	tilemap_manager.update_bitmask()
 	
 	elapsed = OS.get_ticks_msec() - elapsed
