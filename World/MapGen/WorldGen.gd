@@ -9,12 +9,16 @@ export (bool) var use_seed = false
 export (bool) var run_climate_simulation = true
 export (bool) var create_climate_texture_maps = true
 
+export (OpenSimplexNoise) var feature_noise = OpenSimplexNoise.new()
+
 class TilemapManager:
-	var _parent
+	var _parent: Node
 	var _water_level
 	var height_tilemaps: Dictionary = {}
+	var feature_tilemap
+	var grass_tilemap
 
-	func _make_scene_for_elevation(elevation):
+	func _make_tilemap_for_elevation(elevation):
 		for i in range(_water_level, elevation + 1):
 			if height_tilemaps.has(i):
 				continue
@@ -26,10 +30,36 @@ class TilemapManager:
 			_parent.map_node.add_child(tilemap)
 			tilemap.owner = _parent
 			height_tilemaps[i] = tilemap
+	
+	func get_grass_tilemap():
+		if not grass_tilemap:
+			var tilemap: TileMap = TileMap.new()
+			tilemap.cell_size = Vector2(4, 4)
+			tilemap.tile_set = _parent.tileset
+			tilemap.name = "grass"
+			_parent.map_node.add_child(tilemap)
+			_parent.move_child(tilemap, _parent.get_child_count()-1)
+			tilemap.owner = _parent
+			grass_tilemap = tilemap
+		return grass_tilemap
+	
+	func get_feature_tilemap():
+		if not grass_tilemap:
+			get_grass_tilemap()
+		if not feature_tilemap:
+			var tilemap: TileMap = TileMap.new()
+			tilemap.cell_size = Vector2(4, 4)
+			tilemap.tile_set = _parent.tileset
+			tilemap.name = "features"
+			_parent.map_node.add_child(tilemap)
+			_parent.move_child(tilemap, _parent.get_child_count()-1)
+			tilemap.owner = _parent
+			feature_tilemap = tilemap
+		return feature_tilemap
 
 	func get_tilemap_for_elevation(elevation: int) -> TileMap:
 		if not height_tilemaps.has(elevation):
-			_make_scene_for_elevation(elevation)
+			_make_tilemap_for_elevation(elevation)
 		return height_tilemaps[elevation]
 
 	func update_bitmask():
@@ -42,8 +72,18 @@ class TilemapManager:
 		_water_level = _parent.map_generator.WATER_LEVEL
 
 
-enum TileType { Grass, Water, Cliff }
-const Tiles = {TileType.Cliff: 2, TileType.Grass: 0, TileType.Water: 1}
+enum Tile { Land, Water, Cliff, Grass, Tree, Rock, Other, Bush }
+
+const TILES = {
+	Tile.Land: 0,
+	Tile.Water: 1,
+	Tile.Cliff: 2,
+	Tile.Other: 4,
+	Tile.Rock: 5,
+	Tile.Bush: 6,
+	Tile.Tree: 7,
+	Tile.Grass: [8,9,10,11],
+}
 
 
 var map_generator = preload("res://World/MapGen/MapGen.gd").new()
@@ -69,7 +109,7 @@ func _run():
 		map_seed = randi()
 		
 	seed(map_seed)
-		
+	feature_noise.seed = map_seed
 	run_generator = false
 	map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	print("# Starting Map Generation")
@@ -91,18 +131,27 @@ func _run():
 	print("Time (ms) elapsed: %s" % str(elapsed))
 	
 	randomize()
+	
+func add_grass_tile(position: Vector2):
+	var tilemap = tilemap_manager.get_grass_tilemap()
+	var tile = TILES[Tile.Grass][randi() % len(TILES[Tile.Grass])]
+	tilemap.set_cellv(position, tile)
+	
+func add_feature_tile(position: Vector2, type):
+	var tilemap = tilemap_manager.get_feature_tilemap()
+	tilemap.set_cellv(position, TILES[type])
 
-func add_grass_tile(position: Vector2, elevation: int):
+func add_land_tile(position: Vector2, elevation: int):
 	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
-	tilemap.set_cellv(position, Tiles[TileType.Grass])
+	tilemap.set_cellv(position, TILES[Tile.Land])
 
 
 func add_water_tile(position: Vector2):
 	var elevation = map_generator.WATER_LEVEL
 	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
-	tilemap.set_cellv(position, Tiles[TileType.Water])
+	tilemap.set_cellv(position, TILES[Tile.Water])
 
 
 func add_cliff_tile(position: Vector2, elevation: int):
 	var tilemap: TileMap = tilemap_manager.get_tilemap_for_elevation(elevation)
-	tilemap.set_cellv(position, Tiles[TileType.Cliff])
+	tilemap.set_cellv(position, TILES[Tile.Cliff])

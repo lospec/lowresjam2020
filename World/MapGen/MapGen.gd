@@ -39,14 +39,14 @@ const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 const REGION_COUNT = 1
 
 # climate
-const DISSIPATION_STRENTH = 1.1
+const DISSIPATION_STRENTH = 1.2
 const EVAPORATION_FACTOR = 0.85
 const PRECIPITATION_FACTOR = 0.5
 const RUNOFF_FACTOR = 0.5
 const SEEPAGE_FACTOR = 0.5
 const WIND_STRENGTH = 6
 const STARTING_MOISTURE = 0.15
-const CLIMATE_CYCLE = 40
+const CLIMATE_CYCLE = 20
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 const WIND_DIRECTION = Direction.SE
@@ -79,6 +79,8 @@ class Tile:
 	var coordinate: Vector2 setget , _get_coordinate
 	var is_land: bool setget , _is_land
 	var over_water_elevation setget , _get_over_water_elevation
+	var is_near_water = false
+	var is_cliff = false
 	
 	var search_phase = 0
 	var distance
@@ -504,7 +506,6 @@ func _evolve_climate(idx: int):
 	for direction in Directions:
 		var neighbor = _get_neighbor(tile, direction)
 		if not neighbor:
-			print()
 			continue
 		var neighbor_climate = next_climate[neighbor.idx]
 		if direction == WIND_DIRECTION:
@@ -613,21 +614,44 @@ func generate_map(world, run_climate, create_climate_texture_maps):
 			_save_moisture_map()
 		
 	_upscale_map()
+	_set_terrain_tiles(world)
+	_set_feature_tiles(world)
+	
+func _set_feature_tiles(world):
+	var noise: OpenSimplexNoise = world.feature_noise
+	for item in map:
+		var tile: Tile = item
+		if tile.is_land and not tile.is_cliff:
+			var climate_data = climate[tile.idx]
+			if climate_data.moisture > 0.35 and noise.get_noise_2dv(tile.coordinate) > 0.2:
+				world.add_grass_tile(tile.coordinate)
+
+func _set_terrain_tiles(world):
 	for item in map:
 		var tile: Tile = item
 		if not tile.is_land:
 			world.add_water_tile(tile.coordinate)
+			for direction in Directions:
+				var neighbor = _get_neighbor(tile, direction)
+				if not neighbor or neighbor.is_land:
+					 continue
+				neighbor.is_near_water = true
+				for i in range(int(direction), int(direction) + 1):
+					var next_neighbor = _get_neighbor(neighbor, direction)
+					if not next_neighbor or not next_neighbor.is_land:
+						continue
+					next_neighbor.is_near_water = true	
 		else:
-			world.add_grass_tile(tile.coordinate, tile.elevation)
-
+			world.add_land_tile(tile.coordinate, tile.elevation)
 			for neighbor in _get_neighbors(tile):
 				if neighbor.is_land and neighbor.elevation < tile.elevation:
-					world.add_grass_tile(tile.coordinate, neighbor.elevation)
+					world.add_land_tile(tile.coordinate, neighbor.elevation)
 			
 			var elevation_above_water = tile.elevation - WATER_LEVEL
 			if elevation_above_water > 0:
 				var neighbor = _get_neighbor(tile, Direction.S)
 				if neighbor and neighbor.elevation < tile.elevation:
+					neighbor.is_cliff = true
 					world.add_cliff_tile(neighbor.coordinate, tile.elevation)
 
 func _upscale_map():
