@@ -1,33 +1,34 @@
 extends Reference
 
-const UPSCALE = 4
+const UPSCALE = 1
 const CHUNK_SIZE = 64
 
-const MAP_CHUNK_SIZE_X = 6
-const MAP_CHUNK_SIZE_Y = 4
+const MAP_CHUNK_SIZE_X = 3
+const MAP_CHUNK_SIZE_Y = 2
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
-const JITTER_PROBABILITY = 0.1
-const JITTER_STRENGTH = 0.0085
+const JITTER_PROBABILITY = 0.3
+const JITTER_STRENGTH = 0.2
 
-const CHUNK_SIZE_MIN = 100
-const CHUNK_SIZE_MAX = 9600
+const CHUNK_SIZE_MIN = 256
+const CHUNK_SIZE_MAX = 2800
 
-const LAND_PERCENTAGE = 0.35
+const LAND_PERCENTAGE = 0.4
 
-const WATER_LEVEL = 4
+const WATER_LEVEL = 1
 const ELEVATION_MIN = -4
-const ELEVATION_MAX = 8
+const ELEVATION_MAX = 9
 
-const HIGH_RISE_PROBABILITY = 0.2
-const SINK_PROBABILITY = 0.15
-const EROSIAN_PERCENTAGE = 0.6
-const EROSIAN_CYCLE = 2
+const HIGH_RISE_STRENGTH = 2
+const HIGH_RISE_PROBABILITY = 0.3
+const SINK_PROBABILITY = 0.2
+const EROSIAN_PERCENTAGE = 0.4
+const EROSIAN_CYCLE = 3
 
-const MAP_BORDER_X = 64
-const MAP_BORDER_Y = 48
+const MAP_BORDER_X = 32
+const MAP_BORDER_Y = 16
 const REGION_BORDER = 20
 
 const CELLULAR_AUTOMATA_CYCLE = 4
@@ -38,15 +39,28 @@ const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 const REGION_COUNT = 1
 
 # climate
-const EVAPORATION_FACTOR = 0.5
+const DISSIPATION_STRENTH = 1.1
+const EVAPORATION_FACTOR = 0.85
+const PRECIPITATION_FACTOR = 0.5
+const RUNOFF_FACTOR = 0.5
+const SEEPAGE_FACTOR = 0.5
+const WIND_STRENGTH = 6
+const STARTING_MOISTURE = 0.15
 const CLIMATE_CYCLE = 40
-const PRECIPITATION_FACTOR = 0.25
-const RUNOFF_FACTOR = 0.25
-const SEEPAGE_FACTOR = 0.125
-const WIND_STRENGTH = 4.0
-const INITIAL_MOISTURE = 0.1
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
+const WIND_DIRECTION = Direction.SE
+
+const Directions = [
+	Direction.N,
+	Direction.NE,
+	Direction.E,
+	Direction.SE,
+	Direction.S,
+	Direction.SW,
+	Direction.W,
+	Direction.NW,
+]
 
 const DIR = "res://World/MapGen/"
 
@@ -64,16 +78,16 @@ class Tile:
 	var elevation = 0
 	var coordinate: Vector2 setget , _get_coordinate
 	var is_land: bool setget , _is_land
-	
+	var over_water_elevation setget , _get_over_water_elevation
 	
 	var search_phase = 0
 	var distance
 	var search_heuristic
 	var next_with_same_priority = null
 	var search_priority setget , _get_priority
-	
-	var clouds: float = 0
-	var moisture: float = 0
+
+	func _get_over_water_elevation():
+		return elevation if elevation >= WATER_LEVEL else WATER_LEVEL
 
 	func _is_land():
 		return elevation >= WATER_LEVEL
@@ -87,6 +101,17 @@ class Tile:
 	func _init(_idx: int):
 		self.idx = _idx
 
+class ClimateData:
+	var clouds: float = 0
+	var moisture: float = 0 
+	
+	func _init(starting_moisture = null):
+		if starting_moisture:
+			moisture = starting_moisture
+
+
+var climate = []
+var next_climate = []
 
 var height_map: Image
 var cloud_map: Image
@@ -98,37 +123,10 @@ var search_frontier_phase = 0
 
 var regions: Array
 
-var _max_height_value: float
-var _max_cloud_value: float
-var _max_moisture_value: float
-
-
 func _init_map():
 	map.resize(MAP_SIZE_X * MAP_SIZE_Y)
 	for i in range(0, map.size()):
 		map[i] = Tile.new(i)
-		map[i].moisture = INITIAL_MOISTURE
-
-
-func _save_height_map():
-	height_map = Image.new()
-	height_map.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
-	height_map.lock()
-	var idx = 0
-	for y in MAP_SIZE_Y:
-		for x in MAP_SIZE_X:
-			var elevation = map[idx].elevation
-			var color: Color
-			if elevation < WATER_LEVEL:
-				color = Color.aqua
-			else:
-				var v = range_lerp(elevation, WATER_LEVEL - 1, _max_height_value, 0.15, 1)
-				color = Color(v, v, v)
-			height_map.set_pixel(x, y, color)
-			idx += 1
-	height_map.unlock()
-	var _result = height_map.save_png(DIR + "height_map.png")
-	print("height map saved")
 
 
 func _get_random_tile(region: Region):
@@ -145,7 +143,7 @@ func raise_terrain(chunk_size: int, budget: int, region: Region):
 	first_tile.search_heuristic = 0
 	search_frontier.enqueue(first_tile, first_tile.search_priority)
 	var center = first_tile.coordinate
-	var rise = 2 if randf() < HIGH_RISE_PROBABILITY else 1
+	var rise = int(rand_range(2, 1 + (1 if HIGH_RISE_STRENGTH < 1 else HIGH_RISE_STRENGTH))) if randf() < HIGH_RISE_PROBABILITY else 1
 	var size = 0
 	while size < chunk_size and search_frontier.count > 0:
 		var current: Tile = search_frontier.dequeue()
@@ -154,8 +152,7 @@ func raise_terrain(chunk_size: int, budget: int, region: Region):
 		if new_elevation > ELEVATION_MAX:
 			continue
 		current.elevation = new_elevation
-		if new_elevation > _max_height_value:
-			_max_height_value = new_elevation
+		
 		if original_elevation < WATER_LEVEL and new_elevation >= WATER_LEVEL:
 			budget -= 1
 			if budget == 0:
@@ -477,68 +474,91 @@ func _remove_lone_pillars():
 			for elevation in neighbor_elevations:
 				if neighbor_elevations[elevation] == neighbor_elevations.values().max():
 					tile.elevation = elevation
-					print("removing lone pillar at %s" % str(tile.coordinate))
 					break
 	map = next
 
-func _evolve_climate(tile: Tile, _map):
+func _evolve_climate(idx: int):
+	var tile = map[idx]
+	var tile_climate = climate[idx]
 	if not tile.is_land:
-		tile.moisture = 1
-		tile.clouds += EVAPORATION_FACTOR
+		tile_climate.moisture = 1
+		tile_climate.clouds += EVAPORATION_FACTOR
 	else:
-		var evaporation = tile.moisture * EVAPORATION_FACTOR
-		tile.moisture -= evaporation
-		tile.clouds += evaporation
-
-	var precipitation = tile.clouds * PRECIPITATION_FACTOR
-	tile.clouds -= precipitation
-	tile.moisture += precipitation
-	var cloud_maximum = 1 - (tile.elevation - WATER_LEVEL) / (ELEVATION_MAX + 1)
-
-	if tile.clouds > cloud_maximum:
-		tile.moisture += tile.clouds - cloud_maximum
-		tile.clouds = cloud_maximum
-
-	var cloud_dispersal = tile.clouds * (1 / 8)
-	var runoff = tile.moisture * RUNOFF_FACTOR * (1 / 8)
-	var seepage = tile.moisture * SEEPAGE_FACTOR * (1 / 8)
-	for neighbor in _get_neighbors(tile, true, _map):
+		var evaporation = tile_climate.moisture * EVAPORATION_FACTOR * DISSIPATION_STRENTH
+		tile_climate.moisture -= evaporation
+		tile_climate.clouds += evaporation
+	
+	var precipitation = tile_climate.clouds * PRECIPITATION_FACTOR * DISSIPATION_STRENTH
+	tile_climate.clouds -= precipitation
+	tile_climate.moisture += precipitation
+	
+	var cloud_maximum = 1 - tile.over_water_elevation / (ELEVATION_MAX + 1)
+	if tile_climate.clouds > cloud_maximum:
+		tile_climate.moisture += tile_climate.clouds - cloud_maximum
+		tile_climate.clouds = cloud_maximum
+	
+	var cloud_dispersal = tile_climate.clouds * (1.0 / (7.0 + WIND_STRENGTH)) * DISSIPATION_STRENTH
+	var runoff = tile_climate.moisture * RUNOFF_FACTOR * (1.0/8.0) * DISSIPATION_STRENTH
+	var seepage = tile_climate.moisture * SEEPAGE_FACTOR * (1.0/8.0) * DISSIPATION_STRENTH
+	
+	for direction in Directions:
+		var neighbor = _get_neighbor(tile, direction)
 		if not neighbor:
+			print()
 			continue
-		neighbor.clouds += cloud_dispersal
-		var elevation_delta = neighbor.elevation - tile.elevation - WATER_LEVEL
-		if elevation_delta > 0:
-			tile.moisture -= runoff
-			neighbor.moisture += runoff
+		var neighbor_climate = next_climate[neighbor.idx]
+		if direction == WIND_DIRECTION:
+			neighbor_climate.clouds += cloud_dispersal * WIND_STRENGTH
+		else:
+			neighbor_climate.clouds += cloud_dispersal
+		
+		var elevation_delta = (neighbor.over_water_elevation - tile.over_water_elevation) 
+		if elevation_delta < 0:
+			tile_climate.moisture -= runoff
+			neighbor_climate.moisture += runoff
 		elif elevation_delta == 0:
-			tile.moisture -= seepage
-			neighbor.moisture += seepage
-	tile.clouds = 0
+			tile_climate.moisture -= seepage
+			neighbor_climate.moisture += seepage
+		
+		neighbor_climate.moisture = clamp(neighbor_climate.moisture, 0, 1)
+		neighbor_climate.clouds = clamp(neighbor_climate.clouds, 0, 1)
+		next_climate[neighbor.idx] = neighbor_climate
+	
+	tile_climate.moisture = clamp(tile_climate.moisture, 0, 1)
+	tile_climate.clouds = clamp(tile_climate.clouds, 0, 1)
+	var next_tile_climate = next_climate[idx]
+	next_tile_climate.moisture += tile_climate.moisture
+	next_climate[idx] = next_tile_climate
+	climate[idx] = ClimateData.new()
 
 
 func _create_climate():
-	for _cycle in range(CLIMATE_CYCLE):
-		var _map = map.duplicate()
-		for tile in _map:
-			_evolve_climate(tile, _map)
-		map = _map.duplicate()
-		_map.clear()
+	climate.clear()
+	next_climate.clear()
+	for i in range(len(map)):
+		climate.append(ClimateData.new(STARTING_MOISTURE))
+		next_climate.append(ClimateData.new())
+		
+	for _cycle in range(0, CLIMATE_CYCLE):
+		for i in range(len(map)):
+			_evolve_climate(i)
+		var swap = climate
+		climate = next_climate.duplicate()
+		next_climate = swap.duplicate()
 
 
 func _save_cloud_map():
-	for tile in map:
-		if tile.clouds > _max_cloud_value:
-			_max_moisture_value = tile.moisture
-
 	cloud_map = Image.new()
 	cloud_map.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
 	cloud_map.lock()
 	var idx = 0
 	for y in MAP_SIZE_Y:
 		for x in MAP_SIZE_X:
-			var tile = map[idx]
-			var v = range_lerp(tile.clouds, 0, _max_cloud_value, 0, 0.9)
-			var color = Color(v, v, v)
+			var color = Color.aqua
+			if map[idx].is_land:
+				var data = climate[idx]
+				var v = data.clouds
+				color = Color(v, v, v)	
 			cloud_map.set_pixel(x, y, color)
 			idx += 1
 
@@ -548,18 +568,17 @@ func _save_cloud_map():
 
 
 func _save_moisture_map():
-	for tile in map:
-		if tile.moisture > _max_moisture_value:
-			_max_moisture_value = tile.moisture
 	moisture_map = Image.new()
 	moisture_map.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
 	moisture_map.lock()
 	var idx = 0
 	for y in MAP_SIZE_Y:
 		for x in MAP_SIZE_X:
-			var tile = map[idx]
-			var v = range_lerp(tile.moisture, 0, _max_moisture_value, 0, 1)
-			var color = Color(v, v, v)
+			var color = Color.aqua
+			if map[idx].is_land:
+				var data = climate[idx]
+				var v = data.moisture
+				color = Color(v, v, v)	
 			moisture_map.set_pixel(x, y, color)
 			idx += 1
 
@@ -578,9 +597,21 @@ func _print_prop():
 	print("map border = x: {} , y: {}".format([MAP_BORDER_X, MAP_BORDER_Y], "{}"))
 	print("---------------------------------")
 
-func generate_map(world):
+func generate_map(world, run_climate):
 	_print_prop()
-	_run()
+	_init_map()
+	_create_regions()
+	_create_land()
+	_erode_land()
+	_smooth_land()
+	_remove_lone_pillars()
+	
+	if run_climate:
+		_create_climate()
+		_save_cloud_map()
+		_save_moisture_map()
+		
+	_upscale_map()
 	for item in map:
 		var tile: Tile = item
 		if not tile.is_land:
@@ -618,15 +649,5 @@ func _upscale_map():
 		
 	map = upscaled
 
-func _run():
-	_init_map()
-	_create_regions()
-	_create_land()
-	_erode_land()
-	_smooth_land()
-	_remove_lone_pillars()
-	_upscale_map()
-	# _save_height_map()
-	# _create_climate()
-	# _save_cloud_map()
-	# _save_moisture_map()
+
+
