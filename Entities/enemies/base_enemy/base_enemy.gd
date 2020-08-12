@@ -7,8 +7,7 @@ signal stats_loaded
 export(String) var enemy_name
 
 # Public Variables
-var battle_texture_normal: StreamTexture
-var battle_texture_hurt: StreamTexture
+var battle_texture: AtlasTexture
 var race: String
 var level: int
 var weakness: int
@@ -54,16 +53,17 @@ func load_enemy(enemy_data_name):
 		set(property, value)
 	
 	# Set Battle Textures
-	var enemy_name_lower = enemy_data_name.to_lower()
-	battle_texture_normal = load("res://Entities/enemies/battle_sprites/%s_battle_normal.png" % enemy_name_lower)
-	battle_texture_hurt = load("res://Entities/enemies/battle_sprites/%s_battle_hurt.png" % enemy_name_lower)
+	battle_texture = AtlasTexture.new()
+	battle_texture.atlas = load("res://Entities/enemies/battle_sprites/%s_Battle.png"
+			% enemy_data_name)
 	
 	# Wait for onready variables to be set
 	if sprite == null or stateMachine == null:
 		yield(self, "ready")
 	
 	# Set Sprite Texture
-	sprite.texture = load("res://Entities/enemies/overworld_sprites/%s_overworld.png" % enemy_name_lower)
+	sprite.texture = load("res://Entities/enemies/overworld_sprites/%s_Overworld.png"
+			% enemy_data_name)
 	
 	# Set AI Resource
 	stateMachine.behaviour = load("res://AI/Resources/%s_behaviour.tres" %

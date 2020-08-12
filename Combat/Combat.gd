@@ -4,6 +4,21 @@ extends CanvasLayer
 # Currently using bool, should've used enum to check how the combat ended
 signal combat_done(player_win)
 
+# Constants
+enum Anim_States {
+	NORMAL,
+	EYES_CLOSED,
+	HURT,
+}
+const Anim_State_Region_Pos_X = {
+	Anim_States.NORMAL: 0,
+	Anim_States.EYES_CLOSED: 32,
+	Anim_States.HURT: 64,
+}
+const BATTLE_TEXTURE_POS_Y = 0
+const BATTLE_TEXTURE_WIDTH = 32
+const BATTLE_TEXTURE_HEIGHT = 32
+
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
 var player_instance
@@ -16,6 +31,7 @@ onready var enemy_combat: CombatChar = $EnemyCombat
 
 func _on_Player_enemy_detected(player, enemy):
 	get_tree().paused = true
+	player.hud_margin.visible = false
 	setup_combat(player, enemy)
 	combat_menu.visible = true
 
@@ -40,7 +56,10 @@ func setup_combat(player, enemy):
 	combat_menu.set_enemy_health_value(enemy_instance.max_health,
 			enemy_instance.health)
 	
-	combat_menu.enemy_image.texture = enemy_instance.battle_texture_normal
+	combat_menu.enemy_image.texture.atlas = enemy_instance.battle_texture
+	combat_menu.enemy_image.texture.region = Rect2(
+		Anim_State_Region_Pos_X[Anim_States.NORMAL], BATTLE_TEXTURE_POS_Y,
+		BATTLE_TEXTURE_WIDTH, BATTLE_TEXTURE_HEIGHT)
 
 func end_combat(player_win):
 	emit_signal("combat_done", player_win)
