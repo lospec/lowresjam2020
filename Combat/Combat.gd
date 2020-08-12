@@ -5,19 +5,7 @@ extends CanvasLayer
 signal combat_done(player_win)
 
 # Constants
-enum Anim_States {
-	NORMAL,
-	EYES_CLOSED,
-	HURT,
-}
-const Anim_State_Region_Pos_X = {
-	Anim_States.NORMAL: 0,
-	Anim_States.EYES_CLOSED: 32,
-	Anim_States.HURT: 64,
-}
-const BATTLE_TEXTURE_POS_Y = 0
-const BATTLE_TEXTURE_WIDTH = 32
-const BATTLE_TEXTURE_HEIGHT = 32
+const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
@@ -58,8 +46,9 @@ func setup_combat(player, enemy):
 	
 	combat_menu.enemy_image.texture.atlas = enemy_instance.battle_texture
 	combat_menu.enemy_image.texture.region = Rect2(
-		Anim_State_Region_Pos_X[Anim_States.NORMAL], BATTLE_TEXTURE_POS_Y,
-		BATTLE_TEXTURE_WIDTH, BATTLE_TEXTURE_HEIGHT)
+		COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.NORMAL],
+		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_POS_Y,
+		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_WIDTH, COMBAT_ANIM_UTIL.BATTLE_TEXTURE_HEIGHT)
 
 func end_combat(player_win):
 	emit_signal("combat_done", player_win)

@@ -10,6 +10,7 @@ enum MENU_SELECTED {
 	MAIN,
 	ATTACK,
 }
+const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Exported Variables
 # should probably put this in somewhere else
@@ -114,11 +115,13 @@ func animate_enemy_hurt(enemy_instance, damage):
 	spawn_enemy_damage_label(damage)
 	enemy_image.shake(1, 15, 1)
 	
-	enemy_image.texture = enemy_instance.battle_texture_hurt
+	enemy_image.texture.region.position.x = \
+			COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.HURT]
 	
 	if enemy_instance.health > 0:
 		yield(get_tree().create_timer(1), "timeout")
-		enemy_image.texture = enemy_instance.battle_texture_normal
+		enemy_image.texture.region.position.x = \
+			COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.NORMAL]
 	else:
 		enemy_image.modulate.a 
 
