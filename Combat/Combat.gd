@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # Signals
 # Currently using bool, should've used enum to check how the combat ended
-signal combat_done(player_win)
+signal combat_done(player_win, enemy_instance)
 
 # Constants
 const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
@@ -21,6 +21,9 @@ func setup_combat(player, enemy):
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
 	
+	combat_menu.reset_ui()
+	combat_menu.current_menu = combat_menu.MENU_SELECTED.MAIN
+	
 	player_instance = player
 	enemy_instance = enemy
 	
@@ -36,7 +39,7 @@ func setup_combat(player, enemy):
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_WIDTH, COMBAT_ANIM_UTIL.BATTLE_TEXTURE_HEIGHT)
 
 func end_combat(player_win):
-	emit_signal("combat_done", player_win)
+	emit_signal("combat_done", player_win, enemy_instance)
 
 func TakeTurn(playerAction):
 	var enemyAction = enemy_combat.get_action()#playerAction#
