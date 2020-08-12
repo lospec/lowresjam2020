@@ -440,7 +440,7 @@ func _erode_land():
 func _smooth_land():
 	for _cycle in range(0, CELLULAR_AUTOMATA_CYCLE):
 		var next = map.duplicate()
-		for tile in map:
+		for tile in next:
 			var land_count = 0
 			var avg_elevation = 0
 
@@ -460,6 +460,26 @@ func _smooth_land():
 
 		map = next
 
+func _remove_lone_pillars():
+	var next = map.duplicate()
+	for tile in next:
+		if not tile.is_land:
+			continue
+		var lower_elevation_count = 0
+		var neighbor_elevations = {}
+		for neighbor in _get_neighbors(tile):
+			if neighbor.elevation < tile.elevation:
+				lower_elevation_count += 1
+				if not neighbor_elevations.has(neighbor.elevation):
+					neighbor_elevations[neighbor.elevation] = 0
+				neighbor_elevations[neighbor.elevation] += 1
+		if lower_elevation_count >= 7:
+			for elevation in neighbor_elevations:
+				if neighbor_elevations[elevation] == neighbor_elevations.values().max():
+					tile.elevation = elevation
+					print("removing lone pillar at %s" % str(tile.coordinate))
+					break
+	map = next
 
 func _evolve_climate(tile: Tile, _map):
 	if not tile.is_land:
@@ -604,6 +624,7 @@ func _run():
 	_create_land()
 	_erode_land()
 	_smooth_land()
+	_remove_lone_pillars()
 	_upscale_map()
 	# _save_height_map()
 	# _create_climate()
