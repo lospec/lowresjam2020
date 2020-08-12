@@ -48,11 +48,11 @@ func set_enemy_health_value(max_health, current_health):
 	enemy_health_bar.value = current_health
 
 
-func update_player_health_value(new_health):
+func update_player_health_value(old_health, new_health):
 	player_health_label.text = str(new_health)
 
 
-func update_enemy_health_value(new_health):
+func update_enemy_health_value(old_health, new_health):
 	enemy_health_bar_tween.interpolate_property(enemy_health_bar, "value",
 		enemy_health_bar.value, new_health, 1.0,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
@@ -169,3 +169,6 @@ func _on_Quick_pressed():
 
 func _on_Heavy_pressed():
 	emit_signal("action_selected", combat_util.Combat_Action.HEAVY)
+
+func _on_Flee_pressed():
+	emit_signal("action_selected", combat_util.Combat_Action.FLEE)

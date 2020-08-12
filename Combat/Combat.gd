@@ -9,8 +9,8 @@ const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
-var player_instance
-var enemy_instance
+var player_instance: BaseEntity
+var enemy_instance: BaseEntity
 
 # Onready Variables
 onready var combat_menu = $CombatMenu
@@ -21,11 +21,17 @@ func setup_combat(player, enemy):
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
 	
-	combat_menu.reset_ui()
 	combat_menu.current_menu = combat_menu.MENU_SELECTED.MAIN
+	combat_menu.reset_ui()
 	
 	player_instance = player
 	enemy_instance = enemy
+	
+	if !player_instance.is_connected("health_changed", combat_menu, "update_player_health_value"):
+		player_instance.connect("health_changed", combat_menu, "update_player_health_value")
+		
+	if !enemy_instance.is_connected("health_changed", combat_menu, "update_enemy_health_value"):
+		enemy_instance.connect("health_changed", combat_menu, "update_enemy_health_value")
 	
 	combat_menu.set_player_health_value(player_instance.max_health,
 			player_instance.health)
@@ -37,14 +43,43 @@ func setup_combat(player, enemy):
 		COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.NORMAL],
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_POS_Y,
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_WIDTH, COMBAT_ANIM_UTIL.BATTLE_TEXTURE_HEIGHT)
+	
+	start_combat()
+
+func start_combat():
+	var combat = true
+	var turn_count = 0
+	while combat:
+		turn_count += 1
+		#print("Turn %s: START, %s" % [turn_count, combat])
+		var turn = TakeTurn()
+		
+		if turn.is_valid():
+			turn = yield(turn, "completed")
+		
+		combat = turn
+		#print("Turn %s: END, %s" % [turn_count, combat])
 
 func end_combat(player_win):
+	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
+	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", player_win, enemy_instance)
 
-func TakeTurn(playerAction):
-	var enemyAction = enemy_combat.get_action()#playerAction#
-	combat_menu.set_buttons_visible(false)
+func TakeTurn() -> bool:
+	var playerAction = player_combat.get_action()
+	var enemyAction = enemy_combat.get_action()
 	
+	if playerAction is GDScriptFunctionState and playerAction.is_valid():
+		#print("wait for player action")
+		playerAction = yield(playerAction, "completed")
+	#print("player action: %s" % combat_util.GetActionName(playerAction))
+	
+	if enemyAction is GDScriptFunctionState and enemyAction.is_valid():
+		#print("wait for enemy action")
+		enemyAction = yield(enemyAction, "completed")
+	#print("enemy action: %s" % combat_util.GetActionName(enemyAction))
+	
+	combat_menu.set_buttons_visible(false)
 	# Show the player and the enemies choices
 	yield(combat_menu.show_turn_result(playerAction, enemyAction), "completed")
 	
@@ -55,7 +90,7 @@ func TakeTurn(playerAction):
 		if flee:
 			combat_menu.combat_label.visible = true
 			end_combat(false)
-			return
+			return false
 	
 	else:
 		var win = combat_util.ActionCompare(playerAction, enemyAction)
@@ -78,22 +113,26 @@ func TakeTurn(playerAction):
 	
 	combat_menu.hide_turn_result()
 	
-	# PLACEHOLDER END CONDITIONS
-	if player_instance.health <= 0:
-		yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
-		yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
-		combat_menu.combat_label.visible = true
-		end_combat(false)
-		return
-	
-	if enemy_instance.health <= 0:
-		yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
-		yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
-		combat_menu.combat_label.visible = true
-		end_combat(true)
-		return
+	if check_combat_end():
+		if player_instance.health <= 0:
+			yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
+			yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
+			combat_menu.combat_label.visible = true
+			end_combat(false)
+		
+		if enemy_instance.health <= 0:
+			yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
+			yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
+			combat_menu.combat_label.visible = true
+			end_combat(true)
+		
+		return false
 	
 	combat_menu.reset_ui()
+	return true
+
+func check_combat_end() -> bool:
+	return player_instance.health <= 0 or enemy_instance.health <= 0
 
 #### to differentiate between different kinds of outcome in the game other than just the color
 #### i left some suggestion comment in each of the cases
@@ -245,22 +284,18 @@ func _on_Player_enemy_detected(player, enemy):
 	setup_combat(player, enemy)
 	combat_menu.visible = true
 
-# maybe these health changed signals should be moved to CombatMenu.gd, so this script is more cleaner?
-# i don't know, your call Mariothedog
-func _on_Player_health_changed(_old_health, new_health):
-	combat_menu.update_player_health_value(new_health)
-
-func _on_Enemy_health_changed(_old_health, new_health):
-	combat_menu.update_enemy_health_value(new_health)
-
 func _on_Counter_pressed():
-	TakeTurn(combat_util.Combat_Action.COUNTER)
+	pass
+	#TakeTurn(combat_util.Combat_Action.COUNTER)
 
 func _on_Quick_pressed():
-	TakeTurn(combat_util.Combat_Action.QUICK)
+	pass
+	#TakeTurn(combat_util.Combat_Action.QUICK)
 
 func _on_Heavy_pressed():
-	TakeTurn(combat_util.Combat_Action.HEAVY)
+	pass
+	#TakeTurn(combat_util.Combat_Action.HEAVY)
 
 func _on_Flee_pressed():
-	TakeTurn(combat_util.Combat_Action.FLEE)
+	pass
+	#TakeTurn(combat_util.Combat_Action.FLEE)

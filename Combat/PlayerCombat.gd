@@ -2,6 +2,8 @@ extends "res://Combat/CombatChar.gd"
 
 class_name PlayerCombat
 
+signal action_chosen(action)
+
 func get_base_damage(action) -> int:
 	var player_weapon_data = Data.item_data[char_instance.equipped_weapon]
 	
@@ -20,7 +22,6 @@ func get_base_damage(action) -> int:
 	damage = damage * (1 + combat_util.MULTIPLIER_PER_COMBO * hit_combo)
 	return damage
 
-
 func get_damage_type(action) -> int:
 	var player_weapon_data = Data.item_data[char_instance.equipped_weapon]
 	
@@ -36,6 +37,19 @@ func get_damage_type(action) -> int:
 	
 	return -1
 
+func get_status_effect(action):
+	pass
+	
+func get_effect_chance(action):
+	pass
+
+func get_action() -> int:
+	var action = yield(self, "action_chosen")
+	return action
+
+func _on_CombatMenu_action_selected(action):
+	emit_signal("action_chosen", action)
+
 # Notes: A&
 # My original plan was to make this scirpt to use the get_action() to determine the player action
 # and the Combat.gd will wait for this script to use the CombatMenu.gd signals i talked about
@@ -44,3 +58,4 @@ func get_damage_type(action) -> int:
 # will listen for that signal, if the signal is received and both the the enemy and the player has set their turn
 # then the TakeTurn method is run but i'm not confident enough to pull this off
 # aha, i found a better way, should i try to implement it? (see: TakeTurn flee implementation)
+

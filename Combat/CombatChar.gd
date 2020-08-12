@@ -8,6 +8,9 @@ signal died()
 
 # Constants
 
+# Exported Variables
+export(Resource) var statEffect
+
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
 var hit_combo = 0
