@@ -1,21 +1,21 @@
 extends Reference
 
-
+const UPSCALE = 4
 const CHUNK_SIZE = 64
 
-const MAP_CHUNK_SIZE_X = 14
-const MAP_CHUNK_SIZE_Y = 8
+const MAP_CHUNK_SIZE_X = 6
+const MAP_CHUNK_SIZE_Y = 4
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 
-const JITTER_PROBABILITY = 0.2
-const JITTER_STRENGTH = 0.0075
+const JITTER_PROBABILITY = 0.1
+const JITTER_STRENGTH = 0.0085
 
 const CHUNK_SIZE_MIN = 100
-const CHUNK_SIZE_MAX = 48000
+const CHUNK_SIZE_MAX = 9600
 
-const LAND_PERCENTAGE = 0.3
+const LAND_PERCENTAGE = 0.35
 
 const WATER_LEVEL = 4
 const ELEVATION_MIN = -4
@@ -24,14 +24,14 @@ const ELEVATION_MAX = 8
 const HIGH_RISE_PROBABILITY = 0.2
 const SINK_PROBABILITY = 0.15
 const EROSIAN_PERCENTAGE = 0.6
-const EROSIAN_CYCLE = 1
+const EROSIAN_CYCLE = 2
 
-const MAP_BORDER_X = 256
-const MAP_BORDER_Y = 96
+const MAP_BORDER_X = 64
+const MAP_BORDER_Y = 48
 const REGION_BORDER = 20
 
-const CELLULAR_AUTOMATA_CYCLE = 6
-const CELLULAR_AUTOMATA_LIVE = 3
+const CELLULAR_AUTOMATA_CYCLE = 4
+const CELLULAR_AUTOMATA_LIVE = 4
 const CELLULAR_AUTOMATA_DEAD = 4
 const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
@@ -60,15 +60,18 @@ class Region:
 
 class Tile:
 	var idx
-	var terrain_type = null
+	var upscale_factor = 1
+	var elevation = 0
+	var coordinate: Vector2 setget , _get_coordinate
+	var is_land: bool setget , _is_land
+	
+	
 	var search_phase = 0
 	var distance
 	var search_heuristic
-	var search_priority setget , _get_priority
-	var coordinate: Vector2 setget , _get_coordinate
-	var is_land: bool setget , _is_land
 	var next_with_same_priority = null
-	var elevation = 0
+	var search_priority setget , _get_priority
+	
 	var clouds: float = 0
 	var moisture: float = 0
 
@@ -76,7 +79,7 @@ class Tile:
 		return elevation >= WATER_LEVEL
 
 	func _get_coordinate():
-		return Vector2(idx % MAP_SIZE_X, floor(idx / MAP_SIZE_X))
+		return Vector2(idx % (MAP_SIZE_X * upscale_factor), floor(idx / (MAP_SIZE_X * upscale_factor)))
 
 	func _get_priority():
 		return distance + search_heuristic
@@ -224,9 +227,9 @@ func _get_neighbors(current: Tile, diagonals = true, _map = null):
 	var directions = [N, S, W, E, NE, NW, SE, SW]
 	for i in range(len(directions) - (0 if diagonals else 4)):
 		var v = directions[i]
-		if v.x < 0 or v.x >= MAP_SIZE_X or v.y < 0 or v.y >= MAP_SIZE_Y:
+		if v.x < 0 or v.x >= MAP_SIZE_X * current.upscale_factor or v.y < 0 or v.y >= MAP_SIZE_Y * current.upscale_factor:
 			continue
-		neighbors.append(_map[v.x + v.y * MAP_SIZE_X])
+		neighbors.append(_map[v.x + v.y * MAP_SIZE_X * current.upscale_factor])
 	return neighbors
 
 
@@ -254,10 +257,10 @@ func _get_neighbor(tile: Tile, direction):
 			coord.x -= 1
 			coord.y -= 1
 	
-	if coord.x < 0 or coord.x >= MAP_SIZE_X or coord.y < 0 or coord.y >= MAP_SIZE_Y:
+	if coord.x < 0 or coord.x >= MAP_SIZE_X * tile.upscale_factor or coord.y < 0 or coord.y >= MAP_SIZE_Y * tile.upscale_factor:
 		return null
 			
-	var idx = coord.x + (coord.y * MAP_SIZE_X)
+	var idx = coord.x + (coord.y * MAP_SIZE_X * tile.upscale_factor)
 	if idx < 0 or idx >= len(map):
 		return null
 	
@@ -548,6 +551,7 @@ func _save_moisture_map():
 func _print_prop():
 	print("----- Generator Properties ------")
 	print("map size = {}x{}".format([MAP_SIZE_X, MAP_SIZE_Y], "{}") )
+	print("upscaled map size = {}x{}".format([MAP_SIZE_X * UPSCALE, MAP_SIZE_Y * UPSCALE], "{}") )
 	print("chunk size = {}-{}".format([CHUNK_SIZE_MIN, CHUNK_SIZE_MAX], "{}"))
 	print("elevation = ({})-({})-({})".format([ELEVATION_MIN, WATER_LEVEL, ELEVATION_MAX], "{}"))
 	print("land percentage = %s" % str(LAND_PERCENTAGE))
@@ -574,7 +578,25 @@ func generate_map(world):
 				if neighbor and neighbor.elevation < tile.elevation:
 					world.add_cliff_tile(neighbor.coordinate, tile.elevation)
 
-
+func _upscale_map():
+	if UPSCALE == 1:
+		return
+		
+	var upscaled = []
+	upscaled.resize(len(map) * pow(UPSCALE, 2))
+	for i in range(len(upscaled)):
+		var x = i % (MAP_SIZE_X  * UPSCALE)
+		var y = floor(i / (MAP_SIZE_X  * UPSCALE))
+		var xi = floor(x/UPSCALE)
+		var yi = floor(y/UPSCALE)
+		var idx = xi + (yi * MAP_SIZE_X)
+		var original_tile = map[idx]
+		var tile = Tile.new(i)
+		tile.upscale_factor = UPSCALE
+		tile.elevation = original_tile.elevation
+		upscaled[i] = tile
+		
+	map = upscaled
 
 func _run():
 	_init_map()
@@ -582,6 +604,7 @@ func _run():
 	_create_land()
 	_erode_land()
 	_smooth_land()
+	_upscale_map()
 	# _save_height_map()
 	# _create_climate()
 	# _save_cloud_map()
