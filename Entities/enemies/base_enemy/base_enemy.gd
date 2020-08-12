@@ -2,6 +2,7 @@ extends "res://Entities/BaseEntity/BaseEntity.gd"
 
 # Signals
 signal stats_loaded
+signal died(enemy)
 
 # Exported Variables
 export(String) var enemy_name
@@ -73,9 +74,15 @@ func load_enemy(enemy_data_name):
 	
 	emit_signal("stats_loaded")
 
+
 func is_in_allowed_tile() -> bool:
 	var is_spawn_safe_area2d = $IsSpawnSafeArea2D
 	if not is_spawn_safe_area2d.get_overlapping_bodies():
 		return true
 	is_spawn_safe_area2d.queue_free() # The Area2D is now useless
 	return false
+
+
+func die():
+	emit_signal("died", [self])
+	queue_free()
