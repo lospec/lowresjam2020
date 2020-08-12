@@ -1,6 +1,6 @@
 extends Reference
 
-const UPSCALE = 1
+const UPSCALE = 4
 const CHUNK_SIZE = 64
 
 const MAP_CHUNK_SIZE_X = 3
@@ -81,12 +81,14 @@ class Tile:
 	var over_water_elevation setget , _get_over_water_elevation
 	var is_near_water = false
 	var is_cliff = false
+	var feature_type = -1
 	
 	var search_phase = 0
 	var distance
 	var search_heuristic
 	var next_with_same_priority = null
 	var search_priority setget , _get_priority
+	var climate_data
 
 	func _get_over_water_elevation():
 		return elevation if elevation >= WATER_LEVEL else WATER_LEVEL
@@ -615,16 +617,51 @@ func generate_map(world, run_climate, create_climate_texture_maps):
 		
 	_upscale_map()
 	_set_terrain_tiles(world)
-	_set_feature_tiles(world)
+	
+	if run_climate:
+		_set_feature_tiles(world)
 	
 func _set_feature_tiles(world):
 	var noise: OpenSimplexNoise = world.feature_noise
 	for item in map:
 		var tile: Tile = item
+		var climate_data = tile.climate_data
 		if tile.is_land and not tile.is_cliff:
-			var climate_data = climate[tile.idx]
 			if climate_data.moisture > 0.35 and noise.get_noise_2dv(tile.coordinate) > 0.2:
 				world.add_grass_tile(tile.coordinate)
+		
+		if tile.is_land and not tile.is_cliff and not tile.is_near_water:
+			var is_valid = true
+			for neighbor in _get_neighbors(tile):
+				if neighbor.elevation > tile.elevation:
+					is_valid = false
+					break
+				if neighbor.is_cliff:
+					is_valid = false
+					break
+			if not _get_neighbor(tile, Direction.E).is_land:
+				is_valid = false
+			if not is_valid:
+				continue
+			
+			if climate_data.moisture > 0.4 and noise.get_noise_2dv(tile.coordinate) > 0.35:
+				_add_feature(world, tile, world.Tile.Tree)
+				continue
+			if tile.over_water_elevation > 1 and noise.get_noise_2dv(tile.coordinate) > 0.45:
+				_add_feature(world, tile, world.Tile.Rock)
+				continue
+			if climate_data.moisture > 0.45 and noise.get_noise_2dv(tile.coordinate) > 0.3:
+				_add_feature(world, tile, world.Tile.Bush)
+				continue
+
+func _add_feature(world, tile, type):
+	for neighbor in _get_neighbors(tile):
+		if neighbor.feature_type != -1 and neighbor.feature_type != type:
+			return
+	tile.feature_type = type
+	world.add_feature_tile(tile.coordinate, type)
+	
+				
 
 func _set_terrain_tiles(world):
 	for item in map:
@@ -670,6 +707,7 @@ func _upscale_map():
 		var tile = Tile.new(i)
 		tile.upscale_factor = UPSCALE
 		tile.elevation = original_tile.elevation
+		tile.climate_data = climate[idx]
 		upscaled[i] = tile
 		
 	map = upscaled

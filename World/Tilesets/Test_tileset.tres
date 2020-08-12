@@ -82,7 +82,7 @@
 4/z_index = 0
 5/name = "rock"
 5/texture = ExtResource( 4 )
-5/tex_offset = Vector2( 0, 0 )
+5/tex_offset = Vector2( 2, 2 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 20, 4, 8, 8 )
 5/tile_mode = 0
@@ -96,7 +96,7 @@
 5/z_index = 0
 6/name = "bush"
 6/texture = ExtResource( 4 )
-6/tex_offset = Vector2( 0, 0 )
+6/tex_offset = Vector2( -4, -4 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 8, 0, 12, 12 )
 6/tile_mode = 0
@@ -110,7 +110,7 @@
 6/z_index = 0
 7/name = "tree"
 7/texture = ExtResource( 4 )
-7/tex_offset = Vector2( 0, 0 )
+7/tex_offset = Vector2( -4, -16 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 28, 0, 16, 20 )
 7/tile_mode = 0
@@ -119,8 +119,14 @@
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 7/shape_one_way = false
-7/shape_one_way_margin = 0.0
-7/shapes = [  ]
+7/shape_one_way_margin = 1.0
+7/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": null,
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 7/z_index = 0
 8/name = "grass0"
 8/texture = ExtResource( 4 )
