@@ -28,14 +28,17 @@ func show_turn_compare(playerAction, enemyAction, duration = 1.5):
 		player_action_label.modulate.a = 0
 		enemy_action_label.modulate.a = 0
 
+# warning-ignore:return_value_discarded
 		tween.interpolate_property(enemy_action_label, "modulate:a",
 				0, 1, action_tween_duration, Tween.TRANS_QUAD, Tween.EASE_OUT,
 				action_tween_delay)
 		
+# warning-ignore:return_value_discarded
 		tween.interpolate_property(player_action_label, "modulate:a",
 				0, 1, action_tween_duration, Tween.TRANS_QUAD, Tween.EASE_OUT,
 				action_tween_delay)
 		
+# warning-ignore:return_value_discarded
 		tween.start()
 		yield(tween, "tween_all_completed")
 		yield(get_tree().create_timer(duration), "timeout")

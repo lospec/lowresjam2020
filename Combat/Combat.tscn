@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
@@ -41,7 +41,6 @@
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_7.png" type="Texture" id=39]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_5.png" type="Texture" id=40]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_6.png" type="Texture" id=41]
-[ext_resource path="res://Combat/StatusEffects/StatusEffect.gd" type="Script" id=42]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -66,9 +65,6 @@ frame_6/texture = ExtResource( 41 )
 frame_6/delay_sec = 0.0
 frame_7/texture = ExtResource( 39 )
 frame_7/delay_sec = 0.0
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 42 )
 
 [node name="Combat" type="CanvasLayer"]
 pause_mode = 2
@@ -137,6 +133,7 @@ margin_bottom = 5.0
 texture = ExtResource( 26 )
 
 [node name="Enemy" type="TextureRect" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer"]
+show_behind_parent = true
 margin_left = 3.0
 margin_top = 5.0
 margin_right = 35.0
@@ -145,6 +142,15 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource( 1 )
 script = ExtResource( 31 )
+
+[node name="ParticlePos" type="Control" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/Enemy"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 19.0
+margin_bottom = 19.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerHUD" type="VBoxContainer" parent="CombatMenu/VBoxContainer"]
 margin_top = 44.0
@@ -518,7 +524,6 @@ script = ExtResource( 35 )
 
 [node name="PlayerCombat" type="Node" parent="."]
 script = ExtResource( 22 )
-statEffect = SubResource( 3 )
 
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 23 )
