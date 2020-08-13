@@ -1,7 +1,7 @@
 extends MarginContainer
 
 # Onready Variables
-onready var buttons = $Middle/Buttons
+onready var buttons = $ButtonMargin/Buttons
 
 
 func _ready():
@@ -12,21 +12,15 @@ func _ready():
 				[button])
 
 
-func _on_Play_Button_pressed():
+func _on_Play_pressed():
 	Transitions.change_scene_double_transition(
 			"res://UI/character_selection/character_selector.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
-func _on_Credits_Button_pressed():
+func _on_Credits_pressed():
 	Transitions.change_scene_double_transition(
 			"res://UI/Credits/Credits.tscn",
-			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
-
-
-func _on_Settings_Button_pressed():
-	Transitions.change_scene_double_transition(
-			"res://UI/settings/Settings.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
@@ -35,11 +29,6 @@ func _unhandled_input(event):
 			event.scancode == KEY_F9 and event.pressed and event.shift:
 		if get_tree().change_scene("res://AI/Editor/AI_Editor.tscn") != OK:
 			print_debug("An error occured while attempting to change to the AI scene")
-
-
-func _on_TransitionTest_Button_pressed():
-	if get_tree().change_scene("res://Shaders/Testing/scenes/TransitionTest.tscn") != OK:
-		print_debug("An error occured while attempting to change to the transition test scene")
 
 
 func _on_Button_pressed(button):
