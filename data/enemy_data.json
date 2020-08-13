@@ -1,7 +1,7 @@
 {
   "Devil": {
     "race": "Demon",
-    "max_health": 25,
+    "health": 25,
     "weakness": "Water",
     "resistance": "Fire",
     "coin_drop_amount": 55,
@@ -27,7 +27,7 @@
   },
   "Shroomic": {
     "race": "Flora",
-    "max_health": 5,
+    "health": 5,
     "weakness": "Fire",
     "resistance": "none",
     "coin_drop_amount": 23,
@@ -52,7 +52,7 @@
   },
   "Gnome": {
     "race": "Gnome",
-    "max_health": 7,
+    "health": 7,
     "weakness": "none",
     "resistance": "none",
     "coin_drop_amount": 34,
@@ -81,7 +81,7 @@
   },
   "ToturiGnome": {
     "race": "Gnome",
-    "max_health": 10,
+    "health": 10,
     "weakness": "none",
     "resistance": "none",
     "coin_drop_amount": 15,
@@ -110,7 +110,7 @@
   },
   "DEV1T0": {
     "race": "Robot",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Water",
     "resistance": "Electricity",
     "coin_drop_amount": 40,
@@ -139,7 +139,7 @@
   },
   "Gentapram": {
     "race": "Demon",
-    "max_health": 66,
+    "health": 66,
     "weakness": "Blunt",
     "resistance": "Fire",
     "coin_drop_amount": 33,
@@ -152,7 +152,7 @@
   },
   "Bugademon": {
     "race": "Demon",
-    "max_health": 20,
+    "health": 20,
     "weakness": "Water",
     "resistance": "Fire",
     "coin_drop_amount": 38,
@@ -179,7 +179,7 @@
   },
   "Thief": {
     "race": "Human",
-    "max_health": 9,
+    "health": 9,
     "weakness": "none",
     "resistance": "none",
     "coin_drop_amount": 32,
@@ -206,7 +206,7 @@
   },
   "Hoglet": {
     "race": "Beast",
-    "max_health": 6,
+    "health": 6,
     "weakness": "Pierce",
     "resistance": "Blunt",
     "coin_drop_amount": 8,
@@ -217,7 +217,7 @@
   },
   "SledgeGuy": {
     "race": "Human",
-    "max_health": 15,
+    "health": 15,
     "weakness": "none",
     "resistance": "Blunt",
     "coin_drop_amount": 50,
@@ -244,7 +244,7 @@
   },
   "Implet": {
     "race": "Demon",
-    "max_health": 4,
+    "health": 4,
     "weakness": "Water",
     "resistance": "Fire",
     "coin_drop_amount": 10,
@@ -255,7 +255,7 @@
   },
   "L05P3C-bot": {
     "race": "Robot",
-    "max_health": 15,
+    "health": 15,
     "weakness": "Water",
     "resistance": "Electricity",
     "coin_drop_amount": 40,
@@ -266,7 +266,7 @@
   },
   "Hogma": {
     "race": "Beast",
-    "max_health": 25,
+    "health": 25,
     "weakness": "Pierce",
     "resistance": "Blunt",
     "coin_drop_amount": 48,
@@ -277,7 +277,7 @@
   },
   "Godobot": {
     "race": "Robot",
-    "max_health": 100,
+    "health": 100,
     "weakness": "none",
     "resistance": "Electricity",
     "coin_drop_amount": 140,
@@ -290,7 +290,7 @@
   },
   "Grello": {
     "race": "Slime",
-    "max_health": 10,
+    "health": 10,
     "weakness": "none",
     "resistance": "none",
     "coin_drop_amount": 5,
@@ -304,7 +304,7 @@
   },
   "Kello": {
     "race": "Slime",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Fire",
     "resistance": "Water",
     "coin_drop_amount": 5,
@@ -318,7 +318,7 @@
   },
   "Mello": {
     "race": "Slime",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Water",
     "resistance": "Fire",
     "coin_drop_amount": 5,
@@ -332,7 +332,7 @@
   },
   "Yello": {
     "race": "Slime",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Blunt",
     "resistance": "Pierce",
     "coin_drop_amount": 5,
@@ -346,7 +346,7 @@
   },
   "Hello": {
     "race": "Slime",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Electricity",
     "resistance": "Fire",
     "coin_drop_amount": 5,
@@ -360,7 +360,7 @@
   },
   "Mongrel": {
     "race": "Beast",
-    "max_health": 15,
+    "health": 15,
     "weakness": "none",
     "resistance": "none",
     "coin_drop_amount": 25,
@@ -370,7 +370,7 @@
   },
   "Diekon": {
     "race": "Flora",
-    "max_health": 6,
+    "health": 6,
     "weakness": "Fire",
     "resistance": "none",
     "coin_drop_amount": 4,
@@ -382,7 +382,7 @@
   },
   "ROB3RT": {
     "race": "Robot",
-    "max_health": 35,
+    "health": 35,
     "weakness": "Water",
     "resistance": "Electricity",
     "coin_drop_amount": 45,
@@ -392,7 +392,7 @@
   },
   "Crubb": {
     "race": "Beast",
-    "max_health": 10,
+    "health": 10,
     "weakness": "none",
     "resistance": "Water",
     "coin_drop_amount": 15,
@@ -402,7 +402,7 @@
   },
   "Skedivor": {
     "race": "Beast",
-    "max_health": 74,
+    "health": 74,
     "weakness": "Blunt",
     "resistance": "none",
     "coin_drop_amount": 43,
@@ -412,7 +412,7 @@
   },
   "Liktra": {
     "race": "Flora",
-    "max_health": 7,
+    "health": 7,
     "weakness": "Fire",
     "resistance": "none",
     "coin_drop_amount": 6,
@@ -422,7 +422,7 @@
   },
   "Venus": {
     "race": "Flora",
-    "max_health": 10,
+    "health": 10,
     "weakness": "Fire",
     "resistance": "none",
     "coin_drop_amount": 7,
@@ -434,7 +434,7 @@
   },
   "Tripod": {
     "race": "Beast",
-    "max_health": 15,
+    "health": 15,
     "weakness": "none",
     "resistance": "Blunt",
     "coin_drop_amount": 23,
@@ -445,7 +445,7 @@
   },
   "D'wole": {
     "race": "Beast",
-    "max_health": 30,
+    "health": 30,
     "weakness": "Pierce",
     "resistance": "Blunt",
     "coin_drop_amount": 36,
@@ -458,7 +458,7 @@
   },
   "Gnomage": {
     "race": "Gnome",
-    "max_health": 56,
+    "health": 56,
     "weakness": "Pierce",
     "resistance": "none",
     "coin_drop_amount": 63,
@@ -475,7 +475,7 @@
   },
   "Gnight": {
     "race": "Gnome",
-    "max_health": 42,
+    "health": 42,
     "weakness": "none",
     "resistance": "Pierce",
     "coin_drop_amount": 58,
@@ -485,7 +485,7 @@
   },
   "Gninja": {
     "race": "Gnome",
-    "max_health": 57,
+    "health": 57,
     "weakness": "Pierce",
     "resistance": "none",
     "coin_drop_amount": 60,
@@ -495,7 +495,7 @@
   },
   "Cye": {
     "race": "Demon",
-    "max_health": 100,
+    "health": 100,
     "weakness": "none",
     "resistance": "Blunt",
     "coin_drop_amount": 83,
@@ -507,7 +507,7 @@
   },
   "Sir Chad": {
     "race": "Human",
-    "max_health": 85,
+    "health": 85,
     "weakness": "none",
     "resistance": "Fire",
     "coin_drop_amount": 84,
@@ -521,7 +521,7 @@
   },
   "Hellbird": {
     "race": "Demon",
-    "max_health": 12,
+    "health": 12,
     "weakness": "Water",
     "resistance": "Fire",
     "attack_pool": "Q",
@@ -602,17 +602,8 @@
   },
   "Bandit": {
     "race": "Human",
-    "max_health": 20,
+    "health": 20,
     "weakness": "none",
     "resistance": "Pierce"
-  },
-  "Pitcher": {
-    "race": "Flora",
-    "weakness": "Fire"
-  },
-  "DemonGal": {
-    "race": "Demon",
-    "weakness": "none",
-    "resistance": "Fire"
   }
 }

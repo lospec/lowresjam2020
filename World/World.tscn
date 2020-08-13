@@ -87,6 +87,18 @@ pause_mode = 1
 [node name="GuildHall" parent="EntitiesAndStaticObjects" instance=ExtResource( 4 )]
 position = Vector2( -29, -43 )
 
+[node name="Flag" parent="EntitiesAndStaticObjects/GuildHall" index="1"]
+frame = 3
+
+[node name="Flag2" parent="EntitiesAndStaticObjects/GuildHall" index="2"]
+frame = 0
+
+[node name="Flag3" parent="EntitiesAndStaticObjects/GuildHall" index="3"]
+frame = 1
+
+[node name="Flag4" parent="EntitiesAndStaticObjects/GuildHall" index="4"]
+frame = 2
+
 [node name="Player" parent="EntitiesAndStaticObjects" instance=ExtResource( 2 )]
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
@@ -101,6 +113,7 @@ node_to_follow = NodePath("../EntitiesAndStaticObjects/Player")
 pause_mode = 2
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
 [connection signal="body_entered" from="EntitiesAndStaticObjects/GuildHall/DoorDetection" to="." method="_on_DoorDetection_body_entered"]
+[connection signal="enemy_detected" from="EntitiesAndStaticObjects/Player" to="." method="_on_Player_enemy_detected"]
 [connection signal="enemy_detected" from="EntitiesAndStaticObjects/Player" to="Combat" method="_on_Player_enemy_detected"]
 [connection signal="health_changed" from="EntitiesAndStaticObjects/Player" to="Combat" method="_on_Player_health_changed"]
 [connection signal="inventory_button_pressed" from="EntitiesAndStaticObjects/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
