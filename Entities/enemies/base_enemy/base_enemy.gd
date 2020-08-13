@@ -1,10 +1,13 @@
 extends "res://Entities/BaseEntity/BaseEntity.gd"
 
+const MAX_SPEED = 40
+const MIN_SPEED = 5
+
 # Signals
 signal stats_loaded
 
 # Exported Variables
-export(String) var enemy_name
+export (String) var enemy_name
 
 # Public Variables
 var battle_texture: AtlasTexture
@@ -43,39 +46,46 @@ func load_enemy(enemy_data_name):
 	if not Data.enemy_data.has(enemy_data_name):
 		push_error("Enemy data for %s not found" % enemy_data_name)
 		return
-	
+  
 	enemy_name = enemy_data_name
-	
+
 	# Set Properties
 	var enemy_stats = Data.enemy_data[enemy_data_name]
 	for property in enemy_stats:
 		var value = enemy_stats[property]
 		if get(property) == null and not property in ["ai_type"]:
 			push_error("No corresponding variable found for %s" % property)
+		# Interpolate Speed Stat
+		if property == "move_speed":
+			value = Data.get_lerped_speed_stat(value, MIN_SPEED, MAX_SPEED)
 		set(property, value)
-	
+
 	# Set Battle Textures
 	battle_texture = AtlasTexture.new()
-	battle_texture.atlas = load("res://Entities/enemies/battle_sprites/%s_Battle.png"
-			% enemy_data_name)
-	
+	battle_texture.atlas = load(
+		"res://Entities/enemies/battle_sprites/%s_Battle.png" % enemy_data_name
+	)
+
 	# Wait for onready variables to be set
 	if sprite == null or stateMachine == null:
 		yield(self, "ready")
-	
+
 	# Set Sprite Texture
-	sprite.texture = load("res://Entities/enemies/overworld_sprites/%s_Overworld.png"
-			% enemy_data_name)
-	
+	sprite.texture = load(
+		"res://Entities/enemies/overworld_sprites/%s_Overworld.png" % enemy_data_name
+	)
+
 	# Set AI Resource
-	stateMachine.behaviour = load("res://AI/Resources/%s_behaviour.tres" %
-			enemy_stats.ai_type.to_lower())
-	
+	stateMachine.behaviour = load(
+		"res://AI/Resources/%s_behaviour.tres" % enemy_stats.ai_type.to_lower()
+	)
+
 	emit_signal("stats_loaded")
+
 
 func is_in_allowed_tile() -> bool:
 	var is_spawn_safe_area2d = $IsSpawnSafeArea2D
 	if not is_spawn_safe_area2d.get_overlapping_bodies():
 		return true
-	is_spawn_safe_area2d.queue_free() # The Area2D is now useless
+	is_spawn_safe_area2d.queue_free()  # The Area2D is now useless
 	return false
