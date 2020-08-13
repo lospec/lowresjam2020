@@ -7,26 +7,9 @@ export (bool) var print_properties = false setget , _print_prop
 export (bool) var use_existing_map = false setget _set_use_existing_map
 export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
-export (bool) var run_climate_simulation = true
-export (bool) var create_climate_texture_maps = true
-export (Resource) var climate_parameters = ClimateParameters.new() setget _create_climate_params
 
 export (OpenSimplexNoise) var feature_noise = OpenSimplexNoise.new()
-
-class ClimateParameters:
-	extends Resource
-	export (float) var DISSIPATION_STRENTH = 1.1
-	export (float) var EVAPORATION_FACTOR = 0.5
-	export (float) var PRECIPITATION_FACTOR = 0.5
-	export (float) var RUNOFF_FACTOR = 0.1
-	export (float) var SEEPAGE_FACTOR = 0.1
-	export (int) var WIND_STRENGTH = 10
-	export (float) var STARTING_MOISTURE = 0.15
-	export (int) var CLIMATE_CYCLE = 11
-	
-func _create_climate_params(value):
-	climate_parameters = ClimateParameters.new()
-	climate_parameters.resource_name = "climate parameters"
+export (OpenSimplexNoise) var grass_noise = OpenSimplexNoise.new()
 
 class TilemapManager:
 	var _parent: Node
@@ -149,7 +132,7 @@ func _run():
 			if tilemap:
 				map_node.remove_child(tilemap)
 	
-	map_generator.generate_map(self, climate_parameters, use_existing_map, run_climate_simulation, create_climate_texture_maps)
+	map_generator.generate_map(self, use_existing_map)
 	tilemap_manager.update_bitmask()
 	
 	elapsed = OS.get_ticks_msec() - elapsed

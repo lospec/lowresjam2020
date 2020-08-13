@@ -537,7 +537,7 @@ func _evolve_climate(idx: int):
 	if tile_climate.clouds > cloud_maximum:
 		tile_climate.moisture += tile_climate.clouds - cloud_maximum
 		tile_climate.clouds = cloud_maximum
-		
+
 	var cloud_dispersal = (
 		tile_climate.clouds
 		* (1.0 / (5.0 + climate_parameters.WIND_STRENGTH))
@@ -672,12 +672,8 @@ func _print_prop():
 	print("---------------------------------")
 
 
-func generate_map(world, climate_params, use_existing_map, run_climate, create_climate_texture_maps):
+func generate_map(world, use_existing_map):
 	_print_prop()
-	self.climate_parameters = climate_params
-
-	if run_climate:
-		_print_climate_prop()
 
 	var elapsed_time = OS.get_ticks_msec()
 	if not use_existing_map:
@@ -690,15 +686,6 @@ func generate_map(world, climate_params, use_existing_map, run_climate, create_c
 		elapsed_time = OS.get_ticks_msec() - elapsed_time
 		print("Generate Map Time (ms): %s" % str(elapsed_time))
 
-	if run_climate:
-		elapsed_time = OS.get_ticks_msec()
-		_create_climate()
-		if create_climate_texture_maps:
-			_save_cloud_map()
-			_save_moisture_map()
-		elapsed_time = OS.get_ticks_msec() - elapsed_time
-		print("Climate Simulation Time (ms): %s" % str(elapsed_time))
-
 	if not use_existing_map:
 		elapsed_time = OS.get_ticks_msec()
 		_upscale_map()
@@ -707,23 +694,28 @@ func generate_map(world, climate_params, use_existing_map, run_climate, create_c
 
 	elapsed_time = OS.get_ticks_msec()
 	_set_terrain_tiles(world)
-	if run_climate:
-		_set_feature_tiles(world)
+	_set_feature_tiles(world)
 	elapsed_time = OS.get_ticks_msec() - elapsed_time
 	print("Tilemap Generation Time (ms): %s" % str(elapsed_time))
 	print("---------------------------------")
 
 
 func _set_feature_tiles(world):
-	var noise: OpenSimplexNoise = world.feature_noise
+	var tree_noise: OpenSimplexNoise = world.feature_noise.duplicate()
+	tree_noise.seed = randi()
+	var bush_noise: OpenSimplexNoise = world.feature_noise.duplicate()
+	bush_noise.seed = randi()
+	var grass_noise: OpenSimplexNoise = world.grass_noise
+	var granular_noise: OpenSimplexNoise = world.grass_noise.duplicate()
+	granular_noise.seed = randi()
 	for item in map:
 		var tile: Tile = item
-		var climate_data = climate[tile.idx] if UPSCALE == 1 else tile.climate_data
 
 		if tile.is_land and not tile.is_cliff:
-			if climate_data.moisture > 0.35 and noise.get_noise_2dv(tile.coordinate) > 0.2:
+			if grass_noise.get_noise_2dv(tile.coordinate) > 0.2:
 				world.add_grass_tile(tile.coordinate)
 
+		var feature_rng = randf()
 		if tile.is_land and not tile.is_cliff and not tile.is_near_water:
 			var is_valid = true
 			for neighbor in _get_neighbors(tile):
@@ -739,16 +731,24 @@ func _set_feature_tiles(world):
 				continue
 
 			if (
-				climate_data.moisture > 0.4
-				and noise.get_noise_2dv(tile.coordinate) > 0.35
+				tree_noise.get_noise_2dv(tile.coordinate) > 0.2
+				and granular_noise.get_noise_2dv(tile.coordinate) > 0.25
 				and not tile.is_near_water
 			):
 				_add_feature(world, tile, world.Tile.Tree)
 				continue
-			if tile.over_water_elevation > 2 and noise.get_noise_2dv(tile.coordinate) > 0.45:
+			if (
+				tile.over_water_elevation > 2
+				and world.feature_noise.get_noise_2dv(tile.coordinate) > 0.35
+				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
+				and feature_rng < 0.4
+			):
 				_add_feature(world, tile, world.Tile.Rock)
 				continue
-			if climate_data.moisture > 0.45 and noise.get_noise_2dv(tile.coordinate) > 0.3:
+			if (
+				bush_noise.get_noise_2dv(tile.coordinate) > 0.5
+				and granular_noise.get_noise_2dv(tile.coordinate) > 0.5
+			):
 				_add_feature(world, tile, world.Tile.Bush)
 				continue
 
@@ -807,7 +807,6 @@ func _upscale_map():
 		var tile = Tile.new(i)
 		tile.upscale_factor = UPSCALE
 		tile.elevation = original_tile.elevation
-		tile.climate_data = climate[idx]
 		upscaled[i] = tile
 
 	map = upscaled
