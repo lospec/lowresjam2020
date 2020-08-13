@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Footballer_Battle.png-4f5c1a9f3926de5f83ba7396a41c88d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Footballer_Battle.png"
+dest_files=[ "res://.import/Footballer_Battle.png-4f5c1a9f3926de5f83ba7396a41c88d3.stex" ]
 
 [params]
 

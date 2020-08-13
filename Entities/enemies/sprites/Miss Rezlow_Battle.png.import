@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Miss Rezlow_Battle.png-a5716cc562b7d82324c53dfe6c090d3c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Miss Rezlow_Battle.png"
+dest_files=[ "res://.import/Miss Rezlow_Battle.png-a5716cc562b7d82324c53dfe6c090d3c.stex" ]
 
 [params]
 

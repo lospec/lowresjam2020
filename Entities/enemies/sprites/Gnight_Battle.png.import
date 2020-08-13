@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Gnight_Battle.png-cc4a73111f9ddc3ad39174bc5fc65d54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Gnight_Battle.png"
+dest_files=[ "res://.import/Gnight_Battle.png-cc4a73111f9ddc3ad39174bc5fc65d54.stex" ]
 
 [params]
 

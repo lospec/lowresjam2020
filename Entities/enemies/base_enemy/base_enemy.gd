@@ -64,7 +64,7 @@ func load_enemy(enemy_data_name):
 	# Set Battle Textures
 	battle_texture = AtlasTexture.new()
 	battle_texture.atlas = load(
-		"res://Entities/enemies/battle_sprites/%s_Battle.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Battle.png" % enemy_data_name
 	)
 
 	# Wait for onready variables to be set
@@ -73,7 +73,7 @@ func load_enemy(enemy_data_name):
 
 	# Set Sprite Texture
 	sprite.texture = load(
-		"res://Entities/enemies/overworld_sprites/%s_Overworld.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Overworld.png" % enemy_data_name
 	)
 
 	# Set AI Resource
