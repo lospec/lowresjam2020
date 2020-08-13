@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://UI/inventory/background.png" type="Texture" id=1]
 [ext_resource path="res://UI/pause_menu/pause_menu.gd" type="Script" id=2]
@@ -16,6 +16,9 @@
 [ext_resource path="res://UI/inventory/InventoryItem.tscn" type="PackedScene" id=14]
 [ext_resource path="res://UI/inventory/ItemStatsPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.tscn" type="PackedScene" id=16]
+[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=17]
+[ext_resource path="res://UI/Settings/Audio Settings/Volume Control.tscn" type="PackedScene" id=18]
+[ext_resource path="res://UI/pause_menu/SettingsMargin.gd" type="Script" id=19]
 
 [sub_resource type="DynamicFont" id=1]
 size = 4
@@ -27,7 +30,6 @@ pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="PauseMenuControl" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -115,6 +117,7 @@ text = "Header"
 align = 1
 
 [node name="SecondRow" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+visible = false
 margin_top = 9.0
 margin_right = 64.0
 margin_bottom = 20.0
@@ -168,6 +171,7 @@ text = "1000:COIN"
 align = 2
 
 [node name="InventoryItemsMargin" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+visible = false
 margin_top = 21.0
 margin_right = 64.0
 margin_bottom = 64.0
@@ -189,6 +193,57 @@ scroll_horizontal_enabled = false
 [node name="InventoryItems" type="GridContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/InventoryItemsMargin/InventoryItemsScrollContainer"]
 columns = 4
 
+[node name="SettingsMargin" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+margin_top = 9.0
+margin_right = 64.0
+margin_bottom = 64.0
+size_flags_vertical = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+script = ExtResource( 19 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 53.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 18.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer"]
+margin_right = 20.0
+margin_bottom = 9.0
+custom_fonts/font = ExtResource( 17 )
+text = "Music"
+
+[node name="Label2" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 20.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 17 )
+text = "SFX"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer"]
+margin_left = 24.0
+margin_right = 51.0
+margin_bottom = 18.0
+custom_constants/separation = 0
+
+[node name="Music Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+margin_right = 27.0
+
+[node name="SFX Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+margin_top = 9.0
+margin_right = 27.0
+margin_bottom = 18.0
+
 [node name="ItemInfoMenu" parent="PauseMenuControl/PauseMenuMargin" instance=ExtResource( 16 )]
 visible = false
 anchor_right = 0.0
@@ -197,6 +252,8 @@ margin_right = 64.0
 margin_bottom = 64.0
 
 [node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
+[connection signal="volume_value_updated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_Music_Volume_volume_value_updated"]
+[connection signal="volume_value_updated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_SFX_Volume_volume_value_updated"]
 [connection signal="detailed_item_info_menu_appeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_appeared"]
 [connection signal="detailed_item_info_menu_disappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_disappeared"]
 [connection signal="equipped_armor_changed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_equipped_armor_changed"]
