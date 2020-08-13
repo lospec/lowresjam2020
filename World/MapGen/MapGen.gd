@@ -625,7 +625,7 @@ func _set_feature_tiles(world):
 	var noise: OpenSimplexNoise = world.feature_noise
 	for item in map:
 		var tile: Tile = item
-		var climate_data = tile.climate_data
+		var climate_data = climate[tile.idx] if UPSCALE == 1 else tile.climate_data
 		if tile.is_land and not tile.is_cliff:
 			if climate_data.moisture > 0.35 and noise.get_noise_2dv(tile.coordinate) > 0.2:
 				world.add_grass_tile(tile.coordinate)
