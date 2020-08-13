@@ -109,7 +109,7 @@ func update_inventory():
 		item_texture_button.texture_normal = Utility.get_inventory_item_resource(item)
 		inventory_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [item])
 		inventory_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
-		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [item, player_instance])
+		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [inventory_item, player_instance])
 		inventory_items_grid.add_child(inventory_item)
 
 
@@ -195,7 +195,10 @@ func _on_Button_button_down(button):
 			current_menu = Menu.INFO
 		inventory_button:
 			current_menu = Menu.INVENTORY
-		
+	
+	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			button.rect_global_position, -15)
+	
 	update_menu_state()
 
 

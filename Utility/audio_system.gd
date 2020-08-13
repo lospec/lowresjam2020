@@ -12,10 +12,12 @@ const MUSIC_RESOURCES = {
 enum SFX {
 	BUTTON_CLICK,
 	BUTTON_CLICK_SHORT,
+	TOKEN_3,
 }
 const SFX_RESOURCES = {
-	SFX.BUTTON_CLICK: preload("res://UI/sfx/click.wav"),
-	SFX.BUTTON_CLICK_SHORT: preload("res://UI/sfx/click_short.wav"),
+	SFX.BUTTON_CLICK: preload("res://sfx/click.wav"),
+	SFX.BUTTON_CLICK_SHORT: preload("res://sfx/click_short.wav"),
+	SFX.TOKEN_3: preload("res://sfx/token_3.wav"),
 }
 
 const FADE_IN_START_VOLUME = -80
