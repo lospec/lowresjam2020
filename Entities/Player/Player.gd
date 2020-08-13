@@ -26,6 +26,10 @@ func _ready():
 	equipped_armor = SaveData.equipped_armor 
 	max_health = SaveData.max_health
 	health = SaveData.health
+	
+	var texture = load("res://Entities/Player/spritesheets/%s_Overworld.png"
+			% SaveData.character_name)
+	sprite.texture = texture
 
 
 func _on_Player_tree_exiting():
@@ -41,7 +45,7 @@ func _physics_process(_delta):
 	var input_vel := Vector2()
 	input_vel.x = Input.get_action_strength("player_move_right") - Input.get_action_strength("player_move_left")
 	input_vel.y = Input.get_action_strength("player_move_down") - Input.get_action_strength("player_move_up")
-	velocity = input_vel.normalized() * SPEED
+	velocity = input_vel.normalized() * move_speed
 
 
 # It would be better if the health was updated based on a signal but this works fine for now

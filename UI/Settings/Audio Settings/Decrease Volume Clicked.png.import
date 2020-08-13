@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Decrease Volume Clicked.png-69d165005ff843d14a501dd40187c0e2.stex"
+path="res://.import/Decrease Volume Clicked.png-308fbe55b3e7d3fe7213dc9e1aaffd6a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/settings/Audio Settings/Decrease Volume Clicked.png"
-dest_files=[ "res://.import/Decrease Volume Clicked.png-69d165005ff843d14a501dd40187c0e2.stex" ]
+source_file="res://UI/Settings/Audio Settings/Decrease Volume Clicked.png"
+dest_files=[ "res://.import/Decrease Volume Clicked.png-308fbe55b3e7d3fe7213dc9e1aaffd6a.stex" ]
 
 [params]
 

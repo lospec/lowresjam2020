@@ -3,32 +3,28 @@ extends Node
 class_name CombatChar
 
 # Signals
-signal health_changed(new_health)
+signal damage_taken(new_health)
+signal died()
 
 # Constants
-#const DAMAGE_VARIATION_DOWN = 2
-#const DAMAGE_VARIATION_UP = 3
 
 # Public Variables
-var COMBAT_ACTION = preload("res://Combat/CombatAction.gd")
-var health setget set_health
-var base_quick_damage
-var base_heavy_damage
-var base_counter_damage
+var combat_util = preload("res://Combat/CombatUtil.gd")
+var hit_combo = 0
 
-func set_health(val):
-	health = val
-	emit_signal("health_changed", health)
+var char_instance
 
-func GetBaseDamage(action):
-	var damage
-	match action:
-		COMBAT_ACTION.QUICK:
-			damage = base_quick_damage
-		COMBAT_ACTION.HEAVY:
-			damage = base_heavy_damage
-		COMBAT_ACTION.COUNTER:
-			damage = base_counter_damage
-	print(damage)
-	print(damage)
-	return damage
+func take_damage(dmg):
+	char_instance.health -= dmg
+	
+	if char_instance.health <= 0:
+		char_instance.health = 0
+	
+	hit_combo = 0
+
+#warning-ignore:unused_argument
+func get_base_damage(action) -> int:
+	return 0
+
+func get_action() -> int:
+	return -1

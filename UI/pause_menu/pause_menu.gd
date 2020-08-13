@@ -73,6 +73,8 @@ onready var item_stats_popup = pause_menu_control.get_node("ItemStatsPopup")
 
 onready var item_info_menu = pause_menu_margin.get_node("ItemInfoMenu")
 
+onready var settings_margin = pause_menu_vbox.get_node("SettingsMargin")
+
 
 func _ready():
 	pause_menu_control.visible = false
@@ -109,7 +111,7 @@ func update_inventory():
 		item_texture_button.texture_normal = Utility.get_inventory_item_resource(item)
 		inventory_item.connect("mouse_entered", item_stats_popup, "_on_Item_mouse_entered", [item])
 		inventory_item.connect("mouse_exited", item_stats_popup, "_on_Item_mouse_exited")
-		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [item, player_instance])
+		item_texture_button.connect("pressed", item_info_menu, "_on_Item_pressed", [inventory_item, player_instance])
 		inventory_items_grid.add_child(inventory_item)
 
 
@@ -155,6 +157,7 @@ func update_menu_state():
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
+			settings_margin.visible = true
 		Menu.INFO:
 			settings_button.pressed = false
 			info_button.pressed = true
@@ -164,6 +167,7 @@ func update_menu_state():
 			inventory_items_margin.visible = false
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
+			settings_margin.visible = false
 		Menu.INVENTORY:
 			settings_button.pressed = false
 			info_button.pressed = false
@@ -173,6 +177,7 @@ func update_menu_state():
 			inventory_items_margin.visible = true
 			equipped_items_margin.visible = true
 			item_stats_popup.visible = true
+			settings_margin.visible = false
 	
 	background.texture = MENU_BACKGROUND[current_menu]
 	
@@ -195,7 +200,10 @@ func _on_Button_button_down(button):
 			current_menu = Menu.INFO
 		inventory_button:
 			current_menu = Menu.INVENTORY
-		
+	
+	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			button.rect_global_position, -15)
+	
 	update_menu_state()
 
 
