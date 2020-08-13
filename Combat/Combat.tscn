@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
-[ext_resource path="res://Combat/Enemies/Impit/Impit_Battle_Normal.png" type="Texture" id=3]
+[ext_resource path="res://Entities/enemies/battle_sprites/Bugademon_Battle.png" type="Texture" id=3]
 [ext_resource path="res://Combat/UI/Backgrounds/player_health_hud.png" type="Texture" id=4]
 [ext_resource path="res://Combat/Font Resources/Mini3x4.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Combat/UI/Health/player_health_icon.png" type="Texture" id=6]
@@ -21,11 +21,50 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=19]
 [ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=20]
 [ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
+[ext_resource path="res://Combat/PlayerCombat.gd" type="Script" id=22]
+[ext_resource path="res://Combat/EnemyCombat.gd" type="Script" id=23]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Hover.png" type="Texture" id=24]
 [ext_resource path="res://Combat/UI/Buttons/Back/Back Normal.png" type="Texture" id=25]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPOver.png" type="Texture" id=26]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPProgress.png" type="Texture" id=27]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_3.png" type="Texture" id=29]
+[ext_resource path="res://Combat/CombatAttackAnim.gd" type="Script" id=30]
+[ext_resource path="res://Combat/CombatEnemyTexture.gd" type="Script" id=31]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_0.png" type="Texture" id=32]
+[ext_resource path="res://Combat/CombatTurnResultUI.gd" type="Script" id=33]
+[ext_resource path="res://Combat/HealthIcon.gd" type="Script" id=34]
+[ext_resource path="res://Combat/Effects/animations/AnimationList.gd" type="Script" id=35]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_1.png" type="Texture" id=36]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_2.png" type="Texture" id=37]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_4.png" type="Texture" id=38]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_7.png" type="Texture" id=39]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_5.png" type="Texture" id=40]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_6.png" type="Texture" id=41]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AnimatedTexture" id=2]
+frames = 8
+oneshot = true
+fps = 10.0
+frame_0/texture = ExtResource( 32 )
+frame_1/texture = ExtResource( 36 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 37 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 29 )
+frame_3/delay_sec = 0.0
+frame_4/texture = ExtResource( 38 )
+frame_4/delay_sec = 0.0
+frame_5/texture = ExtResource( 40 )
+frame_5/delay_sec = 0.0
+frame_6/texture = ExtResource( 41 )
+frame_6/delay_sec = 0.0
+frame_7/texture = ExtResource( 39 )
+frame_7/delay_sec = 0.0
 
 [node name="Combat" type="CanvasLayer"]
 pause_mode = 2
@@ -100,7 +139,8 @@ margin_right = 35.0
 margin_bottom = 37.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource( 3 )
+texture = SubResource( 1 )
+script = ExtResource( 31 )
 
 [node name="PlayerHUD" type="VBoxContainer" parent="CombatMenu/VBoxContainer"]
 margin_top = 44.0
@@ -143,6 +183,7 @@ margin_top = 1.0
 margin_right = 3.0
 margin_bottom = 4.0
 texture = ExtResource( 6 )
+script = ExtResource( 34 )
 
 [node name="Health" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer"]
 margin_left = 4.0
@@ -303,11 +344,187 @@ text = "Combat Label"
 align = 1
 autowrap = true
 clip_text = true
+
+[node name="CombatTurnResult" type="MarginContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD"]
+margin_right = 64.0
+margin_bottom = 16.0
+mouse_filter = 2
+custom_constants/margin_right = 3
+custom_constants/margin_top = 1
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 1
+script = ExtResource( 33 )
+
+[node name="WinResultContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 61.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/WinResultContainer"]
+margin_right = 58.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 21 )
+text = "Player"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/WinResultContainer"]
+modulate = Color( 0.737255, 0.207843, 0.207843, 1 )
+margin_top = 7.0
+margin_right = 58.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Counter"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="LineLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 61.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 21 )
+text = "|
+|"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="CompareContainer" type="HBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+visible = false
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 61.0
+margin_bottom = 15.0
+custom_constants/separation = 2
+alignment = 1
+
+[node name="PlayerTurnContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer"]
+margin_right = 28.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/PlayerTurnContainer"]
+margin_right = 28.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 21 )
+text = "Player"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/PlayerTurnContainer"]
+modulate = Color( 0.737255, 0.207843, 0.207843, 1 )
+margin_top = 7.0
+margin_right = 28.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Counter"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="EnemyTurnContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer"]
+margin_left = 30.0
+margin_right = 58.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ActorLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/EnemyTurnContainer"]
+margin_right = 28.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 21 )
+text = "Enemy"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="ActionLabel" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult/CompareContainer/EnemyTurnContainer"]
+modulate = Color( 0.207843, 0.686275, 0.207843, 1 )
+margin_top = 7.0
+margin_right = 28.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Counter"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="Tween" type="Tween" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
+
+[node name="EffectsContainer" type="Control" parent="CombatMenu"]
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+
+[node name="EffectTexture" type="TextureRect" parent="CombatMenu/EffectsContainer"]
+visible = false
+margin_top = 7.0
+margin_right = 64.0
+margin_bottom = 49.0
+mouse_filter = 2
+texture = SubResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DamageSpawnArea" type="Control" parent="CombatMenu/EffectsContainer"]
+margin_left = 22.0
+margin_top = 19.0
+margin_right = 42.0
+margin_bottom = 38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EffectAnimationList" type="Node" parent="CombatMenu"]
+script = ExtResource( 35 )
+
+[node name="PlayerCombat" type="Node" parent="."]
+script = ExtResource( 22 )
+
+[node name="EnemyCombat" type="Node" parent="."]
+script = ExtResource( 23 )
 [connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="_on_Flee_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="_on_Flee_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="_on_Back_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="CombatMenu" method="_on_Counter_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="CombatMenu" method="_on_Quick_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="CombatMenu" method="_on_Heavy_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]

@@ -9,6 +9,8 @@ class Actions:
 	const ReturnToOrigin = preload("res://AI/Actions/AI_Action_ReturnToOrigin.gd")
 	const SearchForPlayer = preload("res://AI/Actions/AI_Action_SearchForPlayer.gd")
 	const WaitTime = preload("res://AI/Actions/AI_Action_WaitTime.gd")
+	const Wander = preload("res://AI/Actions/AI_Action_Wander.gd")
+	const RunFromTarget = preload("res://AI/Actions/AI_Action_RunFromTarget.gd")
 
 
 class Conditions:
@@ -18,7 +20,12 @@ class Conditions:
 
 
 onready var action_list = [
-	Actions.MoveToTarget, Actions.ReturnToOrigin, Actions.SearchForPlayer, Actions.WaitTime
+	Actions.MoveToTarget,
+	 Actions.ReturnToOrigin,
+	 Actions.SearchForPlayer,
+	 Actions.WaitTime,
+	 Actions.Wander,
+	 Actions.RunFromTarget
 ]
 
 onready var condition_list = [
@@ -40,6 +47,8 @@ onready var BASE_OPTIONS_BUTTON = $BASE_OPTIONS_BUTTON
 # Main
 onready var main_control = $Main
 onready var main_new_behaviour_button = $Main/VBoxContainer/NewBehaviourButton
+onready var main_load_behaviour_button = $Main/VBoxContainer/LoadBehaviourButton
+onready var main_file_dialog = $Main/FileDialog
 
 # behaviour
 onready var behaviour_control = $Behaviour
@@ -147,6 +156,17 @@ func _show_control(control: Control):
 
 func _init_main_control():
 	main_new_behaviour_button.connect("button_down", self, "_on_main_new_behaviour_button_pressed")
+	main_load_behaviour_button.connect("button_down", self, "_on_main_load_behaviour_button_pressed")
+	
+func _on_main_load_behaviour_button_pressed():
+	main_file_dialog.popup()
+	main_file_dialog.connect("file_selected", self, "_on_main_file_selected")
+
+
+func _on_main_file_selected(path: String):
+	main_file_dialog.hide()
+	var behaviour = ResourceLoader.load(path)
+	_init_behaviour_control(behaviour)
 
 
 func _init_behaviour_control(ai_behaviour: AI_Behaviour):
@@ -170,6 +190,10 @@ func _on_save_behaviour_button_pressed(ai_behaviour: AI_Behaviour):
 	
 	var path = "res://AI/Resources/" + ai_behaviour.resource_name + ".tres"
 	print("saving resource to %s" % path)
+	if ResourceLoader.exists(path):
+		var dir = Directory.new()
+		dir.remove(path)
+		print("overwriting")
 	ResourceSaver.save(path, ai_behaviour) 
 	
 
@@ -367,7 +391,9 @@ func _on_action_confirm_button_pressed(
 ):
 	if ai_action:
 		ai_state.actions.remove(ai_state.actions.find(ai_action))
-	ai_state.actions.append(_selected_action)
+	if _selected_action:
+		ai_state.actions.append(_selected_action)
+		
 	_init_state_control(ai_behaviour, ai_state)
 	_disconnect_action_control()
 	_clear_node(action_property_container)
@@ -510,7 +536,7 @@ func _init_condition_control(ai_behaviour: AI_Behaviour, ai_state: AI_State, ai_
 	
 	condition_condition_name_edit.text = ""
 	if ai_condition:
-		_selected_action = ai_condition
+		_selected_condition = ai_condition
 		condition_condition_name_edit.text = ai_condition.resource_name
 		_set_condition_properties(ai_condition)
 	
@@ -717,11 +743,13 @@ func _on_transition_confirm_button_pressed(
 		transition_error_message.show()
 		return
 
-	var idx = ai_state.transitions.find(ai_transition)
-	if idx == -1:
-		ai_state.transitions.append(ai_transition)
-
-	ai_state.transitions[idx] = ai_transition
+	if ai_transition:
+		var idx = ai_state.transitions.find(ai_transition)
+		if idx == -1:
+			print("appending new transition")
+			ai_state.transitions.append(ai_transition)
+		ai_state.transitions[idx] = ai_transition
+		
 	_init_state_control(ai_behaviour, ai_state)
 	_disconnect_transition_control()
 	_clear_node(transition_true_state_container)

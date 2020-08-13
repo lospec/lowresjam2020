@@ -10,8 +10,6 @@ onready var palette_swap_texture_rect = $TextureRect
 func _ready():
 	palette_swap_texture_rect.material.set_shader_param("enabled", enabled)
 	palette_swap_texture_rect.material.set_shader_param("palette_tex", palette)
-	var palette_size = palette.get_size()
-	palette_swap_texture_rect.material.set_shader_param("palette_size", palette_size)
 
 func set_enabled(val):
 	enabled = val
@@ -28,5 +26,3 @@ func set_palette(val):
 		return
 	
 	palette_swap_texture_rect.material.set_shader_param("palette_tex", palette)
-	var palette_size = palette.get_size()
-	palette_swap_texture_rect.material.set_shader_param("palette_size", palette_size)
