@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/dropped_items/DroppedItems.gd" type="Script" id=1]
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/dropped_items/background.png" type="Texture" id=3]
 [ext_resource path="res://UI/dropped_items/coin.png" type="Texture" id=4]
+[ext_resource path="res://UI/dropped_items/blue_dot.png" type="Texture" id=5]
 
 [node name="DroppedItems" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -19,12 +21,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+[node name="Background" type="TextureRect" parent="MarginContainer"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 62.0
 margin_bottom = 62.0
-color = Color( 0, 0, 0, 1 )
+texture = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 margin_left = 2.0
@@ -54,21 +56,42 @@ align = 1
 margin_top = 10.0
 margin_right = 56.0
 margin_bottom = 20.0
-custom_constants/separation = 0
+custom_constants/separation = 1
 alignment = 1
 
-[node name="CoinAmount" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped"]
+[node name="LeftDot" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped"]
+margin_left = 14.0
+margin_top = 4.0
+margin_right = 16.0
+margin_bottom = 6.0
+size_flags_vertical = 4
+texture = ExtResource( 5 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped"]
 margin_left = 17.0
-margin_right = 29.0
+margin_right = 39.0
+margin_bottom = 10.0
+custom_constants/separation = 0
+
+[node name="CoinAmount" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped/HBoxContainer"]
+margin_right = 12.0
 margin_bottom = 9.0
 custom_fonts/font = ExtResource( 2 )
 text = "500"
 
-[node name="Coin" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped"]
-margin_left = 29.0
-margin_right = 39.0
+[node name="Coin" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped/HBoxContainer"]
+margin_left = 12.0
+margin_right = 22.0
 margin_bottom = 10.0
 texture = ExtResource( 4 )
+
+[node name="RightDot" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/CoinsDropped"]
+margin_left = 40.0
+margin_top = 4.0
+margin_right = 42.0
+margin_bottom = 6.0
+size_flags_vertical = 4
+texture = ExtResource( 5 )
 
 [node name="ItemsDropped" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_left = 28.0
