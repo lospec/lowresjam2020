@@ -5,6 +5,7 @@ const MIN_SPEED = 5
 
 # Signals
 signal stats_loaded
+signal died(enemy)
 
 # Exported Variables
 export (String) var enemy_name
@@ -89,3 +90,8 @@ func is_in_allowed_tile() -> bool:
 		return true
 	is_spawn_safe_area2d.queue_free()  # The Area2D is now useless
 	return false
+
+
+func die():
+	emit_signal("died", [self])
+	queue_free()
