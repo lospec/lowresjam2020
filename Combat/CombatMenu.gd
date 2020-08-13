@@ -13,7 +13,10 @@ enum MENU_SELECTED {
 const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Exported Variables
-
+# should probably put this in somewhere else
+# maybe the weapon/weaponUtil script or something
+export(Texture) var blunt_attack_anim
+export(Texture) var counter_anim
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
@@ -34,7 +37,6 @@ onready var enemy_health_bar_tween = $VBoxContainer/EnemyHUD/VBoxContainer/Margi
 onready var enemy_image = $VBoxContainer/EnemyHUD/VBoxContainer/Enemy
 onready var attack_effect = $EffectsContainer/EffectTexture
 onready var damage_spawn_area = $EffectsContainer/DamageSpawnArea
-onready var effect_animations = $EffectAnimationList
 
 func _ready():
 	reset_ui();
@@ -92,19 +94,17 @@ func show_combat_label(text, duration = 0):
 		combat_label.visible = false
 
 # still needed to implement argument to get what animation to play
-func animate_player_attack(player_combat: PlayerCombat, action: int):
+func animate_player_attack(action: int):
 	if action == combat_util.Combat_Action.COUNTER:
-		attack_effect.play(effect_animations.get_anim("counter"), combat_util.GetActionColor(action))
+		attack_effect.play(counter_anim, combat_util.GetActionColor(action))
 		yield(attack_effect, "effect_done")
 	
-	var damage_type = player_combat.get_damage_type(action)
-	var effect_anim = effect_animations.get_damage_type_anim(damage_type)
-	attack_effect.play(effect_anim, combat_util.GetActionColor(action))
+	attack_effect.play(blunt_attack_anim, combat_util.GetActionColor(action))
 	yield(attack_effect, "effect_done")
 
 func animate_player_hurt(damage, enemyCountered: bool = false):
 	if enemyCountered:
-		attack_effect.play(effect_animations.get_anim("counter"), combat_util.GetActionColor(combat_util.Combat_Action.HEAVY))
+		attack_effect.play(counter_anim, combat_util.GetActionColor(combat_util.Combat_Action.HEAVY))
 		yield(attack_effect, "effect_done")
 	
 	shake(1, 20, 1)
@@ -136,6 +136,9 @@ func spawn_enemy_damage_label(damage):
 	
 	damage_label.rect_position = Vector2(x, y)
 	damage_label.text = str(damage)
+
+func blink(duration, frequency):
+	pass
 
 func open_main_menu():
 	current_menu = MENU_SELECTED.MAIN

@@ -46,8 +46,6 @@ func load_enemy(enemy_data_name):
 	if not Data.enemy_data.has(enemy_data_name):
 		push_error("Enemy data for %s not found" % enemy_data_name)
 		return
-  
-	enemy_name = enemy_data_name
 
 	# Set Properties
 	var enemy_stats = Data.enemy_data[enemy_data_name]

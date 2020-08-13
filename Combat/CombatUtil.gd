@@ -78,9 +78,6 @@ static func GetActionColor(action: int) -> Color:
 		Combat_Action.HEAVY:
 			return color_values.att_heavy
 		
-		Combat_Action.HEAVY:
-			return color_values.flee
-		
 		_:
 			print("ERROR CombatUtil.gd: Invalid Action whlie getting color")
 			return color_values.invalid

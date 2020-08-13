@@ -57,11 +57,11 @@
     "resistance": "none",
     "coin_drop_amount": 34,
     "item_drop_1": "Fish Rod",
-    "item_drop_1_chance": 0.4,
+    "item_drop_1_chance": 0.2,
     "item_drop_2": "Gnoggles",
     "item_drop_2_chance": 0.01,
     "item_drop_3": "Gem",
-    "item_drop_3_chance": 0.5,
+    "item_drop_3_chance": 0.1,
     "max_items_dropped": 1,
     "attack_pool": "QQHQQC",
     "quick_damage": 1,
@@ -86,11 +86,10 @@
     "resistance": "none",
     "coin_drop_amount": 15,
     "item_drop_1": "Gnoggles",
-    "item_drop_1_chance": 0.6,
-    "item_drop_2": "Gnoggles",
+    "item_drop_1_chance": 0.01,
     "item_drop_2_chance": 0.01,
     "item_drop_3": "Gem",
-    "item_drop_3_chance": 0.4,
+    "item_drop_3_chance": 0.1,
     "max_items_dropped": 1,
     "attack_pool": "QQHQQC",
     "quick_damage": 1,
@@ -218,7 +217,7 @@
   "SledgeGuy": {
     "race": "Human",
     "health": 15,
-    "weakness": "none",
+    "weakness": "Fire",
     "resistance": "Blunt",
     "coin_drop_amount": 50,
     "item_drop_1": "Leather",
@@ -530,8 +529,6 @@
   },
   "Sorcerer": {
     "race": "Human",
-    "weakness": "none",
-    "resistance": "none",
     "attack_pool": "Q"
   },
   "Gabole (OW Sprite Needed)": {
@@ -556,8 +553,6 @@
   },
   "R0B1RB (OW Sprite Needed)": {
     "race": "Robot",
-    "weakness": "Water",
-    "resistance": "Electricity",
     "attack_pool": "Q"
   },
   "Rezello": {
@@ -574,36 +569,22 @@
   },
   "L01": {
     "race": "Robot",
-    "weakness": "Water",
-    "resistance": "Electricity",
     "attack_pool": "Q"
   },
   "L337": {
     "race": "Robot",
-    "weakness": "Water",
-    "resistance": "Electricity",
     "attack_pool": "Q"
   },
   "B347": {
     "race": "Robot",
-    "weakness": "Water",
-    "resistance": "Electricity",
     "attack_pool": "Q"
   },
   "N341": {
     "race": "Robot",
-    "weakness": "Water",
-    "resistance": "Electricity",
     "attack_pool": "Q"
   },
   "Shade": {
     "race": "Demon",
     "attack_pool": "Q"
-  },
-  "Bandit": {
-    "race": "Human",
-    "health": 20,
-    "weakness": "none",
-    "resistance": "Pierce"
   }
 }

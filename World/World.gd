@@ -3,11 +3,9 @@ extends Node
 # Onready Variables
 onready var entities_and_static_objects = $EntitiesAndStaticObjects
 onready var combat = $Combat
-onready var combat_menu = combat.get_node("CombatMenu")
 onready var pause_menu = $PauseMenu
 onready var player = entities_and_static_objects.get_node("Player")
 onready var chunks_collection = $Chunks
-onready var dropped_items_gui = $DroppedItems
 
 
 func _ready():
@@ -23,12 +21,8 @@ func _on_Chunks_enemy_instanced(enemy):
 
 
 func _unhandled_input(_event):
-	if Input.is_action_just_pressed("ui_cancel") and \
-			not combat_menu.visible:
-		if dropped_items_gui.margin.visible:
-			dropped_items_gui.close()
-		else:
-			pause_menu.toggle_pause(player)
+	if Input.is_action_just_pressed("ui_cancel"):
+		pause_menu.toggle_pause(player)
 
 
 func _on_DoorDetection_body_entered(body):
@@ -38,14 +32,3 @@ func _on_DoorDetection_body_entered(body):
 		Transitions.change_scene_double_transition("res://guild_hall/guild_hall.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
 			0.3)
-
-
-func _on_Combat_combat_done(player_win, enemy_instance):
-	if not player_win:
-		return
-	
-	combat_menu.visible = false
-	get_tree().paused = false
-	
-	enemy_instance.queue_free()
-	dropped_items_gui.drop_items(enemy_instance.enemy_name, player)

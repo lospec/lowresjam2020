@@ -4,9 +4,12 @@ var world_position: Vector2
 var character_name := "Jason"
 var coins := 100
 var inventory := [
-	"Stick", "Devilfork",
+	"Stick", "Gem", "Gem", "Gem",
+	"Gem", "Gem", "Gem", "Gem",
+	"Gem", "Gem", "Gem", "Gem",
+	"Gem",
 	]
-var equipped_weapon := "Devilfork"
+var equipped_weapon := "Stick"
 var equipped_armor: String
 var max_health := 10
 var health := 10

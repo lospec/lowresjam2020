@@ -19,7 +19,7 @@ const DAMAGE_TYPE_ICON = {
 const STATUS_ICON = {
 	"none": preload("res://UI/inventory/item_info/status_icons/none_status_icon.png"),
 	"Asleep": preload("res://UI/inventory/item_info/status_icons/asleep_status_icon.png"),
-	"OnFire": preload("res://UI/inventory/item_info/type_icons/fire_type_icon.png"),
+	"Burning": preload("res://UI/inventory/item_info/type_icons/fire_type_icon.png"),
 	"Frozen": preload("res://UI/inventory/item_info/status_icons/frozen_status_icon.png"),
 	"Weak": preload("res://UI/inventory/item_info/status_icons/weak_status_icon.png"),
 	"Confused": preload("res://UI/inventory/item_info/status_icons/confused_status_icon.png"),
