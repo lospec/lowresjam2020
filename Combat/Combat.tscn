@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
@@ -28,16 +28,43 @@
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPOver.png" type="Texture" id=26]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPProgress.png" type="Texture" id=27]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
-[ext_resource path="res://Combat/Effects/blunt_animation_test.tres" type="Texture" id=29]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_3.png" type="Texture" id=29]
 [ext_resource path="res://Combat/CombatAttackAnim.gd" type="Script" id=30]
 [ext_resource path="res://Combat/CombatEnemyTexture.gd" type="Script" id=31]
-[ext_resource path="res://Combat/Effects/Placeholder_Counter/placeholder_counter_anim.tres" type="Texture" id=32]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_0.png" type="Texture" id=32]
 [ext_resource path="res://Combat/CombatTurnResultUI.gd" type="Script" id=33]
 [ext_resource path="res://Combat/HealthIcon.gd" type="Script" id=34]
+[ext_resource path="res://Combat/Effects/animations/AnimationList.gd" type="Script" id=35]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_1.png" type="Texture" id=36]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_2.png" type="Texture" id=37]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_4.png" type="Texture" id=38]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_7.png" type="Texture" id=39]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_5.png" type="Texture" id=40]
+[ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_6.png" type="Texture" id=41]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AnimatedTexture" id=2]
+frames = 8
+oneshot = true
+fps = 10.0
+frame_0/texture = ExtResource( 32 )
+frame_1/texture = ExtResource( 36 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 37 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 29 )
+frame_3/delay_sec = 0.0
+frame_4/texture = ExtResource( 38 )
+frame_4/delay_sec = 0.0
+frame_5/texture = ExtResource( 40 )
+frame_5/delay_sec = 0.0
+frame_6/texture = ExtResource( 41 )
+frame_6/delay_sec = 0.0
+frame_7/texture = ExtResource( 39 )
+frame_7/delay_sec = 0.0
 
 [node name="Combat" type="CanvasLayer"]
 pause_mode = 2
@@ -52,8 +79,6 @@ script = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-blunt_attack_anim = ExtResource( 29 )
-counter_anim = ExtResource( 32 )
 
 [node name="Background" type="TextureRect" parent="CombatMenu"]
 margin_right = 64.0
@@ -467,7 +492,7 @@ margin_top = 7.0
 margin_right = 64.0
 margin_bottom = 49.0
 mouse_filter = 2
-texture = ExtResource( 29 )
+texture = SubResource( 2 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 30 )
@@ -483,6 +508,9 @@ margin_bottom = 38.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EffectAnimationList" type="Node" parent="CombatMenu"]
+script = ExtResource( 35 )
 
 [node name="PlayerCombat" type="Node" parent="."]
 script = ExtResource( 22 )

@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
 }, {
+"base": "Node",
+"class": "PlayerCombat",
+"language": "GDScript",
+"path": "res://Combat/PlayerCombat.gd"
+}, {
 "base": "Control",
 "class": "ShakableControl",
 "language": "GDScript",
@@ -63,6 +68,7 @@ _global_script_class_icons={
 "CombatEnemyTexture": "",
 "CombatMenu": "",
 "EntityResource": "",
+"PlayerCombat": "",
 "ShakableControl": ""
 }
 
