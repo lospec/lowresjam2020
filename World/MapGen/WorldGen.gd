@@ -4,12 +4,29 @@ extends Node
 export (TileSet) var tileset
 export (bool) var run_generator = false setget ,_run
 export (bool) var print_properties = false setget , _print_prop
+export (bool) var use_existing_map = false setget _set_use_existing_map
 export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
 export (bool) var run_climate_simulation = true
 export (bool) var create_climate_texture_maps = true
+export (Resource) var climate_parameters = ClimateParameters.new() setget _create_climate_params
 
 export (OpenSimplexNoise) var feature_noise = OpenSimplexNoise.new()
+
+class ClimateParameters:
+	extends Resource
+	export (float) var DISSIPATION_STRENTH = 1.1
+	export (float) var EVAPORATION_FACTOR = 0.5
+	export (float) var PRECIPITATION_FACTOR = 0.5
+	export (float) var RUNOFF_FACTOR = 0.1
+	export (float) var SEEPAGE_FACTOR = 0.1
+	export (int) var WIND_STRENGTH = 10
+	export (float) var STARTING_MOISTURE = 0.15
+	export (int) var CLIMATE_CYCLE = 11
+	
+func _create_climate_params(value):
+	climate_parameters = ClimateParameters.new()
+	climate_parameters.resource_name = "climate parameters"
 
 class TilemapManager:
 	var _parent: Node
@@ -38,8 +55,8 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "grass"
 			_parent.map_node.add_child(tilemap)
-			_parent.move_child(tilemap, _parent.get_child_count()-1)
 			tilemap.owner = _parent
+			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count()-1)
 			grass_tilemap = tilemap
 		return grass_tilemap
 	
@@ -52,8 +69,8 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "features"
 			_parent.map_node.add_child(tilemap)
-			_parent.move_child(tilemap, _parent.get_child_count()-1)
 			tilemap.owner = _parent
+			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count()-1)
 			feature_tilemap = tilemap
 		return feature_tilemap
 
@@ -90,46 +107,55 @@ var map_generator = preload("res://World/MapGen/MapGen.gd").new()
 var tilemap_manager = TilemapManager.new(self)
 var map_node: Node
 
+func _set_use_existing_map(value):
+	use_existing_map = value
 
 func _print_prop():
 	if not Engine.editor_hint or not print_properties:
 		return
 	print_properties = false
-	map_generator = preload("res://World/MapGen/MapGen.gd").new()
+	if not use_existing_map:
+		map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	map_generator._print_prop()
 		
 
 func _run():
 	if not Engine.editor_hint or not run_generator:
 		return
-	
-	randomize()
-	
-	if not use_seed:
-		map_seed = randi()
-		
-	seed(map_seed)
-	feature_noise.seed = map_seed
 	run_generator = false
-	map_generator = preload("res://World/MapGen/MapGen.gd").new()
+	
 	print("# Starting Map Generation")
 	var elapsed = OS.get_ticks_msec()
-	tilemap_manager = TilemapManager.new(self)
-	map_node = find_node("Map")
-	if map_node:
-		remove_child(map_node)
-
-	map_node = Node2D.new()
-	map_node.name = "Map"
-	add_child(map_node)
-	map_node.owner = self
-	map_generator.generate_map(self, run_climate_simulation, create_climate_texture_maps)
+	
+	map_node = find_node("CoreMap")
+	if not use_existing_map:
+		randomize()
+		if not use_seed:
+			map_seed = randi()	
+		seed(map_seed)
+		feature_noise.seed = map_seed
+		map_generator = preload("res://World/MapGen/MapGen.gd").new()
+		tilemap_manager = TilemapManager.new(self)
+		if map_node:
+			remove_child(map_node)
+		map_node = Node2D.new()
+		map_node.name = "CoreMap"
+		add_child(map_node)
+		map_node.owner = self
+	
+	if tilemap_manager:
+		var tilemaps = [map_node.find_node("grass"), map_node.find_node("features")]
+		for tilemap in tilemaps:
+			if tilemap:
+				map_node.remove_child(tilemap)
+	
+	map_generator.generate_map(self, climate_parameters, use_existing_map, run_climate_simulation, create_climate_texture_maps)
 	tilemap_manager.update_bitmask()
 	
 	elapsed = OS.get_ticks_msec() - elapsed
 	print("# Map Generation Process Complete")
-	print("Time (ms) elapsed: %s" % str(elapsed))
-	
+	print("Total Time (ms) elapsed: %s" % str(elapsed))
+
 	randomize()
 	
 func add_grass_tile(position: Vector2):
