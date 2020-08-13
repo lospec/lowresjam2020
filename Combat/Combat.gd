@@ -48,6 +48,14 @@ func setup_combat(player, enemy):
 	combat_menu.set_enemy_health_value(enemy_instance.max_health,
 			enemy_instance.health)
 	
+	var wpn_name: String = player_instance.equipped_weapon
+	var wpn_texture = load("res://Combat/WeaponSprites/%s.png" % wpn_name.to_lower())
+	
+	if wpn_texture == null:
+		print("Weapon Battle sprite for %s not found" % wpn_name)
+	
+	combat_menu.player_weapon.texture = wpn_texture
+	
 	combat_menu.enemy_image.texture.atlas = enemy_instance.battle_texture
 	combat_menu.enemy_image.texture.region = Rect2(
 		COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.NORMAL],

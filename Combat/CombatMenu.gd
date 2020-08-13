@@ -28,6 +28,7 @@ onready var combat_label = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding
 onready var combat_turn_result = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult
 onready var player_health_label = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/Health
 onready var player_health_icon = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/MarginContainer/HealthIcon
+onready var player_weapon = $WeaponContainer/PlayerWeapon
 onready var enemy_health_bar = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar
 onready var enemy_health_bar_tween = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/Tween
 onready var enemy_image = $VBoxContainer/EnemyHUD/VBoxContainer/Enemy
