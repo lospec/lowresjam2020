@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Combat/CombatMenu.gd"
 }, {
+"base": "Reference",
+"class": "CombatUtil",
+"language": "GDScript",
+"path": "res://Combat/CombatUtil.gd"
+}, {
 "base": "Resource",
 "class": "EntityResource",
 "language": "GDScript",
@@ -63,6 +68,11 @@ _global_script_classes=[ {
 "class": "ShakableControl",
 "language": "GDScript",
 "path": "res://Combat/CombatShake.gd"
+}, {
+"base": "Resource",
+"class": "StatusEffect",
+"language": "GDScript",
+"path": "res://StatusEffect/Bases/StatusEffect.gd"
 } ]
 _global_script_class_icons={
 "AI_Behaviour": "",
@@ -72,10 +82,12 @@ _global_script_class_icons={
 "CombatChar": "",
 "CombatEnemyTexture": "",
 "CombatMenu": "",
+"CombatUtil": "",
 "EntityResource": "",
 "PlayerCombat": "",
+"ShakableControl": "",
 "PriorityQueue": "",
-"ShakableControl": ""
+"StatusEffect": ""
 }
 
 [application]
@@ -99,6 +111,7 @@ PaletteSwap="*res://Utility/Palette Swap.tscn"
 Transitions="*res://Utility/Transitions.tscn"
 SaveData="*res://Utility/save_data.gd"
 AudioSystem="*res://Utility/audio_system.tscn"
+StatEffectUtility="*res://StatusEffect/stat_effects.gd"
 
 [display]
 

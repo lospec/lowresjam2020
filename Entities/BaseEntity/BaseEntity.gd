@@ -40,11 +40,29 @@ var health: int setget set_health
 var velocity = Vector2()
 var current_anim = Animations.IDLE_DOWN
 var anim_frame = 0
+var status_effects = {}
 
 # Onready Variables
 onready var sprite = $Sprite
 onready var animation_player = $AnimationPlayer
 
+func add_status_effect(script_name: String):
+	var se = StatEffectUtility.get_status_effect(script_name)
+	
+	# HARDCODED INTERACTION: Should make a system to make this more flexible
+	if script_name == "OnFire" and status_effects.has("Frozen"):
+		status_effects.erase("Frozen")
+		return
+		
+	if script_name == "Frozen" and status_effects.has("OnFire"):
+		status_effects.erase("Frozen")
+		return
+	
+	# Overwrite effect if exist, Should probably make stacking system if needed
+	if status_effects.has(se.name):
+		status_effects.erase(se.name)
+	
+	status_effects[se.name] = se
 
 func _ready():
 	if max_health <= 0:
