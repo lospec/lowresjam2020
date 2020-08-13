@@ -30,13 +30,11 @@ func _on_Settings_Button_pressed():
 			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
-# DEBUG AI SCENE. REMOVE FOR RELEASE BUILD
 func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_F9:
-			if event.shift:
-				if get_tree().change_scene("res://AI/Editor/AI_Editor.tscn") != OK:
-					print_debug("An error occured while attempting to change to the AI scene")
+	if event is InputEventKey and OS.is_debug_build() and \
+			event.scancode == KEY_F9 and event.pressed and event.shift:
+		if get_tree().change_scene("res://AI/Editor/AI_Editor.tscn") != OK:
+			print_debug("An error occured while attempting to change to the AI scene")
 
 
 func _on_TransitionTest_Button_pressed():
