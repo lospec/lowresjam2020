@@ -161,7 +161,6 @@ margin_bottom = 24.0
 keep_pressed_outside = true
 
 [node name="Main" type="Control" parent="."]
-visible = false
 margin_right = 256.0
 margin_bottom = 256.0
 __meta__ = {
@@ -194,6 +193,23 @@ margin_bottom = 15.0
 custom_fonts/font = ExtResource( 1 )
 text = "New"
 flat = true
+
+[node name="LoadBehaviourButton" type="Button" parent="Main/VBoxContainer"]
+margin_top = 19.0
+margin_right = 40.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "load"
+flat = true
+
+[node name="FileDialog" type="FileDialog" parent="Main"]
+visible = true
+margin_top = 22.0
+margin_right = 256.0
+margin_bottom = 256.0
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.tres ; AI Resources" )
 
 [node name="Behaviour" type="Control" parent="."]
 visible = false
@@ -525,6 +541,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Transition" type="Control" parent="."]
+visible = false
 margin_right = 256.0
 margin_bottom = 256.0
 __meta__ = {

@@ -18,5 +18,5 @@ func _ready():
 			var enemy = base_enemy_scene.instance()
 			var enemy_name = Utility.rand_element(enemy_spawn.enemies)
 			enemy.load_enemy(enemy_name)
-			enemy.position = enemy_spawn.position
+			enemy.position = enemy_spawn.global_position
 			emit_signal("enemy_instanced", enemy)

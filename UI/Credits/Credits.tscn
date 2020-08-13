@@ -24,7 +24,7 @@ __meta__ = {
 margin_left = 5.0
 margin_top = 1.0
 margin_right = 59.0
-margin_bottom = 171.0
+margin_bottom = 180.0
 mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -61,7 +61,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 46.0
 margin_right = 54.0
-margin_bottom = 76.0
+margin_bottom = 85.0
 
 [node name="Header" parent="Main Credits/Programming" index="0"]
 margin_right = 54.0
@@ -69,7 +69,7 @@ text = "=Programming="
 
 [node name="Names" parent="Main Credits/Programming" index="1"]
 margin_right = 54.0
-margin_bottom = 30.0
+margin_bottom = 39.0
 
 [node name="Credits Name" parent="Main Credits/Programming/Names" index="0"]
 margin_right = 54.0
@@ -81,14 +81,22 @@ anchor_bottom = 0.0
 margin_top = 9.0
 margin_right = 54.0
 margin_bottom = 18.0
-text = "Not me"
+text = "Not him:  me"
+
+[node name="Credits Name3" parent="Main Credits/Programming/Names" index="2" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 54.0
+margin_bottom = 27.0
+text = "not me"
 
 [node name="Art" parent="Main Credits" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 84.0
+margin_top = 93.0
 margin_right = 54.0
-margin_bottom = 141.0
+margin_bottom = 150.0
 
 [node name="Header" parent="Main Credits/Art" index="0"]
 margin_right = 54.0
@@ -137,9 +145,9 @@ text = "Also not me"
 [node name="Audio" parent="Main Credits" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 149.0
+margin_top = 158.0
 margin_right = 54.0
-margin_bottom = 170.0
+margin_bottom = 179.0
 
 [node name="Header" parent="Main Credits/Audio" index="0"]
 margin_right = 54.0
@@ -154,9 +162,9 @@ text = "nobody"
 
 [node name="Thanks" type="Label" parent="."]
 margin_left = 13.0
-margin_top = 77.0
+margin_top = 81.0
 margin_right = 51.0
-margin_bottom = 95.0
+margin_bottom = 99.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
 custom_constants/line_spacing = 0

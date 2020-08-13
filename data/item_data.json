@@ -332,6 +332,29 @@
     "counter_status_effect": "Charged",
     "counter_effect_chance": 0.3
   },
+  "Lance": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce",
+    "heavy_damage_type": "Pierce",
+    "heavy_status_effect": "none",
+    "counter_damage_type": "Blunt",
+    "counter_status_effect": "Confused"
+  },
+  "Katana": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce"
+  },
+  "Flail": {
+    "type": "weapon",
+    "quick_damage_type": "Blunt"
+  },
+  "Halberd": {
+    "type": "weapon",
+    "quick_damage_type": "Pierce"
+  },
+  "WingedCutlass": {
+    "type": "weapon"
+  },
   "Spore Bag": {
     "type": "item",
     "buy_value": 0,
@@ -362,10 +385,90 @@
     "buy_value": 0,
     "sell_value": 1
   },
+  "Bone": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 10
+  },
+  "Devil Tail": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 20
+  },
+  "Eyeball": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 16
+  },
+  "Feather": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 5
+  },
+  "Gnome Cap": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 99
+  },
+  "MetalSheet": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 22
+  },
+  "Pollen": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 25
+  },
+  "Eyepatch": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 10
+  },
+  "Microchip": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 60
+  },
+  "Mole Claws": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 50
+  },
+  "SnakeVenom": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 35
+  },
+  "LizardTail": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 25
+  },
+  "Boar Hide": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 40
+  },
+  "Wire": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 20
+  },
+  "DemonSkin": {
+    "type": "item",
+    "buy_value": 0,
+    "sell_value": 35
+  },
+  "L Flag": {
+    "type": "item",
+    "buy_value": 5000,
+    "sell_value": 500
+  },
   "Leather": {
     "type": "armor",
     "buy_value": 10,
-    "sell_value": 4,
+    "sell_value": 5,
     "health_added": 2
   },
   "Chainmail": {
@@ -379,6 +482,24 @@
     "buy_value": 50,
     "sell_value": 45,
     "health_added": 10
+  },
+  "Sock": {
+    "type": "armor",
+    "buy_value": 0,
+    "sell_value": 2,
+    "health_added": 1
+  },
+  "Bandana": {
+    "type": "armor",
+    "buy_value": 0,
+    "sell_value": 5,
+    "health_added": 2
+  },
+  "ChainSleeves": {
+    "type": "armor",
+    "buy_value": 0,
+    "sell_value": 10,
+    "health_added": 3
   },
   "Hotdog": {
     "type": "usable",
@@ -401,7 +522,49 @@
     "usable": true,
     "health_gained": 30
   },
-  "MonsterMeat": {
+  "Mnstr.Meat": {
+    "type": "usable",
+    "buy_value": 0,
+    "sell_value": 5,
+    "usable": true,
+    "health_gained": 10
+  },
+  "HolyWater": {
+    "type": "usable",
+    "buy_value": 100,
+    "sell_value": 60,
+    "usable": true,
+    "health_gained": 70
+  },
+  "MoldyDog": {
+    "type": "usable",
+    "buy_value": 0,
+    "sell_value": 1,
+    "usable": true,
+    "health_gained": 2
+  },
+  "Mushroom": {
+    "type": "usable",
+    "buy_value": 10,
+    "sell_value": 6,
+    "usable": true,
+    "health_gained": 18
+  },
+  "Grn.Shroom": {
+    "type": "usable",
+    "buy_value": 0,
+    "sell_value": 40,
+    "usable": true,
+    "health_gained": 40
+  },
+  "Potion": {
+    "type": "usable",
+    "buy_value": 50,
+    "sell_value": 20,
+    "usable": true,
+    "health_gained": 30
+  },
+  "Turnip": {
     "type": "usable",
     "buy_value": 0,
     "sell_value": 5,

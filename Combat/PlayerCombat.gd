@@ -1,20 +1,40 @@
 extends "res://Combat/CombatChar.gd"
 
+class_name PlayerCombat
+
 func get_base_damage(action) -> int:
+	var player_weapon_data = Data.item_data[char_instance.equipped_weapon]
+	
 	var damage
 	match action:
 		combat_util.Combat_Action.QUICK:
-			damage = char_instance.equipped_weapon.quick_damage
+			damage = player_weapon_data.quick_damage
 		
 		combat_util.Combat_Action.HEAVY:
-			damage = char_instance.equipped_weapon.heavy_damage
+			damage = player_weapon_data.heavy_damage
 		
 		combat_util.Combat_Action.COUNTER:
-			damage = char_instance.equipped_weapon.counter_damage
+			damage = player_weapon_data.counter_damage
 	
 	# Should probably make better calculation for this but this'll do for now
 	damage = damage * (1 + combat_util.MULTIPLIER_PER_COMBO * hit_combo)
 	return damage
+
+
+func get_damage_type(action) -> int:
+	var player_weapon_data = Data.item_data[char_instance.equipped_weapon]
+	
+	match action:
+		combat_util.Combat_Action.QUICK:
+			return player_weapon_data.quick_damage_type
+		
+		combat_util.Combat_Action.HEAVY:
+			return player_weapon_data.heavy_damage_type
+		
+		combat_util.Combat_Action.COUNTER:
+			return player_weapon_data.counter_damage_type
+	
+	return -1
 
 # Notes: A&
 # My original plan was to make this scirpt to use the get_action() to determine the player action
