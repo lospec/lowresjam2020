@@ -85,8 +85,8 @@ _global_script_class_icons={
 "CombatUtil": "",
 "EntityResource": "",
 "PlayerCombat": "",
-"ShakableControl": "",
 "PriorityQueue": "",
+"ShakableControl": "",
 "StatusEffect": ""
 }
 

@@ -87,7 +87,13 @@ func get_effect_chance(action) -> float:
 # - Enemy that checks what the player is doing on the previous move and act accordingly
 func get_action():
 	# HARDCODED INTERACTION: Should make a system to make this more flexible
-	if char_instance.status_effects.has("Confused") or char_instance.status_effects.has("Asleep"):
+	if char_instance.status_effects.has("Confused"):
+		return CombatUtil.Combat_Action.NONE
+		
+	if char_instance.status_effects.has("Asleep"):
+		return CombatUtil.Combat_Action.NONE
+		
+	if char_instance.status_effects.has("Frozen"):
 		return CombatUtil.Combat_Action.NONE
 	
 	if "attack_pool" in char_instance:

@@ -14,8 +14,8 @@ export (String) var enemy_name
 var battle_texture: AtlasTexture
 var race: String
 var level: int
-var weakness: int
-var resistance: int
+var weakness: String
+var resistance: String
 var coin_drop_amount: int
 var item_drop_1: String
 var item_drop_1_chance: float

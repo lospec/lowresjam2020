@@ -31,6 +31,10 @@ func take_damage(damage: int, damage_type: String):
 	hit_combo = 0
 
 func attack(target: CombatChar, action: int, damage: int):
+	
+	if char_instance.status_effects.has("Weak"):
+		damage /= 2
+	
 	var damage_type = get_damage_type(action)
 	target.take_damage(damage, damage_type)
 	
@@ -38,8 +42,14 @@ func attack(target: CombatChar, action: int, damage: int):
 	var se: String = get_status_effect(action)
 	var sePercent: float = get_effect_chance(action)
 	
+	# HARDCODED RESISTANCE
+	if se == "OnFire" and "resistance" in target.char_instance:
+		if target.char_instance.resistance == "Fire":
+			return
+	
 	if randf() < sePercent:
 		target.char_instance.add_status_effect(se)
+		
 		if "enemy_name" in target.char_instance:
 			print("Applied %s to %s" % [se, target.char_instance.enemy_name])
 
