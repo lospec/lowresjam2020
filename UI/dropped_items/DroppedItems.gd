@@ -3,14 +3,13 @@ extends CanvasLayer
 # Constants
 const MAX_COIN_DROP = 1.2
 const MIN_COIN_DROP = 0.8
-const ITEM_DROPPED_RESOURCE = preload("res://UI/dropped_items/item_dropped.tscn")
 
 # Private Variables
 var _player_instance
 
 # Onready Variables
 onready var margin = $MarginContainer
-onready var coin_amount_label = $MarginContainer/MarginContainer/VBoxContainer/CoinsDropped/HBoxContainer/CoinAmount
+onready var coin_amount_label = $MarginContainer/MarginContainer/VBoxContainer/CoinsDropped/CoinAmount
 onready var items_dropped_grid = $MarginContainer/MarginContainer/VBoxContainer/ItemsDropped
 onready var auto_close_timer = $AutoClose
 
@@ -51,10 +50,10 @@ func drop_items(enemy_name, player_instance):
 		for item in items:
 			if chance < items[item]:
 				# Item Dropped
-				var item_dropped = ITEM_DROPPED_RESOURCE.instance()
-				item_dropped.get_node("Item").texture = \
-						Utility.get_inventory_item_resource(item)
-				items_dropped_grid.add_child(item_dropped)
+				var item_texture_rect = TextureRect.new()
+				item_texture_rect.texture = Utility.get_inventory_item_resource(
+					item)
+				items_dropped_grid.add_child(item_texture_rect)
 				
 				player_instance.inventory.append(item)
 				continue

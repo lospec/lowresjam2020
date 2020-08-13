@@ -21,8 +21,8 @@ func setup_combat(player, enemy):
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
 	
-	combat_menu.current_menu = combat_menu.MENU_SELECTED.MAIN
 	combat_menu.reset_ui()
+	combat_menu.current_menu = combat_menu.MENU_SELECTED.MAIN
 	
 	player_instance = player
 	enemy_instance = enemy

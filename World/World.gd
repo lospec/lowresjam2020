@@ -47,5 +47,5 @@ func _on_Combat_combat_done(player_win, enemy_instance):
 	combat_menu.visible = false
 	get_tree().paused = false
 	
-	enemy_instance.die()
+	enemy_instance.queue_free()
 	dropped_items_gui.drop_items(enemy_instance.enemy_name, player)
