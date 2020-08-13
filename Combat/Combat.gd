@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # Signals
 # Currently using bool, should've used enum to check how the combat ended
-signal combat_done(player_win)
+signal combat_done(player_win, enemy_instance)
 
 # Constants
 const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
@@ -17,24 +17,12 @@ onready var combat_menu = $CombatMenu
 onready var player_combat: CombatChar = $PlayerCombat
 onready var enemy_combat: CombatChar = $EnemyCombat
 
-func _on_Player_enemy_detected(player, enemy):
-	get_tree().paused = true
-	player.hud_margin.visible = false
-	setup_combat(player, enemy)
-	combat_menu.visible = true
-
-# maybe these health changed signals should be moved to CombatMenu.gd, so this script is more cleaner?
-# i don't know, your call Mariothedog
-func _on_Player_health_changed(_old_health, new_health):
-	combat_menu.update_player_health_value(new_health)
-
-func _on_Enemy_health_changed(_old_health, new_health):
-	combat_menu.update_enemy_health_value(new_health)
-
-
 func setup_combat(player, enemy):
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
+	
+	combat_menu.current_menu = combat_menu.MENU_SELECTED.MAIN
+	combat_menu.reset_ui()
 	
 	player_instance = player
 	enemy_instance = enemy
@@ -51,7 +39,7 @@ func setup_combat(player, enemy):
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_WIDTH, COMBAT_ANIM_UTIL.BATTLE_TEXTURE_HEIGHT)
 
 func end_combat(player_win):
-	emit_signal("combat_done", player_win)
+	emit_signal("combat_done", player_win, enemy_instance)
 
 func TakeTurn(playerAction):
 	var enemyAction = enemy_combat.get_action()#playerAction#
@@ -107,7 +95,8 @@ func TakeTurn(playerAction):
 	
 	combat_menu.reset_ui()
 
-
+#### to differentiate between different kinds of outcome in the game other than just the color
+#### i left some suggestion comment in each of the cases
 func PlayerFlee(enemyAction): # Should be replaced with CharFlee so the enemy can have a chance to flee to
 	var enemyDmg = enemy_combat.get_base_damage(enemyAction);
 	var success = false
@@ -132,9 +121,6 @@ func PlayerFlee(enemyAction): # Should be replaced with CharFlee so the enemy ca
 	
 	return success
 
-#### to differentiate between different kinds of outcome in the game other than just the color
-#### i left some suggestion comment in each of the cases
-
 func PlayerWin(playerAction):
 	var playerDmg = player_combat.get_base_damage(playerAction);
 	player_combat.hit_combo += 1
@@ -146,7 +132,7 @@ func PlayerWin(playerAction):
 			# Player QUICK vs Enemy HEAVY
 			# Already do-able: Just show the player attack the enemy immediately
 			#combat_menu.show_combat_label("Attack hit!")
-			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
@@ -155,7 +141,7 @@ func PlayerWin(playerAction):
 			# Player COUNTER vs Enemy QUICK
 			# Show the player blocking THEN show the attack effect
 			#combat_menu.show_combat_label("Countered!")
-			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
@@ -164,7 +150,7 @@ func PlayerWin(playerAction):
 			# Player HEAVY vs Enemy COUNTER
 			# Show the player charging THEN show the attack effect
 			#combat_menu.show_combat_label("Attack hit!")
-			yield(combat_menu.animate_player_attack(playerAction), "completed")
+			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
@@ -220,7 +206,7 @@ func Tie(action):
 			# Already doable: Show the player attack and the player take damage
 			# at the same time
 			#combat_menu.show_combat_label("The enemy attacked!")
-			yield(combat_menu.animate_player_attack(action), "completed")
+			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
 			enemy_combat.take_damage(playerDmg)
 			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
@@ -239,7 +225,7 @@ func Tie(action):
 			# Show the player charge THEN show the player attack and the player
 			# take damage at the same time
 			#combat_menu.show_combat_label("The enemy used heavy attack!")
-			yield(combat_menu.animate_player_attack(action), "completed")
+			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
 			playerDmg /= 2
 			enemy_combat.take_damage(playerDmg)
@@ -253,13 +239,25 @@ func Tie(action):
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on Tie()", 2), "completed")
 
 
+func _on_Player_enemy_detected(player, enemy):
+	get_tree().paused = true
+	player.hud_margin.visible = false
+	setup_combat(player, enemy)
+	combat_menu.visible = true
+
+# maybe these health changed signals should be moved to CombatMenu.gd, so this script is more cleaner?
+# i don't know, your call Mariothedog
+func _on_Player_health_changed(_old_health, new_health):
+	combat_menu.update_player_health_value(new_health)
+
+func _on_Enemy_health_changed(_old_health, new_health):
+	combat_menu.update_enemy_health_value(new_health)
+
 func _on_Counter_pressed():
 	TakeTurn(combat_util.Combat_Action.COUNTER)
 
-
 func _on_Quick_pressed():
 	TakeTurn(combat_util.Combat_Action.QUICK)
-
 
 func _on_Heavy_pressed():
 	TakeTurn(combat_util.Combat_Action.HEAVY)
