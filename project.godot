@@ -49,15 +49,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Entities/BaseEntity/EntityResource.gd"
 }, {
-"base": "Reference",
-"class": "PriorityQueue",
-"language": "GDScript",
-"path": "res://World/MapGen/PriorityQueue.gd"
-}, {
 "base": "Node",
 "class": "PlayerCombat",
 "language": "GDScript",
 "path": "res://Combat/PlayerCombat.gd"
+}, {
+"base": "Reference",
+"class": "PriorityQueue",
+"language": "GDScript",
+"path": "res://World/MapGen/PriorityQueue.gd"
 }, {
 "base": "Control",
 "class": "ShakableControl",
@@ -70,12 +70,11 @@ _global_script_class_icons={
 "CameraController": "",
 "CombatAttackAnim": "",
 "CombatChar": "",
-"EntityResource": "",
-"PriorityQueue": ""
 "CombatEnemyTexture": "",
 "CombatMenu": "",
 "EntityResource": "",
 "PlayerCombat": "",
+"PriorityQueue": "",
 "ShakableControl": ""
 }
 
