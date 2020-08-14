@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Combat/ScenicBackgrounds/combat_background.png" type="Texture" id=1]
 [ext_resource path="res://Combat/UI/Backgrounds/choice_background.png" type="Texture" id=2]
-[ext_resource path="res://Entities/enemies/battle_sprites/Bugademon_Battle.png" type="Texture" id=3]
+[ext_resource path="res://Entities/enemies/sprites/Bugademon_Battle.png" type="Texture" id=3]
 [ext_resource path="res://Combat/UI/Backgrounds/player_health_hud.png" type="Texture" id=4]
 [ext_resource path="res://Combat/Font Resources/Mini3x4.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Combat/UI/Health/player_health_icon.png" type="Texture" id=6]

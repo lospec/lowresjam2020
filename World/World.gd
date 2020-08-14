@@ -1,12 +1,15 @@
 extends Node
 
+# Public Variables
+var base_enemy_scene = load("res://Entities/enemies/base_enemy/base_enemy.tscn")
+
 # Onready Variables
-onready var entities_and_static_objects = $EntitiesAndStaticObjects
+onready var map = $CoreMap
+onready var enemy_spawns = $EnemySpawns
 onready var combat = $Combat
 onready var combat_menu = combat.get_node("CombatMenu")
 onready var pause_menu = $PauseMenu
-onready var player = entities_and_static_objects.get_node("Player")
-onready var chunks_collection = $Chunks
+onready var player = map.get_node("Player")
 onready var dropped_items_gui = $DroppedItems
 
 
@@ -15,10 +18,26 @@ func _ready():
 	
 	if AudioSystem.currently_playing_music == AudioSystem.Music.NONE:
 		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
+	
+	spawn_enemies()
 
 
-func _on_Chunks_enemy_instanced(enemy):
-	entities_and_static_objects.add_child(enemy)
+func spawn_enemies():
+	for enemy_spawn in enemy_spawns.get_children():
+		spawn_enemy(enemy_spawn)
+
+
+func spawn_enemy(enemy_spawn):
+	if enemy_spawn.enemies.size() == 0:
+			push_error("Enemy spawn has no enemy names attached.")
+			return
+	
+	var enemy = base_enemy_scene.instance()
+	var enemy_name = Utility.rand_element(enemy_spawn.enemies)
+	enemy.load_enemy(enemy_name)
+	enemy.position = enemy_spawn.global_position
+	map.add_child(enemy)
+	enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
 	enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
 
 
@@ -49,3 +68,11 @@ func _on_Combat_combat_done(player_win, enemy_instance):
 	
 	enemy_instance.die()
 	dropped_items_gui.drop_items(enemy_instance.enemy_name, player)
+
+
+func _on_Enemy_death(_enemy_instance, enemy_spawn_instance):
+	var timer = Timer.new()
+	add_child(timer)
+	timer.start(rand_range(5, 15))
+	timer.connect("timeout", self, "spawn_enemy", [enemy_spawn_instance])
+	timer.connect("timeout", timer, "queue_free")

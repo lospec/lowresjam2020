@@ -63,6 +63,7 @@ class TilemapManager:
 			tilemap.cell_size = Vector2(4, 4)
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "features"
+			tilemap.cell_y_sort = true
 			_parent.map_node.add_child(tilemap)
 			tilemap.owner = _parent
 			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count() - 1)
@@ -144,7 +145,7 @@ func _run():
 		tilemap_manager = TilemapManager.new(self)
 		if map_node:
 			remove_child(map_node)
-		map_node = Node2D.new()
+		map_node = YSort.new()
 		map_node.name = "CoreMap"
 		add_child(map_node)
 		map_node.owner = self
