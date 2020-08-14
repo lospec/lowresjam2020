@@ -3,8 +3,8 @@ extends Reference
 const UPSCALE = 4
 const CHUNK_SIZE = 64
 
-const MAP_CHUNK_SIZE_X = 6
-const MAP_CHUNK_SIZE_Y = 4
+const MAP_CHUNK_SIZE_X = 3
+const MAP_CHUNK_SIZE_Y = 2
 
 const MAP_SIZE_X = MAP_CHUNK_SIZE_X * CHUNK_SIZE
 const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
@@ -12,8 +12,8 @@ const MAP_SIZE_Y = MAP_CHUNK_SIZE_Y * CHUNK_SIZE
 const JITTER_PROBABILITY = 0.1
 const JITTER_STRENGTH = 0.01
 
-const CHUNK_SIZE_MIN = 512
-const CHUNK_SIZE_MAX = 3980
+const CHUNK_SIZE_MIN = 300
+const CHUNK_SIZE_MAX = 2800
 const LAND_PERCENTAGE = 0.4
 
 const WATER_LEVEL = 2
@@ -26,8 +26,8 @@ const SINK_PROBABILITY = 0.05
 const EROSIAN_PERCENTAGE = 0.8
 const EROSIAN_CYCLE = 8
 
-const MAP_BORDER_X = 96
-const MAP_BORDER_Y = 48
+const MAP_BORDER_X = 32
+const MAP_BORDER_Y = 16
 const REGION_BORDER = 20
 
 const CELLULAR_AUTOMATA_CYCLE = 3
@@ -79,6 +79,7 @@ class Tile:
 	var over_water_elevation setget , _get_over_water_elevation
 	var is_near_water = false
 	var is_cliff = false
+	var is_water_cliff = false
 	var feature_type = -1
 
 	var search_phase = 0
@@ -765,18 +766,7 @@ func _set_terrain_tiles(world):
 	for item in map:
 		var tile: Tile = item
 		if not tile.is_land:
-			world.add_water_tile(tile.coordinate)
-			for direction in Directions:
-				var neighbor = _get_neighbor(tile, direction)
-				if not neighbor or not neighbor.is_land:
-					continue
-				world.add_water_tile(neighbor.coordinate)
-				neighbor.is_near_water = true
-				for i in range(int(direction), int(direction) + 1):
-					var next_neighbor = _get_neighbor(neighbor, direction)
-					if not next_neighbor or not next_neighbor.is_land:
-						continue
-					next_neighbor.is_near_water = true
+			_set_water_tile(tile, world)
 		else:
 			world.add_land_tile(tile.coordinate, tile.elevation)
 			for neighbor in _get_neighbors(tile):
@@ -784,11 +774,88 @@ func _set_terrain_tiles(world):
 					world.add_land_tile(tile.coordinate, neighbor.elevation)
 
 			var elevation_above_water = tile.elevation - WATER_LEVEL
-			if elevation_above_water > 0:
-				var neighbor = _get_neighbor(tile, Direction.S)
-				if neighbor and neighbor.elevation < tile.elevation:
-					neighbor.is_cliff = true
-					world.add_cliff_tile(neighbor.coordinate, tile.elevation)
+			if elevation_above_water > 1:
+				_set_cliffs(tile, world)
+
+
+func _set_water_tile(tile, world):
+	world.add_water_tile(tile.coordinate)
+	for direction in Directions:
+		var neighbor = _get_neighbor(tile, direction)
+		if not neighbor or not neighbor.is_land:
+			continue
+		if direction == Direction.N:
+			_set_water_edge(tile, world)
+		neighbor.is_near_water = true
+		for i in range(int(direction), int(direction) + 1):
+			var next_neighbor = _get_neighbor(neighbor, direction)
+			if not next_neighbor or not next_neighbor.is_land:
+				continue
+			next_neighbor.is_near_water = true
+
+
+func set_special_rule_tiles(world):
+	for item in map:
+		var tile: Tile = item
+		if not tile.is_land and not tile.is_water_cliff:
+			var water_bottom_corner_rule = {
+				Direction.SE: _get_neighbor(tile, Direction.E),
+				Direction.SW: _get_neighbor(tile, Direction.W),
+				Direction.NW: _get_neighbor(tile, Direction.N),
+				Direction.NE: _get_neighbor(tile, Direction.N),
+			}
+			for direction in water_bottom_corner_rule:
+				var neighbor = _get_neighbor(tile, direction)
+				if (
+					water_bottom_corner_rule[direction]
+					and water_bottom_corner_rule[direction].is_water_cliff
+					and neighbor
+					and not neighbor.is_land
+					and not neighbor.is_water_cliff
+				):
+					world.add_water_corner(tile.coordinate, direction)
+
+			var water_upper_corner_rule = {
+				Direction.W: Direction.NW,
+				Direction.E: Direction.NE,
+			}
+			for direction in water_upper_corner_rule:
+				var neighbor = _get_neighbor(tile, direction)
+				var next_neighbor = _get_neighbor(tile, water_upper_corner_rule[direction])
+				if (
+					neighbor
+					and neighbor.is_land
+					and next_neighbor
+					and not next_neighbor.is_land
+					and not next_neighbor.is_water_cliff
+				):
+					world.add_water_corner(tile.coordinate, water_upper_corner_rule[direction], true)
+					world.add_water_tile(neighbor.coordinate, false ,true)
+					
+
+
+func _set_water_edge(tile, world):
+	world.add_water_tile(tile.coordinate, true)
+	tile.is_water_cliff = true
+	for next_neighbor in [_get_neighbor(tile, Direction.W), _get_neighbor(tile, Direction.E)]:
+		if next_neighbor and next_neighbor.elevation == WATER_LEVEL + 1:
+			world.add_water_tile(next_neighbor.coordinate, true)
+			next_neighbor.is_water_cliff = true
+
+
+func _set_cliffs(tile, world):
+	var valid_elevation = tile.elevation - 1
+	var neighbor = tile
+	for _i in range(2):
+		neighbor = _get_neighbor(neighbor, Direction.S)
+		if neighbor and neighbor.elevation == valid_elevation:
+			neighbor.is_cliff = true
+			world.add_cliff_tile(neighbor.coordinate, tile.elevation)
+			for next_neighbor in [
+				_get_neighbor(neighbor, Direction.W), _get_neighbor(neighbor, Direction.E)
+			]:
+				if next_neighbor and next_neighbor.elevation == tile.elevation:
+					world.add_cliff_tile(next_neighbor.coordinate, tile.elevation)
 
 
 func _upscale_map():
