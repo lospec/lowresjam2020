@@ -42,6 +42,12 @@ var current_anim = Animations.IDLE_DOWN
 var anim_frame = 0
 var status_effects = {}
 
+# Private Variables
+var _x = position.x
+var _y = position.y
+var _old_x = position.x
+var _old_y = position.y
+
 # Onready Variables
 onready var sprite = $Sprite
 onready var animation_player = $AnimationPlayer
@@ -76,7 +82,22 @@ func _physics_process(_delta):
 
 
 func movement():
+	_old_x = position.x
+	_old_y = position.y
+	
 	velocity = move_and_slide(velocity)
+	
+	# Prevent diagonal jittering
+	# Credit to:
+	# https://www.reddit.com/r/godot/comments/cvn6qn/ive_figured_out_a_way_to_smooth_out_jittery/
+	if abs(_old_x - position.x) > abs(_old_y - position.y) and velocity.x: 
+		_x = round(position.x)
+		_y = round(position.y + (_x - position.x) * velocity.y / velocity.x)
+		position.y = _y
+	elif abs(_old_x - position.x) <= abs(_old_y - position.y) and velocity.y:
+		_y = round(position.y)
+		_x = round(position.x + (_y - position.y) * velocity.x / velocity.y)
+		position.x = _x
 
 
 func calculate_wait_time(fps):
