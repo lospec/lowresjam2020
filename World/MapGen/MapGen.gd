@@ -561,7 +561,11 @@ func _set_feature_tiles(world):
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.25
 				and not tile.is_near_water
 			):
-				_add_feature(world, tile, world.Tile.Tree)
+				var left = _get_neighbor(tile, Direction.W)
+				var right = _get_neighbor(tile, Direction.E)
+				if right and right.elevation < tile.elevation and left and left.elevation == tile.elevation:
+					tile = left
+				_add_feature(world, tile, world.Tile.Tree, 3)
 				continue
 			if (
 				tile.elevation > WATER_LEVEL + 2
@@ -569,18 +573,18 @@ func _set_feature_tiles(world):
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 				and feature_rng < 0.4
 			):
-				_add_feature(world, tile, world.Tile.Rock)
+				_add_feature(world, tile, world.Tile.Rock, 3)
 				continue
 			if (
 				bush_noise.get_noise_2dv(tile.coordinate) > 0.3
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 			):
-				_add_feature(world, tile, world.Tile.Bush)
+				_add_feature(world, tile, world.Tile.Bush, 3)
 				continue
 
 
-func _add_feature(world, tile, type):
-	for neighbor in _get_neighbors(tile):
+func _add_feature(world, tile, type, separation = 2):
+	for neighbor in _get_neighbors(tile, separation):
 		if neighbor.feature_type != -1:
 			return
 	tile.feature_type = type
