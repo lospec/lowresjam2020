@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://World/EnemySpawn/EnemySpawn.gd" type="Script" id=1]
 
-[node name="EnemySpawn" type="Position2D"]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 57, 30 )
+
+[node name="EnemySpawn" type="Area2D"]
 position = Vector2( -4, 4 )
 script = ExtResource( 1 )
 enemies = [ null ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
