@@ -107,28 +107,6 @@ class Tile:
 		self.idx = _idx
 
 
-class ClimateData:
-	var clouds: float = 0
-	var moisture: float = 0
-
-	func _init(starting_moisture = null):
-		if starting_moisture:
-			moisture = starting_moisture
-
-	func duplicate():
-		var data = ClimateData.new()
-		data.clouds = clouds
-		data.moisture = moisture
-		return data
-
-
-var climate = []
-var next_climate = []
-
-var height_map: Image
-var cloud_map: Image
-var moisture_map: Image
-
 var map = []
 var search_frontier = PriorityQueue.new()
 var search_frontier_phase = 0
@@ -519,149 +497,6 @@ func _remove_lone_pillars():
 	map = next
 
 
-func _evolve_climate(idx: int):
-	var tile = map[idx]
-	var tile_climate = climate[idx]
-	if not tile.is_land:
-		tile_climate.moisture = 1.0
-		tile_climate.clouds += climate_parameters.EVAPORATION_FACTOR
-	else:
-		var evaporation = tile_climate.moisture * climate_parameters.EVAPORATION_FACTOR
-		tile_climate.moisture -= evaporation
-		tile_climate.clouds += evaporation
-
-	var precipitation = tile_climate.clouds * climate_parameters.PRECIPITATION_FACTOR
-	tile_climate.clouds -= precipitation
-	tile_climate.moisture += precipitation
-
-	var cloud_maximum = 1 - (tile.over_water_elevation / (ELEVATION_MAX + 1))
-	if tile_climate.clouds > cloud_maximum:
-		tile_climate.moisture += tile_climate.clouds - cloud_maximum
-		tile_climate.clouds = cloud_maximum
-
-	var cloud_dispersal = (
-		tile_climate.clouds
-		* (1.0 / (5.0 + climate_parameters.WIND_STRENGTH))
-		* climate_parameters.DISSIPATION_STRENTH
-	)
-	var runoff = (
-		tile_climate.moisture
-		* climate_parameters.RUNOFF_FACTOR
-		* (1.0 / 8.0)
-		* climate_parameters.DISSIPATION_STRENTH
-	)
-	var seepage = (
-		tile_climate.moisture
-		* climate_parameters.SEEPAGE_FACTOR
-		* (1.0 / 8.0)
-		* climate_parameters.DISSIPATION_STRENTH
-	)
-
-	for direction in Directions:
-		var neighbor = _get_neighbor(tile, direction)
-		if not neighbor:
-			continue
-		var neighbor_climate = next_climate[neighbor.idx]
-		if direction == WIND_DIRECTION:
-			neighbor_climate.clouds += cloud_dispersal * climate_parameters.WIND_STRENGTH
-		else:
-			neighbor_climate.clouds += cloud_dispersal
-
-		var elevation_delta = neighbor.over_water_elevation - tile.over_water_elevation
-		if elevation_delta < 0:
-			tile_climate.moisture -= runoff
-			neighbor_climate.moisture += runoff
-		elif elevation_delta == 0:
-			tile_climate.moisture -= seepage
-			neighbor_climate.moisture += seepage
-		next_climate[neighbor.idx] = neighbor_climate
-
-	var next_tile_climate = next_climate[idx]
-	next_tile_climate.moisture += tile_climate.moisture
-	if next_tile_climate.moisture > 1:
-		next_tile_climate.moisture = 1
-	next_climate[idx] = next_tile_climate
-	climate[idx] = ClimateData.new()
-
-
-func _print_climate_prop():
-	print("----- Climate Properties ------")
-	print("DISSIPATION_STRENTH = %s" % climate_parameters.DISSIPATION_STRENTH)
-	print("EVAPORATION_FACTOR = %s" % climate_parameters.EVAPORATION_FACTOR)
-	print("PRECIPITATION_FACTOR = %s" % climate_parameters.PRECIPITATION_FACTOR)
-	print("RUNOFF_FACTOR = %s" % climate_parameters.RUNOFF_FACTOR)
-	print("SEEPAGE_FACTOR = %s" % climate_parameters.SEEPAGE_FACTOR)
-	print("WIND_STRENGTH = %s" % climate_parameters.WIND_STRENGTH)
-	print("STARTING_MOISTURE = %s" % climate_parameters.STARTING_MOISTURE)
-	print("CLIMATE_CYCLE = %s" % climate_parameters.CLIMATE_CYCLE)
-	print("---------------------------------")
-
-
-func _create_climate():
-	climate.clear()
-	next_climate.clear()
-	climate.resize(len(map))
-	next_climate.resize(len(map))
-	for i in range(len(map)):
-		climate[i] = ClimateData.new(climate_parameters.STARTING_MOISTURE)
-		next_climate[i] = ClimateData.new()
-
-	for _cycle in range(0, climate_parameters.CLIMATE_CYCLE):
-		for i in range(len(map)):
-			_evolve_climate(i)
-		var swap = climate
-		climate = next_climate
-		next_climate = swap
-
-
-func _save_cloud_map():
-	var max_clouds = -1
-	for i in range(len(climate)):
-		if map[i].is_land and climate[i].clouds > max_clouds:
-			max_clouds = climate[i].clouds
-	cloud_map = Image.new()
-	cloud_map.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
-	cloud_map.lock()
-	var idx = 0
-	for y in MAP_SIZE_Y:
-		for x in MAP_SIZE_X:
-			var color = Color.aqua
-			if map[idx].is_land:
-				var data = climate[idx]
-				var v = range_lerp(data.clouds, 0, max_clouds, 0, 1)
-				color = Color(v, v, v)
-			cloud_map.set_pixel(x, y, color)
-			idx += 1
-
-	cloud_map.unlock()
-	var _result = cloud_map.save_png(DIR + "cloud_map.png")
-	print("cloud_map saved")
-
-
-func _save_moisture_map():
-	var max_moisture = -1
-	for i in range(len(climate)):
-		if map[i].is_land and climate[i].moisture > max_moisture:
-			max_moisture = climate[i].moisture
-	moisture_map = Image.new()
-	moisture_map.create(MAP_SIZE_X, MAP_SIZE_Y, false, Image.FORMAT_RGB8)
-	moisture_map.lock()
-	var idx = 0
-	for y in MAP_SIZE_Y:
-		for x in MAP_SIZE_X:
-			var color = Color.aqua
-			if map[idx].is_land:
-				var data = climate[idx]
-				var v = range_lerp(data.moisture, 0, max_moisture, 0, 1)
-				color = Color(v, v, v)
-			moisture_map.set_pixel(x, y, color)
-			idx += 1
-
-	moisture_map.unlock()
-	var _result = moisture_map.save_png(DIR + "moisture_map.png")
-	print("moisture_map saved")
-
-
 func _print_prop():
 	print("----- Generator Properties ------")
 	print("map size = {}x{}".format([MAP_SIZE_X, MAP_SIZE_Y], "{}"))
@@ -787,7 +622,7 @@ func _set_water_tile(tile, world):
 		if direction == Direction.N:
 			_set_water_edge(tile, world)
 		neighbor.is_near_water = true
-		for i in range(int(direction), int(direction) + 1):
+		for _i in range(int(direction), int(direction) + 1):
 			var next_neighbor = _get_neighbor(neighbor, direction)
 			if not next_neighbor or not next_neighbor.is_land:
 				continue
@@ -829,9 +664,10 @@ func set_special_rule_tiles(world):
 					and not next_neighbor.is_land
 					and not next_neighbor.is_water_cliff
 				):
-					world.add_water_corner(tile.coordinate, water_upper_corner_rule[direction], true)
-					world.add_water_tile(neighbor.coordinate, false ,true)
-					
+					world.add_water_corner(
+						tile.coordinate, water_upper_corner_rule[direction], true
+					)
+					world.add_water_tile(neighbor.coordinate, false, true)
 
 
 func _set_water_edge(tile, world):
