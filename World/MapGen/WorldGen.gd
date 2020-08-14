@@ -1,5 +1,5 @@
 tool
-extends Node
+extends YSort
 
 export (TileSet) var tileset
 export (bool) var run_generator = false setget , _run
@@ -8,12 +8,28 @@ export (bool) var use_existing_map = false setget _set_use_existing_map
 export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
 
-export (OpenSimplexNoise) var feature_noise = OpenSimplexNoise.new()
+export (OpenSimplexNoise) var feature_noise = _default_feature_noise()
 export (OpenSimplexNoise) var grass_noise = OpenSimplexNoise.new()
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
-
+func _default_feature_noise():
+	var noise: OpenSimplexNoise = OpenSimplexNoise.new()
+	noise.octaves = 5
+	noise.period = 32
+	noise.persistence = 0.5
+	noise.lacunarity = 2
+	return noise
+	
+func _default_grass_noise():
+	var noise: OpenSimplexNoise = OpenSimplexNoise.new()
+	noise.seed = 0
+	noise.octaves = 3
+	noise.period = 4
+	noise.persistence = 0.5
+	noise.lacunarity = 2
+	return noise
+	
 class TilemapManager:
 	var _parent: Node
 	var _water_level
@@ -33,13 +49,13 @@ class TilemapManager:
 			if i > _water_level + 1:
 				var cliff_tilemap = tilemap.duplicate()
 				cliff_tilemap.name = "cliff_%s" % str(i - _water_level)
-				_parent.map_node.add_child(cliff_tilemap)
+				_parent.add_child(cliff_tilemap)
 				cliff_tilemap.owner = _parent
 				cliff_tilemaps[i] = cliff_tilemap
 
 			var land_tilemap = tilemap.duplicate()
 			land_tilemap.name = "height_%s" % str(i - _water_level)
-			_parent.map_node.add_child(land_tilemap)
+			_parent.add_child(land_tilemap)
 			land_tilemap.owner = _parent
 			height_tilemaps[i] = land_tilemap
 
@@ -49,9 +65,9 @@ class TilemapManager:
 			tilemap.cell_size = Vector2(4, 4)
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "grass"
-			_parent.map_node.add_child(tilemap)
+			_parent.add_child(tilemap)
 			tilemap.owner = _parent
-			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count() - 1)
+			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			grass_tilemap = tilemap
 		return grass_tilemap
 
@@ -64,9 +80,9 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "features"
 			tilemap.cell_y_sort = true
-			_parent.map_node.add_child(tilemap)
+			_parent.add_child(tilemap)
 			tilemap.owner = _parent
-			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count() - 1)
+			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			feature_tilemap = tilemap
 		return feature_tilemap
 
@@ -110,8 +126,6 @@ const TILES = {
 
 var map_generator = preload("res://World/MapGen/MapGen.gd").new()
 var tilemap_manager = TilemapManager.new(self)
-var map_node: Node
-
 
 func _set_use_existing_map(value):
 	use_existing_map = value
@@ -125,6 +139,9 @@ func _print_prop():
 		map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	map_generator._print_prop()
 
+func _clean_current_map():
+	for child in get_children():
+		remove_child(child)
 
 func _run():
 	if not Engine.editor_hint or not run_generator:
@@ -134,27 +151,23 @@ func _run():
 	print("# Starting Map Generation")
 	var elapsed = OS.get_ticks_msec()
 
-	map_node = find_node("CoreMap")
 	if not use_existing_map:
 		randomize()
 		if not use_seed:
 			map_seed = randi()
 		seed(map_seed)
 		feature_noise.seed = map_seed
+		grass_noise.seed = map_seed
 		map_generator = preload("res://World/MapGen/MapGen.gd").new()
 		tilemap_manager = TilemapManager.new(self)
-		if map_node:
-			remove_child(map_node)
-		map_node = YSort.new()
-		map_node.name = "CoreMap"
-		add_child(map_node)
-		map_node.owner = self
+		if get_child_count() > 0:
+			_clean_current_map()
 
 	if tilemap_manager:
-		var tilemaps = [map_node.find_node("grass"), map_node.find_node("features")]
+		var tilemaps = [find_node("grass"), find_node("features")]
 		for tilemap in tilemaps:
 			if tilemap:
-				map_node.remove_child(tilemap)
+				remove_child(tilemap)
 
 	map_generator.generate_map(self, use_existing_map)
 	tilemap_manager.update_bitmask()

@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://World/MapGen/WorldGen.gd" type="Script" id=1]
-[ext_resource path="res://World/Tilesets/Test_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://World/Tilesets/Main_Tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://World/CoreMap.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 1234567890
