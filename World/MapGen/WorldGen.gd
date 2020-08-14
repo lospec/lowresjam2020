@@ -1,5 +1,5 @@
 tool
-extends YSort
+extends Node
 
 export (TileSet) var tileset
 export (bool) var run_generator = false setget , _run
@@ -31,7 +31,7 @@ func _default_grass_noise():
 	return noise
 	
 class TilemapManager:
-	var _parent: Node
+	var _parent: Node2D
 	var _water_level
 	var height_tilemaps: Dictionary = {}
 	var cliff_tilemaps: Dictionary = {}
@@ -50,13 +50,13 @@ class TilemapManager:
 				var cliff_tilemap = tilemap.duplicate()
 				cliff_tilemap.name = "cliff_%s" % str(i - _water_level)
 				_parent.add_child(cliff_tilemap)
-				cliff_tilemap.owner = _parent
+				cliff_tilemap.owner = _parent.owner
 				cliff_tilemaps[i] = cliff_tilemap
 
 			var land_tilemap = tilemap.duplicate()
 			land_tilemap.name = "height_%s" % str(i - _water_level)
 			_parent.add_child(land_tilemap)
-			land_tilemap.owner = _parent
+			land_tilemap.owner =  _parent.owner
 			height_tilemaps[i] = land_tilemap
 
 	func get_grass_tilemap():
@@ -66,7 +66,7 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "grass"
 			_parent.add_child(tilemap)
-			tilemap.owner = _parent
+			tilemap.owner =  _parent.owner
 			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			grass_tilemap = tilemap
 		return grass_tilemap
@@ -81,7 +81,7 @@ class TilemapManager:
 			tilemap.name = "features"
 			tilemap.cell_y_sort = true
 			_parent.add_child(tilemap)
-			tilemap.owner = _parent
+			tilemap.owner =  _parent.owner
 			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			feature_tilemap = tilemap
 		return feature_tilemap
