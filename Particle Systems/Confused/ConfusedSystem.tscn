@@ -4,21 +4,22 @@
 [ext_resource path="res://Particle Systems/Confused/spiral.png" type="Texture" id=3]
 [ext_resource path="res://Particle Systems/Confused/ConfusedCurve.tres" type="Curve" id=4]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.220779, 0.753247, 1 )
 colors = PoolColorArray( 1, 0.429688, 0.997772, 0, 0.947266, 0.244217, 0.944348, 1, 0.947266, 0.325623, 0.944686, 1, 1, 1, 1, 0 )
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=4]
 particles_animation = true
 particles_anim_h_frames = 10
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0, 0.192771, 0.704819, 1 )
 colors = PoolColorArray( 0, 0, 0, 0, 0.995758, 0.457031, 1, 1, 0.968263, 0.410339, 0.972656, 1, 1, 1, 1, 0 )
 
 [node name="ConfusedSystem" type="Node2D"]
+position = Vector2( 27.4033, 33.7029 )
 
 [node name="QuestionMark" type="CPUParticles2D" parent="."]
 amount = 2
@@ -28,15 +29,15 @@ emission_shape = 2
 emission_rect_extents = Vector2( 15, 1 )
 gravity = Vector2( 0, -10 )
 angle_curve = ExtResource( 4 )
-color_ramp = SubResource( 1 )
+color_ramp = SubResource( 3 )
 
 [node name="Spirals" type="CPUParticles2D" parent="."]
-material = SubResource( 2 )
+material = SubResource( 4 )
 amount = 2
 texture = ExtResource( 3 )
 emission_shape = 1
 emission_sphere_radius = 17.34
 gravity = Vector2( 0, 0 )
 angular_velocity_random = 1.0
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 5 )
 anim_speed = 1.5

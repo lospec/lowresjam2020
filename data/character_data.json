@@ -44,60 +44,10 @@
     "guild_level": 1,
     "rarity": 1
   },
-  "Bueller": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Barbra": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Kiki": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Sir Lucas": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Redd": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Tifa": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
-  "Farhan": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 1
-  },
   "Jessa": {
     "race": "Human",
-    "guild_level": 2,
-    "rarity": 1
-  },
-  "Deb": {
-    "race": "Human",
     "guild_level": 3,
     "rarity": 1
-  },
-  "Sarang": {
-    "race": "Human",
-    "guild_level": 3,
-    "rarity": 3
-  },
-  "Aysha": {
-    "race": "Human",
-    "guild_level": 3,
-    "rarity": 3
   },
   "Bryant": {
     "race": "Human",
@@ -114,35 +64,15 @@
     "guild_level": 5,
     "rarity": 5
   },
-  "Tyrone": {
-    "race": "Human",
-    "guild_level": 5,
-    "rarity": 5
-  },
-  "Gladys": {
-    "race": "Human",
-    "guild_level": 5,
-    "rarity": 4
-  },
-  "Samuel": {
-    "race": "Human",
-    "guild_level": 5,
-    "rarity": 1
-  },
-  "Munya": {
-    "race": "Human",
-    "guild_level": 6,
-    "rarity": 5
-  },
-  "Jade": {
-    "race": "Human",
-    "guild_level": 6,
-    "rarity": 8
-  },
   "Kyro": {
     "race": "Human",
     "guild_level": 9,
     "rarity": 6
+  },
+  "Vennet": {
+    "race": "Human",
+    "guild_level": 12,
+    "rarity": 10
   },
   "Viktor": {
     "race": "Human",
@@ -154,30 +84,44 @@
     "guild_level": 9,
     "rarity": 6
   },
-  "Noor": {
-    "race": "Human",
-    "guild_level": 9,
-    "rarity": 8
-  },
-  "Ishmael": {
-    "race": "Human",
-    "guild_level": 10,
-    "rarity": 1
-  },
-  "Galessa": {
-    "race": "Elf",
-    "guild_level": 10,
-    "rarity": 5
-  },
-  "Vennet": {
-    "race": "Human",
-    "guild_level": 12,
-    "rarity": 10
-  },
   "Alexia": {
     "race": "Human",
     "guild_level": 12,
     "rarity": 8
+  },
+  "Tyrone": {
+    "race": "Human",
+    "guild_level": 5,
+    "rarity": 5
+  },
+  "Deb": {
+    "race": "Human",
+    "guild_level": 3,
+    "rarity": 1
+  },
+  "Barbarian (Male)": {
+    "race": "Human",
+    "guild_level": 1
+  },
+  "Barbarian (Female)": {
+    "race": "Human",
+    "guild_level": 1
+  },
+  "Black Mage": {
+    "race": "Human",
+    "guild_level": 1
+  },
+  "Knight": {
+    "race": "Human",
+    "guild_level": 1
+  },
+  "Red Mage": {
+    "race": "Human",
+    "guild_level": 1
+  },
+  "Thief": {
+    "race": "Human",
+    "guild_level": 1
   },
   "Sandro": {
     "race": "Human",
@@ -189,26 +133,29 @@
     "guild_level": 15,
     "rarity": 10
   },
-  "Daxon": {
+  "Dexos": {
     "race": "Demon",
     "guild_level": 15,
     "rarity": 10
   },
-  "Drueson": {
+  "Noor": {
     "race": "Human",
-    "guild_level": 15
+    "guild_level": 9,
+    "rarity": 8
   },
-  "Alice": {
+  "Farhan": {
     "race": "Human",
-    "guild_level": 20,
-    "rarity": 10
+    "guild_level": 1,
+    "rarity": 1
   },
-  "Lin": {
+  "Gladys": {
     "race": "Human",
-    "guild_level": 1
+    "guild_level": 5,
+    "rarity": 4
   },
-  "Rusty": {
-    "race": "Robot",
-    "guild_level": 1
+  "Sarang": {
+    "race": "Human",
+    "guild_level": 3,
+    "rarity": 3
   }
 }
