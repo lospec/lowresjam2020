@@ -462,13 +462,8 @@
   },
   "L Flag": {
     "type": "item",
-    "buy_value": 0,
+    "buy_value": 5000,
     "sell_value": 500
-  },
-  "Crown": {
-    "type": "item",
-    "buy_value": 1000,
-    "sell_value": 100
   },
   "Leather": {
     "type": "armor",
@@ -505,18 +500,6 @@
     "buy_value": 0,
     "sell_value": 10,
     "health_added": 3
-  },
-  "RobotArmour": {
-    "type": "armor",
-    "buy_value": 0,
-    "sell_value": 10,
-    "health_added": 5
-  },
-  "KarateGi": {
-    "type": "armor",
-    "buy_value": 30,
-    "sell_value": 20,
-    "health_added": 7
   },
   "Hotdog": {
     "type": "usable",

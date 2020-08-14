@@ -1,11 +1,9 @@
-class_name CombatUtil
 
 const color_values = preload("res://Utility/ColorValues.gd")
 
 # Constants
 enum Combat_Action {
 	INVALID = -1,
-	NONE,
 	QUICK,
 	COUNTER,
 	HEAVY,
@@ -29,9 +27,6 @@ static func GetActionName(action: int) -> String:
 		
 		Combat_Action.FLEE:
 			return "Flee"
-			
-		Combat_Action.NONE:
-			return "None"
 		
 		_:
 			return "INVALID"
@@ -66,10 +61,6 @@ static func ActionCompare(action1: int, action2: int) -> int:
 	
 	if action1 == action2:
 		return 0
-	elif action2 == Combat_Action.NONE:
-		return 1
-	elif action1 == Combat_Action.NONE:
-		return 2
 	elif GetActionWeakness(action2) == action1:
 		return 1
 	elif GetActionWeakness(action1) == action2:
@@ -87,11 +78,8 @@ static func GetActionColor(action: int) -> Color:
 		Combat_Action.HEAVY:
 			return color_values.att_heavy
 		
-		Combat_Action.FLEE:
+		Combat_Action.HEAVY:
 			return color_values.flee
-		
-		Combat_Action.NONE:
-			return color_values.white
 		
 		_:
 			print("ERROR CombatUtil.gd: Invalid Action whlie getting color")

@@ -259,8 +259,6 @@
     "weakness": "Water",
     "resistance": "Electricity",
     "coin_drop_amount": 40,
-    "item_drop_1": "L Flag",
-    "item_drop_1_chance": 0.01,
     "max_items_dropped": 0,
     "attack_pool": "Q",
     "ai_type": "Coward",

@@ -10,3 +10,4 @@ enum Damage_Type {
 
 static func get_damage_type_name(type: int) -> String:
 	return Damage_Type.keys()[type]
+
