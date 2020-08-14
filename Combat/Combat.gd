@@ -9,13 +9,18 @@ const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
-var player_instance
-var enemy_instance
+var player_instance: BaseEntity
+var enemy_instance: BaseEntity
 
 # Onready Variables
 onready var combat_menu = $CombatMenu
 onready var player_combat: CombatChar = $PlayerCombat
 onready var enemy_combat: CombatChar = $EnemyCombat
+
+# TEMP HACK
+func _on_enemy_take_damage(damage, damage_type):
+	combat_menu.update_particle(enemy_instance)
+	combat_menu.animate_enemy_hurt(enemy_instance, damage)
 
 func setup_combat(player, enemy):
 	player_combat.char_instance = player
@@ -27,6 +32,17 @@ func setup_combat(player, enemy):
 	player_instance = player
 	enemy_instance = enemy
 	
+	if !player_instance.is_connected("health_changed", combat_menu, "update_player_health_value"):
+# warning-ignore:return_value_discarded
+		player_instance.connect("health_changed", combat_menu, "update_player_health_value")
+		
+	if !enemy_instance.is_connected("health_changed", combat_menu, "update_enemy_health_value"):
+# warning-ignore:return_value_discarded
+		enemy_instance.connect("health_changed", combat_menu, "update_enemy_health_value")
+	
+	if !enemy_combat.is_connected("damage_taken", self, "_on_enemy_take_damage"):
+		enemy_combat.connect("damage_taken", self, "_on_enemy_take_damage")
+	
 	combat_menu.set_player_health_value(player_instance.max_health,
 			player_instance.health)
 	combat_menu.set_enemy_health_value(enemy_instance.max_health,
@@ -37,14 +53,86 @@ func setup_combat(player, enemy):
 		COMBAT_ANIM_UTIL.Anim_State_Region_Pos_X[COMBAT_ANIM_UTIL.Anim_States.NORMAL],
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_POS_Y,
 		COMBAT_ANIM_UTIL.BATTLE_TEXTURE_WIDTH, COMBAT_ANIM_UTIL.BATTLE_TEXTURE_HEIGHT)
+	
+	start_combat()
+
+func start_combat():
+	var combat = true
+# warning-ignore:unused_variable
+	var turn_count = 0
+	while combat:
+		turn_count += 1
+		#print("Turn %s: START, %s" % [turn_count, combat])
+		
+		combat_menu.update_particle(enemy_instance)
+		
+#		var e: StatusEffect = enemy_instance.status_effects.get("OnFire", null)
+#		if e != null:
+#			print("OnFire last for %s more turn" % e.duration)
+		
+		var turn = TakeTurn()
+		
+		if turn.is_valid():
+			turn = yield(turn, "completed")
+		
+		combat = turn
+		
+		if combat:
+			# PLAYER STATUS EFFECTS on_turn_end
+			for key in player_instance.status_effects.keys():
+				var se : StatusEffect = player_instance.status_effects[key]
+				se.on_turn_end(player_combat)
+				
+				if se.expired:
+					player_instance.status_effects.erase(key)
+					
+			# ENEMY STATUS EFFECTS on_turn_end
+			for key in enemy_instance.status_effects.keys():
+				var se : StatusEffect = enemy_instance.status_effects[key]
+				se.on_turn_end(enemy_combat)
+				
+				if se.expired:
+					enemy_instance.status_effects.erase(key)
+			
+			if check_combat_end():
+				if player_instance.health <= 0:
+					yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
+					yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
+					combat_menu.combat_label.visible = true
+					end_combat(false)
+				
+				elif enemy_instance.health <= 0:
+					yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
+					yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
+					combat_menu.combat_label.visible = true
+					end_combat(true)
+				
+				combat = false
+		
+		if combat:
+			combat_menu.reset_ui()
+		#print("Turn %s: END, %s" % [turn_count, combat])
 
 func end_combat(player_win):
+	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
+	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", player_win, enemy_instance)
 
-func TakeTurn(playerAction):
-	var enemyAction = enemy_combat.get_action()#playerAction#
-	combat_menu.set_buttons_visible(false)
+func TakeTurn() -> bool:
+	var playerAction = player_combat.get_action()
+	var enemyAction = enemy_combat.get_action()
 	
+	if playerAction is GDScriptFunctionState and playerAction.is_valid():
+		#print("wait for player action")
+		playerAction = yield(playerAction, "completed")
+	#print("player action: %s" % combat_util.GetActionName(playerAction))
+	
+	if enemyAction is GDScriptFunctionState and enemyAction.is_valid():
+		#print("wait for enemy action")
+		enemyAction = yield(enemyAction, "completed")
+	#print("enemy action: %s" % combat_util.GetActionName(enemyAction))
+	
+	combat_menu.set_buttons_visible(false)
 	# Show the player and the enemies choices
 	yield(combat_menu.show_turn_result(playerAction, enemyAction), "completed")
 	
@@ -55,7 +143,7 @@ func TakeTurn(playerAction):
 		if flee:
 			combat_menu.combat_label.visible = true
 			end_combat(false)
-			return
+			return false
 	
 	else:
 		var win = combat_util.ActionCompare(playerAction, enemyAction)
@@ -78,46 +166,50 @@ func TakeTurn(playerAction):
 	
 	combat_menu.hide_turn_result()
 	
-	# PLACEHOLDER END CONDITIONS
-	if player_instance.health <= 0:
-		yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
-		yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
-		combat_menu.combat_label.visible = true
-		end_combat(false)
-		return
+	if check_combat_end():
+		if player_instance.health <= 0:
+			yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
+			yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
+			combat_menu.combat_label.visible = true
+			end_combat(false)
+		
+		elif enemy_instance.health <= 0:
+			yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
+			yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
+			combat_menu.combat_label.visible = true
+			end_combat(true)
+		
+		return false
 	
-	if enemy_instance.health <= 0:
-		yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
-		yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
-		combat_menu.combat_label.visible = true
-		end_combat(true)
-		return
-	
-	combat_menu.reset_ui()
+	return true
+
+func check_combat_end() -> bool:
+	return player_instance.health <= 0 or enemy_instance.health <= 0
 
 #### to differentiate between different kinds of outcome in the game other than just the color
 #### i left some suggestion comment in each of the cases
 func PlayerFlee(enemyAction): # Should be replaced with CharFlee so the enemy can have a chance to flee to
 	var enemyDmg = enemy_combat.get_base_damage(enemyAction);
-	var success = false
+	var success = true
 	
 	match enemyAction:
-		combat_util.Combat_Action.COUNTER:
-			yield(combat_menu.show_combat_label("Got away safely", 2), "completed")
-			success = true
-		
 		combat_util.Combat_Action.QUICK:
 			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
 			
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
 			combat_menu.animate_player_hurt(enemyDmg)
+			success = false
 		
 		combat_util.Combat_Action.HEAVY:
 			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
 			
 			enemyDmg *= 2
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
 			combat_menu.animate_player_hurt(enemyDmg)
+			success = false
+	
+	if success:
+		yield(combat_menu.show_combat_label("Got away safely", 2), "completed")
 	
 	return success
 
@@ -134,8 +226,8 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.COUNTER:
 			# Player COUNTER vs Enemy QUICK
@@ -143,8 +235,8 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Countered!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.HEAVY:
 			# Player HEAVY vs Enemy COUNTER
@@ -152,10 +244,11 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		_:
+			combat_menu.hide_turn_result()
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on PlayerWin()", 2), "completed")
 
 func EnemyWin(enemyAction):
@@ -169,7 +262,7 @@ func EnemyWin(enemyAction):
 			# the player take damage
 			#combat_menu.show_combat_label("The Enemy attacked first!")
 			
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
 		combat_util.Combat_Action.COUNTER:
@@ -180,7 +273,7 @@ func EnemyWin(enemyAction):
 			#combat_menu.show_combat_label("Enemy countered!")
 			
 			enemyDmg /= 2
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
 			yield(combat_menu.animate_player_hurt(enemyDmg, true), "completed")
 		
 		combat_util.Combat_Action.HEAVY:
@@ -189,7 +282,7 @@ func EnemyWin(enemyAction):
 			# but instead of showing the player attack, show the player take damage instead
 			#combat_menu.show_combat_label("The Enemy broke your counter!")
 			
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
 		_:
@@ -208,10 +301,10 @@ func Tie(action):
 			#combat_menu.show_combat_label("The enemy attacked!")
 			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
-			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
+			player_combat.attack(enemy_combat, action, playerDmg)
+			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, action, enemyDmg)
 			combat_menu.animate_player_hurt(enemyDmg)
 		
 		combat_util.Combat_Action.COUNTER:
@@ -228,14 +321,15 @@ func Tie(action):
 			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
 			playerDmg /= 2
-			enemy_combat.take_damage(playerDmg)
-			combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
+			player_combat.attack(enemy_combat, action, playerDmg)
+			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
 			enemyDmg /= 2
-			player_combat.take_damage(enemyDmg)
+			enemy_combat.attack(player_combat, action, enemyDmg)
 			combat_menu.animate_player_hurt(enemyDmg)
 		
 		_:
+			combat_menu.hide_turn_result()
 			yield(combat_menu.show_combat_label("ERROR. Unknown Action on Tie()", 2), "completed")
 
 
@@ -245,22 +339,18 @@ func _on_Player_enemy_detected(player, enemy):
 	setup_combat(player, enemy)
 	combat_menu.visible = true
 
-# maybe these health changed signals should be moved to CombatMenu.gd, so this script is more cleaner?
-# i don't know, your call Mariothedog
-func _on_Player_health_changed(_old_health, new_health):
-	combat_menu.update_player_health_value(new_health)
-
-func _on_Enemy_health_changed(_old_health, new_health):
-	combat_menu.update_enemy_health_value(new_health)
-
 func _on_Counter_pressed():
-	TakeTurn(combat_util.Combat_Action.COUNTER)
+	pass
+	#TakeTurn(combat_util.Combat_Action.COUNTER)
 
 func _on_Quick_pressed():
-	TakeTurn(combat_util.Combat_Action.QUICK)
+	pass
+	#TakeTurn(combat_util.Combat_Action.QUICK)
 
 func _on_Heavy_pressed():
-	TakeTurn(combat_util.Combat_Action.HEAVY)
+	pass
+	#TakeTurn(combat_util.Combat_Action.HEAVY)
 
 func _on_Flee_pressed():
-	TakeTurn(combat_util.Combat_Action.FLEE)
+	pass
+	#TakeTurn(combat_util.Combat_Action.FLEE)

@@ -37,14 +37,42 @@ export (float) var move_speed = 10
 
 # Public Variables
 var health: int setget set_health
+# velocity is just input velocity (i.e. the velocity that the entity wants to use)
+# and real_velocity is what it is actually using
+# (E.g. if the entity collides then it will be 0, 0)
 var velocity = Vector2()
+var real_velocity = Vector2()
 var current_anim = Animations.IDLE_DOWN
 var anim_frame = 0
+var status_effects = {}
+
+# Private Variables
+var _x = position.x
+var _y = position.y
+var _old_x = position.x
+var _old_y = position.y
 
 # Onready Variables
 onready var sprite = $Sprite
 onready var animation_player = $AnimationPlayer
 
+func add_status_effect(script_name: String):
+	var se = StatEffectUtility.get_status_effect(script_name)
+	
+	# HARDCODED INTERACTION: Should make a system to make this more flexible
+	if script_name == "OnFire" and status_effects.has("Frozen"):
+		status_effects.erase("Frozen")
+		return
+		
+	if script_name == "Frozen" and status_effects.has("OnFire"):
+		status_effects.erase("Frozen")
+		return
+	
+	# Overwrite effect if exist, Should probably make stacking system if needed
+	if status_effects.has(se.name):
+		status_effects.erase(se.name)
+	
+	status_effects[se.name] = se
 
 func _ready():
 	if max_health <= 0:
@@ -58,7 +86,28 @@ func _physics_process(_delta):
 
 
 func movement():
-	velocity = move_and_slide(velocity)
+	_old_x = position.x
+	_old_y = position.y
+	
+	real_velocity = move_and_slide(velocity)
+	
+	# Prevent diagonal jittering
+	# Credit to:
+	# https://www.reddit.com/r/godot/comments/cvn6qn/ive_figured_out_a_way_to_smooth_out_jittery/
+	
+	# Disables diagonal jitter fix if colliding -
+	# This is so hacky it's painful
+	if abs(real_velocity.x) > 0 and abs(real_velocity.y) > 0 and \
+			not (get("collision_detector") and \
+			get("collision_detector").get_overlapping_bodies()):
+		if abs(_old_x - position.x) > abs(_old_y - position.y):
+			_x = round(position.x)
+			_y = round(position.y + (_x - position.x) * real_velocity.y / real_velocity.x)
+			position.y = _y
+		elif abs(_old_x - position.x) <= abs(_old_y - position.y):
+			_y = round(position.y)
+			_x = round(position.x + (_y - position.y) * real_velocity.x / real_velocity.y)
+			position.x = _x
 
 
 func calculate_wait_time(fps):
