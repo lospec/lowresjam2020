@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Gninja_Overworld.png-fa072ea0464009b91527d05cc83c9435.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Gninja_Overworld.png"
+dest_files=[ "res://.import/Gninja_Overworld.png-fa072ea0464009b91527d05cc83c9435.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Diekon_Overworld.png-b6b172e14a19d8da6c2b8199571b4f7b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Diekon_Overworld.png"
+dest_files=[ "res://.import/Diekon_Overworld.png-b6b172e14a19d8da6c2b8199571b4f7b.stex" ]
 
 [params]
 

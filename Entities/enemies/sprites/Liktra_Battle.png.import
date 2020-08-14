@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex"
+path="res://.import/Liktra_Battle.png-4119de30228fdc332115211be59b36dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Lin_Overworld.png"
-dest_files=[ "res://.import/Lin_Overworld.png-1a82e1e4806b6d5237b5f48d88522ebf.stex" ]
+source_file="res://Entities/enemies/sprites/Liktra_Battle.png"
+dest_files=[ "res://.import/Liktra_Battle.png-4119de30228fdc332115211be59b36dd.stex" ]
 
 [params]
 
