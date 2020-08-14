@@ -137,17 +137,17 @@ points = PoolVector2Array( 0, 0, 4, 0, 4, 4, 0, 4 )
 [sub_resource type="ConvexPolygonShape2D" id=28]
 points = PoolVector2Array( 0, 0, 4, 0, 4, 4, 0, 4 )
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 5.85423, 3.17245, 2.1396, 3.17245, 2.1396, 1.23439, 5.85423, 1.23439 )
+[sub_resource type="ConvexPolygonShape2D" id=61]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 4, 0, 4 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 6.33875, 6.2787, 1.33208, 6.2787, 1.49358, 2.24107, 6.50024, 2.07956 )
+[sub_resource type="ConvexPolygonShape2D" id=62]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 8.97142, 9.70367, 3.48024, 9.70367, 3.48024, 1.5574, 8.97142, 1.46689 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 10.1286, 16.7389, 6.41402, 16.9004, 6.41402, 12.8628, 10.2901, 12.7013 )
+points = PoolVector2Array( 10.7747, 16.6484, 5.76801, 16.8099, 5.44499, 5.50452, 10.7747, 5.34303 )
 
 [resource]
 0/name = "grass"
@@ -477,14 +477,14 @@ points = PoolVector2Array( 10.1286, 16.7389, 6.41402, 16.9004, 6.41402, 12.8628,
 4/navigation_offset = Vector2( 0, 0 )
 4/shape_offset = Vector2( 0, 0 )
 4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-4/shape = SubResource( 1 )
+4/shape = SubResource( 61 )
 4/shape_one_way = false
 4/shape_one_way_margin = 1.0
 4/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 61 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 4/z_index = 0
@@ -498,14 +498,14 @@ points = PoolVector2Array( 10.1286, 16.7389, 6.41402, 16.9004, 6.41402, 12.8628,
 5/navigation_offset = Vector2( 0, 0 )
 5/shape_offset = Vector2( 2, 2 )
 5/shape_transform = Transform2D( 1, 0, 0, 1, 2, 2 )
-5/shape = SubResource( 2 )
+5/shape = SubResource( 62 )
 5/shape_one_way = false
 5/shape_one_way_margin = 1.0
 5/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 62 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 2, 2 )
 } ]
 5/z_index = 0
