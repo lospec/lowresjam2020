@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UI/pause_menu/pause_menu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://World/Chunks/plain_grass.tscn" type="PackedScene" id=9]
 [ext_resource path="res://World/EnemySpawn/EnemySpawn.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/dropped_items/DroppedItems.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Particle Systems/Clouds/CloudsSystem.tscn" type="PackedScene" id=12]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 period = 8.0
@@ -87,6 +88,18 @@ pause_mode = 1
 [node name="GuildHall" parent="EntitiesAndStaticObjects" instance=ExtResource( 4 )]
 position = Vector2( -29, -43 )
 
+[node name="Flag" parent="EntitiesAndStaticObjects/GuildHall" index="1"]
+frame = 3
+
+[node name="Flag2" parent="EntitiesAndStaticObjects/GuildHall" index="2"]
+frame = 0
+
+[node name="Flag3" parent="EntitiesAndStaticObjects/GuildHall" index="3"]
+frame = 1
+
+[node name="Flag4" parent="EntitiesAndStaticObjects/GuildHall" index="4"]
+frame = 2
+
 [node name="Player" parent="EntitiesAndStaticObjects" instance=ExtResource( 2 )]
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
@@ -99,6 +112,9 @@ node_to_follow = NodePath("../EntitiesAndStaticObjects/Player")
 
 [node name="DroppedItems" parent="." instance=ExtResource( 11 )]
 pause_mode = 2
+
+[node name="CloudsSystem" parent="." instance=ExtResource( 12 )]
+position = Vector2( 84.8827, 87.825 )
 [connection signal="enemy_instanced" from="Chunks" to="." method="_on_Chunks_enemy_instanced"]
 [connection signal="body_entered" from="EntitiesAndStaticObjects/GuildHall/DoorDetection" to="." method="_on_DoorDetection_body_entered"]
 [connection signal="enemy_detected" from="EntitiesAndStaticObjects/Player" to="Combat" method="_on_Player_enemy_detected"]

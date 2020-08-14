@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gnome_overworld.png-9cbb3fb767eba56b18cf4f1a4f2c9a56.stex"
+path="res://.import/CloudsSmall.png-8ae34e52518aa7288a24344b5f306ca8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/overworld_sprites/gnome_overworld.png"
-dest_files=[ "res://.import/gnome_overworld.png-9cbb3fb767eba56b18cf4f1a4f2c9a56.stex" ]
+source_file="res://Particle Systems/Clouds/CloudsSmall.png"
+dest_files=[ "res://.import/CloudsSmall.png-8ae34e52518aa7288a24344b5f306ca8.stex" ]
 
 [params]
 
