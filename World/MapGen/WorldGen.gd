@@ -30,7 +30,7 @@ class TilemapManager:
 			tilemap.cell_size = Vector2(4, 4)
 			tilemap.tile_set = _parent.tileset
 
-			if i > _water_level:
+			if i > _water_level + 1:
 				var cliff_tilemap = tilemap.duplicate()
 				cliff_tilemap.name = "cliff_%s" % str(i - _water_level)
 				_parent.map_node.add_child(cliff_tilemap)
