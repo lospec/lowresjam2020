@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Particle Systems/Poisoned/Skull.png" type="Texture" id=2]
+[ext_resource path="res://Particle Systems/Poisoned/Bubbles.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.23494, 0.783133, 1 )
+colors = PoolColorArray( 0.789063, 0.225006, 0.767029, 0, 0.938995, 0.136627, 0.945313, 1, 0.211905, 0.0389404, 0.226563, 1, 0.132645, 0.0196381, 0.152344, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 19
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.319277, 0.801205, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.23, 0, 0.3, 1, 0.131528, 0.00780487, 0.139216, 1, 0.11, 0.0099, 0.104995, 0 )
+
+[node name="PoisonedSystem" type="Node2D"]
+
+[node name="Bubbles" type="CPUParticles2D" parent="."]
+material = SubResource( 1 )
+position = Vector2( 3.7256, 5.2211 )
+amount = 4
+lifetime = 3.0
+texture = ExtResource( 3 )
+emission_shape = 2
+emission_rect_extents = Vector2( 20, 1 )
+gravity = Vector2( 0, -10 )
+color_ramp = SubResource( 2 )
+anim_speed = 4.0
+
+[node name="MainSkull" type="CPUParticles2D" parent="."]
+material = SubResource( 3 )
+position = Vector2( -4, 5 )
+amount = 1
+lifetime = 2.0
+explosiveness = 1.0
+texture = ExtResource( 2 )
+emission_shape = 2
+emission_rect_extents = Vector2( 5, 1 )
+gravity = Vector2( 0, -20 )
+color_ramp = SubResource( 4 )
+anim_speed = 1.5

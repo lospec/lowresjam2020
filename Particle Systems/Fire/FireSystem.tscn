@@ -27,7 +27,7 @@ colors = PoolColorArray( 0.972656, 0.918277, 0.102585, 1, 0.976217, 0.185577, 0.
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
 material = SubResource( 1 )
-position = Vector2( -0.891907, -10.3159 )
+position = Vector2( 0.194453, 12.6249 )
 amount = 32
 lifetime = 1.5
 texture = ExtResource( 2 )
@@ -39,7 +39,7 @@ anim_speed = 1.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
-position = Vector2( -2.08636, -14.9408 )
+position = Vector2( -1, 8 )
 amount = 16
 fixed_fps = 60
 texture = ExtResource( 1 )
@@ -56,4 +56,5 @@ hue_variation = 1.0
 anim_speed = 1.5
 
 [node name="Hoglet_Battle" type="Sprite" parent="."]
+visible = false
 position = Vector2( 15.4849, -14.3062 )

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Particle Systems/Weak/arrow.png" type="Texture" id=2]
+[ext_resource path="res://Particle Systems/Weak/small_arrows.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 18
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.210843, 0.337349, 1 )
+colors = PoolColorArray( 0.270588, 0.207843, 0.85098, 0, 0.270588, 0.207843, 0.85098, 1, 0.207843, 0.207843, 0.788235, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.216867, 0.777108, 1 )
+colors = PoolColorArray( 0.309804, 0.239216, 0.92549, 0, 0.269793, 0.206238, 0.851563, 1, 0.269793, 0.206238, 0.851563, 1, 0.270588, 0.207843, 0.85098, 0 )
+
+[node name="WeakSystem" type="Node2D"]
+
+[node name="MainArrow" type="CPUParticles2D" parent="."]
+material = SubResource( 1 )
+amount = 1
+lifetime = 4.0
+texture = ExtResource( 2 )
+gravity = Vector2( 0, 5 )
+color_ramp = SubResource( 2 )
+anim_speed = 2.5
+
+[node name="SmallArrows" type="CPUParticles2D" parent="."]
+position = Vector2( -1.85406, -12.9784 )
+amount = 6
+lifetime = 2.0
+explosiveness = 0.25
+texture = ExtResource( 3 )
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector2( 0, 20 )
+color_ramp = SubResource( 3 )

@@ -27,7 +27,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 0.23, 0, 0.3, 1, 0.131528, 0.00780487, 0.13
 
 [node name="Bubbles" type="CPUParticles2D" parent="."]
 material = SubResource( 1 )
-position = Vector2( 38.3454, 43.2567 )
+position = Vector2( 3.7256, 5.2211 )
 amount = 4
 lifetime = 3.0
 texture = ExtResource( 3 )
@@ -39,7 +39,7 @@ anim_speed = 4.0
 
 [node name="MainSkull" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
-position = Vector2( 31.6198, 33.0356 )
+position = Vector2( -4, 5 )
 amount = 1
 lifetime = 2.0
 explosiveness = 1.0

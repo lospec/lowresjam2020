@@ -26,16 +26,16 @@ var item_drop_3_chance: float
 var max_items_dropped: int
 var attack_pool: String
 var quick_damage: int
-var quick_damage_type: int
-var quick_status_effect: int
+var quick_damage_type: String
+var quick_status_effect: String
 var quick_effect_chance: float
 var heavy_damage: int
-var heavy_damage_type: int
-var heavy_status_effect: int
+var heavy_damage_type: String
+var heavy_status_effect: String
 var heavy_effect_chance: float
 var counter_damage: int
-var counter_damage_type: int
-var counter_status_effect: int
+var counter_damage_type: String
+var counter_status_effect: String
 var counter_effect_chance: float
 
 # Onready Variables
