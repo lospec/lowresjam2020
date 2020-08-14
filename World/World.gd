@@ -4,7 +4,7 @@ extends Node
 var base_enemy_scene = load("res://Entities/enemies/base_enemy/base_enemy.tscn")
 
 # Onready Variables
-onready var map = $CoreMap
+onready var map = $Map
 onready var enemy_spawns = $EnemySpawns
 onready var combat = $Combat
 onready var combat_menu = combat.get_node("CombatMenu")
@@ -34,8 +34,12 @@ func spawn_enemy(enemy_spawn):
 	
 	var enemy = base_enemy_scene.instance()
 	var enemy_name = Utility.rand_element(enemy_spawn.enemies)
+	if enemy_name == null:
+		push_error("%s enemy spawn has a null enemy attached."
+				% enemy_spawn.name)
+		return
 	enemy.load_enemy(enemy_name)
-	enemy.position = enemy_spawn.global_position
+	enemy.position = enemy_spawn.get_random_global_pos()
 	map.add_child(enemy)
 	enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
 	enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
