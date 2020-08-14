@@ -574,7 +574,7 @@ func _set_feature_tiles(world):
 				_add_feature(world, tile, world.Tile.Tree)
 				continue
 			if (
-				tile.over_water_elevation > 2
+				tile.elevation > WATER_LEVEL + 2
 				and world.feature_noise.get_noise_2dv(tile.coordinate) > 0.35
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 				and feature_rng < 0.4
@@ -582,8 +582,8 @@ func _set_feature_tiles(world):
 				_add_feature(world, tile, world.Tile.Rock)
 				continue
 			if (
-				bush_noise.get_noise_2dv(tile.coordinate) > 0.5
-				and granular_noise.get_noise_2dv(tile.coordinate) > 0.5
+				bush_noise.get_noise_2dv(tile.coordinate) > 0.3
+				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 			):
 				_add_feature(world, tile, world.Tile.Bush)
 				continue
@@ -649,6 +649,7 @@ func set_special_rule_tiles(world):
 					and not neighbor.is_water_cliff
 				):
 					world.add_water_corner(tile.coordinate, direction)
+					break
 
 			var water_upper_corner_rule = {
 				Direction.W: Direction.NW,
@@ -668,6 +669,7 @@ func set_special_rule_tiles(world):
 						tile.coordinate, water_upper_corner_rule[direction], true
 					)
 					world.add_water_tile(neighbor.coordinate, false, true)
+					break
 
 
 func _set_water_edge(tile, world):
