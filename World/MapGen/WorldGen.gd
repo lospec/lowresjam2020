@@ -9,7 +9,7 @@ export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
 
 export (OpenSimplexNoise) var feature_noise = _default_feature_noise()
-export (OpenSimplexNoise) var grass_noise = OpenSimplexNoise.new()
+export (OpenSimplexNoise) var grass_noise = _default_grass_noise()
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
