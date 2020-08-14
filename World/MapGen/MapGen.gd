@@ -37,11 +37,7 @@ const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
 const REGION_COUNT = 1
 
-# climate
-var climate_parameters
-
 enum Direction { N, NE, E, SE, S, SW, W, NW }
-const WIND_DIRECTION = Direction.NE
 
 const Directions = [
 	Direction.N,
@@ -211,30 +207,24 @@ func sink_terrain(chunk_size: int, budget: int, region: Region):
 	return budget
 
 
-func _get_neighbors(current: Tile, diagonals = true, _map = null):
-	if not _map:
-		_map = map
+func _get_neighbors(current: Tile, outer = 1, inner = 0):
 	var neighbors = []
-	var coord = current.coordinate
-	var N = Vector2(coord.x, coord.y - 1)
-	var S = Vector2(coord.x, coord.y + 1)
-	var W = Vector2(coord.x - 1, coord.y)
-	var E = Vector2(coord.x + 1, coord.y)
-	var NE = Vector2(coord.x + 1, coord.y - 1)
-	var SE = Vector2(coord.x + 1, coord.y + 1)
-	var NW = Vector2(coord.x - 1, coord.y - 1)
-	var SW = Vector2(coord.x - 1, coord.y + 1)
-	var directions = [N, S, W, E, NE, NW, SE, SW]
-	for i in range(len(directions) - (0 if diagonals else 4)):
-		var v = directions[i]
-		if (
-			v.x < 0
-			or v.x >= MAP_SIZE_X * current.upscale_factor
-			or v.y < 0
-			or v.y >= MAP_SIZE_Y * current.upscale_factor
-		):
-			continue
-		neighbors.append(_map[v.x + v.y * MAP_SIZE_X * current.upscale_factor])
+	
+	for j in range(-(outer - inner), (outer - inner) + 1):
+		for i in range(-outer, outer + 1):
+			var v = Vector2(i, j)
+			if i == 0 and j == 0:
+				continue
+			v += current.coordinate
+			
+			if (
+				v.x < 0 or v.y < 0 
+				or v.x >= MAP_SIZE_X * current.upscale_factor
+				or v.y >= MAP_SIZE_Y * current.upscale_factor
+				
+			):
+				continue
+			neighbors.append(map[v.x + v.y * MAP_SIZE_X * current.upscale_factor])	
 	return neighbors
 
 
@@ -395,7 +385,7 @@ func _create_regions():
 
 func _is_erodibe(tile: Tile):
 	var erodible_elevation = tile.elevation - 2
-	var neighbors = _get_neighbors(tile, false)
+	var neighbors = _get_neighbors(tile)
 	for neighbor in neighbors:
 		if neighbor and neighbor.elevation <= erodible_elevation:
 			return true
@@ -405,7 +395,7 @@ func _is_erodibe(tile: Tile):
 func _get_erosion_target(tile: Tile):
 	var candidates = []
 	var erodible_elevation = tile.elevation - 1
-	var neighbors = _get_neighbors(tile, false)
+	var neighbors = _get_neighbors(tile)
 	for neighbor in neighbors:
 		if neighbor and neighbor.elevation <= erodible_elevation:
 			candidates.append(neighbor)
@@ -431,7 +421,7 @@ func _erode_land():
 			if not _is_erodibe(tile):
 				erodible_tiles.remove(index)
 
-			for neighbor in _get_neighbors(tile, false):
+			for neighbor in _get_neighbors(tile):
 				if (
 					neighbor
 					and neighbor.elevation == tile.elevation + 2
@@ -442,7 +432,7 @@ func _erode_land():
 			if _is_erodibe(target) and not erodible_tiles.has(target):
 				erodible_tiles.append(target)
 
-			for neighbor in _get_neighbors(target, false):
+			for neighbor in _get_neighbors(target):
 				if (
 					neighbor
 					and neighbor != tile
