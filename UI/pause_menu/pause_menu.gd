@@ -87,6 +87,7 @@ func _ready():
 
 
 func _on_Player_inventory_button_pressed(player):
+	get_parent().get_node("CanvasLayer/Label").visible = not get_parent().get_node("CanvasLayer/Label").visible
 	toggle_pause(player)
 
 
