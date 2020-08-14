@@ -76,6 +76,7 @@ class Tile:
 	var is_near_water = false
 	var is_cliff = false
 	var is_water_cliff = false
+	var is_cliff_corner = false
 	var feature_type = -1
 
 	var search_phase = 0
@@ -597,7 +598,7 @@ func _set_terrain_tiles(world):
 		if not tile.is_land:
 			_set_water_tile(tile, world)
 		else:
-			world.add_land_tile(tile.coordinate, tile.elevation)
+			world.add_land_tile(tile.coordinate, tile.elevation, not tile.is_cliff_corner)
 			for neighbor in _get_neighbors(tile):
 				if neighbor.is_land and neighbor.elevation < tile.elevation:
 					world.add_land_tile(tile.coordinate, neighbor.elevation, false)
@@ -678,7 +679,7 @@ func _set_water_edge(tile, world):
 func _set_cliffs(tile, world):
 	var valid_elevation = tile.elevation - 1
 	var neighbor = tile
-	for _i in range(2):
+	for i in range(2):
 		neighbor = _get_neighbor(neighbor, Direction.S)
 		if neighbor and neighbor.elevation == valid_elevation:
 			neighbor.is_cliff = true
@@ -688,7 +689,8 @@ func _set_cliffs(tile, world):
 			]:
 				if next_neighbor and next_neighbor.elevation == tile.elevation:
 					world.add_cliff_tile(next_neighbor.coordinate, tile.elevation, false)
-
+					if i == 0:
+						next_neighbor.is_cliff_corner = true
 
 func _upscale_map():
 	if UPSCALE == 1:
