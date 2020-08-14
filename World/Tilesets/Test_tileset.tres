@@ -6,7 +6,7 @@
 [ext_resource path="res://World/Tiles/trees_and_grass.png" type="Texture" id=4]
 
 [resource]
-0/name = "grass"
+0/name = "land"
 0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
