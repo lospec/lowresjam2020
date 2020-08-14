@@ -17,6 +17,8 @@ onready var hud_margin = $HUD/MarginContainer
 onready var hud_health_label = $HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health
 onready var chest_detector = $ChestDetector
 onready var desk_detector = $DeskDetector
+onready var camera = $Camera2D
+onready var collision_detector = $CollisionDetector
 
 
 func _ready():

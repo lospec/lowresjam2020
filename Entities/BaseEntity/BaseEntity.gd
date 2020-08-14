@@ -37,7 +37,11 @@ export (float) var move_speed = 10
 
 # Public Variables
 var health: int setget set_health
+# velocity is just input velocity (i.e. the velocity that the entity wants to use)
+# and real_velocity is what it is actually using
+# (E.g. if the entity collides then it will be 0, 0)
 var velocity = Vector2()
+var real_velocity = Vector2()
 var current_anim = Animations.IDLE_DOWN
 var anim_frame = 0
 var status_effects = {}
@@ -85,19 +89,25 @@ func movement():
 	_old_x = position.x
 	_old_y = position.y
 	
-	velocity = move_and_slide(velocity)
+	real_velocity = move_and_slide(velocity)
 	
 	# Prevent diagonal jittering
 	# Credit to:
 	# https://www.reddit.com/r/godot/comments/cvn6qn/ive_figured_out_a_way_to_smooth_out_jittery/
-	if abs(_old_x - position.x) > abs(_old_y - position.y) and velocity.x: 
-		_x = round(position.x)
-		_y = round(position.y + (_x - position.x) * velocity.y / velocity.x)
-		position.y = _y
-	elif abs(_old_x - position.x) <= abs(_old_y - position.y) and velocity.y:
-		_y = round(position.y)
-		_x = round(position.x + (_y - position.y) * velocity.x / velocity.y)
-		position.x = _x
+	
+	# Disables diagonal jitter fix if colliding -
+	# This is so hacky it's painful
+	if abs(real_velocity.x) > 0 and abs(real_velocity.y) > 0 and \
+			not (get("collision_detector") and \
+			get("collision_detector").get_overlapping_bodies()):
+		if abs(_old_x - position.x) > abs(_old_y - position.y):
+			_x = round(position.x)
+			_y = round(position.y + (_x - position.x) * real_velocity.y / real_velocity.x)
+			position.y = _y
+		elif abs(_old_x - position.x) <= abs(_old_y - position.y):
+			_y = round(position.y)
+			_x = round(position.x + (_y - position.y) * real_velocity.x / real_velocity.y)
+			position.x = _x
 
 
 func calculate_wait_time(fps):

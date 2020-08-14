@@ -138,4 +138,4 @@ func update_guild_from_level():
 	right_border.position.x = 38 + CHEST_GAP_X * (SaveData.guild_level - 1)
 	
 	# Set camera right limit
-	camera.limit_right = 32 + CHEST_GAP_X * (SaveData.guild_level - 1)
+	player.camera.limit_right = 32 + CHEST_GAP_X * (SaveData.guild_level - 1)

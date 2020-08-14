@@ -8,14 +8,30 @@ export (bool) var use_existing_map = false setget _set_use_existing_map
 export (int) var map_seed = 1234567890
 export (bool) var use_seed = false
 
-export (OpenSimplexNoise) var feature_noise = OpenSimplexNoise.new()
-export (OpenSimplexNoise) var grass_noise = OpenSimplexNoise.new()
+export (OpenSimplexNoise) var feature_noise = _default_feature_noise()
+export (OpenSimplexNoise) var grass_noise = _default_grass_noise()
 
 enum Direction { N, NE, E, SE, S, SW, W, NW }
 
-
+func _default_feature_noise():
+	var noise: OpenSimplexNoise = OpenSimplexNoise.new()
+	noise.octaves = 5
+	noise.period = 32
+	noise.persistence = 0.5
+	noise.lacunarity = 2
+	return noise
+	
+func _default_grass_noise():
+	var noise: OpenSimplexNoise = OpenSimplexNoise.new()
+	noise.seed = 0
+	noise.octaves = 3
+	noise.period = 4
+	noise.persistence = 0.5
+	noise.lacunarity = 2
+	return noise
+	
 class TilemapManager:
-	var _parent: Node
+	var _parent: Node2D
 	var _water_level
 	var height_tilemaps: Dictionary = {}
 	var cliff_tilemaps: Dictionary = {}
@@ -33,14 +49,14 @@ class TilemapManager:
 			if i > _water_level + 1:
 				var cliff_tilemap = tilemap.duplicate()
 				cliff_tilemap.name = "cliff_%s" % str(i - _water_level)
-				_parent.map_node.add_child(cliff_tilemap)
-				cliff_tilemap.owner = _parent
+				_parent.add_child(cliff_tilemap)
+				cliff_tilemap.owner = _parent.owner
 				cliff_tilemaps[i] = cliff_tilemap
 
 			var land_tilemap = tilemap.duplicate()
 			land_tilemap.name = "height_%s" % str(i - _water_level)
-			_parent.map_node.add_child(land_tilemap)
-			land_tilemap.owner = _parent
+			_parent.add_child(land_tilemap)
+			land_tilemap.owner =  _parent.owner
 			height_tilemaps[i] = land_tilemap
 
 	func get_grass_tilemap():
@@ -49,9 +65,9 @@ class TilemapManager:
 			tilemap.cell_size = Vector2(4, 4)
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "grass"
-			_parent.map_node.add_child(tilemap)
-			tilemap.owner = _parent
-			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count() - 1)
+			_parent.add_child(tilemap)
+			tilemap.owner =  _parent.owner
+			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			grass_tilemap = tilemap
 		return grass_tilemap
 
@@ -64,9 +80,9 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "features"
 			tilemap.cell_y_sort = true
-			_parent.map_node.add_child(tilemap)
-			tilemap.owner = _parent
-			_parent.map_node.move_child(tilemap, _parent.map_node.get_child_count() - 1)
+			_parent.add_child(tilemap)
+			tilemap.owner =  _parent.owner
+			_parent.move_child(tilemap, _parent.get_child_count() - 1)
 			feature_tilemap = tilemap
 		return feature_tilemap
 
@@ -91,7 +107,11 @@ class TilemapManager:
 		_water_level = _parent.map_generator.WATER_LEVEL
 
 
-enum Tile { Land, Water, Cliff, Grass, Tree, Rock, Other, Bush, WaterEdge, WaterCorner, SolidWater }
+enum Tile { 
+	Land, Water, Cliff, Grass, Tree, Rock, 
+	Other, Bush, WaterEdge, WaterCorner, SolidWater, 
+	LandNoCollision, CliffNoCollision, WaterEdgeNoCollision
+}
 
 const TILES = {
 	Tile.Land: 0,
@@ -105,13 +125,14 @@ const TILES = {
 	Tile.WaterEdge: 12,
 	Tile.WaterCorner:
 	[Vector2(9, 3), Vector2(10, 3), Vector2(9, 4), Vector2(10, 4), Vector2(9, 5), Vector2(10, 5)],
-	Tile.SolidWater: Vector2(6, 2)
+	Tile.SolidWater: Vector2(6, 2),
+	Tile.LandNoCollision: 15,
+	Tile.CliffNoCollision: 16,
+	Tile.WaterEdgeNoCollision: 17
 }
 
 var map_generator = preload("res://World/MapGen/MapGen.gd").new()
 var tilemap_manager = TilemapManager.new(self)
-var map_node: Node
-
 
 func _set_use_existing_map(value):
 	use_existing_map = value
@@ -125,6 +146,9 @@ func _print_prop():
 		map_generator = preload("res://World/MapGen/MapGen.gd").new()
 	map_generator._print_prop()
 
+func _clean_current_map():
+	for child in get_children():
+		remove_child(child)
 
 func _run():
 	if not Engine.editor_hint or not run_generator:
@@ -134,27 +158,23 @@ func _run():
 	print("# Starting Map Generation")
 	var elapsed = OS.get_ticks_msec()
 
-	map_node = find_node("CoreMap")
 	if not use_existing_map:
 		randomize()
 		if not use_seed:
 			map_seed = randi()
 		seed(map_seed)
 		feature_noise.seed = map_seed
+		grass_noise.seed = map_seed
 		map_generator = preload("res://World/MapGen/MapGen.gd").new()
 		tilemap_manager = TilemapManager.new(self)
-		if map_node:
-			remove_child(map_node)
-		map_node = YSort.new()
-		map_node.name = "CoreMap"
-		add_child(map_node)
-		map_node.owner = self
+		if get_child_count() > 0:
+			_clean_current_map()
 
 	if tilemap_manager:
-		var tilemaps = [map_node.find_node("grass"), map_node.find_node("features")]
+		var tilemaps = [find_node("grass"), find_node("features")]
 		for tilemap in tilemaps:
 			if tilemap:
-				map_node.remove_child(tilemap)
+				remove_child(tilemap)
 
 	map_generator.generate_map(self, use_existing_map)
 	tilemap_manager.update_bitmask()
@@ -178,12 +198,12 @@ func add_feature_tile(position: Vector2, type):
 	tilemap.set_cellv(position, TILES[type])
 
 
-func add_land_tile(position: Vector2, elevation: int):
+func add_land_tile(position: Vector2, elevation: int, collision = true):
 	var tilemap: TileMap = tilemap_manager.get_elevation_tilemap(elevation)
-	tilemap.set_cellv(position, TILES[Tile.Land])
+	tilemap.set_cellv(position, TILES[Tile.Land if collision else Tile.LandNoCollision])
 
 
-func add_water_tile(position: Vector2, edge = false, solid = false):
+func add_water_tile(position: Vector2, edge = false, solid = false, collision = true):
 	var elevation = map_generator.WATER_LEVEL
 	var tilemap: TileMap = tilemap_manager.get_elevation_tilemap(elevation)
 	if solid:
@@ -191,7 +211,13 @@ func add_water_tile(position: Vector2, edge = false, solid = false):
 			position.x, position.y, Tile.Water, false, false, false, TILES[Tile.SolidWater]
 		)
 	else:
-		tilemap.set_cellv(position, TILES[Tile.WaterEdge if edge else Tile.Water])
+		tilemap.set_cellv(
+			position, 
+			TILES[
+				(Tile.WaterEdge if collision else Tile.WaterEdgeNoCollision)
+				if edge else Tile.Water
+			]
+		)
 
 
 func add_water_corner(position: Vector2, direction, upper = false):
@@ -211,6 +237,6 @@ func add_water_corner(position: Vector2, direction, upper = false):
 	tilemap.set_cell(position.x, position.y, Tile.Water, false, false, false, type)
 
 
-func add_cliff_tile(position: Vector2, elevation: int):
+func add_cliff_tile(position: Vector2, elevation: int, collision = true):
 	var tilemap: TileMap = tilemap_manager.get_cliff_tilemap(elevation)
-	tilemap.set_cellv(position, TILES[Tile.Cliff])
+	tilemap.set_cellv(position, TILES[Tile.Cliff if collision else Tile.CliffNoCollision])

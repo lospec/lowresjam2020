@@ -4,7 +4,7 @@ extends Node
 var base_enemy_scene = load("res://Entities/enemies/base_enemy/base_enemy.tscn")
 
 # Onready Variables
-onready var map = $CoreMap
+onready var map = $Map
 onready var enemy_spawns = $EnemySpawns
 onready var combat = $Combat
 onready var combat_menu = combat.get_node("CombatMenu")
@@ -29,16 +29,38 @@ func spawn_enemies():
 
 func spawn_enemy(enemy_spawn):
 	if enemy_spawn.enemies.size() == 0:
-			push_error("Enemy spawn has no enemy names attached.")
-			return
+		push_error("%s enemy spawn has no enemy names attached." %
+				enemy_spawn)
+		return
 	
-	var enemy = base_enemy_scene.instance()
-	var enemy_name = Utility.rand_element(enemy_spawn.enemies)
-	enemy.load_enemy(enemy_name)
-	enemy.position = enemy_spawn.global_position
-	map.add_child(enemy)
-	enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
-	enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
+	if enemy_spawn.num_enemies <= 0:
+		push_error("%s enemy spawn's num_enemies not greater than 0" %
+				enemy_spawn)
+		return
+	
+	for _i in enemy_spawn.num_enemies:
+		var enemy = null
+		var safe = false
+		
+		enemy = base_enemy_scene.instance()
+		var enemy_name = Utility.rand_element(enemy_spawn.enemies)
+		if enemy_name == null:
+			push_error("%s enemy spawn has a null enemy attached."
+					% enemy_spawn.name)
+			return
+		enemy.load_enemy(enemy_name)
+		
+		while enemy == null or not safe:
+			enemy.position = enemy_spawn.get_random_global_pos()
+			map.add_child(enemy)
+			
+			safe = enemy.is_in_allowed_tile()
+			
+			if not safe:
+				enemy.queue_free()
+		
+		enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
+		enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
 
 
 func _unhandled_input(_event):

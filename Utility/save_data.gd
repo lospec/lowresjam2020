@@ -1,6 +1,6 @@
 extends Node
 
-var world_position := Vector2(1349, 1073)
+var world_position := Vector2(2578, 1517)
 var character_name := "Jason"
 var coins := 100
 var inventory := [

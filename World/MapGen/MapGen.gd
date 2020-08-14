@@ -37,11 +37,7 @@ const CELLULAR_AUTOMATA_SMOOTH_ELEVATION_CYCLES = 2
 
 const REGION_COUNT = 3
 
-# climate
-var climate_parameters
-
 enum Direction { N, NE, E, SE, S, SW, W, NW }
-const WIND_DIRECTION = Direction.NE
 
 const Directions = [
 	Direction.N,
@@ -80,6 +76,7 @@ class Tile:
 	var is_near_water = false
 	var is_cliff = false
 	var is_water_cliff = false
+	var is_cliff_corner = false
 	var feature_type = -1
 
 	var search_phase = 0
@@ -211,30 +208,24 @@ func sink_terrain(chunk_size: int, budget: int, region: Region):
 	return budget
 
 
-func _get_neighbors(current: Tile, diagonals = true, _map = null):
-	if not _map:
-		_map = map
+func _get_neighbors(current: Tile, outer = 1, inner = 0):
 	var neighbors = []
-	var coord = current.coordinate
-	var N = Vector2(coord.x, coord.y - 1)
-	var S = Vector2(coord.x, coord.y + 1)
-	var W = Vector2(coord.x - 1, coord.y)
-	var E = Vector2(coord.x + 1, coord.y)
-	var NE = Vector2(coord.x + 1, coord.y - 1)
-	var SE = Vector2(coord.x + 1, coord.y + 1)
-	var NW = Vector2(coord.x - 1, coord.y - 1)
-	var SW = Vector2(coord.x - 1, coord.y + 1)
-	var directions = [N, S, W, E, NE, NW, SE, SW]
-	for i in range(len(directions) - (0 if diagonals else 4)):
-		var v = directions[i]
-		if (
-			v.x < 0
-			or v.x >= MAP_SIZE_X * current.upscale_factor
-			or v.y < 0
-			or v.y >= MAP_SIZE_Y * current.upscale_factor
-		):
-			continue
-		neighbors.append(_map[v.x + v.y * MAP_SIZE_X * current.upscale_factor])
+	
+	for j in range(-(outer - inner), (outer - inner) + 1):
+		for i in range(-outer, outer + 1):
+			var v = Vector2(i, j)
+			if i == 0 and j == 0:
+				continue
+			v += current.coordinate
+			
+			if (
+				v.x < 0 or v.y < 0 
+				or v.x >= MAP_SIZE_X * current.upscale_factor
+				or v.y >= MAP_SIZE_Y * current.upscale_factor
+				
+			):
+				continue
+			neighbors.append(map[v.x + v.y * MAP_SIZE_X * current.upscale_factor])	
 	return neighbors
 
 
@@ -395,7 +386,7 @@ func _create_regions():
 
 func _is_erodibe(tile: Tile):
 	var erodible_elevation = tile.elevation - 2
-	var neighbors = _get_neighbors(tile, false)
+	var neighbors = _get_neighbors(tile)
 	for neighbor in neighbors:
 		if neighbor and neighbor.elevation <= erodible_elevation:
 			return true
@@ -405,7 +396,7 @@ func _is_erodibe(tile: Tile):
 func _get_erosion_target(tile: Tile):
 	var candidates = []
 	var erodible_elevation = tile.elevation - 1
-	var neighbors = _get_neighbors(tile, false)
+	var neighbors = _get_neighbors(tile)
 	for neighbor in neighbors:
 		if neighbor and neighbor.elevation <= erodible_elevation:
 			candidates.append(neighbor)
@@ -431,7 +422,7 @@ func _erode_land():
 			if not _is_erodibe(tile):
 				erodible_tiles.remove(index)
 
-			for neighbor in _get_neighbors(tile, false):
+			for neighbor in _get_neighbors(tile):
 				if (
 					neighbor
 					and neighbor.elevation == tile.elevation + 2
@@ -442,7 +433,7 @@ func _erode_land():
 			if _is_erodibe(target) and not erodible_tiles.has(target):
 				erodible_tiles.append(target)
 
-			for neighbor in _get_neighbors(target, false):
+			for neighbor in _get_neighbors(target):
 				if (
 					neighbor
 					and neighbor != tile
@@ -571,7 +562,11 @@ func _set_feature_tiles(world):
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.25
 				and not tile.is_near_water
 			):
-				_add_feature(world, tile, world.Tile.Tree)
+				var left = _get_neighbor(tile, Direction.W)
+				var right = _get_neighbor(tile, Direction.E)
+				if right and right.elevation < tile.elevation and left and left.elevation == tile.elevation:
+					tile = left
+				_add_feature(world, tile, world.Tile.Tree, 3)
 				continue
 			if (
 				tile.elevation > WATER_LEVEL + 2
@@ -579,18 +574,18 @@ func _set_feature_tiles(world):
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 				and feature_rng < 0.4
 			):
-				_add_feature(world, tile, world.Tile.Rock)
+				_add_feature(world, tile, world.Tile.Rock, 3)
 				continue
 			if (
 				bush_noise.get_noise_2dv(tile.coordinate) > 0.3
 				and granular_noise.get_noise_2dv(tile.coordinate) > 0.3
 			):
-				_add_feature(world, tile, world.Tile.Bush)
+				_add_feature(world, tile, world.Tile.Bush, 3)
 				continue
 
 
-func _add_feature(world, tile, type):
-	for neighbor in _get_neighbors(tile):
+func _add_feature(world, tile, type, separation = 2):
+	for neighbor in _get_neighbors(tile, separation):
 		if neighbor.feature_type != -1:
 			return
 	tile.feature_type = type
@@ -603,10 +598,10 @@ func _set_terrain_tiles(world):
 		if not tile.is_land:
 			_set_water_tile(tile, world)
 		else:
-			world.add_land_tile(tile.coordinate, tile.elevation)
+			world.add_land_tile(tile.coordinate, tile.elevation, not tile.is_cliff_corner)
 			for neighbor in _get_neighbors(tile):
 				if neighbor.is_land and neighbor.elevation < tile.elevation:
-					world.add_land_tile(tile.coordinate, neighbor.elevation)
+					world.add_land_tile(tile.coordinate, neighbor.elevation, false)
 
 			var elevation_above_water = tile.elevation - WATER_LEVEL
 			if elevation_above_water > 1:
@@ -677,14 +672,14 @@ func _set_water_edge(tile, world):
 	tile.is_water_cliff = true
 	for next_neighbor in [_get_neighbor(tile, Direction.W), _get_neighbor(tile, Direction.E)]:
 		if next_neighbor and next_neighbor.elevation == WATER_LEVEL + 1:
-			world.add_water_tile(next_neighbor.coordinate, true)
+			world.add_water_tile(next_neighbor.coordinate, true, false, false)
 			next_neighbor.is_water_cliff = true
 
 
 func _set_cliffs(tile, world):
 	var valid_elevation = tile.elevation - 1
 	var neighbor = tile
-	for _i in range(2):
+	for i in range(2):
 		neighbor = _get_neighbor(neighbor, Direction.S)
 		if neighbor and neighbor.elevation == valid_elevation:
 			neighbor.is_cliff = true
@@ -693,8 +688,9 @@ func _set_cliffs(tile, world):
 				_get_neighbor(neighbor, Direction.W), _get_neighbor(neighbor, Direction.E)
 			]:
 				if next_neighbor and next_neighbor.elevation == tile.elevation:
-					world.add_cliff_tile(next_neighbor.coordinate, tile.elevation)
-
+					world.add_cliff_tile(next_neighbor.coordinate, tile.elevation, false)
+					if i == 0:
+						next_neighbor.is_cliff_corner = true
 
 func _upscale_map():
 	if UPSCALE == 1:
