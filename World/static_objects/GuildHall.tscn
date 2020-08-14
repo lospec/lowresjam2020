@@ -19,33 +19,33 @@ centered = false
 position = Vector2( 10, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Flag2" type="AnimatedSprite" parent="."]
 position = Vector2( 63, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Flag3" type="AnimatedSprite" parent="."]
 position = Vector2( 9, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="Flag4" type="AnimatedSprite" parent="."]
 position = Vector2( 64, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
 position = Vector2( 31, -23 )
-polygon = PoolVector2Array( 21, -17, 21, 27, 18, 30, 7, 33, 3, 33, 3, 18, -8, 18, -8, 33, -11, 33, -20, 30, -25, 27, -25, -17 )
+polygon = PoolVector2Array( 21, -17, 21, 27, 18, 30, 7, 33, 3, 33, 2, 28, 3, 18, -8, 18, -6, 28, -7, 33, -11, 33, -20, 30, -25, 27, -25, -17 )
 
 [node name="DoorDetection" type="Area2D" parent="."]
 position = Vector2( 29, -2 )
