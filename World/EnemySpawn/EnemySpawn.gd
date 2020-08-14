@@ -1,6 +1,7 @@
 extends Area2D
 
 # Exported Variables
+export(int) var num_enemies
 export(Array, String) var enemies
 
 # Onready Variables
