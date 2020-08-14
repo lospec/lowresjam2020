@@ -107,7 +107,11 @@ class TilemapManager:
 		_water_level = _parent.map_generator.WATER_LEVEL
 
 
-enum Tile { Land, Water, Cliff, Grass, Tree, Rock, Other, Bush, WaterEdge, WaterCorner, SolidWater }
+enum Tile { 
+	Land, Water, Cliff, Grass, Tree, Rock, 
+	Other, Bush, WaterEdge, WaterCorner, SolidWater, 
+	LandNoCollision, CliffNoCollision, WaterEdgeNoCollision
+}
 
 const TILES = {
 	Tile.Land: 0,
@@ -121,7 +125,10 @@ const TILES = {
 	Tile.WaterEdge: 12,
 	Tile.WaterCorner:
 	[Vector2(9, 3), Vector2(10, 3), Vector2(9, 4), Vector2(10, 4), Vector2(9, 5), Vector2(10, 5)],
-	Tile.SolidWater: Vector2(6, 2)
+	Tile.SolidWater: Vector2(6, 2),
+	Tile.LandNoCollision: 15,
+	Tile.CliffNoCollision: 16,
+	Tile.WaterEdgeNoCollision: 17
 }
 
 var map_generator = preload("res://World/MapGen/MapGen.gd").new()
@@ -191,12 +198,12 @@ func add_feature_tile(position: Vector2, type):
 	tilemap.set_cellv(position, TILES[type])
 
 
-func add_land_tile(position: Vector2, elevation: int):
+func add_land_tile(position: Vector2, elevation: int, collision = true):
 	var tilemap: TileMap = tilemap_manager.get_elevation_tilemap(elevation)
-	tilemap.set_cellv(position, TILES[Tile.Land])
+	tilemap.set_cellv(position, TILES[Tile.Land if collision else Tile.LandNoCollision])
 
 
-func add_water_tile(position: Vector2, edge = false, solid = false):
+func add_water_tile(position: Vector2, edge = false, solid = false, collision = true):
 	var elevation = map_generator.WATER_LEVEL
 	var tilemap: TileMap = tilemap_manager.get_elevation_tilemap(elevation)
 	if solid:
@@ -204,7 +211,13 @@ func add_water_tile(position: Vector2, edge = false, solid = false):
 			position.x, position.y, Tile.Water, false, false, false, TILES[Tile.SolidWater]
 		)
 	else:
-		tilemap.set_cellv(position, TILES[Tile.WaterEdge if edge else Tile.Water])
+		tilemap.set_cellv(
+			position, 
+			TILES[
+				(Tile.WaterEdge if collision else Tile.WaterEdgeNoCollision)
+				if edge else Tile.Water
+			]
+		)
 
 
 func add_water_corner(position: Vector2, direction, upper = false):
@@ -224,6 +237,6 @@ func add_water_corner(position: Vector2, direction, upper = false):
 	tilemap.set_cell(position.x, position.y, Tile.Water, false, false, false, type)
 
 
-func add_cliff_tile(position: Vector2, elevation: int):
+func add_cliff_tile(position: Vector2, elevation: int, collision = true):
 	var tilemap: TileMap = tilemap_manager.get_cliff_tilemap(elevation)
-	tilemap.set_cellv(position, TILES[Tile.Cliff])
+	tilemap.set_cellv(position, TILES[Tile.Cliff if collision else Tile.CliffNoCollision])
