@@ -4,7 +4,7 @@ extends Node
 var base_enemy_scene = load("res://Entities/enemies/base_enemy/base_enemy.tscn")
 
 # Onready Variables
-onready var map = $CoreMap
+onready var map = $Map
 onready var enemy_spawns = $EnemySpawns
 onready var combat = $Combat
 onready var combat_menu = combat.get_node("CombatMenu")
