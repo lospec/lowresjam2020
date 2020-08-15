@@ -156,6 +156,7 @@ func update_menu_state():
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
 			settings_margin.visible = true
+			second_row_hbox.visible = false
 		Menu.INFO:
 			settings_button.pressed = false
 			info_button.pressed = true
@@ -166,6 +167,7 @@ func update_menu_state():
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
 			settings_margin.visible = false
+			second_row_hbox.visible = true
 		Menu.INVENTORY:
 			settings_button.pressed = false
 			info_button.pressed = false
@@ -176,6 +178,7 @@ func update_menu_state():
 			equipped_items_margin.visible = true
 			item_stats_popup.visible = true
 			settings_margin.visible = false
+			second_row_hbox.visible = true
 	
 	background.texture = MENU_BACKGROUND[current_menu]
 	
