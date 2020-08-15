@@ -61,6 +61,9 @@ position = Vector2( 0, 29 )
 
 [node name="Camera2D" parent="Objects/Player" index="0"]
 limit_left = -32
+limit_top = -32
+limit_right = 32
+limit_bottom = 32
 
 [node name="Desk" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -16, -8 )
