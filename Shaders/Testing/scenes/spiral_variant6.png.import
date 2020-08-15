@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lin_overworld.png-055043d5411d5edbf961155ab069a041.stex"
+path="res://.import/spiral_variant6.png-6c0723b55c30239a1c71afbaebb2b561.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/lin_overworld.png"
-dest_files=[ "res://.import/lin_overworld.png-055043d5411d5edbf961155ab069a041.stex" ]
+source_file="res://Shaders/Testing/scenes/spiral_variant6.png"
+dest_files=[ "res://.import/spiral_variant6.png-6c0723b55c30239a1c71afbaebb2b561.stex" ]
 
 [params]
 
