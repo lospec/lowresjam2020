@@ -102,7 +102,12 @@ func toggle_pause(player):
 
 func update_inventory():
 	Utility.queue_free_all_children(inventory_items_grid)
-	for item in player_instance.inventory:
+	
+	var inventory = player_instance.inventory.duplicate()
+	inventory.erase(player_instance.equipped_weapon)
+	inventory.erase(player_instance.equipped_armor)
+	
+	for item in inventory:
 		var inventory_item = inventory_item_scene.instance()
 		inventory_item.item_name = item
 		var item_texture_button = inventory_item.get_node("MarginContainer/Item")
