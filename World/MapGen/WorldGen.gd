@@ -80,6 +80,7 @@ class TilemapManager:
 			tilemap.tile_set = _parent.tileset
 			tilemap.name = "features"
 			tilemap.cell_y_sort = true
+			tilemap.centered_textures = true
 			_parent.add_child(tilemap)
 			tilemap.owner =  _parent.owner
 			_parent.move_child(tilemap, _parent.get_child_count() - 1)
@@ -118,9 +119,9 @@ const TILES = {
 	Tile.Water: 1,
 	Tile.Cliff: 2,
 	Tile.Other: 4,
-	Tile.Rock: 5,
+	Tile.Rock: [5, 27,28,29,30,31,32,33],
 	Tile.Bush: 6,
-	Tile.Tree: 7,
+	Tile.Tree: [7,20,21,22,23,24,25,26],
 	Tile.Grass: [8, 9, 10, 11],
 	Tile.WaterEdge: 12,
 	Tile.WaterCorner:
@@ -194,8 +195,12 @@ func add_grass_tile(position: Vector2):
 
 
 func add_feature_tile(position: Vector2, type):
-	var tilemap = tilemap_manager.get_feature_tilemap()
-	tilemap.set_cellv(position, TILES[type])
+	var tilemap: TileMap = tilemap_manager.get_feature_tilemap()
+	var tile = TILES[type]
+	if typeof(tile) == TYPE_ARRAY:
+		tile = tile[randi() % len(tile)]
+	var flip_x = randf() > 0.5
+	tilemap.set_cellv(position, tile, flip_x)
 
 
 func add_land_tile(position: Vector2, elevation: int, collision = true):
