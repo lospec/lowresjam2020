@@ -36,7 +36,7 @@ func _unhandled_input(event):
 			if get_tree().change_scene("res://AI/Editor/AI_Editor.tscn") != OK:
 				print_debug("An error occured while attempting to change to the AI scene")
 		else:
-			AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
 					Vector2.ZERO, -15)
 			
 			_changing_scene = true
