@@ -203,7 +203,7 @@ func _on_Button_button_down(button):
 			current_menu = Menu.INVENTORY
 	
 	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-			button.rect_global_position, -15)
+			null, -15)
 	
 	update_menu_state()
 
