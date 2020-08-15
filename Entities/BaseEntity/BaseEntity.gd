@@ -91,15 +91,28 @@ func movement():
 	
 	real_velocity = move_and_slide(velocity)
 	
+	# Fixes some collision issues
+	var slide_count = get_slide_count()
+	if slide_count >= 2:
+		var normal = Vector2.ZERO
+		for i in slide_count:
+			var collision = get_slide_collision(i)
+			normal += collision.normal
+		
+		if abs(normal.x) > 0.3 and abs(normal.y) > 0.3:
+			if sign(velocity.x) == sign(-normal.x):
+				position.x = round(position.x)
+			if sign(velocity.y) == sign(-normal.y):
+				position.y = round(position.y)
+	
 	# Prevent diagonal jittering
 	# Credit to:
 	# https://www.reddit.com/r/godot/comments/cvn6qn/ive_figured_out_a_way_to_smooth_out_jittery/
-	
 	# Disables diagonal jitter fix if colliding -
 	# This is so hacky it's painful
 	if abs(real_velocity.x) > 0 and abs(real_velocity.y) > 0 and \
-			not (get("collision_detector") and \
-			get("collision_detector").get_overlapping_bodies()):
+		not (get("collision_detector") and \
+		get("collision_detector").get_overlapping_bodies()):
 		if abs(_old_x - position.x) > abs(_old_y - position.y):
 			_x = round(position.x)
 			_y = round(position.y + (_x - position.x) * real_velocity.y / real_velocity.x)
