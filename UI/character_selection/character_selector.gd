@@ -79,7 +79,7 @@ func _on_Character_pressed(character):
 	select_vbox.visible = true
 	selected_character_name = character.character_name
 	name_label.text = character.character_name
-	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
 			character.rect_global_position, -15)
 
 
@@ -90,10 +90,10 @@ func _on_Select_pressed():
 
 
 func _on_Button_pressed(button):
-	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
 			button.rect_global_position, -15)
 
 
 func _on_Button_mouse_entered(button):
-	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK_SHORT,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK_SHORT,
 			button.rect_global_position, -20)

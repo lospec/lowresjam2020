@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -13,14 +13,23 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id=3]
 radius = 11.4291
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 2, 1 )
+
 [node name="Player" groups=[
 "PlayerGroup",
 ] instance=ExtResource( 1 )]
 collision_mask = 59
 script = ExtResource( 2 )
-move_speed = 20.0
+move_speed = 25.0
 
-[node name="EntityDetector" type="Area2D" parent="." index="2"]
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
+current = true
+
+[node name="EntityDetector" type="Area2D" parent="." index="3"]
 collision_layer = 0
 collision_mask = 4
 
@@ -28,7 +37,7 @@ collision_mask = 4
 position = Vector2( 0, -2.5 )
 shape = SubResource( 1 )
 
-[node name="ChestDetector" type="Area2D" parent="." index="3"]
+[node name="ChestDetector" type="Area2D" parent="." index="4"]
 collision_layer = 0
 collision_mask = 2147483664
 
@@ -36,7 +45,7 @@ collision_mask = 2147483664
 position = Vector2( 0, -2.5 )
 shape = SubResource( 2 )
 
-[node name="DeskDetector" type="Area2D" parent="." index="4"]
+[node name="DeskDetector" type="Area2D" parent="." index="5"]
 collision_layer = 0
 collision_mask = 2147483680
 
@@ -44,7 +53,37 @@ collision_mask = 2147483680
 position = Vector2( 0, -2.5 )
 shape = SubResource( 3 )
 
-[node name="HUD" parent="." index="6" instance=ExtResource( 3 )]
+[node name="CollisionDetector" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetector" index="0"]
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D" parent="." index="7"]
+position = Vector2( 0, 0 )
+shape = SubResource( 5 )
+
+[node name="HUD" parent="." index="8" instance=ExtResource( 3 )]
+
+[node name="MarginContainer" parent="HUD" index="0"]
+mouse_filter = 2
+
+[node name="MarginContainer" parent="HUD/MarginContainer" index="0"]
+mouse_filter = 2
+
+[node name="HealthMargin" parent="HUD/MarginContainer" index="1"]
+mouse_filter = 2
+
+[node name="MarginContainer" parent="HUD/MarginContainer/HealthMargin" index="1"]
+mouse_filter = 2
+
+[node name="HBoxContainer" parent="HUD/MarginContainer/HealthMargin/MarginContainer" index="0"]
+margin_left = 12.0
+
+[node name="Health" parent="HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer" index="1"]
+margin_right = 24.0
+text = "10/10"
 [connection signal="tree_exiting" from="." to="." method="_on_Player_tree_exiting"]
 [connection signal="body_entered" from="EntityDetector" to="." method="_on_EntityDetector_body_entered"]
 [connection signal="pressed" from="HUD/MarginContainer/MarginContainer/Inventory" to="." method="_on_Inventory_pressed"]

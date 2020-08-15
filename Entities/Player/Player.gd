@@ -17,6 +17,8 @@ onready var hud_margin = $HUD/MarginContainer
 onready var hud_health_label = $HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health
 onready var chest_detector = $ChestDetector
 onready var desk_detector = $DeskDetector
+onready var camera = $Camera2D
+onready var collision_detector = $CollisionDetector
 
 
 func _ready():
@@ -26,6 +28,9 @@ func _ready():
 	equipped_armor = SaveData.equipped_armor 
 	max_health = SaveData.max_health
 	health = SaveData.health
+	
+	hud_health_label.text = "{health}/{max_health}".format(
+			{"health": health, "max_health": max_health})
 	
 	var texture = load("res://Entities/Player/spritesheets/%s_Overworld.png"
 			% SaveData.character_name)

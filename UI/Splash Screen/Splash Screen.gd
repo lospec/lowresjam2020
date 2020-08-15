@@ -3,9 +3,6 @@ extends Node
 # Public Variables
 var going_to_main_menu := false
 
-# Onready Variables
-#onready var animation_player = $AnimationPlayer
-
 
 func _ready():
 	PaletteSwap.enabled = false

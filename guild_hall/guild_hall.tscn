@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://guild_hall/guild_hall_tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Camera/Camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://guild_hall/guild_hall.gd" type="Script" id=4]
 [ext_resource path="res://guild_hall/chest/chest_gui.tscn" type="PackedScene" id=6]
@@ -18,13 +17,6 @@ extents = Vector2( 17, 1 )
 [node name="GuildHall" type="Node"]
 pause_mode = 2
 script = ExtResource( 4 )
-
-[node name="Camera2D" parent="." instance=ExtResource( 2 )]
-limit_left = -32
-limit_top = -32
-limit_right = 32
-limit_bottom = 32
-node_to_follow = NodePath("../Objects/Player")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -67,6 +59,12 @@ pause_mode = 1
 [node name="Player" parent="Objects" instance=ExtResource( 3 )]
 position = Vector2( 0, 29 )
 
+[node name="Camera2D" parent="Objects/Player" index="0"]
+limit_left = -32
+limit_top = -32
+limit_right = 32
+limit_bottom = 32
+
 [node name="Desk" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -16, -8 )
 
@@ -83,3 +81,5 @@ position = Vector2( 19, -8 )
 [connection signal="inventory_button_pressed" from="Objects/Player" to="PauseMenu" method="_on_Player_inventory_button_pressed"]
 [connection signal="open_chest_input_received" from="Objects/Player" to="." method="_on_Player_open_chest_input_received"]
 [connection signal="guild_hall_level_up" from="GuildInterface" to="." method="_on_GuildInterface_guild_hall_level_up"]
+
+[editable path="Objects/Player"]

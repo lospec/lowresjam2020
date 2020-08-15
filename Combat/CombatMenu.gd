@@ -3,7 +3,7 @@ extends ShakableControl
 class_name CombatMenu
 
 # Signals
-signal action_selected
+signal action_selected(action)
 
 # Constants
 enum MENU_SELECTED {
@@ -17,7 +17,6 @@ const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
-var utility = preload("res://Utility/Utility.gd")
 var current_menu = MENU_SELECTED.MAIN
 var DamageLabel = preload("res://Combat/Effects/DamageLabel.tscn")
 
@@ -29,12 +28,14 @@ onready var combat_label = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding
 onready var combat_turn_result = $VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult
 onready var player_health_label = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/Health
 onready var player_health_icon = $VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/MarginContainer/HealthIcon
+onready var player_weapon = $WeaponContainer/PlayerWeapon
 onready var enemy_health_bar = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar
 onready var enemy_health_bar_tween = $VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/Tween
 onready var enemy_image = $VBoxContainer/EnemyHUD/VBoxContainer/Enemy
 onready var attack_effect = $EffectsContainer/EffectTexture
 onready var damage_spawn_area = $EffectsContainer/DamageSpawnArea
 onready var effect_animations = $EffectAnimationList
+onready var particle_pos = $VBoxContainer/EnemyHUD/VBoxContainer/Enemy/ParticlePos
 
 func _ready():
 	reset_ui();
@@ -48,11 +49,11 @@ func set_enemy_health_value(max_health, current_health):
 	enemy_health_bar.value = current_health
 
 
-func update_player_health_value(new_health):
+func update_player_health_value(old_health, new_health):
 	player_health_label.text = str(new_health)
 
 
-func update_enemy_health_value(new_health):
+func update_enemy_health_value(old_health, new_health):
 	enemy_health_bar_tween.interpolate_property(enemy_health_bar, "value",
 		enemy_health_bar.value, new_health, 1.0,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
@@ -129,13 +130,54 @@ func spawn_enemy_damage_label(damage):
 	var damage_label = DamageLabel.instance()
 	damage_spawn_area.add_child(damage_label)
 	
-	var x = (utility.randomRange(0, damage_spawn_area.rect_size.x)
+	var x = (Utility.randomRange(0, damage_spawn_area.rect_size.x)
 		- damage_label.rect_size.x / 2)
-	var y = (utility.randomRange(0, damage_spawn_area.rect_size.y)
+	var y = (Utility.randomRange(0, damage_spawn_area.rect_size.y)
 		- damage_label.rect_size.y / 2)
 	
 	damage_label.rect_position = Vector2(x, y)
 	damage_label.text = str(damage)
+
+func has_particle(name: String) -> bool:
+	for p in particle_pos.get_children():
+		if p.name == name:
+			return true
+	return false
+
+func spawn_particle(name: String):
+	if has_particle(name):
+		return
+	
+	var path = "res://Particle Systems/Particles/%s.tscn" % name.to_lower()
+	var Particle = load(path)
+	var particle = Particle.instance()
+	particle.name = name
+	particle_pos.add_child(particle)
+
+func remove_particle(name: String):
+	for p in particle_pos.get_children():
+		if p.name == name:
+			particle_pos.remove_child(p)
+			p.queue_free()
+
+func remove_all_particle():
+	for p in particle_pos.get_children():
+		particle_pos.remove_child(p)
+		p.queue_free()
+
+func update_particle(enemy_instance):
+	var enemy_se: Dictionary = enemy_instance.status_effects
+	var keys = enemy_se.keys()
+	for i in range(keys.size()):
+		keys[i] = keys[i].to_lower()
+		var p_name = keys[i]
+		if !has_particle(p_name):
+			spawn_particle(p_name)
+	
+	for p in particle_pos.get_children():
+		if !keys.has(p.name):
+			remove_particle(p.name)
+
 
 func open_main_menu():
 	current_menu = MENU_SELECTED.MAIN
@@ -169,3 +211,6 @@ func _on_Quick_pressed():
 
 func _on_Heavy_pressed():
 	emit_signal("action_selected", combat_util.Combat_Action.HEAVY)
+
+func _on_Flee_pressed():
+	emit_signal("action_selected", combat_util.Combat_Action.FLEE)
