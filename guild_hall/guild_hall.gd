@@ -29,7 +29,6 @@ onready var pause_menu = $PauseMenu
 onready var guild_interface = $GuildInterface
 onready var extended_tilemap = $Extended
 onready var first_chest_position = $FirstChestPosition.position
-onready var camera = $Camera2D
 onready var right_border = $Borders/Right
 
 
