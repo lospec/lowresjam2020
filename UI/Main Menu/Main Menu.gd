@@ -1,5 +1,15 @@
 extends MarginContainer
 
+# Constants
+const HEROES_GUILD_SFX = {
+	AudioSystem.SFX.HEROES_GUILD_NOX_1: -10,
+	AudioSystem.SFX.HEROES_GUILD_NOX_3: -10,
+	AudioSystem.SFX.HEROES_GUILD_NOX_4: -10,
+	AudioSystem.SFX.HEROES_GUILD_PUREASBESTOS_1: -10,
+	AudioSystem.SFX.HEROES_GUILD_UNSETTLED_1: -12,
+	AudioSystem.SFX.HEROES_GUILD_WILDLEOKNIGHT_2: -8,
+}
+
 # Onready Variables
 onready var start_signifier_label = $StartSigniferMargin/StartSignifier
 onready var start_signifier_animation_player = $StartSigniferMargin/AnimationPlayer
@@ -10,6 +20,14 @@ var _changing_scene = false
 
 func _ready():
 	start_signifier_label.visible = false
+	
+	var sfx = Utility.rand_element(HEROES_GUILD_SFX.keys())
+	var volume = HEROES_GUILD_SFX[sfx]
+	var sfx_player = AudioSystem.play_sfx(sfx,
+			null, volume)
+	
+	yield(sfx_player, "finished")
+	start_signifier_animation_player.play("flash")
 
 
 func _unhandled_input(event):
@@ -27,7 +45,3 @@ func _unhandled_input(event):
 			Transitions.change_scene_double_transition(
 					"res://UI/character_selection/character_selector.tscn",
 					Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
-
-
-func _on_StartSignifierDelay_timeout():
-	start_signifier_animation_player.play("flash")

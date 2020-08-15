@@ -13,11 +13,23 @@ enum SFX {
 	BUTTON_CLICK,
 	BUTTON_CLICK_SHORT,
 	TOKEN_3,
+	HEROES_GUILD_NOX_1,
+	HEROES_GUILD_NOX_3,
+	HEROES_GUILD_NOX_4,
+	HEROES_GUILD_PUREASBESTOS_1,
+	HEROES_GUILD_UNSETTLED_1,
+	HEROES_GUILD_WILDLEOKNIGHT_2,
 }
 const SFX_RESOURCES = {
 	SFX.BUTTON_CLICK: preload("res://sfx/click.wav"),
 	SFX.BUTTON_CLICK_SHORT: preload("res://sfx/click_short.wav"),
 	SFX.TOKEN_3: preload("res://sfx/token_3.wav"),
+	SFX.HEROES_GUILD_NOX_1: preload("res://sfx/Heroes_Guild_Nox.wav"),
+	SFX.HEROES_GUILD_NOX_3: preload("res://sfx/Heroes_Guild_Nox-take3.wav"),
+	SFX.HEROES_GUILD_NOX_4: preload("res://sfx/Heroes_Guild_Nox-take4.wav"),
+	SFX.HEROES_GUILD_PUREASBESTOS_1: preload("res://sfx/Heroes_Guild_PureAsbestos_take1.wav"),
+	SFX.HEROES_GUILD_UNSETTLED_1: preload("res://sfx/Heroes_Guild_Unsettled_take1.wav"),
+	SFX.HEROES_GUILD_WILDLEOKNIGHT_2: preload("res://sfx/Heroes_Guild_WildLeoKnight_take2.wav"),
 }
 
 const FADE_IN_START_VOLUME := -80
@@ -50,10 +62,14 @@ func play_music(music: int,
 	music_player.play()
 
 
-func play_sfx(sfx: int, audio_position: Vector2 = Vector2.ZERO,
-		volume_db: float = 0, pitch_scale: float = 1) -> void:
-	var sfx_player = AudioStreamPlayer2D.new()
-	sfx_player.position = audio_position
+func play_sfx(sfx: int, audio_position = null,
+		volume_db: float = 0, pitch_scale: float = 1) -> AudioStreamPlayer2D:
+	var sfx_player = null
+	if audio_position:
+		sfx_player = AudioStreamPlayer2D.new()
+		sfx_player.position = audio_position
+	else:
+		sfx_player = AudioStreamPlayer.new()
 	sfx_player.stream = SFX_RESOURCES[sfx]
 	volume_db += sfx_volume
 	sfx_player.volume_db = volume_db
@@ -62,6 +78,8 @@ func play_sfx(sfx: int, audio_position: Vector2 = Vector2.ZERO,
 	sfx_player.play()
 	sfx_player.connect("finished", self, "_on_SFXPlayer_finished", [sfx_player])
 	sfx_player.add_to_group("sfx_players")
+	
+	return sfx_player
 
 
 func _on_SFXPlayer_finished(sfx_player):
