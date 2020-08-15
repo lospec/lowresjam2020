@@ -81,15 +81,18 @@ func _on_DoorDetection_body_entered(body):
 			0.3)
 
 
-func _on_Combat_combat_done(player_win, enemy_instance):
-	if not player_win:
-		return
-	
+func _on_Combat_combat_done(outcome, enemy_instance):
+	match outcome:
+		CombatUtil.Outcome.COMBAT_WIN:
+			enemy_instance.die()
+			dropped_items_gui.drop_items(enemy_instance.enemy_name, player)
+		CombatUtil.Outcome.COMBAT_LOSE:
+			return
+		CombatUtil.Outcome.PLAYER_FLEE:
+			continue
+			
 	combat_menu.visible = false
 	get_tree().paused = false
-	
-	enemy_instance.die()
-	dropped_items_gui.drop_items(enemy_instance.enemy_name, player)
 
 
 func _on_Enemy_death(_enemy_instance, enemy_spawn_instance):
