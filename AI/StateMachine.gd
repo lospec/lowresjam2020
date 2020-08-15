@@ -58,7 +58,7 @@ func transition_to_state(state_index):
 	var state = behaviour.states[state_index]
 	if not state:
 		return false
-	current_state = state
+	current_state = state.instance()
 	current_state._on_start(self)
 	return true
 
