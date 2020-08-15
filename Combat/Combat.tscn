@@ -72,7 +72,6 @@ pause_mode = 2
 script = ExtResource( 7 )
 
 [node name="CombatMenu" type="MarginContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

@@ -38,6 +38,8 @@ onready var effect_animations = $EffectAnimationList
 onready var particle_pos = $VBoxContainer/EnemyHUD/VBoxContainer/Enemy/ParticlePos
 
 func _ready():
+	visible = false
+	
 	reset_ui();
 
 func set_player_health_value(_max_health, current_health):
