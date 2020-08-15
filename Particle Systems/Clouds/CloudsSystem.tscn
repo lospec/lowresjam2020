@@ -43,7 +43,7 @@ anim_offset_random = 1.0
 
 [node name="MediumClouds" type="CPUParticles2D" parent="."]
 material = SubResource( 2 )
-amount = 6
+amount = 3
 lifetime = 35.0
 local_coords = false
 texture = ExtResource( 2 )
@@ -60,6 +60,7 @@ anim_offset_random = 1.0
 
 [node name="FastClouds" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
+amount = 6
 lifetime = 15.0
 local_coords = false
 texture = ExtResource( 3 )
