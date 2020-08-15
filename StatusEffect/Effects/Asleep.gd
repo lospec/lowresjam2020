@@ -1,6 +1,6 @@
 extends StatusEffect
 
-var duration = 1
+var duration = 2
 
 func _init():
 	name = "Asleep"
