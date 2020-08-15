@@ -219,7 +219,9 @@ func _on_Button_button_up(button):
 
 func _on_ItemInfoMenu_equipped_armor_changed():
 	update_equipped_items()
+	update_inventory()
 
 
 func _on_ItemInfoMenu_equipped_weapon_changed():
 	update_equipped_items()
+	update_inventory()
