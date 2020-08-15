@@ -142,7 +142,7 @@ func update_equipped_items():
 		
 		if item_button.is_connected("pressed", item_info_menu, "_on_Item_pressed"):
 			 item_button.disconnect("pressed", item_info_menu, "_on_Item_pressed")
-		item_button.connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item.item_name, player_instance])
+		item_button.connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item, player_instance])
 
 func update_menu_state():
 	match current_menu:
