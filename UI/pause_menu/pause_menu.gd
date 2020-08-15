@@ -225,3 +225,6 @@ func _on_ItemInfoMenu_equipped_armor_changed():
 func _on_ItemInfoMenu_equipped_weapon_changed():
 	update_equipped_items()
 	update_inventory()
+
+func _on_Combat_bag_opened(player_instance):
+	pass 

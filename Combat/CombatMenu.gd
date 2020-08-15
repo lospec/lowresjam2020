@@ -4,6 +4,7 @@ class_name CombatMenu
 
 # Signals
 signal action_selected(action)
+signal bag_opened()
 
 # Constants
 enum MENU_SELECTED {
@@ -196,6 +197,9 @@ func _on_CombatMenu_gui_input(_event):
 
 func _on_Back_pressed():
 	open_main_menu()
+
+func _on_Bag_pressed():
+	emit_signal("bag_opened")
 
 # These 3 signal emmiters can be used to make the player even more modular
 # the combat system can be made to not wait for this input
