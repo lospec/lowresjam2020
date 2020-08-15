@@ -4,15 +4,15 @@
 [ext_resource path="res://Particle Systems/Birds/bird0.png" type="Texture" id=2]
 [ext_resource path="res://Particle Systems/Birds/bird2.png" type="Texture" id=3]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 
 [node name="BirdsSystem" type="Node2D"]
 position = Vector2( 31.498, 33.0729 )
 
 [node name="Bird0" type="CPUParticles2D" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 amount = 4
-lifetime = 20.0
+lifetime = 35.0
 explosiveness = 0.77
 texture = ExtResource( 2 )
 emission_shape = 2
@@ -23,10 +23,10 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 40.0
 initial_velocity_random = 0.41
 angle = -90.0
-color = Color( 0, 0, 0, 0.541176 )
+color = Color( 0, 0, 0, 0.368627 )
 
 [node name="Bird1" type="CPUParticles2D" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 amount = 16
 lifetime = 20.0
 explosiveness = 0.61
@@ -41,15 +41,15 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 40.0
 initial_velocity_random = 0.41
 angle = -90.0
-color = Color( 0, 0, 0, 0.541176 )
+color = Color( 0, 0, 0, 0.368627 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="Bird2" type="CPUParticles2D" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 amount = 16
-lifetime = 20.0
+lifetime = 40.0
 explosiveness = 0.77
 texture = ExtResource( 3 )
 emission_shape = 2
@@ -60,7 +60,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 40.0
 initial_velocity_random = 0.41
 angle = -90.0
-color = Color( 0, 0, 0, 0.541176 )
+color = Color( 0, 0, 0, 0.368627 )
 __meta__ = {
 "_editor_description_": ""
 }
