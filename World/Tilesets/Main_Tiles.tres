@@ -155,10 +155,10 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 4, 0, 4 )
 points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=49]
-points = PoolVector2Array( 8.97142, 9.70367, 3.48024, 9.70367, 3.48024, 1.5574, 8.97142, 1.46689 )
+points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9.94569, 1.02873 )
 
 [sub_resource type="ConvexPolygonShape2D" id=50]
-points = PoolVector2Array( 13.4986, 17.198, 2.28291, 17.1045, 2.09599, 0.841805, 13.4986, 0.748337 )
+points = PoolVector2Array( 11.162, 17.1045, 4.71297, 17.1045, 4.61951, 1.30912, 11.0685, 1.40259 )
 
 [resource]
 0/name = "land"
@@ -561,7 +561,7 @@ points = PoolVector2Array( 13.4986, 17.198, 2.28291, 17.1045, 2.09599, 0.841805,
 "shape": SubResource( 50 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, -4, -16 )
 } ]
-7/z_index = 0
+7/z_index = 1
 8/name = "grass0"
 8/texture = ExtResource( 4 )
 8/tex_offset = Vector2( 0, 0 )
