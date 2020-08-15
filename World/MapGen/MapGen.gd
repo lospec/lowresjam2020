@@ -544,18 +544,6 @@ func _set_feature_tiles(world):
 
 		var feature_rng = randf()
 		if tile.is_land and not tile.is_cliff and not tile.is_near_water:
-			var is_valid = true
-			for neighbor in _get_neighbors(tile):
-				if neighbor.elevation > tile.elevation:
-					is_valid = false
-					break
-				if neighbor.is_cliff:
-					is_valid = false
-					break
-			if not _get_neighbor(tile, Direction.E).is_land:
-				is_valid = false
-			if not is_valid:
-				continue
 			if (
 				tile.elevation > WATER_LEVEL + 2
 				and world.feature_noise.get_noise_2dv(tile.coordinate) > 0.35
@@ -576,16 +564,21 @@ func _set_feature_tiles(world):
 		if tile.is_land and not tile.is_cliff and not tile.is_near_water:
 			var pos = tile.coordinate
 			if int(pos.y) % 2 == 0 and int(pos.x) % 4 == (0 if int(pos.y) % 4 == 0 else 2):
-				var right = _get_neighbor(tile, Direction.E)
-				if right and right.elevation < tile.elevation:
-					continue
 				_add_feature(world, tile, world.Tile.Tree, 1, true)
 
 
-
 func _add_feature(world, tile, type, separation = 2, no_same_check = false):
+	var is_valid = true
+	for neighbor in _get_neighbors(tile):
+		if neighbor.elevation != tile.elevation:
+			return
+		if neighbor.is_cliff:
+			return
+		if (separation > 0 and neighbor.feature_type != -1 
+			and (neighbor.feature_type != type if no_same_check else true)):
+			return
 	if separation > 0:
-		for neighbor in _get_neighbors(tile, separation):
+		for neighbor in _get_neighbors(tile, separation, 1):
 			if neighbor.feature_type != -1 and (neighbor.feature_type != type if no_same_check else true):
 				return
 	tile.feature_type = type
