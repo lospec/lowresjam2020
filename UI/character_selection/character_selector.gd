@@ -95,5 +95,5 @@ func _on_Button_pressed(button):
 
 
 func _on_Button_mouse_entered(button):
-	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK_SHORT,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_HOVER,
 			button.rect_global_position, -20)

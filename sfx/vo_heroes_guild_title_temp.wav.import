@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/vo_heroes_guild_title_temp.wav-0b214ead8bb2ab138dd63662d184f1a2.sample"
+
+[deps]
+
+source_file="res://sfx/vo_heroes_guild_title_temp.wav"
+dest_files=[ "res://.import/vo_heroes_guild_title_temp.wav-0b214ead8bb2ab138dd63662d184f1a2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
