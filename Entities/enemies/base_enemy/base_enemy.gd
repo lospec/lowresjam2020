@@ -5,6 +5,7 @@ const MIN_SPEED = 5
 
 # Signals
 signal stats_loaded
+signal died(enemy)
 
 # Exported Variables
 export (String) var enemy_name
@@ -25,16 +26,16 @@ var item_drop_3_chance: float
 var max_items_dropped: int
 var attack_pool: String
 var quick_damage: int
-var quick_damage_type: int
-var quick_status_effect: int
+var quick_damage_type: String
+var quick_status_effect: String
 var quick_effect_chance: float
 var heavy_damage: int
-var heavy_damage_type: int
-var heavy_status_effect: int
+var heavy_damage_type: String
+var heavy_status_effect: String
 var heavy_effect_chance: float
 var counter_damage: int
-var counter_damage_type: int
-var counter_status_effect: int
+var counter_damage_type: String
+var counter_status_effect: String
 var counter_effect_chance: float
 
 # Onready Variables
@@ -46,6 +47,8 @@ func load_enemy(enemy_data_name):
 	if not Data.enemy_data.has(enemy_data_name):
 		push_error("Enemy data for %s not found" % enemy_data_name)
 		return
+  
+	enemy_name = enemy_data_name
 
 	# Set Properties
 	var enemy_stats = Data.enemy_data[enemy_data_name]
@@ -61,7 +64,7 @@ func load_enemy(enemy_data_name):
 	# Set Battle Textures
 	battle_texture = AtlasTexture.new()
 	battle_texture.atlas = load(
-		"res://Entities/enemies/battle_sprites/%s_Battle.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Battle.png" % enemy_data_name
 	)
 
 	# Wait for onready variables to be set
@@ -70,7 +73,7 @@ func load_enemy(enemy_data_name):
 
 	# Set Sprite Texture
 	sprite.texture = load(
-		"res://Entities/enemies/overworld_sprites/%s_Overworld.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Overworld.png" % enemy_data_name
 	)
 
 	# Set AI Resource
@@ -87,3 +90,8 @@ func is_in_allowed_tile() -> bool:
 		return true
 	is_spawn_safe_area2d.queue_free()  # The Area2D is now useless
 	return false
+
+
+func die():
+	emit_signal("died", [self])
+	queue_free()

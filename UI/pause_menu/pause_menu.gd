@@ -32,7 +32,7 @@ const MENU_COIN_DECOR_COLOR = {
 	Menu.INVENTORY: DARK_BLUE,
 }
 const MENU_BACKGROUND = {
-	Menu.SETTINGS: preload("res://UI/settings/background.png"),
+	Menu.SETTINGS: preload("res://UI/Settings/background.png"),
 	Menu.INFO: preload("res://UI/information/background.png"),
 	Menu.INVENTORY: preload("res://UI/inventory/background.png"),
 }
@@ -43,8 +43,6 @@ var current_menu = Menu.INVENTORY
 var player_instance
 
 # Onready Variables
-onready var tree = get_tree()
-
 onready var pause_menu_control = $PauseMenuControl
 onready var pause_menu_margin = pause_menu_control.get_node("PauseMenuMargin")
 onready var pause_menu_vbox = pause_menu_margin.get_node("VBoxContainer")
@@ -92,10 +90,10 @@ func _on_Player_inventory_button_pressed(player):
 
 func toggle_pause(player):
 	player_instance = player
-	tree.paused = not tree.paused
-	pause_menu_control.visible = tree.paused
-	player_instance.hud_margin.visible = not tree.paused
-	if tree.paused:
+	get_tree().paused = not get_tree().paused
+	pause_menu_control.visible = get_tree().paused
+	player_instance.hud_margin.visible = not get_tree().paused
+	if get_tree().paused:
 		update_inventory()
 		update_equipped_items()
 		update_menu_state()

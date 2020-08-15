@@ -1,15 +1,12 @@
 extends Node
 
-var world_position: Vector2
+var world_position := Vector2(2578, 1517)#Vector2(2010, 464)#Vector2(2578, 1517)
 var character_name := "Jason"
 var coins := 100
 var inventory := [
-	"Stick", "Gem", "Gem", "Gem",
-	"Gem", "Gem", "Gem", "Gem",
-	"Gem", "Gem", "Gem", "Gem",
-	"Gem",
+	"Stick", "Devilfork",
 	]
-var equipped_weapon := "Stick"
+var equipped_weapon := "Devilfork"
 var equipped_armor: String
 var max_health := 10
 var health := 10
