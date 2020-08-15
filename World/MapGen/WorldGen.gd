@@ -1,5 +1,5 @@
 tool
-extends Node
+extends YSort
 
 export (TileSet) var tileset
 export (bool) var run_generator = false setget , _run
