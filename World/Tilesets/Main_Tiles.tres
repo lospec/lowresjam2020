@@ -950,14 +950,14 @@ points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9
 29/z_index = 0
 30/name = "large_rock"
 30/texture = ExtResource( 4 )
-30/tex_offset = Vector2( 0, -8 )
+30/tex_offset = Vector2( 0, -6 )
 30/modulate = Color( 1, 1, 1, 1 )
 30/region = Rect2( 28, 0, 12, 16 )
 30/tile_mode = 0
 30/occluder_offset = Vector2( 0, 0 )
 30/navigation_offset = Vector2( 0, 0 )
-30/shape_offset = Vector2( 0, -8 )
-30/shape_transform = Transform2D( 1, 0, 0, 1, 0, -8 )
+30/shape_offset = Vector2( 0, -6 )
+30/shape_transform = Transform2D( 1, 0, 0, 1, 0, -6 )
 30/shape_one_way = false
 30/shape_one_way_margin = 1.0
 30/shapes = [ {
@@ -965,19 +965,19 @@ points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -8 )
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -6 )
 } ]
 30/z_index = 0
 31/name = "large_rock1"
 31/texture = ExtResource( 4 )
-31/tex_offset = Vector2( 0, -8 )
+31/tex_offset = Vector2( 0, -6 )
 31/modulate = Color( 1, 1, 1, 1 )
 31/region = Rect2( 28, 16, 12, 16 )
 31/tile_mode = 0
 31/occluder_offset = Vector2( 0, 0 )
 31/navigation_offset = Vector2( 0, 0 )
-31/shape_offset = Vector2( 0, -8 )
-31/shape_transform = Transform2D( 1, 0, 0, 1, 0, -8 )
+31/shape_offset = Vector2( 0, -6 )
+31/shape_transform = Transform2D( 1, 0, 0, 1, 0, -6 )
 31/shape_one_way = false
 31/shape_one_way_margin = 1.0
 31/shapes = [ {
@@ -985,19 +985,19 @@ points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -8 )
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -6 )
 } ]
 31/z_index = 0
 32/name = "large_rock2"
 32/texture = ExtResource( 4 )
-32/tex_offset = Vector2( 0, -8 )
+32/tex_offset = Vector2( 0, -6 )
 32/modulate = Color( 1, 1, 1, 1 )
 32/region = Rect2( 28, 32, 12, 16 )
 32/tile_mode = 0
 32/occluder_offset = Vector2( 0, 0 )
 32/navigation_offset = Vector2( 0, 0 )
-32/shape_offset = Vector2( 0, -8 )
-32/shape_transform = Transform2D( 1, 0, 0, 1, 0, -8 )
+32/shape_offset = Vector2( 0, -6 )
+32/shape_transform = Transform2D( 1, 0, 0, 1, 0, -6 )
 32/shape_one_way = false
 32/shape_one_way_margin = 1.0
 32/shapes = [ {
@@ -1005,19 +1005,19 @@ points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -8 )
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -6 )
 } ]
 32/z_index = 0
 33/name = "large_rock3"
 33/texture = ExtResource( 4 )
-33/tex_offset = Vector2( 0, -8 )
+33/tex_offset = Vector2( 0, -6 )
 33/modulate = Color( 1, 1, 1, 1 )
 33/region = Rect2( 28, 48, 12, 16 )
 33/tile_mode = 0
 33/occluder_offset = Vector2( 0, 0 )
 33/navigation_offset = Vector2( 0, 0 )
-33/shape_offset = Vector2( 0, -8 )
-33/shape_transform = Transform2D( 1, 0, 0, 1, 0, -8 )
+33/shape_offset = Vector2( 0, 6 )
+33/shape_transform = Transform2D( 1, 0, 0, 1, 0, 6 )
 33/shape_one_way = false
 33/shape_one_way_margin = 1.0
 33/shapes = [ {
@@ -1025,7 +1025,7 @@ points = PoolVector2Array( 9.85222, 10.562, 2.46858, 10.749, 2.46858, 1.30912, 9
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": null,
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -8 )
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 6 )
 } ]
 33/z_index = 0
 script = ExtResource( 5 )
