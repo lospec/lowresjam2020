@@ -25,8 +25,8 @@ func _ready():
 	var sfx_player = AudioSystem.play_sfx(sfx,
 			null, volume)
 	
-	yield(sfx_player, "finished")
-	start_signifier_animation_player.play("flash")
+	sfx_player.connect("finished", start_signifier_animation_player, "play",
+			["flash"])
 
 
 func _unhandled_input(event):
