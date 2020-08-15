@@ -544,6 +544,7 @@ script = ExtResource( 22 )
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 23 )
 [connection signal="action_selected" from="CombatMenu" to="PlayerCombat" method="_on_CombatMenu_action_selected"]
+[connection signal="bag_opened" from="CombatMenu" to="." method="_on_CombatMenu_bag_opened"]
 [connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]

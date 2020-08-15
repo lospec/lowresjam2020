@@ -3,6 +3,7 @@ extends CanvasLayer
 # Signals
 # Currently using bool, should've used enum to check how the combat ended
 signal combat_done(player_win, enemy_instance)
+signal bag_opened(player_instance)
 
 # Constants
 const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
@@ -356,3 +357,6 @@ func _on_Heavy_pressed():
 func _on_Flee_pressed():
 	pass
 	#TakeTurn(combat_util.Combat_Action.FLEE)
+
+func _on_CombatMenu_bag_opened():
+	emit_signal("bag_opened", player_instance)

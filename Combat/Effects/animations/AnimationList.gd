@@ -25,4 +25,4 @@ func _ready():
 			attack_anims[type] = load(path)
 	
 	# PLACEHOLDER
-	attack_anims["counter"] = load("res://Combat/Effects/animations/placeholder_counter_anim.tres")
+	attack_anims["counter"] = load("res://Combat/Effects/animations/counter_animation.tres")
