@@ -107,13 +107,13 @@ func start_combat():
 					yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
 					yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
 					combat_menu.combat_label.visible = true
-					end_combat(false)
+					end_combat(CombatUtil.Outcome.COMBAT_LOSE)
 				
 				elif enemy_instance.health <= 0:
 					yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
 					yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
 					combat_menu.combat_label.visible = true
-					end_combat(true)
+					end_combat(CombatUtil.Outcome.COMBAT_WIN)
 				
 				combat = false
 		
@@ -121,10 +121,10 @@ func start_combat():
 			combat_menu.reset_ui()
 		#print("Turn %s: END, %s" % [turn_count, combat])
 
-func end_combat(player_win):
+func end_combat(outcome):
 	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
 	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
-	emit_signal("combat_done", player_win, enemy_instance)
+	emit_signal("combat_done", outcome, enemy_instance)
 
 func TakeTurn() -> bool:
 	var playerAction = player_combat.get_action()
@@ -150,7 +150,7 @@ func TakeTurn() -> bool:
 		var flee = yield(PlayerFlee(enemyAction), "completed")
 		if flee:
 			combat_menu.combat_label.visible = true
-			end_combat(false)
+			end_combat(CombatUtil.Outcome.PLAYER_FLEE)
 			return false
 	
 	else:
@@ -179,13 +179,13 @@ func TakeTurn() -> bool:
 			yield(combat_menu.show_combat_label("YOU DIED", 2), "completed")
 			yield(combat_menu.show_combat_label("GAME OVER", 2), "completed")
 			combat_menu.combat_label.visible = true
-			end_combat(false)
+			end_combat(CombatUtil.Outcome.COMBAT_LOSE)
 		
 		elif enemy_instance.health <= 0:
 			yield(combat_menu.show_combat_label("YOU WON", 2), "completed")
 			yield(combat_menu.show_combat_label("CONGRATULATION", 2), "completed")
 			combat_menu.combat_label.visible = true
-			end_combat(true)
+			end_combat(CombatUtil.Outcome.COMBAT_WIN)
 		
 		return false
 	

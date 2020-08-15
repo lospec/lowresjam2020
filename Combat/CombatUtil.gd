@@ -12,6 +12,11 @@ enum Combat_Action {
 	FLEE,
 }
 
+enum Outcome {
+	COMBAT_WIN,
+	COMBAT_LOSE,
+	PLAYER_FLEE
+}
 
 class FleeRule:
 	enum Outcome { SUCCESS, SUCCESS_DMG, FAIL }
