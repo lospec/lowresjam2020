@@ -1,19 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Particle Systems/Birds/bird1.png" type="Texture" id=1]
 [ext_resource path="res://Particle Systems/Birds/bird0.png" type="Texture" id=2]
 [ext_resource path="res://Particle Systems/Birds/bird2.png" type="Texture" id=3]
 
-[sub_resource type="ShaderMaterial" id=1]
-
 [node name="BirdsSystem" type="Node2D"]
-position = Vector2( 31.498, 33.0729 )
 
 [node name="Bird0" type="CPUParticles2D" parent="."]
-material = SubResource( 1 )
 amount = 4
 lifetime = 35.0
 explosiveness = 0.77
+local_coords = false
 texture = ExtResource( 2 )
 emission_shape = 2
 emission_rect_extents = Vector2( 96, 96 )
@@ -26,12 +23,12 @@ angle = -90.0
 color = Color( 0, 0, 0, 0.368627 )
 
 [node name="Bird1" type="CPUParticles2D" parent="."]
-material = SubResource( 1 )
 amount = 16
 lifetime = 20.0
 explosiveness = 0.61
 randomness = 0.51
 lifetime_randomness = 0.5
+local_coords = false
 texture = ExtResource( 1 )
 emission_shape = 2
 emission_rect_extents = Vector2( 64, 64 )
@@ -47,10 +44,10 @@ __meta__ = {
 }
 
 [node name="Bird2" type="CPUParticles2D" parent="."]
-material = SubResource( 1 )
 amount = 16
 lifetime = 40.0
 explosiveness = 0.77
+local_coords = false
 texture = ExtResource( 3 )
 emission_shape = 2
 emission_rect_extents = Vector2( 96, 96 )
