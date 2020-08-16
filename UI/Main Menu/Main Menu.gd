@@ -29,7 +29,7 @@ func _ready():
 	_sfx_player.connect("finished", start_signifier_animation_player, "play",
 			["flash"])
 	_sfx_player.connect("finished", AudioSystem, "play_music",
-			[AudioSystem.Music.GUILD, -25])
+			[AudioSystem.Music.TITLE_SCREEN, -25])
 
 
 func _input(event):

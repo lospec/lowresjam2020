@@ -226,5 +226,16 @@ func _on_ItemInfoMenu_equipped_weapon_changed():
 	update_equipped_items()
 	update_inventory()
 
+
 func _on_Combat_bag_opened(player_instance):
-	pass 
+	toggle_pause_combat(player_instance)
+
+
+func toggle_pause_combat(player):
+	player_instance = player
+	pause_menu_control.visible = not pause_menu_control.visible
+	player_instance.hud_margin.visible = false
+	update_inventory()
+	update_equipped_items()
+	update_menu_state()
+	coins_label.text = "%s:COIN" % player_instance.coins

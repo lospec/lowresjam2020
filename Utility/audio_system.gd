@@ -3,6 +3,7 @@ extends Node
 # Constants
 enum Music {
 	NONE = -1,
+	TITLE_SCREEN,
 	OVERWORLD,
 	GUILD,
 	BATTLE_BEAST,
@@ -15,6 +16,8 @@ enum Music {
 	GAME_OVER,
 }
 const MUSIC_RESOURCES = {
+	# Title Screen
+	Music.TITLE_SCREEN: preload("res://music/title_chiptune.ogg"),
 	# Overworld
 	Music.OVERWORLD: preload("res://music/overworld.ogg"),
 	# Guild
