@@ -24,6 +24,8 @@ func _on_enemy_take_damage(damage, damage_type):
 	combat_menu.animate_enemy_hurt(enemy_instance, damage)
 
 func setup_combat(player, enemy):
+	AudioSystem.stop_music()
+	
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
 	
@@ -66,6 +68,10 @@ func setup_combat(player, enemy):
 	start_combat()
 
 func start_combat():
+	var sfx_player = AudioSystem.play_sfx(AudioSystem.SFX.BATTLE_INTRO,
+			null, -20)
+	sfx_player.connect("finished", self, "play_battle_music")
+	
 	var combat = true
 # warning-ignore:unused_variable
 	var turn_count = 0
@@ -122,10 +128,29 @@ func start_combat():
 			combat_menu.reset_ui()
 		#print("Turn %s: END, %s" % [turn_count, combat])
 
+
+func play_battle_music():
+	var enemy_data = Data.enemy_data[enemy_instance.enemy_name]
+	var enemy_race = enemy_data.race
+	
+	var enemy_race_music = {
+		"Robot": AudioSystem.Music.BATTLE_ROBOT,
+		"Beast": AudioSystem.Music.BATTLE_BEAST,
+		"Demon": AudioSystem.Music.BATTLE_DEMON,
+		"Human": AudioSystem.Music.BATTLE_HUMAN,
+		"Gnome": AudioSystem.Music.BATTLE_GNOME,
+		"Flora": AudioSystem.Music.BATTLE_FLORA,
+		"Slime": AudioSystem.Music.BATTLE_SLIME,
+	}
+	
+	AudioSystem.play_music(enemy_race_music[enemy_race], -25)
+
+
 func end_combat(outcome):
 	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
 	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", outcome, enemy_instance)
+
 
 func TakeTurn() -> bool:
 	var playerAction = player_combat.get_action()

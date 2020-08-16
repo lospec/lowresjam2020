@@ -39,7 +39,7 @@ func _ready():
 func _on_DoorDetection_body_entered(body):
 	if not body.is_in_group("enemies"):
 		# Transition to world scene & play sound
-		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -15)
+		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -30)
 		Transitions.change_scene_double_transition("res://World/World.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
 			0.3)
@@ -50,7 +50,7 @@ func _on_Player_open_chest_input_received(chest):
 		return
 	
 	# Play chest open animation and sound then wait until the animation is finished
-	AudioSystem.play_sfx(AudioSystem.SFX.CHEST_OPEN, null, -15)
+	AudioSystem.play_sfx(AudioSystem.SFX.CHEST_OPEN, null, -25)
 	chest.animated_sprite.play("open")
 	yield(chest.animated_sprite, "animation_finished")
 	chest.animated_sprite.stop()

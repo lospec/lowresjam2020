@@ -4,9 +4,31 @@ extends Node
 enum Music {
 	NONE = -1,
 	OVERWORLD,
+	GUILD,
+	BATTLE_BEAST,
+	BATTLE_DEMON,
+	BATTLE_FLORA,
+	BATTLE_GNOME,
+	BATTLE_HUMAN,
+	BATTLE_ROBOT,
+	BATTLE_SLIME,
+	GAME_OVER,
 }
 const MUSIC_RESOURCES = {
-	Music.OVERWORLD: preload("res://World/music/overworld.ogg"),
+	# Overworld
+	Music.OVERWORLD: preload("res://music/overworld.ogg"),
+	# Guild
+	Music.GUILD: preload("res://music/guild.ogg"),
+	# Battle
+	Music.BATTLE_BEAST: preload("res://music/battle beast.ogg"),
+	Music.BATTLE_DEMON: preload("res://music/battle demon.ogg"),
+	Music.BATTLE_FLORA: preload("res://music/battle flora.ogg"),
+	Music.BATTLE_GNOME: preload("res://music/battle gnome.ogg"),
+	Music.BATTLE_HUMAN: preload("res://music/battle human.ogg"),
+	Music.BATTLE_ROBOT: preload("res://music/battle robot.ogg"),
+	Music.BATTLE_SLIME: preload("res://music/battle slime.ogg"),
+	# Game Over
+	Music.GAME_OVER: preload("res://music/game over.ogg"),
 }
 
 enum SFX {
@@ -28,6 +50,10 @@ enum SFX {
 	HEROES_GUILD_PUREASBESTOS_1,
 	HEROES_GUILD_UNSETTLED_1,
 	HEROES_GUILD_WILDLEOKNIGHT_2,
+	# Intros
+	BATTLE_INTRO,
+	# Jingles
+	VICTORY_JINGLE,
 }
 const SFX_RESOURCES = {
 	# UI
@@ -48,6 +74,10 @@ const SFX_RESOURCES = {
 	SFX.HEROES_GUILD_PUREASBESTOS_1: preload("res://sfx/Heroes_Guild_PureAsbestos_take1.wav"),
 	SFX.HEROES_GUILD_UNSETTLED_1: preload("res://sfx/Heroes_Guild_Unsettled_take1.wav"),
 	SFX.HEROES_GUILD_WILDLEOKNIGHT_2: preload("res://sfx/Heroes_Guild_WildLeoKnight_take2.wav"),
+	# Intros
+	SFX.BATTLE_INTRO: preload("res://sfx/battle intro.ogg"),
+	# Jingles
+	SFX.VICTORY_JINGLE: preload("res://sfx/Victory jingle.ogg"),
 }
 
 const FADE_IN_START_VOLUME := -80
@@ -81,6 +111,7 @@ func play_music(music: int,
 
 
 func stop_music():
+	currently_playing_music = Music.NONE
 	music_player.stop()
 
 
