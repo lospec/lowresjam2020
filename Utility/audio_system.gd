@@ -54,6 +54,26 @@ enum SFX {
 	BATTLE_INTRO,
 	# Jingles
 	VICTORY_JINGLE,
+	# Battle
+	# Enemy takes damage
+	BEAST_HURT,
+	DEMON_HURT,
+	FLORA_HURT,
+	HUMAN_HURT,
+	ROBOT_HURT,
+	SLIME_HURT,
+	# Player takes damage
+	PLAYER_HURT,
+	# Deal damage
+	QUICK_ATTACK,
+	HEAVY_ATTACK,
+	COUNTER_ATTACK,
+	# Status effect applied
+	CHARGED_STATUS,
+	CONFUSION_STATUS,
+	ONFIRE_STATUS,
+	FROZEN_STATUS,
+	POISONED_STATUS
 }
 const SFX_RESOURCES = {
 	# UI
@@ -78,6 +98,26 @@ const SFX_RESOURCES = {
 	SFX.BATTLE_INTRO: preload("res://sfx/battle intro.ogg"),
 	# Jingles
 	SFX.VICTORY_JINGLE: preload("res://sfx/Victory jingle.ogg"),
+	# Battle
+	# Enemy takes damage
+	SFX.BEAST_HURT: preload("res://sfx/Beast_hit.wav"),
+	SFX.DEMON_HURT: preload("res://sfx/Demon_hit.wav"),
+	SFX.FLORA_HURT: preload("res://sfx/Flora_Hit.wav"),
+	SFX.HUMAN_HURT: preload("res://sfx/Human_Hit.wav"),
+	SFX.ROBOT_HURT: preload("res://sfx/Robot_hit.wav"),
+	SFX.SLIME_HURT: preload("res://sfx/Slime_hit.wav"),
+	# Player takes damage
+	SFX.PLAYER_HURT: preload("res://sfx/Player_Hit.wav"),
+	# Deal damage
+	SFX.QUICK_ATTACK: preload("res://sfx/Quick.wav"),
+	SFX.HEAVY_ATTACK: preload("res://sfx/Heavy.wav"),
+	SFX.COUNTER_ATTACK: preload("res://sfx/Counter.wav"),
+	# Status effect applied
+	SFX.CHARGED_STATUS: preload("res://sfx/Charged.wav"),
+	SFX.CONFUSION_STATUS: preload("res://sfx/Confusion.wav"),
+	SFX.ONFIRE_STATUS: preload("res://sfx/Fire3.wav"),
+	SFX.FROZEN_STATUS: preload("res://sfx/Ice.wav"),
+	SFX.POISONED_STATUS: preload("res://sfx/Poison.wav"),
 }
 
 const FADE_IN_START_VOLUME := -80
