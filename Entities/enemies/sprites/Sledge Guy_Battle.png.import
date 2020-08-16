@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/U_ngry_battle.png-c2dbeca8fb5d2e5b9e7b0f786a25754f.stex"
+path="res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/U_ngry_battle.png"
-dest_files=[ "res://.import/U_ngry_battle.png-c2dbeca8fb5d2e5b9e7b0f786a25754f.stex" ]
+source_file="res://Entities/enemies/sprites/Sledge Guy_Battle.png"
+dest_files=[ "res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex" ]
 
 [params]
 

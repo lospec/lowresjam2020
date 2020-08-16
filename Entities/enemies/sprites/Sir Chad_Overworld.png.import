@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sledge_Guy_Overworld.png-080a6cf3ddaf43f0dcb16fbe88871896.stex"
+path="res://.import/Sir Chad_Overworld.png-099755d2b035b43c23937ca93ca6d848.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/Sledge_Guy_Overworld.png"
-dest_files=[ "res://.import/Sledge_Guy_Overworld.png-080a6cf3ddaf43f0dcb16fbe88871896.stex" ]
+source_file="res://Entities/enemies/sprites/Sir Chad_Overworld.png"
+dest_files=[ "res://.import/Sir Chad_Overworld.png-099755d2b035b43c23937ca93ca6d848.stex" ]
 
 [params]
 
