@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/hud/hud.gd" type="Script" id=1]
 [ext_resource path="res://Combat/Font Resources/Mini3x4.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/hud/health_background.png" type="Texture" id=3]
 [ext_resource path="res://UI/hud/inventory_icon.png" type="Texture" id=4]
 [ext_resource path="res://Combat/UI/Health/player_health_icon.png" type="Texture" id=5]
+[ext_resource path="res://UI/hud/inventory_icon_hover.png" type="Texture" id=6]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -29,6 +30,7 @@ margin_bottom = 10.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 6 )
 
 [node name="HealthMargin" type="MarginContainer" parent="MarginContainer"]
 margin_left = 27.0
