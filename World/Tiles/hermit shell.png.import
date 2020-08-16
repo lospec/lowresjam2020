@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sledge_Guy_Battle.png-890dd244c686bbd30a4fe0cfe6b9e9fc.stex"
+path="res://.import/hermit shell.png-aaac431d36996645a6835b4df3e9994a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/Sledge_Guy_Battle.png"
-dest_files=[ "res://.import/Sledge_Guy_Battle.png-890dd244c686bbd30a4fe0cfe6b9e9fc.stex" ]
+source_file="res://World/Tiles/hermit shell.png"
+dest_files=[ "res://.import/hermit shell.png-aaac431d36996645a6835b4df3e9994a.stex" ]
 
 [params]
 

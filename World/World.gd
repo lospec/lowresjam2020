@@ -17,7 +17,7 @@ func _ready():
 	player.birds_system.visible = true
 	player.clouds_system.visible = true
 	
-	#player.position = SaveData.world_position
+	player.position = SaveData.world_position
 	
 	if AudioSystem.currently_playing_music != AudioSystem.Music.OVERWORLD:
 		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
@@ -51,6 +51,13 @@ func spawn_enemy(enemy_spawn):
 			push_error("%s enemy spawn has a null enemy attached."
 					% enemy_spawn.name)
 			return
+		
+		if not Data.enemy_data.has(enemy_name):
+			push_error("{enemy_spawn} enemy spawn has a {enemy_name} enemy with no data attached.".format(
+				{"enemy_spawn": enemy_spawn.name, "enemy_name": enemy_name}
+			))
+			return
+		
 		enemy.load_enemy(enemy_name)
 		
 		while enemy == null or not safe:
@@ -63,16 +70,17 @@ func spawn_enemy(enemy_spawn):
 				enemy.queue_free()
 		
 		enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
-		enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
 
 
 func _unhandled_input(_event):
-	if Input.is_action_just_pressed("ui_cancel") and \
-			not combat_menu.visible:
-		if dropped_items_gui.margin.visible:
-			dropped_items_gui.close()
+	if Input.is_action_just_pressed("ui_cancel"):
+		if combat_menu.visible and pause_menu.pause_menu_control.visible:
+			pause_menu.toggle_pause_combat(player)
 		else:
-			pause_menu.toggle_pause(player)
+			if dropped_items_gui.margin.visible:
+				dropped_items_gui.close()
+			else:
+				pause_menu.toggle_pause(player)
 
 
 func _on_DoorDetection_body_entered(body):
@@ -95,6 +103,7 @@ func _on_Combat_combat_done(outcome, enemy_instance):
 			
 			combat_menu.visible = false
 			get_tree().paused = false
+			player.hud_margin.visible = true
 		CombatUtil.Outcome.COMBAT_LOSE:
 			enemy_instance.die()
 			get_tree().paused = false

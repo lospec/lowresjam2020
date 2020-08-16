@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tripod-overworldsprite.png-0938777980fcd45121d9f187ba6160b6.stex"
+path="res://.import/Sarah_Overworld.png-9e3e8c27237df67774b3c37a2be0fa98.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/tripod-overworldsprite.png"
-dest_files=[ "res://.import/tripod-overworldsprite.png-0938777980fcd45121d9f187ba6160b6.stex" ]
+source_file="res://Entities/Player/spritesheets/Sarah_Overworld.png"
+dest_files=[ "res://.import/Sarah_Overworld.png-9e3e8c27237df67774b3c37a2be0fa98.stex" ]
 
 [params]
 
