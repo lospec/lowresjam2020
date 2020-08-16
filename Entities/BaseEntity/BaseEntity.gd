@@ -152,3 +152,9 @@ func set_health(value):
 	var old_health = health
 	health = value
 	emit_signal("health_changed", old_health, health)
+
+
+# Animation : play footstep sound
+func anim_play_footstep (sfx_offset: int):
+	if is_in_group("PlayerGroup"):
+		AudioSystem.play_sfx(AudioSystem.SFX.FOOTSTEP_1 + sfx_offset, null, -22)
