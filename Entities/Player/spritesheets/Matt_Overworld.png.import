@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/Matt_Overworld.png-8f2c54772bd2d9971b58114f6b125d8c.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Entities/Player/spritesheets/Matt_Overworld.png"
+dest_files=[ "res://.import/Matt_Overworld.png-8f2c54772bd2d9971b58114f6b125d8c.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

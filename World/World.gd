@@ -52,7 +52,7 @@ func spawn_enemy(enemy_spawn):
 		
 		while enemy == null or not safe:
 			enemy.position = enemy_spawn.get_random_global_pos()
-			map.add_child(enemy)
+			map.call_deferred("add_child", enemy)
 			
 			safe = enemy.is_in_allowed_tile()
 			
