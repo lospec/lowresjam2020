@@ -31,6 +31,9 @@ move_speed = 25.0
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 current = true
 
+[node name="Sprite" parent="." index="1"]
+frame = 0
+
 [node name="EntityDetector" type="Area2D" parent="." index="3"]
 collision_layer = 0
 collision_mask = 4
@@ -87,11 +90,11 @@ margin_left = 12.0
 margin_right = 24.0
 text = "10/10"
 
-[node name="BirdsSystem" parent="." index="10" instance=ExtResource( 4 )]
+[node name="BirdsSystem" parent="." index="9" instance=ExtResource( 4 )]
 position = Vector2( 0, 96 )
 z_index = 1
 
-[node name="CloudsSystem" parent="." index="11" instance=ExtResource( 5 )]
+[node name="CloudsSystem" parent="." index="10" instance=ExtResource( 5 )]
 position = Vector2( 0, 150 )
 z_index = 1
 [connection signal="tree_exiting" from="." to="." method="_on_Player_tree_exiting"]

@@ -10,9 +10,18 @@ const MUSIC_RESOURCES = {
 }
 
 enum SFX {
+	# UI
 	BUTTON_CLICK,
 	BUTTON_CLICK_SHORT,
+	BUTTON_HOVER,
+	DENY,
 	TOKEN_3,
+	# Ingame
+	FOOTSTEP_1,
+	FOOTSTEP_2,
+	DOOR_OPEN,
+	CHEST_OPEN,
+	# Voiceover : title greetings
 	HEROES_GUILD_NOX_1,
 	HEROES_GUILD_NOX_3,
 	HEROES_GUILD_NOX_4,
@@ -21,9 +30,18 @@ enum SFX {
 	HEROES_GUILD_WILDLEOKNIGHT_2,
 }
 const SFX_RESOURCES = {
-	SFX.BUTTON_CLICK: preload("res://sfx/click.wav"),
+	# UI
+	SFX.BUTTON_CLICK: preload("res://sfx/ui_confirm.wav"),
 	SFX.BUTTON_CLICK_SHORT: preload("res://sfx/click_short.wav"),
+	SFX.BUTTON_HOVER: preload("res://sfx/ui_hover.wav"),
+	SFX.DENY: preload("res://sfx/ui_deny.wav"),
 	SFX.TOKEN_3: preload("res://sfx/token_3.wav"),
+	# Ingame
+	SFX.FOOTSTEP_1: preload("res://sfx/footstep_1.wav"),
+	SFX.FOOTSTEP_2: preload("res://sfx/footstep_2.wav"),
+	SFX.DOOR_OPEN: preload("res://sfx/door_open.wav"),
+	SFX.CHEST_OPEN: preload("res://sfx/chest_open.wav"),
+	# Voiceover : title greetings
 	SFX.HEROES_GUILD_NOX_1: preload("res://sfx/Heroes_Guild_Nox.wav"),
 	SFX.HEROES_GUILD_NOX_3: preload("res://sfx/Heroes_Guild_Nox-take3.wav"),
 	SFX.HEROES_GUILD_NOX_4: preload("res://sfx/Heroes_Guild_Nox-take4.wav"),

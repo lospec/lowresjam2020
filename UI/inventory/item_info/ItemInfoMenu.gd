@@ -89,7 +89,7 @@ func _on_Item_pressed(item, player):
 	
 	visible = true
 	
-	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_HOVER,
 			item.rect_global_position, -15)
 	
 	emit_signal("detailed_item_info_menu_appeared")
@@ -156,7 +156,7 @@ func _on_Item_pressed(item, player):
 func _on_Back_pressed():
 	visible = false
 	
-	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.DENY,
 			$MarginContainer/VBoxContainer/Top/Back.rect_global_position, -15)
 	
 	emit_signal("detailed_item_info_menu_disappeared")
@@ -214,7 +214,7 @@ func _on_Yes_pressed():
 
 
 func _on_No_pressed():
-	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.DENY,
 			$MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/No.rect_global_position, -15)
 	
 	emit_signal("yes_or_no_pressed", false)
