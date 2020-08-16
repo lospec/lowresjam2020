@@ -34,7 +34,7 @@ func _on_enemy_take_damage(damage, damage_type):
 	combat_menu.animate_enemy_hurt(enemy_instance, damage)
 
 func setup_combat(player, enemy):
-	$CombatMenu/Background.texture = Utility.rand_element(BACKGROUNDS)
+	$Background.texture = Utility.rand_element(BACKGROUNDS)
 	
 	AudioSystem.stop_music()
 	
