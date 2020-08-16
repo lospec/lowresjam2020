@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/L01_Battle.png-32c5448c74cd9ba61ff8dde6a56d30d4.stex"
+path="res://.import/forest.png-533a9e7c4e36771f0948ddc56fac8062.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/L01_Battle.png"
-dest_files=[ "res://.import/L01_Battle.png-32c5448c74cd9ba61ff8dde6a56d30d4.stex" ]
+source_file="res://Combat/ScenicBackgrounds/forest.png"
+dest_files=[ "res://.import/forest.png-533a9e7c4e36771f0948ddc56fac8062.stex" ]
 
 [params]
 

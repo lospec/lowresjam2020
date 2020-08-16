@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/combat_background.png-f5ab23f50bb47b984317df2ea640268f.stex"
+path="res://.import/lakes.png-dd894350351b5fb03b11c585056c23e2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/ScenicBackgrounds/combat_background.png"
-dest_files=[ "res://.import/combat_background.png-f5ab23f50bb47b984317df2ea640268f.stex" ]
+source_file="res://Combat/ScenicBackgrounds/lakes.png"
+dest_files=[ "res://.import/lakes.png-dd894350351b5fb03b11c585056c23e2.stex" ]
 
 [params]
 

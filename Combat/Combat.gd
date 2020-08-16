@@ -7,6 +7,16 @@ signal bag_opened(player_instance)
 
 # Constants
 const COMBAT_ANIM_UTIL = preload("res://Utility/combat_anim_util.gd")
+const BACKGROUNDS = [
+	preload("res://Combat/ScenicBackgrounds/Rocks.png"),
+	preload("res://Combat/ScenicBackgrounds/beach.png"),
+	preload("res://Combat/ScenicBackgrounds/forest.png"),
+	preload("res://Combat/ScenicBackgrounds/lakes.png"),
+	preload("res://Combat/ScenicBackgrounds/mountainlittle.png"),
+	preload("res://Combat/ScenicBackgrounds/path.png"),
+	preload("res://Combat/ScenicBackgrounds/plain.png"),
+	preload("res://Combat/ScenicBackgrounds/plateausmall.png"),
+]
 
 # Public Variables
 var combat_util = preload("res://Combat/CombatUtil.gd")
@@ -24,6 +34,8 @@ func _on_enemy_take_damage(damage, damage_type):
 	combat_menu.animate_enemy_hurt(enemy_instance, damage)
 
 func setup_combat(player, enemy):
+	$CombatMenu/Background.texture = Utility.rand_element(BACKGROUNDS)
+	
 	AudioSystem.stop_music()
 	
 	player_combat.char_instance = player
@@ -387,3 +399,8 @@ func _on_Flee_pressed():
 
 func _on_CombatMenu_bag_opened():
 	emit_signal("bag_opened", player_instance)
+
+
+func _process(_delta):
+	# I'm sorry for this terrible code
+	$Background.visible = combat_menu.visible
