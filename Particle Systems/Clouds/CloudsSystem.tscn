@@ -23,12 +23,12 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="CloudsSystem" type="Node2D"]
-position = Vector2( 61.0717, 61.6329 )
 
 [node name="SlowClouds" type="CPUParticles2D" parent="."]
 material = SubResource( 1 )
-amount = 4
+amount = 2
 lifetime = 50.0
+local_coords = false
 texture = ExtResource( 1 )
 emission_shape = 2
 emission_rect_extents = Vector2( 90, 90 )
@@ -43,8 +43,9 @@ anim_offset_random = 1.0
 
 [node name="MediumClouds" type="CPUParticles2D" parent="."]
 material = SubResource( 2 )
-amount = 6
+amount = 3
 lifetime = 35.0
+local_coords = false
 texture = ExtResource( 2 )
 emission_shape = 2
 emission_rect_extents = Vector2( 90, 90 )
@@ -59,7 +60,9 @@ anim_offset_random = 1.0
 
 [node name="FastClouds" type="CPUParticles2D" parent="."]
 material = SubResource( 3 )
+amount = 6
 lifetime = 15.0
+local_coords = false
 texture = ExtResource( 3 )
 emission_shape = 2
 emission_rect_extents = Vector2( 90, 90 )

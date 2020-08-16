@@ -126,6 +126,9 @@ func _on_Button_button_down(button):
 		shop_tab_button:
 			current_menu = Menu.MARKET
 	
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			null, -15)
+	
 	update_menu_state()
 
 

@@ -14,8 +14,8 @@ export (String) var enemy_name
 var battle_texture: AtlasTexture
 var race: String
 var level: int
-var weakness: int
-var resistance: int
+var weakness: String
+var resistance: String
 var coin_drop_amount: int
 var item_drop_1: String
 var item_drop_1_chance: float
@@ -26,20 +26,28 @@ var item_drop_3_chance: float
 var max_items_dropped: int
 var attack_pool: String
 var quick_damage: int
-var quick_damage_type: int
-var quick_status_effect: int
+var quick_damage_type: String
+var quick_status_effect: String
 var quick_effect_chance: float
 var heavy_damage: int
-var heavy_damage_type: int
-var heavy_status_effect: int
+var heavy_damage_type: String
+var heavy_status_effect: String
 var heavy_effect_chance: float
 var counter_damage: int
-var counter_damage_type: int
-var counter_status_effect: int
+var counter_damage_type: String
+var counter_status_effect: String
 var counter_effect_chance: float
 
 # Onready Variables
 onready var stateMachine = $StateMachine
+
+
+func _ready():
+	if race == "" and enemy_name != "":
+		load_enemy(enemy_name)
+		if max_health <= 0:
+			return
+		health = max_health
 
 
 func load_enemy(enemy_data_name):
@@ -64,7 +72,7 @@ func load_enemy(enemy_data_name):
 	# Set Battle Textures
 	battle_texture = AtlasTexture.new()
 	battle_texture.atlas = load(
-		"res://Entities/enemies/battle_sprites/%s_Battle.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Battle.png" % enemy_data_name
 	)
 
 	# Wait for onready variables to be set
@@ -73,7 +81,7 @@ func load_enemy(enemy_data_name):
 
 	# Set Sprite Texture
 	sprite.texture = load(
-		"res://Entities/enemies/overworld_sprites/%s_Overworld.png" % enemy_data_name
+		"res://Entities/enemies/sprites/%s_Overworld.png" % enemy_data_name
 	)
 
 	# Set AI Resource

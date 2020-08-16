@@ -32,7 +32,7 @@ const MENU_COIN_DECOR_COLOR = {
 	Menu.INVENTORY: DARK_BLUE,
 }
 const MENU_BACKGROUND = {
-	Menu.SETTINGS: preload("res://UI/settings/background.png"),
+	Menu.SETTINGS: preload("res://UI/Settings/background.png"),
 	Menu.INFO: preload("res://UI/information/background.png"),
 	Menu.INVENTORY: preload("res://UI/inventory/background.png"),
 }
@@ -43,8 +43,6 @@ var current_menu = Menu.INVENTORY
 var player_instance
 
 # Onready Variables
-onready var tree = get_tree()
-
 onready var pause_menu_control = $PauseMenuControl
 onready var pause_menu_margin = pause_menu_control.get_node("PauseMenuMargin")
 onready var pause_menu_vbox = pause_menu_margin.get_node("VBoxContainer")
@@ -92,10 +90,10 @@ func _on_Player_inventory_button_pressed(player):
 
 func toggle_pause(player):
 	player_instance = player
-	tree.paused = not tree.paused
-	pause_menu_control.visible = tree.paused
-	player_instance.hud_margin.visible = not tree.paused
-	if tree.paused:
+	get_tree().paused = not get_tree().paused
+	pause_menu_control.visible = get_tree().paused
+	player_instance.hud_margin.visible = not get_tree().paused
+	if get_tree().paused:
 		update_inventory()
 		update_equipped_items()
 		update_menu_state()
@@ -104,7 +102,12 @@ func toggle_pause(player):
 
 func update_inventory():
 	Utility.queue_free_all_children(inventory_items_grid)
-	for item in player_instance.inventory:
+	
+	var inventory = player_instance.inventory.duplicate()
+	inventory.erase(player_instance.equipped_weapon)
+	inventory.erase(player_instance.equipped_armor)
+	
+	for item in inventory:
 		var inventory_item = inventory_item_scene.instance()
 		inventory_item.item_name = item
 		var item_texture_button = inventory_item.get_node("MarginContainer/Item")
@@ -144,7 +147,7 @@ func update_equipped_items():
 		
 		if item_button.is_connected("pressed", item_info_menu, "_on_Item_pressed"):
 			 item_button.disconnect("pressed", item_info_menu, "_on_Item_pressed")
-		item_button.connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item.item_name, player_instance])
+		item_button.connect("pressed", item_info_menu, "_on_Item_pressed", [equipped_item, player_instance])
 
 func update_menu_state():
 	match current_menu:
@@ -158,6 +161,7 @@ func update_menu_state():
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
 			settings_margin.visible = true
+			second_row_hbox.visible = false
 		Menu.INFO:
 			settings_button.pressed = false
 			info_button.pressed = true
@@ -168,6 +172,7 @@ func update_menu_state():
 			equipped_items_margin.visible = false
 			item_stats_popup.visible = false
 			settings_margin.visible = false
+			second_row_hbox.visible = true
 		Menu.INVENTORY:
 			settings_button.pressed = false
 			info_button.pressed = false
@@ -178,6 +183,7 @@ func update_menu_state():
 			equipped_items_margin.visible = true
 			item_stats_popup.visible = true
 			settings_margin.visible = false
+			second_row_hbox.visible = true
 	
 	background.texture = MENU_BACKGROUND[current_menu]
 	
@@ -201,8 +207,8 @@ func _on_Button_button_down(button):
 		inventory_button:
 			current_menu = Menu.INVENTORY
 	
-	AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-			button.rect_global_position, -15)
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			null, -15)
 	
 	update_menu_state()
 
@@ -213,7 +219,23 @@ func _on_Button_button_up(button):
 
 func _on_ItemInfoMenu_equipped_armor_changed():
 	update_equipped_items()
+	update_inventory()
 
 
 func _on_ItemInfoMenu_equipped_weapon_changed():
 	update_equipped_items()
+	update_inventory()
+
+
+func _on_Combat_bag_opened(player_instance):
+	toggle_pause_combat(player_instance)
+
+
+func toggle_pause_combat(player):
+	player_instance = player
+	pause_menu_control.visible = not pause_menu_control.visible
+	player_instance.hud_margin.visible = false
+	update_inventory()
+	update_equipped_items()
+	update_menu_state()
+	coins_label.text = "%s:COIN" % player_instance.coins

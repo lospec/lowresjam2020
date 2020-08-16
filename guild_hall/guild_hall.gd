@@ -29,16 +29,20 @@ onready var pause_menu = $PauseMenu
 onready var guild_interface = $GuildInterface
 onready var extended_tilemap = $Extended
 onready var first_chest_position = $FirstChestPosition.position
-onready var camera = $Camera2D
 onready var right_border = $Borders/Right
 
 
 func _ready():
+	player.birds_system.visible = false
+	player.clouds_system.visible = false
+	
 	update_guild_from_level()
 
 
 func _on_DoorDetection_body_entered(body):
 	if not body.is_in_group("enemies"):
+		# Transition to world scene & play sound
+		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -30)
 		Transitions.change_scene_double_transition("res://World/World.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
 			0.3)
@@ -48,9 +52,13 @@ func _on_Player_open_chest_input_received(chest):
 	if currently_opened_chest != null or chest.animated_sprite.playing:
 		return
 	
+	# Play chest open animation and sound then wait until the animation is finished
+	AudioSystem.play_sfx(AudioSystem.SFX.CHEST_OPEN, null, -25)
 	chest.animated_sprite.play("open")
 	yield(chest.animated_sprite, "animation_finished")
 	chest.animated_sprite.stop()
+	
+	# Open chest GUI
 	currently_opened_chest = chest
 	chest_gui.open(player, chest)
 
@@ -138,4 +146,4 @@ func update_guild_from_level():
 	right_border.position.x = 38 + CHEST_GAP_X * (SaveData.guild_level - 1)
 	
 	# Set camera right limit
-	camera.limit_right = 32 + CHEST_GAP_X * (SaveData.guild_level - 1)
+	player.camera.limit_right = 32 + CHEST_GAP_X * (SaveData.guild_level - 1)

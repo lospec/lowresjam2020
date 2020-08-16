@@ -30,4 +30,4 @@ func _on_Decrease_Value_pressed():
 
 func update_volume_value():
 	value_label.text = str(volume_value)
-	emit_signal("volume_value_updated")
+	emit_signal("volume_value_updated", volume_value)

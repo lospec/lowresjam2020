@@ -6,6 +6,12 @@ const AI_Transition = preload("res://AI/AI_Transition.gd")
 export (Array) var actions
 export (Array) var transitions
 
+func instance():
+	var state = self.get_script().new()
+	for action in actions:
+		state.actions.append(action.duplicate())
+	state.transitions = transitions.duplicate()
+	return state
 
 func update_state(stateMachine, _delta):
 	_perform_actions(stateMachine, _delta)
@@ -17,6 +23,7 @@ func _on_start(stateMachine):
 			continue
 		if action._is_init:
 			continue
+		action.resource_local_to_scene = true
 		action._on_start(stateMachine)
 		action._is_init = true
 
