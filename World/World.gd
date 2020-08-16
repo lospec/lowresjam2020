@@ -14,7 +14,7 @@ onready var dropped_items_gui = $DroppedItems
 
 
 func _ready():
-	player.position = SaveData.world_position
+	#player.position = SaveData.world_position
 	
 	if AudioSystem.currently_playing_music == AudioSystem.Music.NONE:
 		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
