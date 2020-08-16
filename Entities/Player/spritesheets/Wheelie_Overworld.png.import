@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex"
+path="res://.import/Wheelie_Overworld.png-92b4e8cfc711595ed110356bb3d91437.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/Sledge Guy_Battle.png"
-dest_files=[ "res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex" ]
+source_file="res://Entities/Player/spritesheets/Wheelie_Overworld.png"
+dest_files=[ "res://.import/Wheelie_Overworld.png-92b4e8cfc711595ed110356bb3d91437.stex" ]
 
 [params]
 

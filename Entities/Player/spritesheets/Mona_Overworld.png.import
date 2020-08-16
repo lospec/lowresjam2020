@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/L01_Battle.png-32c5448c74cd9ba61ff8dde6a56d30d4.stex"
+path="res://.import/Mona_Overworld.png-8e0cf461555ccbc88e233576c8d00a24.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/L01_Battle.png"
-dest_files=[ "res://.import/L01_Battle.png-32c5448c74cd9ba61ff8dde6a56d30d4.stex" ]
+source_file="res://Entities/Player/spritesheets/Mona_Overworld.png"
+dest_files=[ "res://.import/Mona_Overworld.png-8e0cf461555ccbc88e233576c8d00a24.stex" ]
 
 [params]
 
