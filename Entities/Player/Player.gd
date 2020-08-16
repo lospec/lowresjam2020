@@ -90,7 +90,3 @@ func _unhandled_input(_event):
 		var desk = desks[0]
 		
 		emit_signal("guild_hall_desk_input_received", desk)
-
-# Animation : play footstep sound
-func anim_play_footstep (sfx_offset: int):
-	AudioSystem.play_sfx(AudioSystem.SFX.FOOTSTEP_1 + sfx_offset, null, -22)

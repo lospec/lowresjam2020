@@ -172,7 +172,7 @@ position = Vector2( 0, -5 )
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 6
-frame = 15
+frame = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle_down = SubResource( 1 )
@@ -185,7 +185,3 @@ anims/run_up = SubResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -0.2 )
 shape = SubResource( 7 )
-
-[node name="NextFrameTimer" type="Timer" parent="."]
-wait_time = 0.001
-autostart = true
