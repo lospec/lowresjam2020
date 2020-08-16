@@ -14,9 +14,12 @@ onready var dropped_items_gui = $DroppedItems
 
 
 func _ready():
+	player.birds_system.visible = true
+	player.clouds_system.visible = true
+	
 	#player.position = SaveData.world_position
 	
-	if AudioSystem.currently_playing_music == AudioSystem.Music.NONE:
+	if AudioSystem.currently_playing_music != AudioSystem.Music.OVERWORLD:
 		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
 	
 	spawn_enemies()
@@ -52,7 +55,7 @@ func spawn_enemy(enemy_spawn):
 		
 		while enemy == null or not safe:
 			enemy.position = enemy_spawn.get_random_global_pos()
-			map.add_child(enemy)
+			map.call_deferred("add_child", enemy)
 			
 			safe = enemy.is_in_allowed_tile()
 			
@@ -78,7 +81,7 @@ func _on_DoorDetection_body_entered(body):
 		SaveData.world_position = player.position + offset
 		
 		# Transition to guild hall scene & play sound
-		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -15)
+		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -30)
 		Transitions.change_scene_double_transition("res://guild_hall/guild_hall.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
 			0.3)
@@ -89,18 +92,45 @@ func _on_Combat_combat_done(outcome, enemy_instance):
 		CombatUtil.Outcome.COMBAT_WIN:
 			enemy_instance.die()
 			dropped_items_gui.drop_items(enemy_instance.enemy_name, player)
-		CombatUtil.Outcome.COMBAT_LOSE:
-			return
-		CombatUtil.Outcome.PLAYER_FLEE:
-			continue
 			
-	combat_menu.visible = false
-	get_tree().paused = false
+			combat_menu.visible = false
+			get_tree().paused = false
+		CombatUtil.Outcome.COMBAT_LOSE:
+			enemy_instance.die()
+			get_tree().paused = false
+			game_over()
+		CombatUtil.Outcome.PLAYER_FLEE:
+			enemy_instance.die()
+			
+			get_tree().paused = false
+			
+			if player.health <= 0:
+				game_over()
+			else:
+				combat_menu.visible = false
+
+
+func game_over():
+	SaveData.world_position = SaveData.DEFAULT_WORLD_POSITION
+	SaveData.coins = SaveData.DEFAULT_COINS
+	SaveData.inventory = SaveData.DEFAULT_INVENTORY
+	SaveData.equipped_weapon = SaveData.DEFAULT_WEAPON
+	SaveData.equipped_armor = SaveData.DEFAULT_ARMOR
+	SaveData.max_health = SaveData.DEFAULT_HEALTH
+	SaveData.health = SaveData.DEFAULT_HEALTH
+	player.health = SaveData.DEFAULT_HEALTH
+	
+	AudioSystem.stop_music()
+	
+	Transitions.change_scene_double_transition(
+			"res://UI/Main Menu/Main Menu.tscn",
+			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
 
 
 func _on_Enemy_death(_enemy_instance, enemy_spawn_instance):
 	var timer = Timer.new()
-	add_child(timer)
-	timer.start(rand_range(5, 15))
+	call_deferred("add_child", timer)
 	timer.connect("timeout", self, "spawn_enemy", [enemy_spawn_instance])
 	timer.connect("timeout", timer, "queue_free")
+	yield(timer, "ready")
+	timer.start(rand_range(5, 10))

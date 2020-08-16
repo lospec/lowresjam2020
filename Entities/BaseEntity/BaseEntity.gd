@@ -157,4 +157,4 @@ func set_health(value):
 # Animation : play footstep sound
 func anim_play_footstep (sfx_offset: int):
 	if is_in_group("PlayerGroup"):
-		AudioSystem.play_sfx(AudioSystem.SFX.FOOTSTEP_1 + sfx_offset, null, -22)
+		AudioSystem.play_sfx(AudioSystem.SFX.FOOTSTEP_1 + sfx_offset, null, -35)

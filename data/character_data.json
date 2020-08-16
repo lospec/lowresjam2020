@@ -79,10 +79,30 @@
     "guild_level": 1,
     "rarity": 1
   },
+  "Lin": {
+    "race": "Human",
+    "guild_level": 1,
+    "rarity": 1
+  },
+  "Rusty": {
+    "race": "Robot",
+    "guild_level": 2,
+    "rarity": 5
+  },
   "Jessa": {
     "race": "Human",
     "guild_level": 2,
     "rarity": 1
+  },
+  "Katie": {
+    "race": "Human",
+    "guild_level": 2,
+    "rarity": 1
+  },
+  "Brad": {
+    "race": "Human",
+    "guild_level": 2,
+    "rarity": 2
   },
   "Deb": {
     "race": "Human",
@@ -103,6 +123,16 @@
     "race": "Human",
     "guild_level": 4,
     "rarity": 2
+  },
+  "Danthian": {
+    "race": "Human",
+    "guild_level": 4,
+    "rarity": 5
+  },
+  "Dana": {
+    "race": "Human",
+    "guild_level": 4,
+    "rarity": 3
   },
   "Derek": {
     "race": "Human",
@@ -139,6 +169,21 @@
     "guild_level": 6,
     "rarity": 8
   },
+  "Manuello": {
+    "race": "Human",
+    "guild_level": 7,
+    "rarity": 2
+  },
+  "Drueson": {
+    "race": "Human",
+    "guild_level": 7,
+    "rarity": 1
+  },
+  "Jairo": {
+    "race": "Human",
+    "guild_level": 8,
+    "rarity": 6
+  },
   "Kyro": {
     "race": "Human",
     "guild_level": 9,
@@ -158,6 +203,16 @@
     "race": "Human",
     "guild_level": 9,
     "rarity": 8
+  },
+  "Xala": {
+    "race": "Robot",
+    "guild_level": 9,
+    "rarity": 6
+  },
+  "Xarlie": {
+    "race": "Robot",
+    "guild_level": 9,
+    "rarity": 6
   },
   "Ishmael": {
     "race": "Human",
@@ -194,21 +249,49 @@
     "guild_level": 15,
     "rarity": 10
   },
-  "Drueson": {
-    "race": "Human",
-    "guild_level": 15
-  },
   "Alice": {
     "race": "Human",
     "guild_level": 20,
     "rarity": 10
   },
-  "Lin": {
-    "race": "Human",
-    "guild_level": 1
+  "Skeddy": {
+    "race": "Demon",
+    "guild_level": 30,
+    "rarity": 10
   },
-  "Rusty": {
-    "race": "Robot",
-    "guild_level": 1
+  "Matt": {
+    "race": "Human",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Laire": {
+    "race": "Human",
+    "guild_level": 1,
+    "rarity": 3
+  },
+  "Sir Pims": {
+    "race": "Human",
+    "guild_level": 5,
+    "rarity": 5
+  },
+  "Sir Bruce": {
+    "race": "Human",
+    "guild_level": 5,
+    "rarity": 5
+  },
+  "Sir Rehd": {
+    "race": "Human",
+    "guild_level": 15,
+    "rarity": 10
+  },
+  "Sir Grean": {
+    "race": "Human",
+    "guild_level": 15,
+    "rarity": 10
+  },
+  "Sir Bloo": {
+    "race": "Human",
+    "guild_level": 15,
+    "rarity": 10
   }
 }
