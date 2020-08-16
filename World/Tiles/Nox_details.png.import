@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/robon_overworld.png-e9981eec94a8225247fa01fb032254cc.stex"
+path="res://.import/Nox_details.png-ebbf368f687c2d917f27b841f7468f41.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/robon_overworld.png"
-dest_files=[ "res://.import/robon_overworld.png-e9981eec94a8225247fa01fb032254cc.stex" ]
+source_file="res://World/Tiles/Nox_details.png"
+dest_files=[ "res://.import/Nox_details.png-ebbf368f687c2d917f27b841f7468f41.stex" ]
 
 [params]
 
