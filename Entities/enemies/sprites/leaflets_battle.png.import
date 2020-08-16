@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/leaflets_battle.png-cdf161d30f4ff35510f504e3e0141565.stex"
+path="res://.import/Leaflets_Battle.png-dd28706e6f7f562e1b72f5b17c191b5c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/leaflets_battle.png"
-dest_files=[ "res://.import/leaflets_battle.png-cdf161d30f4ff35510f504e3e0141565.stex" ]
+source_file="res://Entities/enemies/sprites/Leaflets_Battle.png"
+dest_files=[ "res://.import/Leaflets_Battle.png-dd28706e6f7f562e1b72f5b17c191b5c.stex" ]
 
 [params]
 

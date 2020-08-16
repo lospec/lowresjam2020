@@ -51,6 +51,13 @@ func spawn_enemy(enemy_spawn):
 			push_error("%s enemy spawn has a null enemy attached."
 					% enemy_spawn.name)
 			return
+		
+		if not Data.enemy_data.has(enemy_name):
+			push_error("{enemy_spawn} enemy spawn has a {enemy_name} enemy with no data attached.".format(
+				{"enemy_spawn": enemy_spawn.name, "enemy_name": enemy_name}
+			))
+			return
+		
 		enemy.load_enemy(enemy_name)
 		
 		while enemy == null or not safe:
@@ -67,12 +74,14 @@ func spawn_enemy(enemy_spawn):
 
 
 func _unhandled_input(_event):
-	if Input.is_action_just_pressed("ui_cancel") and \
-			not combat_menu.visible:
-		if dropped_items_gui.margin.visible:
-			dropped_items_gui.close()
+	if Input.is_action_just_pressed("ui_cancel"):
+		if combat_menu.visible and pause_menu.pause_menu_control.visible:
+			pause_menu.toggle_pause_combat(player)
 		else:
-			pause_menu.toggle_pause(player)
+			if dropped_items_gui.margin.visible:
+				dropped_items_gui.close()
+			else:
+				pause_menu.toggle_pause(player)
 
 
 func _on_DoorDetection_body_entered(body):

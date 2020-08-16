@@ -84,6 +84,11 @@
     "guild_level": 1,
     "rarity": 1
   },
+  "Laire": {
+    "race": "Human",
+    "guild_level": 1,
+    "rarity": 3
+  },
   "Rusty": {
     "race": "Robot",
     "guild_level": 2,
@@ -100,6 +105,11 @@
     "rarity": 1
   },
   "Brad": {
+    "race": "Human",
+    "guild_level": 2,
+    "rarity": 2
+  },
+  "Mona": {
     "race": "Human",
     "guild_level": 2,
     "rarity": 2
@@ -158,6 +168,21 @@
     "race": "Human",
     "guild_level": 5,
     "rarity": 1
+  },
+  "Sir Pims": {
+    "race": "Human",
+    "guild_level": 5,
+    "rarity": 5
+  },
+  "Sir Bruce": {
+    "race": "Human",
+    "guild_level": 5,
+    "rarity": 5
+  },
+  "Wheelie": {
+    "race": "Robot",
+    "guild_level": 5,
+    "rarity": 10
   },
   "Munya": {
     "race": "Human",
@@ -249,36 +274,6 @@
     "guild_level": 15,
     "rarity": 10
   },
-  "Alice": {
-    "race": "Human",
-    "guild_level": 20,
-    "rarity": 10
-  },
-  "Skeddy": {
-    "race": "Demon",
-    "guild_level": 30,
-    "rarity": 10
-  },
-  "Matt": {
-    "race": "Human",
-    "guild_level": 20,
-    "rarity": 10
-  },
-  "Laire": {
-    "race": "Human",
-    "guild_level": 1,
-    "rarity": 3
-  },
-  "Sir Pims": {
-    "race": "Human",
-    "guild_level": 5,
-    "rarity": 5
-  },
-  "Sir Bruce": {
-    "race": "Human",
-    "guild_level": 5,
-    "rarity": 5
-  },
   "Sir Rehd": {
     "race": "Human",
     "guild_level": 15,
@@ -292,6 +287,46 @@
   "Sir Bloo": {
     "race": "Human",
     "guild_level": 15,
+    "rarity": 10
+  },
+  "Monoculus": {
+    "race": "Demon",
+    "guild_level": 18,
+    "rarity": 7
+  },
+  "Alice": {
+    "race": "Human",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Matt": {
+    "race": "Human",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Braq": {
+    "race": "Human",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Gunner": {
+    "race": "Robot",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Tomabo": {
+    "race": "Demon",
+    "guild_level": 20,
+    "rarity": 10
+  },
+  "Sarah": {
+    "race": "Human",
+    "guild_level": 25,
+    "rarity": 10
+  },
+  "Skeddy": {
+    "race": "Demon",
+    "guild_level": 30,
     "rarity": 10
   }
 }

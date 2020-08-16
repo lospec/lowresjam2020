@@ -42,6 +42,14 @@ var counter_effect_chance: float
 onready var stateMachine = $StateMachine
 
 
+func _ready():
+	if race == "" and enemy_name != "":
+		load_enemy(enemy_name)
+		if max_health <= 0:
+			return
+		health = max_health
+
+
 func load_enemy(enemy_data_name):
 	# Check for data
 	if not Data.enemy_data.has(enemy_data_name):
