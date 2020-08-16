@@ -32,21 +32,29 @@ func _ready():
 			[AudioSystem.Music.GUILD, -25])
 
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventKey and event.pressed and not _changing_scene:
 		if OS.is_debug_build() and \
 				event.scancode == KEY_F9 and event.shift:
 			if get_tree().change_scene("res://AI/Editor/AI_Editor.tscn") != OK:
 				print_debug("An error occured while attempting to change to the AI scene")
 		else:
-			if _sfx_player:
-				_sfx_player.stop()
-			
-			var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-					Vector2.ZERO, -15)
-			
-			_changing_scene = true
-			
-			Transitions.change_scene_double_transition(
-					"res://UI/character_selection/character_selector.tscn",
-					Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
+			go_to_character_selector()
+	
+	if event is InputEventMouseButton and event.pressed and \
+			event.button_index == BUTTON_LEFT and not _changing_scene:
+		go_to_character_selector()
+
+
+func go_to_character_selector():
+	if _sfx_player:
+		_sfx_player.stop()
+	
+	var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
+			Vector2.ZERO, -15)
+	
+	_changing_scene = true
+	
+	Transitions.change_scene_double_transition(
+			"res://UI/character_selection/character_selector.tscn",
+			Transitions.Transition_Type.SHRINKING_CIRCLE, 0.2)
