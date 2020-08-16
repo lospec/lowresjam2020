@@ -80,6 +80,10 @@ func play_music(music: int,
 	music_player.play()
 
 
+func stop_music():
+	music_player.stop()
+
+
 func play_sfx(sfx: int, audio_position = null,
 		volume_db: float = 0, pitch_scale: float = 1) -> AudioStreamPlayer2D:
 	var sfx_player = null
