@@ -73,7 +73,8 @@ enum SFX {
 	CONFUSION_STATUS,
 	ONFIRE_STATUS,
 	FROZEN_STATUS,
-	POISONED_STATUS
+	POISONED_STATUS,
+	WEAK_STATUS,
 }
 const SFX_RESOURCES = {
 	# UI
@@ -118,6 +119,7 @@ const SFX_RESOURCES = {
 	SFX.ONFIRE_STATUS: preload("res://sfx/Fire3.wav"),
 	SFX.FROZEN_STATUS: preload("res://sfx/Ice.wav"),
 	SFX.POISONED_STATUS: preload("res://sfx/Poison.wav"),
+	SFX.WEAK_STATUS: preload("res://sfx/Weak.wav"),
 }
 
 const FADE_IN_START_VOLUME := -80
