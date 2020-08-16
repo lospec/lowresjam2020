@@ -51,6 +51,13 @@ func spawn_enemy(enemy_spawn):
 			push_error("%s enemy spawn has a null enemy attached."
 					% enemy_spawn.name)
 			return
+		
+		if not Data.enemy_data.has(enemy_name):
+			push_error("{enemy_spawn} enemy spawn has a {enemy_name} enemy with no data attached.".format(
+				{"enemy_spawn": enemy_spawn.name, "enemy_name": enemy_name}
+			))
+			return
+		
 		enemy.load_enemy(enemy_name)
 		
 		while enemy == null or not safe:

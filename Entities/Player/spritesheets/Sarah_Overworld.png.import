@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex"
+path="res://.import/Sarah_Overworld.png-9e3e8c27237df67774b3c37a2be0fa98.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/Sledge Guy_Battle.png"
-dest_files=[ "res://.import/Sledge Guy_Battle.png-4497eefd1a942b424f61c115b26e5d94.stex" ]
+source_file="res://Entities/Player/spritesheets/Sarah_Overworld.png"
+dest_files=[ "res://.import/Sarah_Overworld.png-9e3e8c27237df67774b3c37a2be0fa98.stex" ]
 
 [params]
 
