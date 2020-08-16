@@ -17,7 +17,7 @@ func _ready():
 	player.birds_system.visible = true
 	player.clouds_system.visible = true
 	
-	#player.position = SaveData.world_position
+	player.position = SaveData.world_position
 	
 	if AudioSystem.currently_playing_music != AudioSystem.Music.OVERWORLD:
 		AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
