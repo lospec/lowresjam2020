@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/robon_overworld.png-e9981eec94a8225247fa01fb032254cc.stex"
+path="res://.import/hermit shell.png-aaac431d36996645a6835b4df3e9994a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/robon_overworld.png"
-dest_files=[ "res://.import/robon_overworld.png-e9981eec94a8225247fa01fb032254cc.stex" ]
+source_file="res://World/Tiles/hermit shell.png"
+dest_files=[ "res://.import/hermit shell.png-aaac431d36996645a6835b4df3e9994a.stex" ]
 
 [params]
 
