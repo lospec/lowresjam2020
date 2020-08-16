@@ -103,6 +103,7 @@ func _on_Combat_combat_done(outcome, enemy_instance):
 			
 			combat_menu.visible = false
 			get_tree().paused = false
+			player.hud_margin.visible = true
 		CombatUtil.Outcome.COMBAT_LOSE:
 			enemy_instance.die()
 			get_tree().paused = false
