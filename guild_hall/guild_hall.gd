@@ -33,6 +33,9 @@ onready var right_border = $Borders/Right
 
 
 func _ready():
+	player.birds_system.visible = false
+	player.clouds_system.visible = false
+	
 	update_guild_from_level()
 
 

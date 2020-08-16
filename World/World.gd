@@ -14,6 +14,9 @@ onready var dropped_items_gui = $DroppedItems
 
 
 func _ready():
+	player.birds_system.visible = true
+	player.clouds_system.visible = true
+	
 	#player.position = SaveData.world_position
 	
 	if AudioSystem.currently_playing_music != AudioSystem.Music.OVERWORLD:

@@ -19,6 +19,8 @@ onready var chest_detector = $ChestDetector
 onready var desk_detector = $DeskDetector
 onready var camera = $Camera2D
 onready var collision_detector = $CollisionDetector
+onready var birds_system = $BirdsSystem
+onready var clouds_system = $CloudsSystem
 
 
 func _ready():
