@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Flora_Hit.wav-fef707d27b0f8e4480a4e395ff2fd2cf.sample"
+
+[deps]
+
+source_file="res://sfx/Flora_Hit.wav"
+dest_files=[ "res://.import/Flora_Hit.wav-fef707d27b0f8e4480a4e395ff2fd2cf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

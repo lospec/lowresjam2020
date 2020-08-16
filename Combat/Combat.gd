@@ -24,6 +24,8 @@ func _on_enemy_take_damage(damage, damage_type):
 	combat_menu.animate_enemy_hurt(enemy_instance, damage)
 
 func setup_combat(player, enemy):
+	AudioSystem.stop_music()
+	
 	player_combat.char_instance = player
 	enemy_combat.char_instance = enemy
 	
@@ -66,6 +68,10 @@ func setup_combat(player, enemy):
 	start_combat()
 
 func start_combat():
+	var sfx_player = AudioSystem.play_sfx(AudioSystem.SFX.BATTLE_INTRO,
+			null, -20)
+	sfx_player.connect("finished", self, "play_battle_music")
+	
 	var combat = true
 # warning-ignore:unused_variable
 	var turn_count = 0
@@ -122,10 +128,29 @@ func start_combat():
 			combat_menu.reset_ui()
 		#print("Turn %s: END, %s" % [turn_count, combat])
 
+
+func play_battle_music():
+	var enemy_data = Data.enemy_data[enemy_instance.enemy_name]
+	var enemy_race = enemy_data.race
+	
+	var enemy_race_music = {
+		"Robot": AudioSystem.Music.BATTLE_ROBOT,
+		"Beast": AudioSystem.Music.BATTLE_BEAST,
+		"Demon": AudioSystem.Music.BATTLE_DEMON,
+		"Human": AudioSystem.Music.BATTLE_HUMAN,
+		"Gnome": AudioSystem.Music.BATTLE_GNOME,
+		"Flora": AudioSystem.Music.BATTLE_FLORA,
+		"Slime": AudioSystem.Music.BATTLE_SLIME,
+	}
+	
+	AudioSystem.play_music(enemy_race_music[enemy_race], -25)
+
+
 func end_combat(outcome):
 	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
 	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", outcome, enemy_instance)
+
 
 func TakeTurn() -> bool:
 	var playerAction = player_combat.get_action()
@@ -206,13 +231,15 @@ func PlayerFlee(enemyAction): # Should be replaced with CharFlee so the enemy ca
 			yield(combat_menu.show_combat_label("Got away safely", 2), "completed")
 			return true
 		rule.Outcome.SUCCESS_DMG:
-			enemy_combat.attack(player_combat, enemyAction, enemyDmg * rule._dmg_modifier)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg * rule._dmg_modifier,
+					enemy_instance, player_instance)
 			combat_menu.animate_player_hurt(enemyDmg)
 			yield(combat_menu.show_combat_label("Got away not so safely", 2), "completed")
 			return true
 		rule.Outcome.FAIL:
 			yield(combat_menu.show_combat_label("Failed to flee", 2), "completed")
-			enemy_combat.attack(player_combat, enemyAction, enemyDmg * rule._dmg_modifier)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg * rule._dmg_modifier,
+					enemy_instance, player_instance)
 			combat_menu.animate_player_hurt(enemyDmg)
 			return false
 
@@ -229,7 +256,7 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg, player_instance, enemy_instance)
 			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.COUNTER:
@@ -238,7 +265,7 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Countered!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg, player_instance, enemy_instance)
 			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		combat_util.Combat_Action.HEAVY:
@@ -247,7 +274,7 @@ func PlayerWin(playerAction):
 			#combat_menu.show_combat_label("Attack hit!")
 			yield(combat_menu.animate_player_attack(player_combat, playerAction), "completed")
 			
-			player_combat.attack(enemy_combat, playerAction, playerDmg)
+			player_combat.attack(enemy_combat, playerAction, playerDmg, player_instance, enemy_instance)
 			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 		
 		_:
@@ -265,7 +292,7 @@ func EnemyWin(enemyAction):
 			# the player take damage
 			#combat_menu.show_combat_label("The Enemy attacked first!")
 			
-			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg, enemy_instance, player_instance)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
 		combat_util.Combat_Action.COUNTER:
@@ -276,7 +303,7 @@ func EnemyWin(enemyAction):
 			#combat_menu.show_combat_label("Enemy countered!")
 			
 			enemyDmg /= 2
-			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg, enemy_instance, player_instance)
 			yield(combat_menu.animate_player_hurt(enemyDmg, true), "completed")
 		
 		combat_util.Combat_Action.HEAVY:
@@ -285,7 +312,7 @@ func EnemyWin(enemyAction):
 			# but instead of showing the player attack, show the player take damage instead
 			#combat_menu.show_combat_label("The Enemy broke your counter!")
 			
-			enemy_combat.attack(player_combat, enemyAction, enemyDmg)
+			enemy_combat.attack(player_combat, enemyAction, enemyDmg, enemy_instance, player_instance)
 			yield(combat_menu.animate_player_hurt(enemyDmg), "completed")
 		
 		_:
@@ -304,10 +331,10 @@ func Tie(action):
 			#combat_menu.show_combat_label("The enemy attacked!")
 			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
-			player_combat.attack(enemy_combat, action, playerDmg)
+			player_combat.attack(enemy_combat, action, playerDmg, player_instance, enemy_instance)
 			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
-			enemy_combat.attack(player_combat, action, enemyDmg)
+			enemy_combat.attack(player_combat, action, enemyDmg, enemy_instance, player_instance)
 			combat_menu.animate_player_hurt(enemyDmg)
 		
 		combat_util.Combat_Action.COUNTER:
@@ -324,11 +351,11 @@ func Tie(action):
 			yield(combat_menu.animate_player_attack(player_combat, action), "completed")
 			
 			playerDmg /= 2
-			player_combat.attack(enemy_combat, action, playerDmg)
+			player_combat.attack(enemy_combat, action, playerDmg, player_instance, enemy_instance)
 			#combat_menu.animate_enemy_hurt(enemy_instance, playerDmg)
 			
 			enemyDmg /= 2
-			enemy_combat.attack(player_combat, action, enemyDmg)
+			enemy_combat.attack(player_combat, action, enemyDmg, enemy_instance, player_instance)
 			combat_menu.animate_player_hurt(enemyDmg)
 		
 		_:

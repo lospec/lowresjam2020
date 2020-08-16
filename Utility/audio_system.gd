@@ -4,9 +4,31 @@ extends Node
 enum Music {
 	NONE = -1,
 	OVERWORLD,
+	GUILD,
+	BATTLE_BEAST,
+	BATTLE_DEMON,
+	BATTLE_FLORA,
+	BATTLE_GNOME,
+	BATTLE_HUMAN,
+	BATTLE_ROBOT,
+	BATTLE_SLIME,
+	GAME_OVER,
 }
 const MUSIC_RESOURCES = {
-	Music.OVERWORLD: preload("res://World/music/overworld.ogg"),
+	# Overworld
+	Music.OVERWORLD: preload("res://music/overworld.ogg"),
+	# Guild
+	Music.GUILD: preload("res://music/guild.ogg"),
+	# Battle
+	Music.BATTLE_BEAST: preload("res://music/battle beast.ogg"),
+	Music.BATTLE_DEMON: preload("res://music/battle demon.ogg"),
+	Music.BATTLE_FLORA: preload("res://music/battle flora.ogg"),
+	Music.BATTLE_GNOME: preload("res://music/battle gnome.ogg"),
+	Music.BATTLE_HUMAN: preload("res://music/battle human.ogg"),
+	Music.BATTLE_ROBOT: preload("res://music/battle robot.ogg"),
+	Music.BATTLE_SLIME: preload("res://music/battle slime.ogg"),
+	# Game Over
+	Music.GAME_OVER: preload("res://music/game over.ogg"),
 }
 
 enum SFX {
@@ -28,6 +50,31 @@ enum SFX {
 	HEROES_GUILD_PUREASBESTOS_1,
 	HEROES_GUILD_UNSETTLED_1,
 	HEROES_GUILD_WILDLEOKNIGHT_2,
+	# Intros
+	BATTLE_INTRO,
+	# Jingles
+	VICTORY_JINGLE,
+	# Battle
+	# Enemy takes damage
+	BEAST_HURT,
+	DEMON_HURT,
+	FLORA_HURT,
+	HUMAN_HURT,
+	ROBOT_HURT,
+	SLIME_HURT,
+	# Player takes damage
+	PLAYER_HURT,
+	# Deal damage
+	QUICK_ATTACK,
+	HEAVY_ATTACK,
+	COUNTER_ATTACK,
+	# Status effect applied
+	CHARGED_STATUS,
+	CONFUSION_STATUS,
+	ONFIRE_STATUS,
+	FROZEN_STATUS,
+	POISONED_STATUS,
+	WEAK_STATUS,
 }
 const SFX_RESOURCES = {
 	# UI
@@ -48,6 +95,31 @@ const SFX_RESOURCES = {
 	SFX.HEROES_GUILD_PUREASBESTOS_1: preload("res://sfx/Heroes_Guild_PureAsbestos_take1.wav"),
 	SFX.HEROES_GUILD_UNSETTLED_1: preload("res://sfx/Heroes_Guild_Unsettled_take1.wav"),
 	SFX.HEROES_GUILD_WILDLEOKNIGHT_2: preload("res://sfx/Heroes_Guild_WildLeoKnight_take2.wav"),
+	# Intros
+	SFX.BATTLE_INTRO: preload("res://sfx/battle intro.ogg"),
+	# Jingles
+	SFX.VICTORY_JINGLE: preload("res://sfx/Victory jingle.ogg"),
+	# Battle
+	# Enemy takes damage
+	SFX.BEAST_HURT: preload("res://sfx/Beast_hit.wav"),
+	SFX.DEMON_HURT: preload("res://sfx/Demon_hit.wav"),
+	SFX.FLORA_HURT: preload("res://sfx/Flora_Hit.wav"),
+	SFX.HUMAN_HURT: preload("res://sfx/Human_Hit.wav"),
+	SFX.ROBOT_HURT: preload("res://sfx/Robot_hit.wav"),
+	SFX.SLIME_HURT: preload("res://sfx/Slime_hit.wav"),
+	# Player takes damage
+	SFX.PLAYER_HURT: preload("res://sfx/Player_Hit.wav"),
+	# Deal damage
+	SFX.QUICK_ATTACK: preload("res://sfx/Quick.wav"),
+	SFX.HEAVY_ATTACK: preload("res://sfx/Heavy.wav"),
+	SFX.COUNTER_ATTACK: preload("res://sfx/Counter.wav"),
+	# Status effect applied
+	SFX.CHARGED_STATUS: preload("res://sfx/Charged.wav"),
+	SFX.CONFUSION_STATUS: preload("res://sfx/Confusion.wav"),
+	SFX.ONFIRE_STATUS: preload("res://sfx/Fire3.wav"),
+	SFX.FROZEN_STATUS: preload("res://sfx/Ice.wav"),
+	SFX.POISONED_STATUS: preload("res://sfx/Poison.wav"),
+	SFX.WEAK_STATUS: preload("res://sfx/Weak.wav"),
 }
 
 const FADE_IN_START_VOLUME := -80
@@ -78,6 +150,11 @@ func play_music(music: int,
 		music_player.volume_db = volume_db
 	music_player.pitch_scale = pitch_scale
 	music_player.play()
+
+
+func stop_music():
+	currently_playing_music = Music.NONE
+	music_player.stop()
 
 
 func play_sfx(sfx: int, audio_position = null,

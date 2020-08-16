@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Gnoggles.png-c121143525440b214b2ee2c282ca811e.stex"
+path="res://.import/gnoggles.png-e22c809c014eddb25b9802e4d276b91c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/inventory_sprites/Gnoggles.png"
-dest_files=[ "res://.import/Gnoggles.png-c121143525440b214b2ee2c282ca811e.stex" ]
+source_file="res://items/inventory_sprites/gnoggles.png"
+dest_files=[ "res://.import/gnoggles.png-e22c809c014eddb25b9802e4d276b91c.stex" ]
 
 [params]
 
