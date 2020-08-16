@@ -70,7 +70,6 @@ func spawn_enemy(enemy_spawn):
 				enemy.queue_free()
 		
 		enemy.connect("died", self, "_on_Enemy_death", [enemy_spawn])
-		enemy.connect("health_changed", combat, "_on_Enemy_health_changed")
 
 
 func _unhandled_input(_event):
