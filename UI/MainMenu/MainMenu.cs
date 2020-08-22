@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using HeroesGuild.Utility;
 
 namespace HeroesGuild.UI.MainMenu
@@ -11,33 +12,28 @@ namespace HeroesGuild.UI.MainMenu
 
         private bool _changing_scene = false;
 
-        // TODO: AUDIOSYSTEM
-        //var _sfx_player
+        private AudioStreamPlayer2D _sfxPlayer;
 
         public override void _Ready()
         {
             _startSignifierLabel = GetNode<TextureRect>("StartSigniferMargin/StartSignifier");
             _startSignifierAnimationPlayer = GetNode<AnimationPlayer>("StartSigniferMargin/AnimationPlayer");
 
-            //TODO: AudioSystem
-            /*var heroes_guild_sfx = {
-                AudioSystem.SFX.HEROES_GUILD_NOX_1: -20,
-                AudioSystem.SFX.HEROES_GUILD_NOX_3: -20,
-                AudioSystem.SFX.HEROES_GUILD_NOX_4: -20,
-                AudioSystem.SFX.HEROES_GUILD_PUREASBESTOS_1: -20,
-                AudioSystem.SFX.HEROES_GUILD_UNSETTLED_1: -22,
-                AudioSystem.SFX.HEROES_GUILD_WILDLEOKNIGHT_2: -18,
-            }
-	
-            var sfx = Utility.rand_element(heroes_guild_sfx.keys())
-            var volume = heroes_guild_sfx[sfx]
-            _sfx_player = AudioSystem.play_sfx(sfx,
-                null, volume)
-	
-            _sfx_player.connect("finished", start_signifier_animation_player, "play",
-                ["flash"])
-            _sfx_player.connect("finished", AudioSystem, "play_music",
-                [AudioSystem.Music.TITLE_SCREEN, -25])*/
+            var heroesGuildSFX = new Dictionary<AudioSystem.SFX, float>()
+            {
+                {AudioSystem.SFX.HeroesGuildNox1, -20f},
+                {AudioSystem.SFX.HeroesGuildNox3, -20f},
+                {AudioSystem.SFX.HeroesGuildNox4, -20f},
+                {AudioSystem.SFX.HeroesGuildPureasbestos1, -20f},
+                {AudioSystem.SFX.HeroesGuildUnsettled1, -22f},
+                {AudioSystem.SFX.HeroesGuildWildleoknight2, -18f},
+            };
+            var sfx = heroesGuildSFX.Keys.RandomElement();
+            var volume = heroesGuildSFX[sfx];
+            _sfxPlayer = AudioSystem.PlaySFX(sfx, null, volume);
+            _sfxPlayer.Connect("finished", _startSignifierAnimationPlayer, "play", new Array{"flash"});
+            _sfxPlayer.Connect("finished", AudioSystem.instance, nameof(AudioSystem.instance.PlayMusic), 
+                new Array {AudioSystem.Music.TitleScreen, -25f,});
         }
 
         public override void _Input(InputEvent @event)
@@ -66,13 +62,8 @@ namespace HeroesGuild.UI.MainMenu
 
         private async void GoToCharacterSelector()
         {
-            //TODO: AudioSystem
-            /*if _sfx_player:
-            _sfx_player.stop()
-	
-            var _s = AudioSystem.play_sfx(AudioSystem.SFX.BUTTON_CLICK,
-                Vector2.ZERO, -15)*/
-
+            _sfxPlayer?.Stop();
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, Vector2.Zero, -15);
             _changing_scene = true;
             var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f);
             var transitions = Singleton.Get<Transitions>(this);
