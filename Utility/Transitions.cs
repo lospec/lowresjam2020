@@ -24,7 +24,7 @@ namespace HeroesGuild.Utility
 				TransitionType.MultipleSquares => "res://Transitions/multiple_squares.png",
 				TransitionType.MultipleCirclesFilled => "res://Transitions/multiple_circles_filled.png",
 				TransitionType.Lines => "res://Transitions/lines.png",
-				TransitionType.Swirl => "res://Transitions/lines.png",
+				TransitionType.Swirl => "res://Transitions/swirl.png",
 				TransitionType.Blocks => "res://Transitions/blocks.png",
 				_ => throw new ArgumentException()
 			};
@@ -73,8 +73,6 @@ namespace HeroesGuild.Utility
 			{
 				GD.PrintErr($"Error {error} occured while attempting to change scene.");
 			}
-			GD.Print($"Changing scene to {scenePath}");
-			GD.PrintT(error);
 
 			StartTransition(@params);
 		}
