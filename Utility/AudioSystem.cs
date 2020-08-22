@@ -133,28 +133,28 @@ public class AudioSystem : Node
     private AudioStreamPlayer _musicPlayer;
     private Tween _tween;
 
-    public float MusicVolume
+    public static float MusicVolume
     {
-        get => _musicVolume;
+        get => instance._musicVolume;
         set
         {
             value = Mathf.Max(-80, value);
-            _musicPlayer.VolumeDb += value - _musicVolume;
-            _musicVolume = value;
+            instance._musicPlayer.VolumeDb += value - instance._musicVolume;
+            instance._musicVolume = value;
         }
     }
-    public float SFXVolume
+    public static float SFXVolume
     {
-        get => _sfxVolume;
+        get => instance._sfxVolume;
         set
         {
             value = Mathf.Max(-80, value);
-            foreach (AudioStreamPlayer sfxPlayer in GetTree().GetNodesInGroup("sfx_players"))
+            foreach (AudioStreamPlayer sfxPlayer in instance.GetTree().GetNodesInGroup("sfx_players"))
             {
-                sfxPlayer.VolumeDb += value - _sfxVolume;
+                sfxPlayer.VolumeDb += value - instance._sfxVolume;
             }
 
-            _sfxVolume = value;
+            instance._sfxVolume = value;
         }
     }
 
