@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://UI/inventory/background.png" type="Texture" id=1]
-[ext_resource path="res://UI/pause_menu/pause_menu.gd" type="Script" id=2]
+[ext_resource path="res://UI/pause_menu/PauseMenu.cs" type="Script" id=2]
 [ext_resource path="res://UI/inventory/inventory_scroll_theme.tres" type="Theme" id=3]
 [ext_resource path="res://UI/pause_menu/inventory_button_normal.png" type="Texture" id=4]
 [ext_resource path="res://UI/pause_menu/inventory_button_pressed.png" type="Texture" id=5]
@@ -18,7 +18,7 @@
 [ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.tscn" type="PackedScene" id=16]
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=17]
 [ext_resource path="res://UI/Settings/Audio Settings/Volume Control.tscn" type="PackedScene" id=18]
-[ext_resource path="res://UI/pause_menu/SettingsMargin.gd" type="Script" id=19]
+[ext_resource path="res://UI/pause_menu/SettingsMargin.cs" type="Script" id=19]
 
 [sub_resource type="DynamicFont" id=1]
 size = 4
@@ -254,9 +254,9 @@ margin_right = 64.0
 margin_bottom = 64.0
 
 [node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
-[connection signal="volume_value_updated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_Music_Volume_volume_value_updated"]
-[connection signal="volume_value_updated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_SFX_Volume_volume_value_updated"]
-[connection signal="detailed_item_info_menu_appeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_appeared"]
-[connection signal="detailed_item_info_menu_disappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="_on_ItemInfoMenu_detailed_item_info_menu_disappeared"]
-[connection signal="equipped_armor_changed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_equipped_armor_changed"]
-[connection signal="equipped_weapon_changed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_equipped_weapon_changed"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnMusicVolume_VolumeValueUpdated"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnSFXVolume_VolumeValueUpdated"]
+[connection signal="DetailedItemInfoMenuAppeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuAppeared"]
+[connection signal="DetailedItemInfoMenuDisappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuDisappeared"]
+[connection signal="EquippedArmorChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedArmorChanged"]
+[connection signal="EquippedWeaponChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedWeaponChanged"]
