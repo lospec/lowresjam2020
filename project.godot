@@ -102,10 +102,10 @@ Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
 Transitions="*res://Utility/Transitions.tscn"
-SaveData="*res://Utility/save_data.gd"
 AudioSystem="*res://Utility/AudioSystem.tscn"
 StatEffectUtility="*res://StatusEffect/stat_effects.gd"
 PaletteSwap="*res://Utility/PaletteSwap.tscn"
+SaveData="*res://Utility/SaveData.cs"
 
 [display]
 
