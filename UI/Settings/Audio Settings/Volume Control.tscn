@@ -3,7 +3,7 @@
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Default.png" type="Texture" id=2]
 [ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume Clicked.png" type="Texture" id=3]
-[ext_resource path="res://UI/Settings/Audio Settings/Volume Control.gd" type="Script" id=4]
+[ext_resource path="res://UI/Settings/Audio Settings/VolumeControl.cs" type="Script" id=4]
 [ext_resource path="res://UI/Settings/Audio Settings/Decrease Volume Hover.png" type="Texture" id=5]
 [ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Hover.png" type="Texture" id=6]
 [ext_resource path="res://UI/Settings/Audio Settings/Increase Volume Clicked.png" type="Texture" id=7]
@@ -45,5 +45,5 @@ size_flags_vertical = 4
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 7 )
 texture_hover = ExtResource( 6 )
-[connection signal="pressed" from="Decrease Value" to="." method="_on_Decrease_Value_pressed"]
-[connection signal="pressed" from="Increase Value" to="." method="_on_Increase_Value_pressed"]
+[connection signal="pressed" from="Decrease Value" to="." method="OnDecreaseValue_Pressed"]
+[connection signal="pressed" from="Increase Value" to="." method="OnIncreaseValue_Pressed"]
