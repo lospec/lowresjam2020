@@ -6,7 +6,7 @@
 [ext_resource path="res://UI/character_selection/choose_decor.png" type="Texture" id=4]
 [ext_resource path="res://UI/character_selection/scroll_left_button_hover.png" type="Texture" id=5]
 [ext_resource path="res://UI/character_selection/scroll_right_button_hover.png" type="Texture" id=6]
-[ext_resource path="res://UI/character_selection/character_selector.gd" type="Script" id=7]
+[ext_resource path="res://UI/character_selection/CharacterSelector.cs" type="Script" id=7]
 [ext_resource path="res://UI/character_selection/scroll_right_button_pressed.png" type="Texture" id=8]
 [ext_resource path="res://UI/character_selection/scroll_right_button_normal.png" type="Texture" id=9]
 [ext_resource path="res://UI/character_selection/scroll_left_button_normal.png" type="Texture" id=10]
@@ -166,6 +166,6 @@ margin_right = 44.0
 margin_bottom = 10.0
 size_flags_horizontal = 4
 texture = ExtResource( 2 )
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollLeft" to="." method="_on_ScrollLeft_gui_input"]
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollRight" to="." method="_on_ScrollRight_gui_input"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox/Select" to="." method="_on_Select_pressed"]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollLeft" to="." method="OnScrollLeft_GUIInput"]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollRight" to="." method="OnScrollRight_GUIInput"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox/Select" to="." method="OnSelect_Pressed"]
