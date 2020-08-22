@@ -87,8 +87,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Heroes' Guild"
-run/main_scene="res://UI/Splash Screen/Splash Screen.tscn"
-boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
+run/main_scene="res://UI/SplashScreen/Splash Screen.tscn"
+boot_splash/image="res://UI/SplashScreen/Splash Screen First Frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
@@ -101,11 +101,11 @@ default_bus_layout=""
 Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Utility="*res://Utility/Utility.gd"
-PaletteSwap="*res://Utility/Palette Swap.tscn"
 Transitions="*res://Utility/Transitions.tscn"
 SaveData="*res://Utility/save_data.gd"
 AudioSystem="*res://Utility/audio_system.tscn"
 StatEffectUtility="*res://StatusEffect/stat_effects.gd"
+PaletteSwap="*res://Utility/PaletteSwap.tscn"
 
 [display]
 
