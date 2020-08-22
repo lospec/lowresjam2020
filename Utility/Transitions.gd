@@ -14,7 +14,7 @@ const TRANSITION_TEXTURES = {
 	Transition_Type.MULTIPLE_SQUARES: preload("res://Transitions/multiple_squares.png"),
 	Transition_Type.MULTIPLE_CIRCLES_FILLED: preload("res://Transitions/multiple_circles_filled.png"),
 	Transition_Type.LINES: preload("res://Transitions/lines.png"),
-	Transition_Type.SWIRL: preload("res://Transitions/swirl.png"),
+	Transition_Type.SWIRL: preload("res://Transitions/lines.png"),
 	Transition_Type.BLOCKS: preload("res://Transitions/blocks.png"),
 }
 
