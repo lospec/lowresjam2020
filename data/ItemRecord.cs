@@ -48,5 +48,14 @@ namespace HeroesGuild.data
 
         [JsonProperty("counter_effect_chance")]
         public float CounterEffectChance;
+
+        [JsonProperty("health_added")]
+        public int HealthAdded;
+
+        [JsonProperty("usable")]
+        public bool Usable;
+        
+        [JsonProperty("health_gained")]
+        public int HealthGained;
     }
 }
