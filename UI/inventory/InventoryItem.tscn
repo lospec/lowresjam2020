@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://UI/inventory/InventoryItem.gd" type="Script" id=1]
+[ext_resource path="res://UI/inventory/InventoryItem.cs" type="Script" id=1]
 [ext_resource path="res://items/inventory_sprites/stick.png" type="Texture" id=2]
 [ext_resource path="res://UI/inventory/selected_item.png" type="Texture" id=3]
 
@@ -39,5 +39,5 @@ mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource( 3 )
-[connection signal="mouse_entered" from="." to="." method="_on_InventoryItem_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_InventoryItem_mouse_exited"]
+[connection signal="mouse_entered" from="." to="." method="OnInventoryItem_MouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnInventoryItem_MouseExited"]

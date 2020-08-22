@@ -9,7 +9,7 @@
 [ext_resource path="res://UI/inventory/item_info/back_button_hover.png" type="Texture" id=7]
 [ext_resource path="res://UI/inventory/item_info/icon_decor.png" type="Texture" id=8]
 [ext_resource path="res://UI/inventory/item_info/use_button_hover.png" type="Texture" id=9]
-[ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.gd" type="Script" id=10]
+[ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.cs" type="Script" id=10]
 [ext_resource path="res://UI/Font Resources/wendy-10_pause_menu_header.tres" type="DynamicFont" id=11]
 [ext_resource path="res://UI/Font Resources/wendy-10_item_stats.tres" type="DynamicFont" id=12]
 [ext_resource path="res://UI/inventory/item_info/quick_attack_icon.png" type="Texture" id=13]
@@ -410,8 +410,8 @@ margin_left = 31.0
 margin_right = 45.0
 margin_bottom = 6.0
 texture_normal = ExtResource( 18 )
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/Back" to="." method="_on_Back_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SecondRow/ButtonMargin/Equip" to="." method="_on_Equip_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SecondRow/ButtonMargin/Use" to="." method="_on_Use_pressed"]
-[connection signal="pressed" from="MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/Yes" to="." method="_on_Yes_pressed"]
-[connection signal="pressed" from="MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/No" to="." method="_on_No_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/Back" to="." method="OnBack_Pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecondRow/ButtonMargin/Equip" to="." method="OnEquip_Pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecondRow/ButtonMargin/Use" to="." method="OnUse_Pressed"]
+[connection signal="pressed" from="MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/Yes" to="." method="OnYes_Pressed"]
+[connection signal="pressed" from="MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/No" to="." method="OnNo_Pressed"]

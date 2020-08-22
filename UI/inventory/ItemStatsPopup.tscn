@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/inventory/weapon_stats_popup.png" type="Texture" id=1]
-[ext_resource path="res://UI/pause_menu/ItemStatsPopup.gd" type="Script" id=2]
+[ext_resource path="res://UI/inventory/ItemStatPopUp.cs" type="Script" id=2]
 [ext_resource path="res://UI/Font Resources/wendy-10_item_stats.tres" type="DynamicFont" id=3]
-
 
 [node name="ItemStatsPopup" type="MarginContainer"]
 anchor_left = 1.0
@@ -117,4 +116,4 @@ text = "0"
 [node name="PopupDisappearDelay" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
-[connection signal="timeout" from="PopupDisappearDelay" to="." method="_on_PopupDisappearDelay_timeout"]
+[connection signal="timeout" from="PopupDisappearDelay" to="." method="OnPopupDisappearDelay_Timeout"]
