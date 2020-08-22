@@ -2,7 +2,6 @@ using Godot;
 
 namespace HeroesGuild.Utility
 {
-    [Tool]
     public class PaletteSwap : CanvasLayer
     {
         private bool _enabled;
@@ -42,6 +41,8 @@ namespace HeroesGuild.Utility
         public override void _Ready()
         {
             _paletteSwapTextureRect = GetNode<TextureRect>("TextureRect");
+            Enabled = Enabled;
+            Palette = Palette;
         }
     }
 }
