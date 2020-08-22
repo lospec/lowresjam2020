@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/Main Menu/background.png" type="Texture" id=1]
-[ext_resource path="res://UI/Main Menu/Main Menu.gd" type="Script" id=2]
-[ext_resource path="res://UI/Main Menu/press_to_start.png" type="Texture" id=3]
+[ext_resource path="res://UI/MainMenu/background.png" type="Texture" id=1]
+[ext_resource path="res://UI/MainMenu/Main Menu.gd" type="Script" id=2]
+[ext_resource path="res://UI/MainMenu/press_to_start.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 1.3

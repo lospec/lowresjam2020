@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://UI/Splash Screen/Splash Screen.gd" type="Script" id=1]
-[ext_resource path="res://UI/Splash Screen/splash_screen_frames.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://UI/Splash Screen/flag_frames.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://UI/Splash Screen/LozepekistanLogo.png" type="Texture" id=4]
+[ext_resource path="res://UI/SplashScreen/flag_frames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://UI/SplashScreen/splash_screen_frames.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://UI/SplashScreen/SplashScreen.cs" type="Script" id=3]
+[ext_resource path="res://UI/SplashScreen/LozepekistanLogo.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "splash_screen"
@@ -118,7 +118,7 @@ tracks/8/keys = {
 }
 
 [node name="Splash Screen" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -142,7 +142,7 @@ animation = "walk"
 [node name="Flag" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 15, -3 )
-frames = ExtResource( 3 )
+frames = ExtResource( 1 )
 frame = 11
 
 [node name="Logo" type="Sprite" parent="."]
@@ -152,4 +152,4 @@ texture = ExtResource( 4 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "splash_screen"
 anims/splash_screen = SubResource( 1 )
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayer_AnimationFinished"]
