@@ -9,9 +9,8 @@ namespace HeroesGuild.UI.SplashScreen
         private const string MainMenuScenePath = "res://UI/MainMenu/Main Menu.tscn";
         public bool goingToMainMenu = false;
 
-        public override async void _Ready()
+        public override void _Ready()
         {
-            GD.Print("Starting splash screen");
             Singleton.Get<PaletteSwap>(this).Enabled = false;
         }
 
