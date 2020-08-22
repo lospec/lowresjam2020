@@ -98,13 +98,12 @@ default_bus_layout=""
 
 [autoload]
 
-Data="*res://data/import_data.gd"
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
-Utility="*res://Utility/Utility.gd"
 Transitions="*res://Utility/Transitions.tscn"
 AudioSystem="*res://Utility/AudioSystem.tscn"
 StatEffectUtility="*res://StatusEffect/stat_effects.gd"
 PaletteSwap="*res://Utility/PaletteSwap.tscn"
+Data="*res://data/Data.cs"
 SaveData="*res://Utility/SaveData.cs"
 
 [display]
