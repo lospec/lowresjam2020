@@ -30,7 +30,7 @@ namespace HeroesGuild.Utility
             set
             {
                 _palette = value;
-                if (!HasNode("TextureRect") || value == null)
+                if (!HasNode("TextureRect"))
                 {
                     return;
                 }
