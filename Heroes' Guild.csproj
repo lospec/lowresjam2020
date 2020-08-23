@@ -61,6 +61,21 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\Actions\AI_Action_MoveToTarget.cs" />
+    <Compile Include="AI\Actions\AI_Action_ReturnToOrigin.cs" />
+    <Compile Include="AI\Actions\AI_Action_RunFromTarget.cs" />
+    <Compile Include="AI\Actions\AI_Action_SearchForPlayer.cs" />
+    <Compile Include="AI\Actions\AI_Action_WaitTime.cs" />
+    <Compile Include="AI\Actions\AI_Action_Wander.cs" />
+    <Compile Include="AI\Actions\AI_State_Action.cs" />
+    <Compile Include="AI\AI_Behaviour.cs" />
+    <Compile Include="AI\AI_State.cs" />
+    <Compile Include="AI\AI_Transition.cs" />
+    <Compile Include="AI\Conditions\AI_Condition_FarFromOrigin.cs" />
+    <Compile Include="AI\Conditions\AI_Condition_HasTarget.cs" />
+    <Compile Include="AI\Conditions\AI_Condition_TargetInRange.cs" />
+    <Compile Include="AI\Conditions\AI_State_Condition.cs" />
+    <Compile Include="AI\StateMachine.cs" />
     <Compile Include="data\CharacterRecord.cs" />
     <Compile Include="data\Data.cs" />
     <Compile Include="data\EnemyRecord.cs" />
