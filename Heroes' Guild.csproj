@@ -76,9 +76,13 @@
     <Compile Include="AI\Conditions\AI_Condition_TargetInRange.cs" />
     <Compile Include="AI\Conditions\AI_State_Condition.cs" />
     <Compile Include="AI\StateMachine.cs" />
+    <Compile Include="Combat\ColorValues.cs" />
     <Compile Include="Combat\Combat.cs" />
     <Compile Include="Combat\CombatChar.cs" />
     <Compile Include="Combat\CombatMenu.cs" />
+    <Compile Include="Combat\CombatUtil.cs" />
+    <Compile Include="Combat\EnemyCombat.cs" />
+    <Compile Include="Combat\PlayerCombat.cs" />
     <Compile Include="Combat\ShakableControl.cs" />
     <Compile Include="data\CharacterRecord.cs" />
     <Compile Include="data\Data.cs" />
@@ -105,7 +109,7 @@
     <Compile Include="UI\MainMenu\MainMenu.cs" />
     <Compile Include="UI\pause_menu\PauseMenu.cs" />
     <Compile Include="UI\pause_menu\SettingsMargin.cs" />
-    <Compile Include="UI\Settings\Audio%20Settings\VolumeControl.cs" />
+    <Compile Include="UI\Settings\AudioSettings\VolumeControl.cs" />
     <Compile Include="UI\SplashScreen\SplashScreen.cs" />
     <Compile Include="Utility\AudioSystem.cs" />
     <Compile Include="Utility\PaletteSwap.cs" />

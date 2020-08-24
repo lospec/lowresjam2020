@@ -17,8 +17,11 @@
 [ext_resource path="res://UI/inventory/ItemStatsPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://UI/inventory/item_info/ItemInfoMenu.tscn" type="PackedScene" id=16]
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=17]
-[ext_resource path="res://UI/Settings/Audio Settings/Volume Control.tscn" type="PackedScene" id=18]
+[ext_resource path="res://UI/Settings/AudioSettings/Volume Control.tscn" type="PackedScene" id=18]
 [ext_resource path="res://UI/pause_menu/SettingsMargin.cs" type="Script" id=19]
+
+
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 4
