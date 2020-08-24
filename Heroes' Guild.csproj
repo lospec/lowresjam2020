@@ -117,6 +117,7 @@
     <Compile Include="Utility\Singleton.cs" />
     <Compile Include="Utility\Transitions.cs" />
     <Compile Include="Utility\Utility.cs" />
+    <Compile Include="Utility\WeaponUtil.cs" />
     <Compile Include="World\EnemySpawn\EnemySpawn.cs" />
     <Compile Include="World\World.cs" />
   </ItemGroup>
