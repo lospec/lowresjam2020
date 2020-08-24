@@ -32,7 +32,7 @@ namespace HeroesGuild.Combat
                 {CombatAction.Heavy, new[] {0.2f, 0.5f, 0.3f, 1.0f}}
             };
 
-        public class FreeRule
+        public class FleeRule
         {
             public enum FleeOutcome
             {
@@ -49,15 +49,15 @@ namespace HeroesGuild.Combat
                     {FleeOutcome.Fail, 0f}
                 };
 
-            private float damageModifier;
+            public float damageModifier;
 
-            public FreeRule(CombatAction combatAction)
+            public FleeRule(CombatAction combatAction)
                 : this(FleeRules[combatAction][0], FleeRules[combatAction][1],
                     FleeRules[combatAction][2], FleeRules[combatAction][3])
             {
             }
 
-            private FreeRule(float fleeNoDamageChance, float fleeDamageChance, float noFleeChance, float damageModifier)
+            private FleeRule(float fleeNoDamageChance, float fleeDamageChance, float noFleeChance, float damageModifier)
             {
                 outcomeTable[FleeOutcome.Success] = fleeNoDamageChance;
                 outcomeTable[FleeOutcome.SuccessDmg] = fleeDamageChance;

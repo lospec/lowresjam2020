@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.Combat.Effects.animations;
 using HeroesGuild.Entities.BaseEntity;
@@ -24,18 +25,19 @@ namespace HeroesGuild.Combat
         private MarginContainer buttons;
         private MarginContainer mainButtonsMenu;
         private MarginContainer attackButtonsMenu;
-        private Label combatLabel;
+        public Label combatLabel;
         private CombatTurnResultUI combatTurnResult;
         private Label playerHealthLabel;
         private HealthIcon playerHealthIcon;
-        private TextureRect playerWeapon;
+        public TextureRect playerWeapon;
         private TextureProgress enemyHealthBar;
         private Tween enemyHealthBarTween;
-        private CombatEnemyTexture enemyImage;
+        public CombatEnemyTexture enemyImage;
         private CombatAttackAnim attackEffect;
         private Control damageSpawnArea;
         private AnimationList effectAnimations;
         private Control particlePos;
+
 
         public override void _Ready()
         {
@@ -65,7 +67,7 @@ namespace HeroesGuild.Combat
             ResetUI();
         }
 
-        private void ResetUI()
+        public void ResetUI()
         {
             HideTurnResult();
             buttons.Visible = true;
@@ -86,48 +88,48 @@ namespace HeroesGuild.Combat
             combatLabel.Visible = false;
         }
 
-        private void HideTurnResult()
+        public void HideTurnResult()
         {
             combatTurnResult.winContainer.Visible = false;
             combatTurnResult.compareContainer.Visible = false;
         }
 
-        private void SetPlayerHealthValue(int maxHealth, int currentHealth)
+        public void SetPlayerHealthValue(int maxHealth, int currentHealth)
         {
             playerHealthLabel.Text = $"{currentHealth}";
         }
 
-        private void SetEnemyHealthValue(int maxHealth, int currentHealth)
+        public void SetEnemyHealthValue(int maxHealth, int currentHealth)
         {
             enemyHealthBar.MaxValue = maxHealth;
             enemyHealthBar.Value = currentHealth;
         }
 
-        private void UpdatePlayerHealthValue(int oldHealth, int newHealth)
+        public void UpdatePlayerHealthValue(int oldHealth, int newHealth)
         {
             playerHealthLabel.Text = $"{newHealth}";
         }
 
-        private void UpdateEnemyHealthValue(int oldHealth, int newHealth)
+        public void UpdateEnemyHealthValue(int oldHealth, int newHealth)
         {
             enemyHealthBarTween.InterpolateProperty(enemyHealthBarTween, "value", enemyHealthBar.Value, newHealth,
                 1f, Tween.TransitionType.Cubic, Tween.EaseType.Out);
             enemyHealthBarTween.Start();
         }
 
-        private void SetButtonVisible(bool visible = true)
+        public void SetButtonsVisible(bool visible = true)
         {
             buttons.Visible = visible;
         }
 
-        private async void ShowTurnResult(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction)
+        public async Task ShowTurnResult(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction)
         {
             combatTurnResult.Visible = true;
             await combatTurnResult.ShowTurnCompare(playerAction, enemyAction, 1.5f);
             combatTurnResult.ShowWinResult(playerAction, enemyAction);
         }
 
-        private async void ShowCombatLabel(string text, float duration = 0f)
+        public async Task ShowCombatLabel(string text, float duration = 0f)
         {
             combatLabel.Text = text;
             combatLabel.Visible = true;
@@ -139,7 +141,7 @@ namespace HeroesGuild.Combat
             }
         }
 
-        private async void AnimatePlayerAttack(PlayerCombat playerCombat, CombatUtil.CombatAction action)
+        public async Task AnimatePlayerAttack(PlayerCombat playerCombat, CombatUtil.CombatAction action)
         {
             if (action == CombatUtil.CombatAction.Counter)
             {
@@ -154,7 +156,7 @@ namespace HeroesGuild.Combat
             await ToSignal(attackEffect, nameof(CombatAttackAnim.EffectDone));
         }
 
-        private async void AnimatePlayerHurt(int damage, bool enemyCountered = false)
+        public async Task AnimatePlayerHurt(int damage, bool enemyCountered = false)
         {
             if (enemyCountered)
             {
@@ -168,7 +170,7 @@ namespace HeroesGuild.Combat
             await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
         }
 
-        private async void AnimationEnemyHurt(BaseEnemy enemyInstance, int damage)
+        public async void AnimateEnemyHurt(BaseEnemy enemyInstance, int damage)
         {
             SpawnEnemyDamageLabel(damage);
             enemyImage.Shake(1, 15, 1);
@@ -245,7 +247,7 @@ namespace HeroesGuild.Combat
             }
         }
 
-        private void UpdateParticle(BaseEntity enemyInstance)
+        public void UpdateParticle(BaseEntity enemyInstance)
         {
             foreach (var particleName in enemyInstance.StatusEffects.Keys
                 .Select(statusEffectsKey => statusEffectsKey.ToLower())

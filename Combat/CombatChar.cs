@@ -109,7 +109,7 @@ namespace HeroesGuild.Combat
 
         public abstract string GetDamageType(CombatUtil.CombatAction action);
 
-        protected abstract Task<CombatUtil.CombatAction> GetAction();
+        public abstract Task<CombatUtil.CombatAction> GetAction();
         public abstract int GetBaseDamage(CombatUtil.CombatAction action);
         
     }

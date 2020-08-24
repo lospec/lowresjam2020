@@ -66,7 +66,7 @@ namespace HeroesGuild.Combat
             };
         }
 
-        protected override async Task<CombatUtil.CombatAction> GetAction()
+        public override async Task<CombatUtil.CombatAction> GetAction()
         {
             if (new[] {"Confused", "Asleep", "Frozen"}
                 .Any(key => CharacterInstance.StatusEffects.ContainsKey(key)))
