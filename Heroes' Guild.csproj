@@ -82,6 +82,7 @@
     <Compile Include="data\IDataRecord.cs" />
     <Compile Include="data\ItemRecord.cs" />
     <Compile Include="Entities\BaseEntity\BaseEntity.cs" />
+    <Compile Include="Entities\enemies\base_enemy\BaseEnemy.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\character_selection\Character.cs" />

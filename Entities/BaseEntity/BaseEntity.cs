@@ -56,7 +56,7 @@ namespace HeroesGuild.Entities.BaseEntity
         }
 
 
-        [Signal] delegate void HealthChanged(int oldHealth, int newHealth);
+        [Signal] public delegate void HealthChanged(int oldHealth, int newHealth);
 
         [Export] public int MaxHealth = 10;
         [Export] public float MoveSpeed = 10;
@@ -70,7 +70,7 @@ namespace HeroesGuild.Entities.BaseEntity
         private Vector2 currentPosition;
         private Vector2 oldPosition;
 
-        protected Sprite sprite;
+        protected Sprite Sprite;
         private AnimationPlayer animationPlayer;
 
         private int _health;
@@ -89,7 +89,7 @@ namespace HeroesGuild.Entities.BaseEntity
 
         public override void _Ready()
         {
-            sprite = GetNode<Sprite>("Sprite");
+            Sprite = GetNode<Sprite>("Sprite");
             animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
             if (MaxHealth <= 0)
             {
@@ -169,7 +169,7 @@ namespace HeroesGuild.Entities.BaseEntity
         {
             if (Velocity.Length() > 0)
             {
-                sprite.FlipH = Velocity.x < 0;
+                Sprite.FlipH = Velocity.x < 0;
             }
 
             var oldAnimation = currentAnimation;

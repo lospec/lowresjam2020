@@ -51,12 +51,14 @@ namespace HeroesGuild.Entities.Player
             EquippedArmor = saveData.EquippedArmor;
             MaxHealth = saveData.MaxHealth;
             Health = saveData.Health;
-
+            
+            base._Ready();
+            
             hudHealthLabel.Text = $"{Health}/{MaxHealth}";
             var texture =
                 ResourceLoader.Load<Texture>(
                     $"res://Entities/Player/spritesheets/{saveData.CharacterName}_Overworld.png");
-            sprite.Texture = texture;
+            Sprite.Texture = texture;
         }
 
         private void OnPlayerTree_Exiting()

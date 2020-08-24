@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Entities/enemies/base_enemy/base_enemy.gd" type="Script" id=1]
+[ext_resource path="res://Entities/enemies/base_enemy/BaseEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=2]
 [ext_resource path="res://AI/StateMachineNode.tscn" type="PackedScene" id=3]
 
@@ -11,9 +11,10 @@ radius = 12.1515
 "enemies",
 ] instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+EnemyName = ""
 
 [node name="StateMachine" parent="." index="2" instance=ExtResource( 3 )]
-active = true
+Active = true
 
 [node name="IsSpawnSafeArea2D" type="Area2D" parent="." index="3"]
 

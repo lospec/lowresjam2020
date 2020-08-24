@@ -2,6 +2,7 @@ using System;
 using Godot;
 using Godot.Collections;
 using HeroesGuild.Entities.BaseEntity;
+using HeroesGuild.Entities.enemies.base_enemy;
 
 namespace HeroesGuild.AI
 {
@@ -41,9 +42,9 @@ namespace HeroesGuild.AI
             Entity = GetParent<BaseEntity>();
             circleArea = GetNode<Area2D>("CircleArea2D");
             collisionCircleShape = circleArea.GetNode<CollisionShape2D>("CollisionShape2D");
-            if (Entity.HasSignal("stats_loaded")) // TODO: replace with nameof
+            if (Entity.HasSignal(nameof(BaseEnemy.StatsLoaded)))
             {
-                await ToSignal(Entity, "stats_loaded"); // TODO: replace with nameof
+                await ToSignal(Entity, nameof(BaseEnemy.StatsLoaded));
             }
 
             OriginPosition = Entity.Position;
