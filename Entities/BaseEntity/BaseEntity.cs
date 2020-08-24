@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using HeroesGuild.StatusEffect.Effects;
 
 namespace HeroesGuild.Entities.BaseEntity
 {
@@ -65,7 +66,8 @@ namespace HeroesGuild.Entities.BaseEntity
         public Vector2 realVelocity = Vector2.Zero;
         public Animations currentAnimation = Animations.IdleDown;
         public int animationFrame = 0;
-        public List<string> statusEffects = new List<string>();
+        public Dictionary<string, StatusEffect.Bases.StatusEffect> StatusEffects =
+            new Dictionary<string, StatusEffect.Bases.StatusEffect>();
 
         private Vector2 currentPosition;
         private Vector2 oldPosition;
@@ -205,9 +207,37 @@ namespace HeroesGuild.Entities.BaseEntity
         }
 
 
-        public void AddStatusEffect()
+        public void AddStatusEffect(string statusEffectName)
         {
-            // TODO: StatusEffect
+            StatusEffect.Bases.StatusEffect statusEffect = statusEffectName switch
+            {
+                "Asleep" => new Asleep(),
+                "Confused" => new Confused(),
+                "Frozen" => new Frozen(),
+                "OnFire" => new OnFire(),
+                "Poison" => new Poison(),
+                "Weak" => new Weak(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            if (statusEffectName == "OnFire" && StatusEffects.ContainsKey("Frozen"))
+            {
+                StatusEffects.Remove("Frozen");
+                return;
+            }
+
+            if (statusEffectName == "Frozen" && StatusEffects.ContainsKey("OnFire"))
+            {
+                StatusEffects.Remove("OnFire");
+                return;
+            }
+
+            if (StatusEffects.ContainsKey(statusEffect.StatusEffectName))
+            {
+                StatusEffects.Remove(statusEffect.StatusEffectName);
+            }
+
+            StatusEffects.Add(statusEffect.StatusEffectName, statusEffect);
         }
     }
 }

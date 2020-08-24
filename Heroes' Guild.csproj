@@ -89,6 +89,13 @@
     <Compile Include="Entities\enemies\base_enemy\BaseEnemy.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatusEffect\Bases\StatusEffect.cs" />
+    <Compile Include="StatusEffect\Effects\Asleep.cs" />
+    <Compile Include="StatusEffect\Effects\Confused.cs" />
+    <Compile Include="StatusEffect\Effects\Frozen.cs" />
+    <Compile Include="StatusEffect\Effects\OnFire.cs" />
+    <Compile Include="StatusEffect\Effects\Poison.cs" />
+    <Compile Include="StatusEffect\Effects\Weak.cs" />
     <Compile Include="UI\character_selection\Character.cs" />
     <Compile Include="UI\character_selection\CharacterSelector.cs" />
     <Compile Include="UI\dropped_items\DroppedItems.cs" />
