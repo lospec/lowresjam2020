@@ -6,7 +6,7 @@
 [ext_resource path="res://Combat/UI/Backgrounds/player_health_hud.png" type="Texture" id=4]
 [ext_resource path="res://Combat/Font Resources/Mini3x4.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Combat/UI/Health/player_health_icon.png" type="Texture" id=6]
-[ext_resource path="res://Combat/Combat.gd" type="Script" id=7]
+[ext_resource path="res://Combat/Combat.cs" type="Script" id=7]
 [ext_resource path="res://Combat/UI/Buttons/Main/Attack Normal.png" type="Texture" id=8]
 [ext_resource path="res://Combat/UI/Buttons/Attacks/Counter Hover.png" type="Texture" id=9]
 [ext_resource path="res://Combat/UI/Buttons/Attacks/Heavy Normal.png" type="Texture" id=10]
@@ -19,7 +19,7 @@
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Hover.png" type="Texture" id=17]
 [ext_resource path="res://Combat/UI/Buttons/Main/Bag Hover.png" type="Texture" id=18]
 [ext_resource path="res://Combat/UI/Buttons/Main/Flee Normal.png" type="Texture" id=19]
-[ext_resource path="res://Combat/CombatMenu.gd" type="Script" id=20]
+[ext_resource path="res://Combat/HealthIcon.cs" type="Script" id=20]
 [ext_resource path="res://Combat/Font Resources/CombatFont.tres" type="DynamicFont" id=21]
 [ext_resource path="res://Combat/PlayerCombat.cs" type="Script" id=22]
 [ext_resource path="res://Combat/EnemyCombat.cs" type="Script" id=23]
@@ -29,12 +29,12 @@
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPProgress.png" type="Texture" id=27]
 [ext_resource path="res://Combat/UI/Health/UIBattleEnemyHPUnder.png" type="Texture" id=28]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_3.png" type="Texture" id=29]
-[ext_resource path="res://Combat/CombatAttackAnim.gd" type="Script" id=30]
-[ext_resource path="res://Combat/CombatEnemyTexture.gd" type="Script" id=31]
+[ext_resource path="res://Combat/CombatTurnResultUI.cs" type="Script" id=30]
+[ext_resource path="res://Combat/CombatAttackAnim.cs" type="Script" id=31]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_0.png" type="Texture" id=32]
-[ext_resource path="res://Combat/CombatTurnResultUI.gd" type="Script" id=33]
-[ext_resource path="res://Combat/HealthIcon.gd" type="Script" id=34]
-[ext_resource path="res://Combat/Effects/animations/AnimationList.gd" type="Script" id=35]
+[ext_resource path="res://Combat/CombatMenu.cs" type="Script" id=33]
+[ext_resource path="res://Combat/Effects/animations/AnimationList.cs" type="Script" id=34]
+[ext_resource path="res://Combat/CombatEnemyTexture.cs" type="Script" id=35]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_1.png" type="Texture" id=36]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_2.png" type="Texture" id=37]
 [ext_resource path="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_4.png" type="Texture" id=38]
@@ -85,7 +85,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 20 )
+script = ExtResource( 33 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -143,7 +143,7 @@ margin_bottom = 37.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource( 1 )
-script = ExtResource( 31 )
+script = ExtResource( 35 )
 
 [node name="ParticlePos" type="Control" parent="CombatMenu/VBoxContainer/EnemyHUD/VBoxContainer/Enemy"]
 margin_left = 16.0
@@ -195,7 +195,7 @@ margin_top = 1.0
 margin_right = 3.0
 margin_bottom = 4.0
 texture = ExtResource( 6 )
-script = ExtResource( 34 )
+script = ExtResource( 20 )
 
 [node name="Health" type="Label" parent="CombatMenu/VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer"]
 margin_left = 4.0
@@ -365,7 +365,7 @@ custom_constants/margin_right = 3
 custom_constants/margin_top = 1
 custom_constants/margin_left = 3
 custom_constants/margin_bottom = 1
-script = ExtResource( 33 )
+script = ExtResource( 30 )
 
 [node name="WinResultContainer" type="VBoxContainer" parent="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult"]
 visible = false
@@ -507,7 +507,7 @@ mouse_filter = 2
 texture = SubResource( 2 )
 expand = true
 stretch_mode = 6
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -522,7 +522,7 @@ __meta__ = {
 }
 
 [node name="EffectAnimationList" type="Node" parent="CombatMenu"]
-script = ExtResource( 35 )
+script = ExtResource( 34 )
 
 [node name="WeaponContainer" type="MarginContainer" parent="CombatMenu"]
 margin_right = 64.0
@@ -545,15 +545,15 @@ script = ExtResource( 22 )
 
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 23 )
-[connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="_on_CombatMenu_gui_input"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="_on_Attack_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="_on_Bag_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="_on_Flee_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="_on_Flee_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="_on_Back_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="_on_Counter_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="CombatMenu" method="_on_Counter_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="_on_Quick_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="CombatMenu" method="_on_Quick_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="_on_Heavy_pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="CombatMenu" method="_on_Heavy_pressed"]
+[connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="OnCombatMenu_GUIInput"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="OnAttack_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="OnBag_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="OnFlee_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="OnFlee_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="OnBack_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="OnCounter_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="CombatMenu" method="OnCounter_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="OnQuick_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="CombatMenu" method="OnQuick_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="OnHeavy_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="CombatMenu" method="OnHeavy_Pressed"]
