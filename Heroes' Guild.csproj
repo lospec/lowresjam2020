@@ -78,10 +78,16 @@
     <Compile Include="AI\StateMachine.cs" />
     <Compile Include="Combat\ColorValues.cs" />
     <Compile Include="Combat\Combat.cs" />
+    <Compile Include="Combat\CombatAnimationUtil.cs" />
+    <Compile Include="Combat\CombatAttackAnim.cs" />
     <Compile Include="Combat\CombatChar.cs" />
+    <Compile Include="Combat\CombatEnemyTexture.cs" />
     <Compile Include="Combat\CombatMenu.cs" />
     <Compile Include="Combat\CombatUtil.cs" />
+    <Compile Include="Combat\CombatTurnResultUI.cs" />
+    <Compile Include="Combat\Effects\animations\AnimationList.cs" />
     <Compile Include="Combat\EnemyCombat.cs" />
+    <Compile Include="Combat\HealthIcon.cs" />
     <Compile Include="Combat\PlayerCombat.cs" />
     <Compile Include="Combat\ShakableControl.cs" />
     <Compile Include="data\CharacterRecord.cs" />

@@ -107,7 +107,7 @@ namespace HeroesGuild.Combat
 
         protected abstract string GetStatusEffect(CombatUtil.CombatAction action);
 
-        protected abstract string GetDamageType(CombatUtil.CombatAction action);
+        public abstract string GetDamageType(CombatUtil.CombatAction action);
 
         protected abstract Task<CombatUtil.CombatAction> GetAction();
         public abstract int GetBaseDamage(CombatUtil.CombatAction action);

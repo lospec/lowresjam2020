@@ -2,7 +2,7 @@ using Godot;
 
 namespace HeroesGuild.Combat
 {
-    public class ShakableControl : Control
+    public class CombatEnemyTexture : TextureRect
     {
         private float _duration = 0f;
         private float _periodInMs = 0f;
@@ -12,8 +12,11 @@ namespace HeroesGuild.Combat
         private Vector2 _previous = Vector2.Zero;
         private Vector2 _lastOffset = Vector2.Zero;
 
+        public Vector2 originalPosition;
+
         public override void _Ready()
         {
+            originalPosition = RectPosition;
             SetProcess(true);
         }
 

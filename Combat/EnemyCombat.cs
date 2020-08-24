@@ -49,7 +49,7 @@ namespace HeroesGuild.Combat
             _ => "none"
         };
 
-        protected override string GetDamageType(CombatUtil.CombatAction action)
+        public override string GetDamageType(CombatUtil.CombatAction action)
         {
             switch (action)
             {

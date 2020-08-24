@@ -54,7 +54,7 @@ namespace HeroesGuild.Combat
             };
         }
 
-        protected override string GetDamageType(CombatUtil.CombatAction action)
+        public override string GetDamageType(CombatUtil.CombatAction action)
         {
             var weapon = PlayerWeaponRecord;
             return action switch
