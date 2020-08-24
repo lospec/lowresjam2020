@@ -69,6 +69,7 @@ position = Vector2( 0, 0 )
 shape = SubResource( 5 )
 
 [node name="HUD" parent="." index="8" instance=ExtResource( 3 )]
+script = null
 
 [node name="MarginContainer" parent="HUD" index="0"]
 mouse_filter = 2
