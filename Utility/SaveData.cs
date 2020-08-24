@@ -5,12 +5,12 @@ namespace HeroesGuild.Utility
 {
     public class SaveData : Node
     {
-        private const int DEFAULT_COINS = 100;
-        private const string DEFAULT_WEAPON = "Stick";
-        private const string DEFAULT_ARMOR = "";
-        private const int DEFAULT_HEALTH = 20;
-        private static readonly Vector2 DefaultWorldPosition = new Vector2(2578, 1517);
-        private static readonly List<string> DefaultInventory = new List<string> {"Stick", "Hotdog"};
+        public const int DEFAULT_COINS = 100;
+        public const string DEFAULT_WEAPON = "Stick";
+        public const string DEFAULT_ARMOR = "";
+        public const int DEFAULT_HEALTH = 20;
+        public static readonly Vector2 DefaultWorldPosition = new Vector2(2578, 1517);
+        public static readonly List<string> DefaultInventory = new List<string> {"Stick", "Hotdog"};
 
         public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
         public string CharacterName { get; set; } = "Jason";

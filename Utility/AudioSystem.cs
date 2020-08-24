@@ -126,7 +126,7 @@ public class AudioSystem : Node
     private const float FADE_IN_START_VOLUME = -80f;
     private const float FADE_IN_DURATION = 0.5f;
 
-    public Music CurrentPlayingMusic = Music.None;
+    public static Music CurrentPlayingMusic = Music.None;
 
     private float _musicVolume;
     private float _sfxVolume;
@@ -166,10 +166,11 @@ public class AudioSystem : Node
     }
 
     // Godot signals doesnt work when optional parameters are not provided, hence this overload method 
-    public void PlayMusic(Music music, float volumeDb = 0f)
+    public static void PlayMusic(Music music, float volumeDb = 0f)
     {
-        PlayMusic(music, volumeDb, 1f);
+        instance.PlayMusic(music, volumeDb, 1f);
     }
+
     public void PlayMusic(Music music, float volumeDb, float pitchScale, bool fadeIn = true)
     {
         CurrentPlayingMusic = music;
@@ -190,10 +191,10 @@ public class AudioSystem : Node
         _musicPlayer.Play();
     }
 
-    public void StopMusic()
+    public static void StopMusic()
     {
         CurrentPlayingMusic = Music.None;
-        _musicPlayer.Stop();
+        instance._musicPlayer.Stop();
     }
 
     public static AudioStreamPlayer2D PlaySFX(SFX sfx, Vector2? audioPosition = null, float volumeDb = 0f,
@@ -212,7 +213,7 @@ public class AudioSystem : Node
         sfxPlayer.AddToGroup("sfx_players");
         return sfxPlayer;
     }
-    
+
 
     private void OnSFXPlayer_Finished(Node sfxPlayer)
     {

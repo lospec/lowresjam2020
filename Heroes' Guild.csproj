@@ -76,6 +76,9 @@
     <Compile Include="AI\Conditions\AI_Condition_TargetInRange.cs" />
     <Compile Include="AI\Conditions\AI_State_Condition.cs" />
     <Compile Include="AI\StateMachine.cs" />
+    <Compile Include="Combat\Combat.cs" />
+    <Compile Include="Combat\CombatMenu.cs" />
+    <Compile Include="Combat\ShakableControl.cs" />
     <Compile Include="data\CharacterRecord.cs" />
     <Compile Include="data\Data.cs" />
     <Compile Include="data\EnemyRecord.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\character_selection\Character.cs" />
     <Compile Include="UI\character_selection\CharacterSelector.cs" />
+    <Compile Include="UI\dropped_items\DroppedItems.cs" />
     <Compile Include="UI\inventory\InventoryItem.cs" />
     <Compile Include="UI\inventory\ItemStatPopUp.cs" />
     <Compile Include="UI\inventory\item_info\ItemInfoMenu.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Utility\Transitions.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="World\EnemySpawn\EnemySpawn.cs" />
+    <Compile Include="World\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI" />

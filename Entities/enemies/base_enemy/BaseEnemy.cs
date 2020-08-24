@@ -30,7 +30,7 @@ namespace HeroesGuild.Entities.enemies.base_enemy
             }
         }
 
-        private async void LoadEnemy(string enemyDataName)
+        public async void LoadEnemy(string enemyDataName)
         {
             var data = Singleton.Get<Data>(this);
             if (!data.EnemyData.ContainsKey(enemyDataName))

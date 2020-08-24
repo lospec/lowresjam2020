@@ -81,7 +81,7 @@ namespace HeroesGuild.UI.pause_menu
         public Menu CurrentMenu = Menu.Inventory;
         public Player PlayerInstance;
 
-        private Control pauseMenuControl;
+        public Control pauseMenuControl;
         private MarginContainer pauseMenuMargin;
         private VBoxContainer pauseMenuVBox;
         private MarginContainer inventoryItemsMargin;
@@ -329,7 +329,7 @@ namespace HeroesGuild.UI.pause_menu
             TogglePauseCombat(playerInstance);
         }
 
-        private void TogglePauseCombat(Player player)
+        public void TogglePauseCombat(Player player)
         {
             PlayerInstance = player;
             pauseMenuControl.Visible = !pauseMenuControl.Visible;
