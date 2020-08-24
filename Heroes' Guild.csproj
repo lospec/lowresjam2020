@@ -77,6 +77,7 @@
     <Compile Include="AI\Conditions\AI_State_Condition.cs" />
     <Compile Include="AI\StateMachine.cs" />
     <Compile Include="Combat\Combat.cs" />
+    <Compile Include="Combat\CombatChar.cs" />
     <Compile Include="Combat\CombatMenu.cs" />
     <Compile Include="Combat\ShakableControl.cs" />
     <Compile Include="data\CharacterRecord.cs" />
