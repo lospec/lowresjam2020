@@ -59,7 +59,7 @@ namespace HeroesGuild.data
         public string HeavyStatusEffect { get; set; }
 
         [JsonProperty("heavy_effect_chance")]
-        public float HeavyEffecttChance { get; set; }
+        public float HeavyEffectChance { get; set; }
 
         [JsonProperty("counter_damage")]
         public int CounterDamage { get; set; }
