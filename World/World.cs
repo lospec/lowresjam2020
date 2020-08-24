@@ -34,7 +34,8 @@ namespace HeroesGuild.World
             player = map.GetNode<Player>("Player");
             droppedItemsGUI = GetNode<DroppedItems>("DroppedItems");
 
-            // TODO: Bird/Cloud System
+            player.birdsSystem.Visible = true;
+            player.cloudsSystem.Visible = true;
 
             player.Position = Singleton.Get<SaveData>(this).WorldPosition;
 

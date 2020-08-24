@@ -28,9 +28,8 @@ namespace HeroesGuild.Entities.Player
         private Camera2D camera;
         private Area2D collisionDetector;
 
-        // TODO: Bird/Cloud System
-        private Node birdSystem;
-        private Node cloudSystem;
+        public Node2D birdsSystem;
+        public Node2D cloudsSystem;
 
         public override void _Ready()
         {
@@ -40,9 +39,8 @@ namespace HeroesGuild.Entities.Player
             deskDetector = GetNode<Area2D>("DeskDetector");
             camera = GetNode<Camera2D>("Camera2D");
             collisionDetector = GetNode<Area2D>("CollisionDetector");
-            // TODO: Bird/Cloud System
-            birdSystem = GetNode<Node>("BirdsSystem");
-            cloudSystem = GetNode<Node>("CloudsSystem");
+            birdsSystem = GetNode<Node2D>("BirdsSystem");
+            cloudsSystem = GetNode<Node2D>("CloudsSystem");
 
             var saveData = Singleton.Get<SaveData>(this);
             Coins = saveData.Coins;
