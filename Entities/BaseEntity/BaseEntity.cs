@@ -202,7 +202,7 @@ namespace HeroesGuild.Entities.BaseEntity
         {
             if (IsInGroup("PlayerGroup"))
             {
-                AudioSystem.PlaySFX(AudioSystem.SFX.Footstep1 + sfxOffset, null, -35);
+                AudioSystem.PlaySFX(AudioSystem.SFX.Footstep1 + sfxOffset, Position, -35);
             }
         }
 
