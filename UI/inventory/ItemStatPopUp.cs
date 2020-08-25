@@ -65,7 +65,7 @@ namespace HeroesGuild.UI.inventory
                 return;
             }
 
-            var data = Singleton.Get<Data>(this);
+            var data = Autoload.Get<Data>();
             if (!data.ItemData.ContainsKey(itemName))
             {
                 GD.PushError($"Item name {itemName} not found");

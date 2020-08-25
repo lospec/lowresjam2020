@@ -42,7 +42,7 @@ namespace HeroesGuild.Entities.Player
             birdsSystem = GetNode<Node2D>("BirdsSystem");
             cloudsSystem = GetNode<Node2D>("CloudsSystem");
 
-            var saveData = Singleton.Get<SaveData>(this);
+            var saveData = Autoload.Get<SaveData>();
             Coins = saveData.Coins;
             Inventory = saveData.Inventory;
             EquippedWeapon = saveData.EquippedWeapon;
@@ -61,7 +61,7 @@ namespace HeroesGuild.Entities.Player
 
         private void OnPlayerTree_Exiting()
         {
-            var saveData = Singleton.Get<SaveData>(this);
+            var saveData = Autoload.Get<SaveData>();
             saveData.Coins = Coins;
             saveData.Inventory = Inventory;
             saveData.EquippedWeapon = EquippedWeapon;

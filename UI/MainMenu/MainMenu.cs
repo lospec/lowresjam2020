@@ -66,7 +66,7 @@ namespace HeroesGuild.UI.MainMenu
             AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, Vector2.Zero, -15);
             _changing_scene = true;
             var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f);
-            var transitions = Singleton.Get<Transitions>(this);
+            var transitions = Autoload.Get<Transitions>();
             await transitions.ChangeSceneDoubleTransition(CharacterSelectionScenePath, transitionParams);
         }
     }

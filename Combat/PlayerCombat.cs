@@ -13,7 +13,7 @@ namespace HeroesGuild.Combat
         [Signal] public delegate void ActionChosen(CombatUtil.CombatAction action);
 
         private new Player CharacterInstance => (Player) base.CharacterInstance;
-        private ItemRecord PlayerWeaponRecord => Singleton.Get<Data>(this)
+        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
             .ItemData[CharacterInstance.EquippedWeapon];
 
         public override int GetBaseDamage(CombatUtil.CombatAction action)

@@ -11,7 +11,7 @@ namespace HeroesGuild.UI.SplashScreen
 
         public override void _Ready()
         {
-            Singleton.Get<PaletteSwap>(this).Enabled = false;
+            Autoload.Get<PaletteSwap>().Enabled = false;
         }
 
         public override void _UnhandledInput(InputEvent @event)
@@ -38,8 +38,8 @@ namespace HeroesGuild.UI.SplashScreen
         {
             goingToMainMenu = true;
             var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.15f);
-            await Singleton.Get<Transitions>(this).ChangeSceneDoubleTransition(MainMenuScenePath, transitionParams);
-            Singleton.Get<PaletteSwap>(this).Enabled = true;
+            await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(MainMenuScenePath, transitionParams);
+            Autoload.Get<PaletteSwap>().Enabled = true;
         }
     }
 }

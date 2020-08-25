@@ -151,7 +151,7 @@ namespace HeroesGuild.UI.inventory.item_info
             itemIcon.Texture =
                 GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
 
-            var data = Singleton.Get<Data>(this);
+            var data = Autoload.Get<Data>();
             if (!data.ItemData.ContainsKey(itemName))
             {
                 return;
@@ -223,7 +223,7 @@ namespace HeroesGuild.UI.inventory.item_info
         private void OnEquip_Pressed()
         {
             AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, equipButton.RectGlobalPosition, -15);
-            var data = Singleton.Get<Data>(this).ItemData;
+            var data = Autoload.Get<Data>().ItemData;
             if (!data.ContainsKey(SelectedItem))
             {
                 return;
@@ -254,7 +254,7 @@ namespace HeroesGuild.UI.inventory.item_info
         private async void OnUse_Pressed()
         {
             AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, useButton.RectGlobalPosition, -15);
-            var data = Singleton.Get<Data>(this).ItemData;
+            var data = Autoload.Get<Data>().ItemData;
             if (!data.ContainsKey(SelectedItem))
             {
                 return;

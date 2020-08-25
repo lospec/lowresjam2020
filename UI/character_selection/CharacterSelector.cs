@@ -48,9 +48,9 @@ public class CharacterSelector : MarginContainer
 
     private void UpdateCharacters()
     {
-        var saveData = Singleton.Get<SaveData>(this);
+        var saveData = Autoload.Get<SaveData>();
 
-        foreach (var keyValuePair in Singleton.Get<Data>(this).CharacterData)
+        foreach (var keyValuePair in Autoload.Get<Data>().CharacterData)
         {
             var characterName = keyValuePair.Key;
             var characterRecord = keyValuePair.Value;
@@ -119,9 +119,9 @@ public class CharacterSelector : MarginContainer
 
     private async void OnSelect_Pressed()
     {
-        Singleton.Get<SaveData>(this).CharacterName = SelectedCharacterName;
+        Autoload.Get<SaveData>().CharacterName = SelectedCharacterName;
         var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f);
-        await Singleton.Get<Transitions>(this).ChangeSceneDoubleTransition(WORLD_SCENE_PATH, transitionParams);
+        await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(WORLD_SCENE_PATH, transitionParams);
     }
 
     private void OnButton_Pressed(Control button)

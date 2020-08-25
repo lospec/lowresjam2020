@@ -38,7 +38,7 @@ namespace HeroesGuild.UI.dropped_items
         {
             GetTree().Paused = true;
             _playerInstance = playerInstance;
-            var enemyRecord = Singleton.Get<Data>(this).EnemyData[enemyName];
+            var enemyRecord = Autoload.Get<Data>().EnemyData[enemyName];
             var coinsDropped = (int) GD.RandRange(enemyRecord.CoinDropAmount * MIN_COIN_DROP, enemyRecord
                 .CoinDropAmount * MAX_COIN_DROP + 1);
             if (coinsDropped <= 0 && enemyRecord.CoinDropAmount > 0)

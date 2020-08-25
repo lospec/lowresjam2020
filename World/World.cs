@@ -38,7 +38,7 @@ namespace HeroesGuild.World
             player.birdsSystem.Visible = true;
             player.cloudsSystem.Visible = true;
 
-            player.Position = Singleton.Get<SaveData>(this).WorldPosition;
+            player.Position = Autoload.Get<SaveData>().WorldPosition;
 
             if (AudioSystem.CurrentPlayingMusic != AudioSystem.Music.Overworld)
             {
@@ -81,7 +81,7 @@ namespace HeroesGuild.World
                     return;
                 }
 
-                var data = Singleton.Get<Data>(this);
+                var data = Autoload.Get<Data>();
                 if (!data.EnemyData.ContainsKey(enemyName))
                 {
                     GD.PushError($"{enemySpawn} enemy spawn has a {enemyName} enemy with no data attached.");
@@ -132,12 +132,12 @@ namespace HeroesGuild.World
             if (!body.IsInGroup("enemies"))
             {
                 var offset = new Vector2(0, 5);
-                Singleton.Get<SaveData>(this).WorldPosition = player.Position + offset;
+                Autoload.Get<SaveData>().WorldPosition = player.Position + offset;
 
                 AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, null, -30);
                 var transitionParams =
                     new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.3f);
-                await Singleton.Get<Transitions>(this)
+                await Autoload.Get<Transitions>()
                     .ChangeSceneDoubleTransition("res://guild_hall/guild_hall.tscn", transitionParams);
             }
         }
@@ -178,7 +178,7 @@ namespace HeroesGuild.World
 
         private async void GameOver()
         {
-            var saveData = Singleton.Get<SaveData>(this);
+            var saveData = Autoload.Get<SaveData>();
             saveData.WorldPosition = SaveData.DefaultWorldPosition;
             saveData.Coins = SaveData.DEFAULT_COINS;
             saveData.Inventory = SaveData.DefaultInventory;
@@ -189,7 +189,7 @@ namespace HeroesGuild.World
             player.Health = SaveData.DEFAULT_HEALTH;
 
             AudioSystem.StopMusic();
-            await Singleton.Get<Transitions>(this).ChangeSceneDoubleTransition("res://UI/Main Menu/Main Menu.tscn",
+            await Autoload.Get<Transitions>().ChangeSceneDoubleTransition("res://UI/Main Menu/Main Menu.tscn",
                 new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f));
         }
 

@@ -120,7 +120,7 @@
     <Compile Include="Utility\AudioSystem.cs" />
     <Compile Include="Utility\PaletteSwap.cs" />
     <Compile Include="Utility\SaveData.cs" />
-    <Compile Include="Utility\Singleton.cs" />
+    <Compile Include="Utility\Autoload.cs" />
     <Compile Include="Utility\Transitions.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\WeaponUtil.cs" />

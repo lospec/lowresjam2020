@@ -42,7 +42,7 @@ namespace HeroesGuild.Combat
                     break;
                 case BaseEnemy enemy:
                 {
-                    var enemyRecord = Singleton.Get<Data>(this).EnemyData[enemy.EnemyName];
+                    var enemyRecord = Autoload.Get<Data>().EnemyData[enemy.EnemyName];
                     var sfx = enemyRecord.Race switch
                     {
                         "Beast" => AudioSystem.SFX.BeastHurt,

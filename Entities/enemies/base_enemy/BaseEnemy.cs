@@ -32,7 +32,7 @@ namespace HeroesGuild.Entities.enemies.base_enemy
 
         public async void LoadEnemy(string enemyDataName)
         {
-            var data = Singleton.Get<Data>(this);
+            var data = Autoload.Get<Data>();
             if (!data.EnemyData.ContainsKey(enemyDataName))
             {
                 GD.PushError($"Enemy data for {enemyDataName} not found");
