@@ -78,6 +78,7 @@ namespace HeroesGuild.Entities.Player
             inputVelocity.y = Input.GetActionStrength("player_move_down")
                               - Input.GetActionStrength("player_move_up");
             Velocity = inputVelocity.Normalized() * MoveSpeed;
+            base._PhysicsProcess(delta);
         }
 
         public override void _Process(float delta)
