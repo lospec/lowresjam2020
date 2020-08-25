@@ -7,7 +7,7 @@ namespace HeroesGuild.UI.inventory
         public string ItemName;
 
         private TextureRect hoverSignifier;
-        private TextureButton itemTextureButton;
+        public TextureButton itemTextureButton;
 
         public Texture InventoryItemResource =>
             GD.Load<Texture>($"res://items/inventory_sprites/{ItemName.ToLower().Replace(" ", "_")}.png");

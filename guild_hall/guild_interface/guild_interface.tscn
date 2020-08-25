@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://guild_hall/guild_interface/guild_interface.gd" type="Script" id=1]
+[ext_resource path="res://guild_hall/guild_interface/GuildInterface.cs" type="Script" id=1]
 [ext_resource path="res://guild_hall/guild_interface/deposit/button_normal.png" type="Texture" id=2]
 [ext_resource path="res://guild_hall/guild_interface/sell/button_normal.png" type="Texture" id=3]
 [ext_resource path="res://guild_hall/guild_interface/sell/button_pressed.png" type="Texture" id=4]
@@ -329,6 +329,6 @@ visible = false
 
 [node name="MarketItemPriceMargin" parent="." instance=ExtResource( 6 )]
 visible = false
-[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DecreaseAmount" to="." method="_on_DecreaseAmount_pressed"]
-[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DepositButtonMargin/DepositButtonVBox/Deposit" to="." method="_on_Deposit_pressed"]
-[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/IncreaseAmount" to="." method="_on_IncreaseAmount_pressed"]
+[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DecreaseAmount" to="." method="OnDecreaseAmount_Pressed"]
+[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DepositButtonMargin/DepositButtonVBox/Deposit" to="." method="OnDeposit_Pressed"]
+[connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/IncreaseAmount" to="." method="OnIncreaseAmount_Pressed"]

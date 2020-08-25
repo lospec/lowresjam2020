@@ -98,6 +98,12 @@
     <Compile Include="Entities\BaseEntity\BaseEntity.cs" />
     <Compile Include="Entities\enemies\base_enemy\BaseEnemy.cs" />
     <Compile Include="Entities\Player\Player.cs" />
+    <Compile Include="guild_hall\chest\Chest.cs" />
+    <Compile Include="guild_hall\chest\ChestGUI.cs" />
+    <Compile Include="guild_hall\chest\ChestItems.cs" />
+    <Compile Include="guild_hall\GuildHall.cs" />
+    <Compile Include="guild_hall\guild_interface\GuildInterface.cs" />
+    <Compile Include="guild_hall\guild_interface\PopupItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusEffect\Bases\StatusEffect.cs" />
     <Compile Include="StatusEffect\Effects\Asleep.cs" />

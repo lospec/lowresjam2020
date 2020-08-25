@@ -10,7 +10,8 @@ namespace HeroesGuild.Utility
         public const string DEFAULT_ARMOR = "";
         public const int DEFAULT_HEALTH = 20;
         public static readonly Vector2 DefaultWorldPosition = new Vector2(2578, 1517);
-        public static readonly List<string> DefaultInventory = new List<string> {"Stick", "Hotdog"};
+        public static readonly List<string> DefaultInventory = new List<string>
+            {"Stick", "Hotdog"};
 
         public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
         public string CharacterName { get; set; } = "Jason";
@@ -20,7 +21,8 @@ namespace HeroesGuild.Utility
         public string EquippedArmor { get; set; } = DEFAULT_ARMOR;
         public int MaxHealth { get; set; } = DEFAULT_HEALTH;
         public int Health { get; set; } = DEFAULT_HEALTH;
-        public List<string> ChestContent { get; set; } = new List<string>();
+        public List<Dictionary<int, string>> ChestContent { get; set; } =
+            new List<Dictionary<int, string>>();
         public int GuildLevel { get; set; } = 1;
         public int CoinsDeposited { get; set; } = 0;
     }

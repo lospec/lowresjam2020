@@ -29,10 +29,7 @@ namespace HeroesGuild.UI.dropped_items
             autoCloseTimer = GetNode<Timer>("AutoClose");
         }
 
-        private static Texture GetInventoryItemResource(string itemName)
-        {
-            return GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
-        }
+        
 
         public void DropItems(string enemyName, Player playerInstance)
         {
@@ -78,7 +75,7 @@ namespace HeroesGuild.UI.dropped_items
                     if (chance < item.Value)
                     {
                         var itemDropped = ItemDroppedResource.Instance();
-                        itemDropped.GetNode<TextureRect>("Item").Texture = GetInventoryItemResource(item.Key);
+                        itemDropped.GetNode<TextureRect>("Item").Texture = Utility.Utility.GetInventoryItemResource(item.Key);
                         itemsDroppedGrid.AddChild(itemDropped);
                         playerInstance.Inventory.Add(item.Key);
                     }

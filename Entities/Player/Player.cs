@@ -25,7 +25,7 @@ namespace HeroesGuild.Entities.Player
         private Label hudHealthLabel;
         private Area2D chestDetector;
         private Area2D deskDetector;
-        private Camera2D camera;
+        public Camera2D camera;
         private Area2D collisionDetector;
 
         public Node2D birdsSystem;

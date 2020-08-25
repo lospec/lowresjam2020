@@ -32,7 +32,7 @@ MoveSpeed = 25.0
 current = true
 
 [node name="Sprite" parent="." index="1"]
-frame = 0
+frame = 6
 
 [node name="EntityDetector" type="Area2D" parent="." index="3"]
 collision_layer = 0
