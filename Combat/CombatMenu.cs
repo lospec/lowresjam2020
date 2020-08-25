@@ -54,7 +54,7 @@ namespace HeroesGuild.Combat
                     "VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/MarginContainer/HealthIcon");
             playerWeapon = GetNode<TextureRect>("WeaponContainer/PlayerWeapon");
             enemyHealthBar =
-                GetNode<TextureProgress>("VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer");
+                GetNode<TextureProgress>("VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar");
             enemyHealthBarTween =
                 GetNode<Tween>("VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/Tween");
             enemyImage = GetNode<CombatEnemyTexture>("VBoxContainer/EnemyHUD/VBoxContainer/Enemy");
