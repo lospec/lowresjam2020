@@ -9,6 +9,11 @@ namespace HeroesGuild.World.EnemySpawn
 
         private CollisionShape2D collisionShape;
 
+        public override void _Ready()
+        {
+            collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        }
+
         public Vector2 GetRandomGlobalPosition()
         {
             var center = collisionShape.GlobalPosition;
