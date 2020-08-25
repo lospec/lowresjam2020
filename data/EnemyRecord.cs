@@ -30,6 +30,12 @@ namespace HeroesGuild.data
 
         [JsonProperty("item_drop_2_chance")]
         public float ItemDrop2Chance { get; set; }
+        
+        [JsonProperty("item_drop_3")]
+        public string ItemDrop3 { get; set; }
+
+        [JsonProperty("item_drop_3_chance")]
+        public float ItemDrop3Chance { get; set; }
 
         [JsonProperty("max_items_dropped")]
         public int MaxItemDropped { get; set; }
