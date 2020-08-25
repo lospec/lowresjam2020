@@ -2,14 +2,19 @@ using Godot;
 
 namespace HeroesGuild.Utility
 {
-    public static class Singleton
+    public class Singleton : Node
     {
+        private static Singleton instance;
+
+        public override void _Ready()
+        {
+            base._Ready();
+            instance = this;
+        }
+
         public static T Get<T>(Node accessNode) where T : Object
         {
-            var instance = Engine.HasSingleton(typeof(T).Name)
-                ? (T) Engine.GetSingleton(typeof(T).Name)
-                : accessNode.GetNode<T>($"/root/{typeof(T).Name}");
-            return instance;
+            return instance.GetTree().Root.GetNode<T>($"{typeof(T).Name}");
         }
     }
 }
