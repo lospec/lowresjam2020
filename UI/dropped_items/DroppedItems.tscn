@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://UI/dropped_items/DroppedItems.gd" type="Script" id=1]
+[ext_resource path="res://UI/dropped_items/DroppedItems.cs" type="Script" id=1]
 [ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/dropped_items/background.png" type="Texture" id=3]
 [ext_resource path="res://UI/dropped_items/coin.png" type="Texture" id=4]
@@ -107,4 +107,4 @@ columns = 3
 [node name="AutoClose" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-[connection signal="timeout" from="AutoClose" to="." method="_on_AutoClose_timeout"]
+[connection signal="timeout" from="AutoClose" to="." method="OnAutoClose_Timeout"]

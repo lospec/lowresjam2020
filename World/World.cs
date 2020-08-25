@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using HeroesGuild.Combat;
 using HeroesGuild.data;
@@ -114,7 +115,14 @@ namespace HeroesGuild.World
                 }
                 else
                 {
-                    // TODO: DroppedItems
+                    if (droppedItemsGUI.margin.Visible)
+                    {
+                        droppedItemsGUI.Close();
+                    }
+                    else
+                    {
+                        pauseMenu.TogglePause(player);
+                    }
                 }
             }
         }
@@ -134,9 +142,38 @@ namespace HeroesGuild.World
             }
         }
 
-        private void OnCombat_CombatDone()
+        private void OnCombat_CombatDone(CombatUtil.CombatOutcome outcome, BaseEnemy enemyInstance)
         {
-            // TODO: Combat
+            switch (outcome)
+            {
+                case CombatUtil.CombatOutcome.CombatWin:
+                    enemyInstance.Die();
+                    droppedItemsGUI.DropItems(enemyInstance.EnemyName, player);
+                    combatMenu.Visible = false;
+                    GetTree().Paused = false;
+                    player.hudMargin.Visible = true;
+                    break;
+                case CombatUtil.CombatOutcome.CombatLose:
+                    enemyInstance.Die();
+                    GetTree().Paused = false;
+                    GameOver();
+                    break;
+                case CombatUtil.CombatOutcome.CombatFlee:
+                    enemyInstance.Die();
+                    GetTree().Paused = false;
+                    if (player.Health <= 0)
+                    {
+                        GameOver();
+                    }
+                    else
+                    {
+                        combatMenu.Visible = false;
+                    }
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(outcome), outcome, null);
+            }
         }
 
         private async void GameOver()

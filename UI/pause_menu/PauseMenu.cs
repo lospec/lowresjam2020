@@ -144,12 +144,12 @@ namespace HeroesGuild.UI.pause_menu
             }
         }
 
-        private void OnPlayerInventory_ButtonPressed(Player player)
+        private void OnPlayerInventoryButton_Pressed(Player player)
         {
             TogglePause(player);
         }
 
-        private void TogglePause(Player player)
+        public void TogglePause(Player player)
         {
             PlayerInstance = player;
             var paused = GetTree().Paused;
