@@ -105,6 +105,7 @@ StatEffectUtility="*res://StatusEffect/stat_effects.gd"
 PaletteSwap="*res://Utility/PaletteSwap.tscn"
 Data="*res://data/Data.cs"
 SaveData="*res://Utility/SaveData.cs"
+Singleton="*res://Utility/Singleton.cs"
 
 [display]
 
