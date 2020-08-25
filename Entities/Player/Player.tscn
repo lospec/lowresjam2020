@@ -26,6 +26,7 @@ extents = Vector2( 2, 1 )
 ] instance=ExtResource( 1 )]
 collision_mask = 59
 script = ExtResource( 2 )
+MoveSpeed = 25.0
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 current = true
