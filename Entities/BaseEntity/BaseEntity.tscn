@@ -82,10 +82,10 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 0 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 }, {
 "args": [ 1 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 } ]
 }
 
@@ -117,10 +117,10 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 0 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 }, {
 "args": [ 1 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 } ]
 }
 
@@ -152,10 +152,10 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 0 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 }, {
 "args": [ 1 ],
-"method": "anim_play_footstep"
+"method": "AnimationPlayFootstep"
 } ]
 }
 
@@ -172,7 +172,7 @@ position = Vector2( 0, -5 )
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 6
-frame = 12
+frame = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle_down = SubResource( 1 )
