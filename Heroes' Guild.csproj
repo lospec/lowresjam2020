@@ -115,6 +115,7 @@
     <Compile Include="StatusEffect\Effects\Weak.cs" />
     <Compile Include="UI\character_selection\Character.cs" />
     <Compile Include="UI\character_selection\CharacterSelector.cs" />
+    <Compile Include="UI\Credits\Credits.cs" />
     <Compile Include="UI\dropped_items\DroppedItems.cs" />
     <Compile Include="UI\inventory\InventoryItem.cs" />
     <Compile Include="UI\inventory\ItemStatPopUp.cs" />
