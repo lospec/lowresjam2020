@@ -126,6 +126,7 @@
     <Compile Include="UI\SplashScreen\SplashScreen.cs" />
     <Compile Include="Utility\AudioSystem.cs" />
     <Compile Include="Utility\PaletteSwap.cs" />
+    <Compile Include="Utility\PixelPerfectScaling.cs" />
     <Compile Include="Utility\SaveData.cs" />
     <Compile Include="Utility\Autoload.cs" />
     <Compile Include="Utility\Transitions.cs" />

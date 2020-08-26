@@ -32,13 +32,13 @@ default_bus_layout=""
 
 [autoload]
 
-PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Transitions="*res://Utility/Transitions.tscn"
 AudioSystem="*res://Utility/AudioSystem.tscn"
 PaletteSwap="*res://Utility/PaletteSwap.tscn"
 Data="*res://data/Data.cs"
 SaveData="*res://Utility/SaveData.cs"
 Autoload="*res://Utility/Autoload.cs"
+PixelPerfectScaling="*res://Utility/PixelPerfectScaling.cs"
 
 [display]
 
