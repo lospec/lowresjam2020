@@ -152,7 +152,7 @@ namespace HeroesGuild.guild_hall.chest
             {
                 _draggableItem.RectGlobalPosition =
                     _draggableItem.GetGlobalMousePosition() -
-                    _heldInventoryItemInstance.itemCenter.RectSize / 2;
+                    _heldChestItemInstance.itemCenter.RectSize / 2;
             }
 
             if (_heldInventoryItemInstance != null)
@@ -176,7 +176,7 @@ namespace HeroesGuild.guild_hall.chest
                 }
                 else if (_heldChestItemInstance != null)
                 {
-                    StopDragginFromChest(mousePosition);
+                    StopDraggingFromChest(mousePosition);
                 }
                 else if (_heldInventoryItemInstance != null)
                 {
@@ -185,7 +185,7 @@ namespace HeroesGuild.guild_hall.chest
             }
         }
 
-        private void StopDragginFromChest(Vector2 stopPosition)
+        private void StopDraggingFromChest(Vector2 stopPosition)
         {
             _draggableItem.Texture = null;
             var chestSlot = GetEmptySlotAtPosition(stopPosition, _chestContents);
