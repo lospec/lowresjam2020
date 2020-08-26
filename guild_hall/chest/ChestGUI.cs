@@ -169,7 +169,7 @@ namespace HeroesGuild.guild_hall.chest
                 .ButtonIndex == (int) ButtonList.Left && !mouseButton.IsPressed())
             {
                 var mousePosition = _draggableItem.GetGlobalMousePosition();
-                if (_heldChestItemInstance != null && _heldChestItemInstance != null)
+                if (_heldChestItemInstance != null && _heldInventoryItemInstance != null)
                 {
                     GD.PushError(
                         "Found both held chest item instance and held inventory item instance");
