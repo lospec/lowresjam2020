@@ -72,12 +72,12 @@ falseStateIndex = -1
 [sub_resource type="Resource" id=11]
 resource_name = "TargetInRange"
 script = ExtResource( 10 )
-naxRange = 48.0
+maxRange = 48.0
 
 [sub_resource type="Resource" id=12]
 resource_name = "target_far"
 script = ExtResource( 1 )
-Condition = SubResource( 11 )
+condition = SubResource( 11 )
 trueStateIndex = -1
 falseStateIndex = 0
 
