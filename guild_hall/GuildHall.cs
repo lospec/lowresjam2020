@@ -14,6 +14,8 @@ namespace HeroesGuild.guild_hall
         private static readonly PackedScene ChestResource = ResourceLoader
             .Load<PackedScene>("res://guild_hall/chest/chest.tscn");
 
+        private const string WorldScenePath = "res://World/World.tscn";
+
         private const int CHEST_GAP_X = 10;
         private const int CHEST_GAP_Y = 0;
         private const int TOP_POS_Y = -8;
@@ -64,7 +66,7 @@ namespace HeroesGuild.guild_hall
             {
                 AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, null, -30);
                 await Autoload.Get<Transitions>().ChangeSceneDoubleTransition
-                ("res://World/World.tscn",
+                (WorldScenePath,
                     new Transitions.TransitionParams(
                         Transitions.TransitionType.ShrinkingCircle, 0.3f));
             }

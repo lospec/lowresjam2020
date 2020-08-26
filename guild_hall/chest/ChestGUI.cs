@@ -8,8 +8,9 @@ namespace HeroesGuild.guild_hall.chest
 {
     public class ChestGUI : Node
     {
-        private PackedScene _chestItemResource =
+        private static readonly PackedScene ChestItemResource =
             ResourceLoader.Load<PackedScene>("res://guild_hall/chest/chest_item.tscn");
+
         private Player _playerInstance;
 
         private Chest _chestInstance;
@@ -68,14 +69,14 @@ namespace HeroesGuild.guild_hall.chest
 
             foreach (var itemName in movableInventory)
             {
-                var inventoryItem = (ChestItems) _chestItemResource.Instance();
+                var inventoryItem = (ChestItems) ChestItemResource.Instance();
                 inventoryItem.ItemName = itemName;
                 _inventoryContents.AddChild(inventoryItem);
             }
 
             for (var i = 0; i < 8; i++)
             {
-                var inventoryItem = (ChestItems) _chestItemResource.Instance();
+                var inventoryItem = (ChestItems) ChestItemResource.Instance();
                 _inventoryContents.AddChild(inventoryItem);
             }
 
