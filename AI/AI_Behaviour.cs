@@ -2,7 +2,7 @@ using Godot;
 
 namespace HeroesGuild.AI
 {
-    public class AI_Behaviour : Node
+    public class AI_Behaviour : Resource
     {
         [Export] public AI_State[] states;
         [Export] public int startStateIndex;

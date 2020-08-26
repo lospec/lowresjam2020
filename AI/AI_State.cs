@@ -3,7 +3,7 @@ using HeroesGuild.AI.Actions;
 
 namespace HeroesGuild.AI
 {
-    public class AI_State : Node
+    public class AI_State : Resource
     {
         [Export] public AI_State_Action[] actions;
         [Export] public AI_Transition[] transitions;
