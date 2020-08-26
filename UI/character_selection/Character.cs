@@ -4,6 +4,9 @@ namespace HeroesGuild.UI.character_selection
 {
     public class Character : MarginContainer
     {
+        private const string OverworldSpriteSheetPath =
+            "res://Entities/Player/spritesheets/{0}_Overworld.png";
+        
         public string characterName;
 
         public TextureButton characterButton;
@@ -17,9 +20,12 @@ namespace HeroesGuild.UI.character_selection
 
         public bool UpdateCharacter()
         {
-            var tex = new AtlasTexture();
-            tex.Atlas = GD.Load<Texture>
-                ($"res://Entities/Player/spritesheets/{characterName.Replace(" ", "_")}_Overworld.png");
+            var tex = new AtlasTexture
+            {
+                Atlas = GD.Load<Texture>(string.Format(OverworldSpriteSheetPath,
+                    characterName.Replace(" ", "_")))
+            };
+
             if (tex.Atlas == null)
             {
                 return false;

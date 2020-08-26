@@ -4,13 +4,16 @@ namespace HeroesGuild.UI.inventory
 {
     public class InventoryItem : MarginContainer
     {
+        private const string SpritePath = "res://items/inventory_sprites/{0}.png";
         public string itemName;
 
         private TextureRect _hoverSignifier;
         public TextureButton itemTextureButton;
 
         public Texture InventoryItemResource =>
-            GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
+            GD.Load<Texture>(string.Format(SpritePath,
+                itemName.ToLower().Replace(" ", "_")));
+
 
         public override void _Ready()
         {

@@ -76,8 +76,10 @@ namespace HeroesGuild.UI.pause_menu
             return ResourceLoader.Load<Texture>(path);
         }
 
-        public PackedScene inventoryItemScene =
+        public static readonly PackedScene InventoryItemScene =
             ResourceLoader.Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
+        
+        
         public Menu currentMenu = Menu.Inventory;
         public Player playerInstance;
 
@@ -177,7 +179,7 @@ namespace HeroesGuild.UI.pause_menu
             inventory.Remove(playerInstance.EquippedArmor);
             foreach (var item in inventory)
             {
-                var inventoryItem = (InventoryItem) inventoryItemScene.Instance();
+                var inventoryItem = (InventoryItem) InventoryItemScene.Instance();
                 inventoryItem.itemName = item;
                 var itemTextureButton = inventoryItem.GetNode<TextureButton>("MarginContainer/Item");
                 itemTextureButton.TextureNormal = inventoryItem.InventoryItemResource;

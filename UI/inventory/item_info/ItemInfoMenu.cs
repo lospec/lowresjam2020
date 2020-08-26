@@ -9,6 +9,8 @@ namespace HeroesGuild.UI.inventory.item_info
 {
     public class ItemInfoMenu : MarginContainer
     {
+        private const string InventorySprite = "res://items/inventory_sprites/{0}.png";
+
         [Signal] public delegate void DetailedItemInfoMenuAppeared();
 
         [Signal] public delegate void DetailedItemInfoMenuDisappeared();
@@ -24,11 +26,15 @@ namespace HeroesGuild.UI.inventory.item_info
             var path = damageType switch
             {
                 "none" => "res://UI/inventory/item_info/type_icons/none_type_icon.png",
-                "Pierce" => "res://UI/inventory/item_info/type_icons/pierce_type_icon.png",
-                "Blunt" => "res://UI/inventory/item_info/type_icons/blunt_type_icon.png",
+                "Pierce" =>
+                    "res://UI/inventory/item_info/type_icons/pierce_type_icon.png",
+                "Blunt" =>
+                    "res://UI/inventory/item_info/type_icons/blunt_type_icon.png",
                 "Fire" => "res://UI/inventory/item_info/type_icons/fire_type_icon.png",
-                "Water" => "res://UI/inventory/item_info/type_icons/water_type_icon.png",
-                "Electricity" => "res://UI/inventory/item_info/type_icons/electricity_type_icon.png",
+                "Water" =>
+                    "res://UI/inventory/item_info/type_icons/water_type_icon.png",
+                "Electricity" =>
+                    "res://UI/inventory/item_info/type_icons/electricity_type_icon.png",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return ResourceLoader.Load<Texture>(path);
@@ -38,13 +44,20 @@ namespace HeroesGuild.UI.inventory.item_info
         {
             var path = damageType switch
             {
-                "none" => "res://UI/inventory/item_info/status_icons/none_status_icon.png",
-                "Asleep" => "res://UI/inventory/item_info/status_icons/asleep_status_icon.png",
-                "OnFire" => "res://UI/inventory/item_info/type_icons/fire_type_icon.png",
-                "Frozen" => "res://UI/inventory/item_info/status_icons/frozen_status_icon.png",
-                "Weak" => "res://UI/inventory/item_info/status_icons/weak_status_icon.png",
-                "Confused" => "res://UI/inventory/item_info/status_icons/confused_status_icon.png",
-                "Poison" => "res://UI/inventory/item_info/status_icons/poison_status_icon.png",
+                "none" =>
+                    "res://UI/inventory/item_info/status_icons/none_status_icon.png",
+                "Asleep" =>
+                    "res://UI/inventory/item_info/status_icons/asleep_status_icon.png",
+                "OnFire" =>
+                    "res://UI/inventory/item_info/type_icons/fire_type_icon.png",
+                "Frozen" =>
+                    "res://UI/inventory/item_info/status_icons/frozen_status_icon.png",
+                "Weak" =>
+                    "res://UI/inventory/item_info/status_icons/weak_status_icon.png",
+                "Confused" =>
+                    "res://UI/inventory/item_info/status_icons/confused_status_icon.png",
+                "Poison" =>
+                    "res://UI/inventory/item_info/status_icons/poison_status_icon.png",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return ResourceLoader.Load<Texture>(path);
@@ -114,23 +127,28 @@ namespace HeroesGuild.UI.inventory.item_info
             _quickIconVBox = _quickVBox.GetNode<VBoxContainer>("IconVBoxContainer");
             _quickTypeIcon = _quickIconVBox.GetNode<TextureRect>("TypeIcon");
             _quickStatusIcon = _quickIconVBox.GetNode<TextureRect>("StatusIcon");
-            _quickStatusEffectChanceLabel = _quickIconVBox.GetNode<Label>("StatusEffectChance");
+            _quickStatusEffectChanceLabel =
+                _quickIconVBox.GetNode<Label>("StatusEffectChance");
             _heavyVBox = _damageValues.GetNode<VBoxContainer>("Heavy");
             _heavyDamageLabel = _heavyVBox.GetNode<Label>("DamageValue");
             _heavyIconVBox = _heavyVBox.GetNode<VBoxContainer>("IconVBoxContainer");
             _heavyTypeIcon = _heavyIconVBox.GetNode<TextureRect>("TypeIcon");
             _heavyStatusIcon = _heavyIconVBox.GetNode<TextureRect>("StatusIcon");
-            _heavyStatusEffectChanceLabel = _heavyIconVBox.GetNode<Label>("StatusEffectChance");
+            _heavyStatusEffectChanceLabel =
+                _heavyIconVBox.GetNode<Label>("StatusEffectChance");
             _counterVBox = _damageValues.GetNode<VBoxContainer>("Counter");
             _counterDamageLabel = _counterVBox.GetNode<Label>("DamageValue");
             _counterIconVBox = _counterVBox.GetNode<VBoxContainer>("IconVBoxContainer");
             _counterTypeIcon = _counterIconVBox.GetNode<TextureRect>("TypeIcon");
             _counterStatusIcon = _counterIconVBox.GetNode<TextureRect>("StatusIcon");
-            _counterStatusEffectChanceLabel = _counterIconVBox.GetNode<Label>("StatusEffectChance");
+            _counterStatusEffectChanceLabel =
+                _counterIconVBox.GetNode<Label>("StatusEffectChance");
             _healthGainedHBox = _vBox.GetNode<HBoxContainer>("HealthGainedHBox");
-            _healthGainedValueLabel = _healthGainedHBox.GetNode<Label>("HealthGainedValueLabel");
+            _healthGainedValueLabel =
+                _healthGainedHBox.GetNode<Label>("HealthGainedValueLabel");
             _confirmUsePopup = _margin.GetNode<MarginContainer>("ConfirmUsePopup");
-            _backButton = GetNode<TextureButton>("MarginContainer/VBoxContainer/Top/Back");
+            _backButton =
+                GetNode<TextureButton>("MarginContainer/VBoxContainer/Top/Back");
             _yesButton = GetNode<TextureButton>(
                 "MarginContainer/ConfirmUsePopup/TextMargin/VBoxContainer/HBoxContainer/Yes");
             _noButton = GetNode<TextureButton>(
@@ -145,11 +163,15 @@ namespace HeroesGuild.UI.inventory.item_info
             selectedItem = itemName;
             playerInstance = player;
             Visible = true;
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonHover, item.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonHover, item.RectGlobalPosition,
+                -15);
             EmitSignal(nameof(DetailedItemInfoMenuAppeared));
             _nameLabel.Text = itemName;
+
             _itemIcon.Texture =
-                GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
+                GD.Load<Texture>(string.Format(InventorySprite,
+                    itemName.ToLower().Replace(" ", "_")));
+
 
             var data = Autoload.Get<Data>();
             if (!data.itemData.ContainsKey(itemName))
@@ -175,24 +197,33 @@ namespace HeroesGuild.UI.inventory.item_info
                     _quickDamageLabel.Text = $"{itemRecord.quickDamage}";
                     _heavyDamageLabel.Text = $"{itemRecord.heavyDamage}";
                     _counterDamageLabel.Text = $"{itemRecord.counterDamage}";
-                    _quickTypeIcon.Texture = GetDamageTypeIcon(itemRecord.quickDamageType);
-                    _heavyTypeIcon.Texture = GetDamageTypeIcon(itemRecord.heavyDamageType);
-                    _counterTypeIcon.Texture = GetDamageTypeIcon(itemRecord.counterDamageType);
+                    _quickTypeIcon.Texture =
+                        GetDamageTypeIcon(itemRecord.quickDamageType);
+                    _heavyTypeIcon.Texture =
+                        GetDamageTypeIcon(itemRecord.heavyDamageType);
+                    _counterTypeIcon.Texture =
+                        GetDamageTypeIcon(itemRecord.counterDamageType);
 
-                    _quickStatusIcon.Texture = GetDamageTypeStatusIcon(itemRecord.quickStatusEffect);
-                    _quickStatusEffectChanceLabel.Text = itemRecord.quickStatusEffect == "none"
-                        ? string.Empty
-                        : $"{itemRecord.quickEffectChance}";
+                    _quickStatusIcon.Texture =
+                        GetDamageTypeStatusIcon(itemRecord.quickStatusEffect);
+                    _quickStatusEffectChanceLabel.Text =
+                        itemRecord.quickStatusEffect == "none"
+                            ? string.Empty
+                            : $"{itemRecord.quickEffectChance}";
 
-                    _heavyStatusIcon.Texture = GetDamageTypeStatusIcon(itemRecord.heavyStatusEffect);
-                    _heavyStatusEffectChanceLabel.Text = itemRecord.heavyStatusEffect == "none"
-                        ? string.Empty
-                        : $"{itemRecord.heavyEffectChance}";
+                    _heavyStatusIcon.Texture =
+                        GetDamageTypeStatusIcon(itemRecord.heavyStatusEffect);
+                    _heavyStatusEffectChanceLabel.Text =
+                        itemRecord.heavyStatusEffect == "none"
+                            ? string.Empty
+                            : $"{itemRecord.heavyEffectChance}";
 
-                    _counterStatusIcon.Texture = GetDamageTypeStatusIcon(itemRecord.counterStatusEffect);
-                    _counterStatusEffectChanceLabel.Text = itemRecord.counterStatusEffect == "none"
-                        ? string.Empty
-                        : $"{itemRecord.counterEffectChance}";
+                    _counterStatusIcon.Texture =
+                        GetDamageTypeStatusIcon(itemRecord.counterStatusEffect);
+                    _counterStatusEffectChanceLabel.Text =
+                        itemRecord.counterStatusEffect == "none"
+                            ? string.Empty
+                            : $"{itemRecord.counterEffectChance}";
                     break;
                 case "usable":
                     _damageValues.Visible = false;
@@ -216,13 +247,15 @@ namespace HeroesGuild.UI.inventory.item_info
         private void OnBack_Pressed()
         {
             Visible = false;
-            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _backButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _backButton.RectGlobalPosition,
+                -15);
             EmitSignal(nameof(DetailedItemInfoMenuDisappeared));
         }
 
         private void OnEquip_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, _equipButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
+                _equipButton.RectGlobalPosition, -15);
             var data = Autoload.Get<Data>().itemData;
             if (!data.ContainsKey(selectedItem))
             {
@@ -246,14 +279,16 @@ namespace HeroesGuild.UI.inventory.item_info
                     _equipButton.Visible = false;
                     break;
                 default:
-                    GD.PushError("The equip button was pressed for a non-equippable item.");
+                    GD.PushError(
+                        "The equip button was pressed for a non-equippable item.");
                     break;
             }
         }
 
         private async void OnUse_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, _useButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
+                _useButton.RectGlobalPosition, -15);
             var data = Autoload.Get<Data>().itemData;
             if (!data.ContainsKey(selectedItem))
             {
@@ -267,7 +302,8 @@ namespace HeroesGuild.UI.inventory.item_info
                 if (playerInstance.Health >= playerInstance.maxHealth)
                 {
                     _confirmUsePopup.Visible = true;
-                    var yesPressed = (bool) (await ToSignal(this, nameof(YesOrNoPressed)))[0];
+                    var yesPressed =
+                        (bool) (await ToSignal(this, nameof(YesOrNoPressed)))[0];
                     _confirmUsePopup.Visible = false;
                     if (!yesPressed)
                     {
@@ -276,7 +312,8 @@ namespace HeroesGuild.UI.inventory.item_info
                 }
                 else
                 {
-                    playerInstance.Health = Mathf.Min(playerInstance.Health + itemRecord.healthGained,
+                    playerInstance.Health = Mathf.Min(
+                        playerInstance.Health + itemRecord.healthGained,
                         playerInstance.maxHealth);
                 }
 
@@ -292,13 +329,15 @@ namespace HeroesGuild.UI.inventory.item_info
 
         private void OnYes_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, _yesButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
+                _yesButton.RectGlobalPosition, -15);
             EmitSignal(nameof(YesOrNoPressed), true);
         }
 
         private void OnNo_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _noButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _noButton.RectGlobalPosition,
+                -15);
             EmitSignal(nameof(YesOrNoPressed), false);
         }
     }
