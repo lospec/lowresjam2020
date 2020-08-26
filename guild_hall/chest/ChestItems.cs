@@ -4,7 +4,7 @@ namespace HeroesGuild.guild_hall.chest
 {
     public class ChestItems : MarginContainer
     {
-        [Signal] public delegate void LeftClicked(ChestItems chestItemInstance);
+        [Signal] public delegate void LeftClicked(Node chestItemInstance);
 
         private string _itemName;
         public CenterContainer itemCenter;
