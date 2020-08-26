@@ -2,7 +2,7 @@
 
 [ext_resource path="res://items/inventory_sprites/stick.png" type="Texture" id=1]
 [ext_resource path="res://UI/inventory/selected_item.png" type="Texture" id=2]
-[ext_resource path="res://guild_hall/guild_interface/popup_item.gd" type="Script" id=3]
+[ext_resource path="res://guild_hall/guild_interface/PopupItem.cs" type="Script" id=3]
 
 [node name="PopupItem" type="MarginContainer"]
 anchor_right = 0.171875
@@ -49,5 +49,5 @@ mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource( 2 )
-[connection signal="mouse_entered" from="HBoxContainer/ItemMargin/IconMargin/Item" to="." method="_on_Item_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/ItemMargin/IconMargin/Item" to="." method="_on_Item_mouse_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/ItemMargin/IconMargin/Item" to="." method="OnItem_MouseEntered"]
+[connection signal="mouse_exited" from="HBoxContainer/ItemMargin/IconMargin/Item" to="." method="OnItem_MouseExited"]
