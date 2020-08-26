@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.UI.Settings.Audio_Settings
+namespace HeroesGuild.UI.Settings.AudioSettings
 {
     public class VolumeControl : HBoxContainer
     {

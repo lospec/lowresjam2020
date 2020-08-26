@@ -1,4 +1,5 @@
 using Godot;
+using HeroesGuild.Utility;
 
 namespace HeroesGuild.UI.pause_menu
 {
