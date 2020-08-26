@@ -18,7 +18,8 @@ namespace HeroesGuild.UI.character_selection
         public bool UpdateCharacter()
         {
             var tex = new AtlasTexture();
-            tex.Atlas = GD.Load<Texture>($"res://Entities/Player/spritesheets/{CharacterName}_Overworld.png");
+            tex.Atlas = GD.Load<Texture>
+                ($"res://Entities/Player/spritesheets/{CharacterName.Replace(" ", "_")}_Overworld.png");
             if (tex.Atlas == null)
             {
                 return false;

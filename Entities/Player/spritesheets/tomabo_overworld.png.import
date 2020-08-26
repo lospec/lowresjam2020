@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tomabo_overworld.png-52448d0a3eeefed1baaf861cdc8e0432.stex"
+path="res://.import/Tomabo_Overworld.png-43631dec701180e6c9149fc4500d690d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/tomabo_overworld.png"
-dest_files=[ "res://.import/tomabo_overworld.png-52448d0a3eeefed1baaf861cdc8e0432.stex" ]
+source_file="res://Entities/Player/spritesheets/Tomabo_Overworld.png"
+dest_files=[ "res://.import/Tomabo_Overworld.png-43631dec701180e6c9149fc4500d690d.stex" ]
 
 [params]
 

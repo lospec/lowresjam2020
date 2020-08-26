@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sir Lucas_Overworld.png-18df1ba89dc9de0d94473810bdf58189.stex"
+path="res://.import/Sir_Lucas_Overworld.png-11c15e8e269e3c4df41927efe966641f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/Sir Lucas_Overworld.png"
-dest_files=[ "res://.import/Sir Lucas_Overworld.png-18df1ba89dc9de0d94473810bdf58189.stex" ]
+source_file="res://Entities/Player/spritesheets/Sir_Lucas_Overworld.png"
+dest_files=[ "res://.import/Sir_Lucas_Overworld.png-11c15e8e269e3c4df41927efe966641f.stex" ]
 
 [params]
 
