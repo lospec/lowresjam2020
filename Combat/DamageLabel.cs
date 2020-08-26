@@ -1,21 +1,31 @@
 using Godot;
 using System;
 
-public class DamageLabel : Node
+public class DamageLabel : Label
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    [Export] public float floatSpeed = 2;
+    [Export] public float fadeDuration = 2;
+    [Export] public float fadeDelay = 0;
 
-    // Called when the node enters the scene tree for the first time.
+    private float _alpha;
+
     public override void _Ready()
     {
-        
+        _alpha = 1 + (fadeDelay / fadeDuration);
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public override void _Process(float delta)
+    {
+        var rectPosition = RectPosition;
+        rectPosition.y -= delta * delta;
+        RectPosition = rectPosition;
+        _alpha = Mathf.Max(0, 1 - delta / fadeDuration);
+        var modulate = Modulate;
+        modulate.a = _alpha;
+        Modulate = modulate;
+        if (Modulate.a <= 0)
+        {
+            QueueFree();
+        }
+    }
 }
