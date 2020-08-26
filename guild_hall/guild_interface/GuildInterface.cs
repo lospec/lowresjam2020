@@ -365,16 +365,13 @@ namespace HeroesGuild.guild_hall.guild_interface
 
         private void OnDecreaseAmount_Pressed()
         {
-            GD.Print(DepositAmounts.Length);
             _depositAmountIndex =
                 Mathf.PosMod(_depositAmountIndex - 1, DepositAmounts.Length);
-            GD.Print(_depositAmountIndex);
             UpdateDepositAmount();
         }
 
         private void UpdateDepositAmount()
         {
-            GD.Print(_depositAmountIndex);
             _depositButton.Text = $"{DepositAmounts[_depositAmountIndex]}";
         }
 
