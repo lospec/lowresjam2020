@@ -7,6 +7,12 @@ namespace HeroesGuild.Entities.enemies.base_enemy
 {
     public class BaseEnemy : BaseEntity.BaseEntity
     {
+        private const string BattleSpritePath =
+            "res://Entities/enemies/sprites/{0}_Battle.png";
+        private const string OverworldSpritePath =
+            "res://Entities/enemies/sprites/{0}_Overworld.png";
+        private const string AIResourcePath = "res://AI/Resources/{0}_behaviour.tres";
+
         private const float MAX_SPEED = 40;
         private const float MIN_SPEED = 5;
 
@@ -23,7 +29,8 @@ namespace HeroesGuild.Entities.enemies.base_enemy
         public override void _Ready()
         {
             stateMachine = GetNode<StateMachine>("StateMachine");
-            if (string.IsNullOrWhiteSpace(Stat.Race) && !string.IsNullOrWhiteSpace(enemyName))
+            if (string.IsNullOrWhiteSpace(Stat.Race) &&
+                !string.IsNullOrWhiteSpace(enemyName))
             {
                 LoadEnemy(enemyName);
                 base._Ready();
@@ -42,9 +49,10 @@ namespace HeroesGuild.Entities.enemies.base_enemy
             enemyName = enemyDataName;
             Stat = data.enemyData[enemyDataName];
             moveSpeed = data.GetLerpedSpeedStat(Stat.MoveSpeed, MIN_SPEED, MAX_SPEED);
+
             battleTexture = new AtlasTexture
             {
-                Atlas = GD.Load<Texture>($"res://Entities/enemies/sprites/{enemyDataName}_Battle.png")
+                Atlas = GD.Load<Texture>(string.Format(BattleSpritePath, enemyDataName))
             };
 
             if (sprite == null || stateMachine == null)
@@ -52,9 +60,13 @@ namespace HeroesGuild.Entities.enemies.base_enemy
                 await ToSignal(this, "ready");
             }
 
-            sprite.Texture = GD.Load<Texture>($"res://Entities/enemies/sprites/{enemyDataName}_Overworld.png");
+
+            sprite.Texture =
+                GD.Load<Texture>(string.Format(OverworldSpritePath, enemyDataName));
+
             stateMachine.behaviour =
-                GD.Load<AI_Behaviour>($"res://AI/Resources/{Stat.AiType.ToLower()}_behaviour.tres");
+                GD.Load<AI_Behaviour>(string.Format(AIResourcePath,
+                    Stat.AiType.ToLower()));
             EmitSignal(nameof(StatsLoaded));
         }
 

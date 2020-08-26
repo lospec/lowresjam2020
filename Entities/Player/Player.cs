@@ -6,9 +6,14 @@ namespace HeroesGuild.Entities.Player
 {
     public class Player : BaseEntity.BaseEntity
     {
-        [Signal] public delegate void EnemyDetected(BaseEntity.BaseEntity player, BaseEntity.BaseEntity enemy);
+        private const string OverWorldSprite =
+            "res://Entities/Player/spritesheets/{0}_Overworld.png";
 
-        [Signal] public delegate void InventoryButtonPressed(BaseEntity.BaseEntity player);
+        [Signal] public delegate void EnemyDetected(BaseEntity.BaseEntity player,
+            BaseEntity.BaseEntity enemy);
+
+        [Signal] public delegate void InventoryButtonPressed(
+            BaseEntity.BaseEntity player);
 
         // TODO: Change Node to more specific type
         [Signal] public delegate void OpenChestInputReceived(Node2D chest);
@@ -34,7 +39,9 @@ namespace HeroesGuild.Entities.Player
         public override void _Ready()
         {
             hudMargin = GetNode<MarginContainer>("HUD/MarginContainer");
-            _hudHealthLabel = GetNode<Label>("HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health");
+            _hudHealthLabel =
+                GetNode<Label>(
+                    "HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health");
             _chestDetector = GetNode<Area2D>("ChestDetector");
             _deskDetector = GetNode<Area2D>("DeskDetector");
             camera = GetNode<Camera2D>("Camera2D");
@@ -49,13 +56,16 @@ namespace HeroesGuild.Entities.Player
             EquippedArmor = saveData.EquippedArmor;
             maxHealth = saveData.MaxHealth;
             Health = saveData.Health;
-            
+
             base._Ready();
-            
+
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
+
+
             var texture =
-                ResourceLoader.Load<Texture>(
-                    $"res://Entities/Player/spritesheets/{saveData.CharacterName}_Overworld.png");
+                ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
+                    saveData.CharacterName));
+
             sprite.Texture = texture;
         }
 
