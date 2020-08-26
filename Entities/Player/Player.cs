@@ -15,10 +15,8 @@ namespace HeroesGuild.Entities.Player
         [Signal] public delegate void InventoryButtonPressed(
             BaseEntity.BaseEntity player);
 
-        // TODO: Change Node to more specific type
         [Signal] public delegate void OpenChestInputReceived(Node2D chest);
-
-        // TODO: Change Node to more specific type
+        
         [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
 
         public int Coins { get; set; }
