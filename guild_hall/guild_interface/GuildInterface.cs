@@ -173,7 +173,8 @@ namespace HeroesGuild.guild_hall.guild_interface
                 _depositProgressVbox.GetNode<Node>("WholeProgressBarMargin");
             _progressBarMargin =
                 _wholeProgressBarMargin.GetNode<Node>("ProgressBarMargin");
-            _depositProgressBar = _progressBarMargin.GetNode<TextureProgress>("Progress");
+            _depositProgressBar =
+                _progressBarMargin.GetNode<TextureProgress>("Progress");
             _marketMargin = _vbox.GetNode<MarginContainer>("MarketMargin");
             _marketItemsGrid = _marketMargin.GetNode<Node>("MarketItems");
 
@@ -392,9 +393,9 @@ namespace HeroesGuild.guild_hall.guild_interface
             {
                 saveData.CoinsDeposited -= totalCoinsForNextLevel;
                 saveData.GuildLevel += 1;
-                EmitSignal(nameof(GuildHallLevelUp));
             }
-
+            
+            EmitSignal(nameof(GuildHallLevelUp));
             UpdateCoins();
             UpdateGuildLevel();
             UpdateProgressBarInstantly();
