@@ -10,9 +10,9 @@ namespace HeroesGuild.Combat
 {
     public class PlayerCombat : CombatChar
     {
-        [Signal] public delegate void ActionChosen(CombatUtil.CombatAction action);
+        [Signal] private delegate void ActionChosen(CombatUtil.CombatAction action);
 
-        private new Player CharacterInstance => (Player) base.characterInstance;
+        private new Player CharacterInstance => (Player) base.CharacterInstance;
         private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
             .itemData[CharacterInstance.EquippedWeapon];
 

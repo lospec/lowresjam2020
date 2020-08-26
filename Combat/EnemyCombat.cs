@@ -8,10 +8,10 @@ namespace HeroesGuild.Combat
 {
     public class EnemyCombat : CombatChar
     {
-        private new BaseEnemy CharacterInstance => (BaseEnemy) base.characterInstance;
-        public int poolIndex = 0;
+        private new BaseEnemy CharacterInstance => (BaseEnemy) base.CharacterInstance;
+        private int _poolIndex = 0;
 
-        private CombatUtil.CombatAction PoolCharToAction(char combatActionChar)
+        private static CombatUtil.CombatAction PoolCharToAction(char combatActionChar)
             => combatActionChar switch
             {
                 'q' => CombatUtil.CombatAction.Quick,
@@ -33,21 +33,29 @@ namespace HeroesGuild.Combat
             return damage;
         }
 
-        protected override float GetEffectChance(CombatUtil.CombatAction action) => action switch
-        {
-            CombatUtil.CombatAction.Quick => CharacterInstance.Stat.QuickEffectChance,
-            CombatUtil.CombatAction.Counter => CharacterInstance.Stat.CounterEffectChance,
-            CombatUtil.CombatAction.Heavy => CharacterInstance.Stat.HeavyEffectChance,
-            _ => 0f
-        };
+        protected override float GetEffectChance(CombatUtil.CombatAction action) =>
+            action switch
+            {
+                CombatUtil.CombatAction.Quick => CharacterInstance.Stat
+                    .QuickEffectChance,
+                CombatUtil.CombatAction.Counter => CharacterInstance.Stat
+                    .CounterEffectChance,
+                CombatUtil.CombatAction.Heavy => CharacterInstance.Stat
+                    .HeavyEffectChance,
+                _ => 0f
+            };
 
-        protected override string GetStatusEffect(CombatUtil.CombatAction action) => action switch
-        {
-            CombatUtil.CombatAction.Quick => CharacterInstance.Stat.QuickStatusEffect,
-            CombatUtil.CombatAction.Counter => CharacterInstance.Stat.CounterStatusEffect,
-            CombatUtil.CombatAction.Heavy => CharacterInstance.Stat.HeavyStatusEffect,
-            _ => "none"
-        };
+        protected override string GetStatusEffect(CombatUtil.CombatAction action) =>
+            action switch
+            {
+                CombatUtil.CombatAction.Quick => CharacterInstance.Stat
+                    .QuickStatusEffect,
+                CombatUtil.CombatAction.Counter => CharacterInstance.Stat
+                    .CounterStatusEffect,
+                CombatUtil.CombatAction.Heavy => CharacterInstance.Stat
+                    .HeavyStatusEffect,
+                _ => "none"
+            };
 
         public override string GetDamageType(CombatUtil.CombatAction action)
         {
@@ -72,6 +80,7 @@ namespace HeroesGuild.Combat
 
         public override async Task<CombatUtil.CombatAction> GetAction()
         {
+            await Task.Delay(0);
             if (new[] {"Confused", "Asleep", "Frozen"}
                 .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
             {
@@ -81,10 +90,13 @@ namespace HeroesGuild.Combat
             if (!string.IsNullOrWhiteSpace(CharacterInstance.Stat.AttackPool))
             {
                 GD.Print(CharacterInstance.Stat.AttackPool);
-                var action = PoolCharToAction(CharacterInstance.Stat.AttackPool.ToLower()[poolIndex]);
+                var action =
+                    PoolCharToAction(
+                        CharacterInstance.Stat.AttackPool.ToLower()[_poolIndex]);
                 if (action != CombatUtil.CombatAction.Invalid)
                 {
-                    poolIndex = (poolIndex + 1) % CharacterInstance.Stat.AttackPool.Length;
+                    _poolIndex = (_poolIndex + 1) %
+                                 CharacterInstance.Stat.AttackPool.Length;
                     return action;
                 }
             }

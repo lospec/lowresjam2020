@@ -4,7 +4,7 @@ namespace HeroesGuild.Combat
 {
     public class HealthIcon : TextureRect
     {
-        [Signal] public delegate void Stopped();
+        [Signal] private delegate void Stopped();
 
         public bool isBlinking = false;
         private float _duration = 0;
