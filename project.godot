@@ -9,79 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "AI_Behaviour",
-"language": "GDScript",
-"path": "res://AI/AI_Behaviour.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "BaseEntity",
-"language": "GDScript",
-"path": "res://Entities/BaseEntity/BaseEntity.gd"
-}, {
-"base": "TextureRect",
-"class": "CombatAttackAnim",
-"language": "GDScript",
-"path": "res://Combat/CombatAttackAnim.gd"
-}, {
-"base": "Node",
-"class": "CombatChar",
-"language": "GDScript",
-"path": "res://Combat/CombatChar.gd"
-}, {
-"base": "TextureRect",
-"class": "CombatEnemyTexture",
-"language": "GDScript",
-"path": "res://Combat/CombatEnemyTexture.gd"
-}, {
-"base": "ShakableControl",
-"class": "CombatMenu",
-"language": "GDScript",
-"path": "res://Combat/CombatMenu.gd"
-}, {
-"base": "Reference",
-"class": "CombatUtil",
-"language": "GDScript",
-"path": "res://Combat/CombatUtil.gd"
-}, {
-"base": "Resource",
-"class": "EntityResource",
-"language": "GDScript",
-"path": "res://Entities/BaseEntity/EntityResource.gd"
-}, {
-"base": "Node",
-"class": "PlayerCombat",
-"language": "GDScript",
-"path": "res://Combat/PlayerCombat.gd"
-}, {
 "base": "Reference",
 "class": "PriorityQueue",
 "language": "GDScript",
 "path": "res://World/MapGen/PriorityQueue.gd"
-}, {
-"base": "Control",
-"class": "ShakableControl",
-"language": "GDScript",
-"path": "res://Combat/CombatShake.gd"
-}, {
-"base": "Resource",
-"class": "StatusEffect",
-"language": "GDScript",
-"path": "res://StatusEffect/Bases/StatusEffect.gd"
 } ]
 _global_script_class_icons={
-"AI_Behaviour": "",
-"BaseEntity": "",
-"CombatAttackAnim": "",
-"CombatChar": "",
-"CombatEnemyTexture": "",
-"CombatMenu": "",
-"CombatUtil": "",
-"EntityResource": "",
-"PlayerCombat": "",
-"PriorityQueue": "",
-"ShakableControl": "",
-"StatusEffect": ""
+"PriorityQueue": ""
 }
 
 [application]
@@ -101,7 +35,6 @@ default_bus_layout=""
 PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
 Transitions="*res://Utility/Transitions.tscn"
 AudioSystem="*res://Utility/AudioSystem.tscn"
-StatEffectUtility="*res://StatusEffect/stat_effects.gd"
 PaletteSwap="*res://Utility/PaletteSwap.tscn"
 Data="*res://data/Data.cs"
 SaveData="*res://Utility/SaveData.cs"
