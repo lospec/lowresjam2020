@@ -7,6 +7,9 @@ namespace HeroesGuild.Utility
 {
     public static class Utility
     {
+        private const string InventorySpritePath =
+            "res://items/inventory_sprites/{0}.png";
+
         static Utility()
         {
             GD.Randomize();
@@ -25,8 +28,8 @@ namespace HeroesGuild.Utility
 
         public static Texture GetInventoryItemResource(string itemName)
         {
-            return GD.Load<Texture>(
-                $"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
+            return GD.Load<Texture>(string.Format(InventorySpritePath,
+                itemName.ToLower().Replace(" ", "_")));
         }
     }
 }

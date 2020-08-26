@@ -16,7 +16,7 @@ namespace HeroesGuild.Utility
 			Blocks
 		}
 
-		public static Texture GetTransitionTextures(TransitionType transitionType)
+		private static Texture GetTransitionTextures(TransitionType transitionType)
 		{
 			var path = transitionType switch
 			{
