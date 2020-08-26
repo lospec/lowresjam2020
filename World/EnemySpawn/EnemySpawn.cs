@@ -7,17 +7,17 @@ namespace HeroesGuild.World.EnemySpawn
         [Export] public int enemyNumber;
         [Export] public string[] enemies;
 
-        private CollisionShape2D collisionShape;
+        private CollisionShape2D _collisionShape;
 
         public override void _Ready()
         {
-            collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+            _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         }
 
         public Vector2 GetRandomGlobalPosition()
         {
-            var center = collisionShape.GlobalPosition;
-            var size = ((RectangleShape2D) collisionShape.Shape).Extents;
+            var center = _collisionShape.GlobalPosition;
+            var size = ((RectangleShape2D) _collisionShape.Shape).Extents;
             return new Vector2
             {
                 x = (float) GD.RandRange(center.x - size.x, center.x + size.x),

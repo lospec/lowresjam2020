@@ -12,21 +12,21 @@ namespace HeroesGuild.Combat
     {
         [Signal] public delegate void ActionChosen(CombatUtil.CombatAction action);
 
-        private new Player CharacterInstance => (Player) base.CharacterInstance;
+        private new Player CharacterInstance => (Player) base.characterInstance;
         private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
-            .ItemData[CharacterInstance.EquippedWeapon];
+            .itemData[CharacterInstance.EquippedWeapon];
 
         public override int GetBaseDamage(CombatUtil.CombatAction action)
         {
             var weapon = PlayerWeaponRecord;
             var damage = action switch
             {
-                CombatUtil.CombatAction.Quick => weapon.QuickDamage,
-                CombatUtil.CombatAction.Counter => weapon.CounterDamage,
-                CombatUtil.CombatAction.Heavy => weapon.HeavyDamage,
+                CombatUtil.CombatAction.Quick => weapon.quickDamage,
+                CombatUtil.CombatAction.Counter => weapon.counterDamage,
+                CombatUtil.CombatAction.Heavy => weapon.heavyDamage,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            damage *= 1 + CombatUtil.MULTIPLIER_PER_COMBO * HitCombo;
+            damage *= 1 + CombatUtil.MULTIPLIER_PER_COMBO * hitCombo;
             return damage / 2;
         }
 
@@ -35,9 +35,9 @@ namespace HeroesGuild.Combat
             var weapon = PlayerWeaponRecord;
             return action switch
             {
-                CombatUtil.CombatAction.Quick => weapon.QuickEffectChance,
-                CombatUtil.CombatAction.Counter => weapon.CounterEffectChance,
-                CombatUtil.CombatAction.Heavy => weapon.HeavyEffectChance,
+                CombatUtil.CombatAction.Quick => weapon.quickEffectChance,
+                CombatUtil.CombatAction.Counter => weapon.counterEffectChance,
+                CombatUtil.CombatAction.Heavy => weapon.heavyEffectChance,
                 _ => 0f
             };
         }
@@ -47,9 +47,9 @@ namespace HeroesGuild.Combat
             var weapon = PlayerWeaponRecord;
             return action switch
             {
-                CombatUtil.CombatAction.Quick => weapon.QuickStatusEffect,
-                CombatUtil.CombatAction.Counter => weapon.CounterStatusEffect,
-                CombatUtil.CombatAction.Heavy => weapon.HeavyStatusEffect,
+                CombatUtil.CombatAction.Quick => weapon.quickStatusEffect,
+                CombatUtil.CombatAction.Counter => weapon.counterStatusEffect,
+                CombatUtil.CombatAction.Heavy => weapon.heavyStatusEffect,
                 _ => "None"
             };
         }
@@ -59,9 +59,9 @@ namespace HeroesGuild.Combat
             var weapon = PlayerWeaponRecord;
             return action switch
             {
-                CombatUtil.CombatAction.Quick => weapon.QuickDamageType,
-                CombatUtil.CombatAction.Counter => weapon.CounterDamageType,
-                CombatUtil.CombatAction.Heavy => weapon.HeavyDamageType,
+                CombatUtil.CombatAction.Quick => weapon.quickDamageType,
+                CombatUtil.CombatAction.Counter => weapon.counterDamageType,
+                CombatUtil.CombatAction.Heavy => weapon.heavyDamageType,
                 _ => "None"
             };
         }
@@ -69,7 +69,7 @@ namespace HeroesGuild.Combat
         public override async Task<CombatUtil.CombatAction> GetAction()
         {
             if (new[] {"Confused", "Asleep", "Frozen"}
-                .Any(key => CharacterInstance.StatusEffects.ContainsKey(key)))
+                .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
             {
                 return CombatUtil.CombatAction.None;
             }

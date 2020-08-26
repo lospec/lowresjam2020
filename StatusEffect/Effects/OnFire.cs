@@ -14,7 +14,7 @@ namespace HeroesGuild.StatusEffect.Effects
 
         public OnFire()
         {
-            StatusEffectName = "OnFire";
+            statusEffectName = "OnFire";
         }
 
         public override void OnTurnEnd(CombatChar combatChar)
@@ -32,7 +32,7 @@ namespace HeroesGuild.StatusEffect.Effects
             Duration -= 1;
             if (Duration <= 0)
             {
-                Expired = true;
+                expired = true;
             }
         }
     }

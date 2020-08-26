@@ -10,16 +10,16 @@ namespace HeroesGuild.AI
     {
         [Signal] public delegate void OnCollision(StateMachine stateMachine);
 
-        [Export] public bool Active;
-        [Export] public AI_Behaviour Behaviour;
+        [Export] public bool active;
+        [Export] public AI_Behaviour behaviour;
 
         public BaseEntity Entity { get; private set; }
         public AI_State CurrentState { get; private set; }
         public BaseEntity Target { get; set; }
         public Vector2 OriginPosition { get; private set; }
 
-        private Area2D circleArea;
-        private CollisionShape2D collisionCircleShape;
+        private Area2D _circleArea;
+        private CollisionShape2D _collisionCircleShape;
 
 
         public float DistanceToTarget
@@ -40,15 +40,15 @@ namespace HeroesGuild.AI
         public override async void _Ready()
         {
             Entity = GetParent<BaseEntity>();
-            circleArea = GetNode<Area2D>("CircleArea2D");
-            collisionCircleShape = circleArea.GetNode<CollisionShape2D>("CollisionShape2D");
+            _circleArea = GetNode<Area2D>("CircleArea2D");
+            _collisionCircleShape = _circleArea.GetNode<CollisionShape2D>("CollisionShape2D");
             if (Entity.HasSignal(nameof(BaseEnemy.StatsLoaded)))
             {
                 await ToSignal(Entity, nameof(BaseEnemy.StatsLoaded));
             }
 
             OriginPosition = Entity.Position;
-            Behaviour.SetStartingState(this);
+            behaviour.SetStartingState(this);
         }
 
         public override void _Process(float delta)
@@ -62,7 +62,7 @@ namespace HeroesGuild.AI
 
         private void UpdateCurrentState(float delta)
         {
-            if (!Active)
+            if (!active)
             {
                 return;
             }
@@ -79,7 +79,7 @@ namespace HeroesGuild.AI
                 return;
             }
 
-            var state = Behaviour.States[stateIndex];
+            var state = behaviour.states[stateIndex];
             if (state != null)
             {
                 CurrentState = state.Instance();
@@ -90,14 +90,14 @@ namespace HeroesGuild.AI
 
         public Array<KinematicBody2D> FindBodiesInRange(float range)
         {
-            var shape = (CircleShape2D) collisionCircleShape.Shape;
+            var shape = (CircleShape2D) _collisionCircleShape.Shape;
             if (Math.Abs(shape.Radius - range) > 1f)
             {
                 shape.Radius = range;
             }
 
-            collisionCircleShape.Shape = shape;
-            return new Array<KinematicBody2D>(circleArea.GetOverlappingBodies());
+            _collisionCircleShape.Shape = shape;
+            return new Array<KinematicBody2D>(_circleArea.GetOverlappingBodies());
         }
     }
 }

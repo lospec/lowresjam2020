@@ -12,34 +12,34 @@ public class CharacterSelector : MarginContainer
     private const int SCROLL_AMOUNT = 40;
     private static readonly PackedScene CharacterResource = ResourceLoader.Load<PackedScene>(CHARACTER_RESOURCE_PATH);
 
-    public string SelectedCharacterName;
+    public string selectedCharacterName;
 
     private bool _scrollLeftHeld = false;
     private bool _scrollRightHeld = false;
     private float _scrollValue = 0f;
 
-    private ScrollContainer characterScroll;
-    private BoxContainer characters;
-    private BoxContainer selectVBox;
-    private Label nameLabel;
-    private BaseButton[] buttons;
+    private ScrollContainer _characterScroll;
+    private BoxContainer _characters;
+    private BoxContainer _selectVBox;
+    private Label _nameLabel;
+    private BaseButton[] _buttons;
 
     public override void _Ready()
     {
-        characterScroll = GetNode<ScrollContainer>("MarginContainer/VBoxContainer/CenterContainer/CharactersScroll");
-        characters = characterScroll.GetNode<BoxContainer>("Characters");
-        selectVBox = GetNode<BoxContainer>("MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox");
-        nameLabel = selectVBox.GetNode<Label>("VBoxContainer/Label");
-        buttons = new[]
+        _characterScroll = GetNode<ScrollContainer>("MarginContainer/VBoxContainer/CenterContainer/CharactersScroll");
+        _characters = _characterScroll.GetNode<BoxContainer>("Characters");
+        _selectVBox = GetNode<BoxContainer>("MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox");
+        _nameLabel = _selectVBox.GetNode<Label>("VBoxContainer/Label");
+        _buttons = new[]
         {
             GetNode<BaseButton>("MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollLeft"),
             GetNode<BaseButton>("MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollRight"),
             GetNode<BaseButton>("MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox/Select"),
         };
 
-        selectVBox.Visible = false;
+        _selectVBox.Visible = false;
         UpdateCharacters();
-        foreach (var button in buttons)
+        foreach (var button in _buttons)
         {
             button.Connect("mouse_entered", this, nameof(OnButton_MouseEntered), new Array {button});
             button.Connect("mouse_entered", this, nameof(OnButton_Pressed), new Array {button});
@@ -50,19 +50,19 @@ public class CharacterSelector : MarginContainer
     {
         var saveData = Autoload.Get<SaveData>();
 
-        foreach (var keyValuePair in Autoload.Get<Data>().CharacterData)
+        foreach (var keyValuePair in Autoload.Get<Data>().characterData)
         {
             var characterName = keyValuePair.Key;
             var characterRecord = keyValuePair.Value;
 
-            if (characterRecord.GuildLevel > saveData.GuildLevel)
+            if (characterRecord.guildLevel > saveData.GuildLevel)
             {
                 continue;
             }
 
             var character = (Character) CharacterResource.Instance();
-            characters.AddChild(character);
-            character.CharacterName = characterName;
+            _characters.AddChild(character);
+            character.characterName = characterName;
             if (!character.UpdateCharacter())
             {
                 character.QueueFree();
@@ -102,24 +102,24 @@ public class CharacterSelector : MarginContainer
         }
 
         _scrollValue = Mathf.Max(_scrollValue, 0);
-        characterScroll.ScrollHorizontal = (int) _scrollValue;
-        if ((int) _scrollValue > characterScroll.ScrollHorizontal)
+        _characterScroll.ScrollHorizontal = (int) _scrollValue;
+        if ((int) _scrollValue > _characterScroll.ScrollHorizontal)
         {
-            _scrollValue = characterScroll.ScrollHorizontal;
+            _scrollValue = _characterScroll.ScrollHorizontal;
         }
     }
 
     private void OnCharacter_Pressed(Character character)
     {
-        selectVBox.Visible = true;
-        SelectedCharacterName = character.CharacterName;
-        nameLabel.Text = character.CharacterName;
+        _selectVBox.Visible = true;
+        selectedCharacterName = character.characterName;
+        _nameLabel.Text = character.characterName;
         AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, character.RectGlobalPosition, -15);
     }
 
     private async void OnSelect_Pressed()
     {
-        Autoload.Get<SaveData>().CharacterName = SelectedCharacterName;
+        Autoload.Get<SaveData>().CharacterName = selectedCharacterName;
         var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f);
         await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(WORLD_SCENE_PATH, transitionParams);
     }

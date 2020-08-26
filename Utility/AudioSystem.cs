@@ -126,7 +126,7 @@ public class AudioSystem : Node
     private const float FADE_IN_START_VOLUME = -80f;
     private const float FADE_IN_DURATION = 0.5f;
 
-    public static Music CurrentPlayingMusic = Music.None;
+    public static Music currentPlayingMusic = Music.None;
 
     private float _musicVolume;
     private float _sfxVolume;
@@ -173,7 +173,7 @@ public class AudioSystem : Node
 
     public void PlayMusic(Music music, float volumeDb, float pitchScale, bool fadeIn = true)
     {
-        CurrentPlayingMusic = music;
+        currentPlayingMusic = music;
         _musicPlayer.Stream = GetMusicResource(music);
         volumeDb += _musicVolume;
         if (fadeIn)
@@ -193,7 +193,7 @@ public class AudioSystem : Node
 
     public static void StopMusic()
     {
-        CurrentPlayingMusic = Music.None;
+        currentPlayingMusic = Music.None;
         instance._musicPlayer.Stop();
     }
 

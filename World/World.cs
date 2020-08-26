@@ -17,30 +17,30 @@ namespace HeroesGuild.World
         private readonly PackedScene _baseEnemyScene =
             ResourceLoader.Load<PackedScene>("res://Entities/enemies/base_enemy/base_enemy.tscn");
 
-        private YSort map;
-        private Node2D enemySpawns;
-        private Combat.Combat combat;
-        private CombatMenu combatMenu;
-        private PauseMenu pauseMenu;
-        private Player player;
-        private DroppedItems droppedItemsGUI;
+        private YSort _map;
+        private Node2D _enemySpawns;
+        private Combat.Combat _combat;
+        private CombatMenu _combatMenu;
+        private PauseMenu _pauseMenu;
+        private Player _player;
+        private DroppedItems _droppedItemsGUI;
 
         public override void _Ready()
         {
-            map = GetNode<YSort>("Map");
-            enemySpawns = GetNode<Node2D>("EnemySpawns");
-            combat = GetNode<Combat.Combat>("Combat");
-            combatMenu = combat.GetNode<CombatMenu>("CombatMenu");
-            pauseMenu = GetNode<PauseMenu>("PauseMenu");
-            player = map.GetNode<Player>("Player");
-            droppedItemsGUI = GetNode<DroppedItems>("DroppedItems");
+            _map = GetNode<YSort>("Map");
+            _enemySpawns = GetNode<Node2D>("EnemySpawns");
+            _combat = GetNode<Combat.Combat>("Combat");
+            _combatMenu = _combat.GetNode<CombatMenu>("CombatMenu");
+            _pauseMenu = GetNode<PauseMenu>("PauseMenu");
+            _player = _map.GetNode<Player>("Player");
+            _droppedItemsGUI = GetNode<DroppedItems>("DroppedItems");
 
-            player.birdsSystem.Visible = true;
-            player.cloudsSystem.Visible = true;
+            _player.birdsSystem.Visible = true;
+            _player.cloudsSystem.Visible = true;
 
-            player.Position = Autoload.Get<SaveData>().WorldPosition;
+            _player.Position = Autoload.Get<SaveData>().WorldPosition;
 
-            if (AudioSystem.CurrentPlayingMusic != AudioSystem.Music.Overworld)
+            if (AudioSystem.currentPlayingMusic != AudioSystem.Music.Overworld)
             {
                 AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
             }
@@ -50,7 +50,7 @@ namespace HeroesGuild.World
 
         private void SpawnEnemies()
         {
-            foreach (EnemySpawn.EnemySpawn enemySpawn in enemySpawns.GetChildren())
+            foreach (EnemySpawn.EnemySpawn enemySpawn in _enemySpawns.GetChildren())
             {
                 SpawnEnemy(enemySpawn);
             }
@@ -82,7 +82,7 @@ namespace HeroesGuild.World
                 }
 
                 var data = Autoload.Get<Data>();
-                if (!data.EnemyData.ContainsKey(enemyName))
+                if (!data.enemyData.ContainsKey(enemyName))
                 {
                     GD.PushError($"{enemySpawn} enemy spawn has a {enemyName} enemy with no data attached.");
                     return;
@@ -92,7 +92,7 @@ namespace HeroesGuild.World
                 while (!safe)
                 {
                     enemy.Position = enemySpawn.GetRandomGlobalPosition();
-                    map.CallDeferred(nameof(map.AddChild), enemy);
+                    _map.CallDeferred(nameof(_map.AddChild), enemy);
                     safe = enemy.IsInAllowedTile();
 
                     if (!safe)
@@ -109,19 +109,19 @@ namespace HeroesGuild.World
         {
             if (Input.IsActionJustPressed("ui_cancel"))
             {
-                if (combatMenu.Visible && pauseMenu.pauseMenuControl.Visible)
+                if (_combatMenu.Visible && _pauseMenu.pauseMenuControl.Visible)
                 {
-                    pauseMenu.TogglePauseCombat(player);
+                    _pauseMenu.TogglePauseCombat(_player);
                 }
                 else
                 {
-                    if (droppedItemsGUI.margin.Visible)
+                    if (_droppedItemsGUI.margin.Visible)
                     {
-                        droppedItemsGUI.Close();
+                        _droppedItemsGUI.Close();
                     }
                     else
                     {
-                        pauseMenu.TogglePause(player);
+                        _pauseMenu.TogglePause(_player);
                     }
                 }
             }
@@ -132,7 +132,7 @@ namespace HeroesGuild.World
             if (!body.IsInGroup("enemies"))
             {
                 var offset = new Vector2(0, 5);
-                Autoload.Get<SaveData>().WorldPosition = player.Position + offset;
+                Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
 
                 AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, null, -30);
                 var transitionParams =
@@ -148,10 +148,10 @@ namespace HeroesGuild.World
             {
                 case CombatUtil.CombatOutcome.CombatWin:
                     enemyInstance.Die();
-                    droppedItemsGUI.DropItems(enemyInstance.EnemyName, player);
-                    combatMenu.Visible = false;
+                    _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
+                    _combatMenu.Visible = false;
                     GetTree().Paused = false;
-                    player.hudMargin.Visible = true;
+                    _player.hudMargin.Visible = true;
                     break;
                 case CombatUtil.CombatOutcome.CombatLose:
                     enemyInstance.Die();
@@ -161,13 +161,13 @@ namespace HeroesGuild.World
                 case CombatUtil.CombatOutcome.CombatFlee:
                     enemyInstance.Die();
                     GetTree().Paused = false;
-                    if (player.Health <= 0)
+                    if (_player.Health <= 0)
                     {
                         GameOver();
                     }
                     else
                     {
-                        combatMenu.Visible = false;
+                        _combatMenu.Visible = false;
                     }
 
                     break;
@@ -186,7 +186,7 @@ namespace HeroesGuild.World
             saveData.EquippedArmor = SaveData.DEFAULT_ARMOR;
             saveData.MaxHealth = SaveData.DEFAULT_HEALTH;
             saveData.Health = SaveData.DEFAULT_HEALTH;
-            player.Health = SaveData.DEFAULT_HEALTH;
+            _player.Health = SaveData.DEFAULT_HEALTH;
 
             AudioSystem.StopMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition("res://UI/Main Menu/Main Menu.tscn",

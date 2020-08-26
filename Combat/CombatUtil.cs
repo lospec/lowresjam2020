@@ -41,7 +41,7 @@ namespace HeroesGuild.Combat
                 Fail
             }
 
-            private readonly Dictionary<FleeOutcome, float> outcomeTable =
+            private readonly Dictionary<FleeOutcome, float> _outcomeTable =
                 new Dictionary<FleeOutcome, float>
                 {
                     {FleeOutcome.Success, 0f},
@@ -59,9 +59,9 @@ namespace HeroesGuild.Combat
 
             private FleeRule(float fleeNoDamageChance, float fleeDamageChance, float noFleeChance, float damageModifier)
             {
-                outcomeTable[FleeOutcome.Success] = fleeNoDamageChance;
-                outcomeTable[FleeOutcome.SuccessDmg] = fleeDamageChance;
-                outcomeTable[FleeOutcome.Fail] = noFleeChance;
+                _outcomeTable[FleeOutcome.Success] = fleeNoDamageChance;
+                _outcomeTable[FleeOutcome.SuccessDmg] = fleeDamageChance;
+                _outcomeTable[FleeOutcome.Fail] = noFleeChance;
                 this.damageModifier = damageModifier;
             }
 
@@ -69,7 +69,7 @@ namespace HeroesGuild.Combat
             {
                 var roll = GD.Randf();
                 var chance = 0f;
-                foreach (var pair in outcomeTable)
+                foreach (var pair in _outcomeTable)
                 {
                     chance += pair.Value;
                     if (roll < chance)

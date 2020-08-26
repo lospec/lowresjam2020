@@ -6,59 +6,59 @@ namespace HeroesGuild.Combat
 {
     public class CombatTurnResultUI : MarginContainer
     {
-        [Export] public float ActionTweenDelay = 1f;
-        [Export] public float ActionTweenDuration = 1f;
+        [Export] public float actionTweenDelay = 1f;
+        [Export] public float actionTweenDuration = 1f;
 
-        private Tween tween;
+        private Tween _tween;
         public HBoxContainer compareContainer;
-        private Label lineLabel;
+        private Label _lineLabel;
         public VBoxContainer winContainer;
-        private Label playerActionLabel;
-        private Label enemyActionLabel;
-        private Label winActorLabel;
-        private Label winActionLabel;
+        private Label _playerActionLabel;
+        private Label _enemyActionLabel;
+        private Label _winActorLabel;
+        private Label _winActionLabel;
 
         public override void _Ready()
         {
-            tween = GetNode<Tween>("Tween");
+            _tween = GetNode<Tween>("Tween");
             compareContainer = GetNode<HBoxContainer>("CompareContainer");
-            lineLabel = GetNode<Label>("LineLabel");
+            _lineLabel = GetNode<Label>("LineLabel");
             winContainer = GetNode<VBoxContainer>("WinResultContainer");
-            playerActionLabel = GetNode<Label>("CompareContainer/PlayerTurnContainer/ActionLabel");
-            enemyActionLabel = GetNode<Label>("CompareContainer/EnemyTurnContainer/ActionLabel");
-            winActorLabel = GetNode<Label>("WinResultContainer/ActorLabel");
-            winActionLabel = GetNode<Label>("WinResultContainer/ActionLabel");
+            _playerActionLabel = GetNode<Label>("CompareContainer/PlayerTurnContainer/ActionLabel");
+            _enemyActionLabel = GetNode<Label>("CompareContainer/EnemyTurnContainer/ActionLabel");
+            _winActorLabel = GetNode<Label>("WinResultContainer/ActorLabel");
+            _winActionLabel = GetNode<Label>("WinResultContainer/ActionLabel");
         }
 
         public async Task ShowTurnCompare(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction,
             float duration = 1.5f)
         {
-            playerActionLabel.Text = CombatUtil.GetActionName(playerAction);
-            playerActionLabel.Modulate = CombatUtil.GetActionColor(playerAction);
-            enemyActionLabel.Text = CombatUtil.GetActionName(enemyAction);
-            enemyActionLabel.Modulate = CombatUtil.GetActionColor(enemyAction);
-            lineLabel.Visible = true;
+            _playerActionLabel.Text = CombatUtil.GetActionName(playerAction);
+            _playerActionLabel.Modulate = CombatUtil.GetActionColor(playerAction);
+            _enemyActionLabel.Text = CombatUtil.GetActionName(enemyAction);
+            _enemyActionLabel.Modulate = CombatUtil.GetActionColor(enemyAction);
+            _lineLabel.Visible = true;
             compareContainer.Visible = true;
 
             if (duration > 0)
             {
-                var color = playerActionLabel.Modulate;
+                var color = _playerActionLabel.Modulate;
                 color.a = 0;
-                playerActionLabel.Modulate = color;
-                color = enemyActionLabel.Modulate;
+                _playerActionLabel.Modulate = color;
+                color = _enemyActionLabel.Modulate;
                 color.a = 0;
-                enemyActionLabel.Modulate = color;
+                _enemyActionLabel.Modulate = color;
 
-                tween.InterpolateProperty(enemyActionLabel, "modulate:a", 0f, 1f, ActionTweenDuration, Tween
-                    .TransitionType.Quad, Tween.EaseType.Out, ActionTweenDelay);
-                tween.InterpolateProperty(playerActionLabel, "modulate:a", 0f, 1f, ActionTweenDuration, Tween
-                    .TransitionType.Quad, Tween.EaseType.Out, ActionTweenDelay);
-                tween.Start();
+                _tween.InterpolateProperty(_enemyActionLabel, "modulate:a", 0f, 1f, actionTweenDuration, Tween
+                    .TransitionType.Quad, Tween.EaseType.Out, actionTweenDelay);
+                _tween.InterpolateProperty(_playerActionLabel, "modulate:a", 0f, 1f, actionTweenDuration, Tween
+                    .TransitionType.Quad, Tween.EaseType.Out, actionTweenDelay);
+                _tween.Start();
 
-                await ToSignal(tween, "tween_all_completed");
+                await ToSignal(_tween, "tween_all_completed");
                 await ToSignal(GetTree().CreateTimer(duration), "timeout");
 
-                lineLabel.Visible = false;
+                _lineLabel.Visible = false;
                 compareContainer.Visible = false;
             }
         }
@@ -66,9 +66,9 @@ namespace HeroesGuild.Combat
 
         private void SetWinLabel(string actor, CombatUtil.CombatAction action)
         {
-            winActorLabel.Text = actor;
-            winActionLabel.Text = CombatUtil.GetActionName(action);
-            winActionLabel.Modulate = CombatUtil.GetActionColor(action);
+            _winActorLabel.Text = actor;
+            _winActionLabel.Text = CombatUtil.GetActionName(action);
+            _winActionLabel.Modulate = CombatUtil.GetActionColor(action);
         }
 
         public async void ShowWinResult(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction,

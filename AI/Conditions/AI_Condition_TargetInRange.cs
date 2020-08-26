@@ -5,7 +5,7 @@ namespace HeroesGuild.AI.Conditions
 {
     public class AI_Condition_TargetInRange : AI_State_Condition
     {
-        [Export] public float MaxRange;
+        [Export] public float maxRange;
 
         public override bool Evaluate(StateMachine stateMachine)
         {
@@ -14,7 +14,7 @@ namespace HeroesGuild.AI.Conditions
                 return false;
             }
 
-            return stateMachine.DistanceToTarget < MaxRange;
+            return stateMachine.DistanceToTarget < maxRange;
         }
     }
 }

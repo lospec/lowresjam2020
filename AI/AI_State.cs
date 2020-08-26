@@ -5,24 +5,24 @@ namespace HeroesGuild.AI
 {
     public class AI_State : Node
     {
-        [Export] public AI_State_Action[] Actions;
-        [Export] public AI_Transition[] Transitions;
+        [Export] public AI_State_Action[] actions;
+        [Export] public AI_Transition[] transitions;
 
         public AI_State Instance()
         {
             var state = new AI_State
             {
-                Actions = new AI_State_Action[Actions.Length],
-                Transitions = new AI_Transition[Transitions.Length]
+                actions = new AI_State_Action[actions.Length],
+                transitions = new AI_Transition[transitions.Length]
             };
-            for (var i = 0; i < state.Actions.Length; i++)
+            for (var i = 0; i < state.actions.Length; i++)
             {
-                state.Actions[i] = (AI_State_Action) Actions[i].Duplicate();
+                state.actions[i] = (AI_State_Action) actions[i].Duplicate();
             }
 
-            for (var i = 0; i < Transitions.Length; i++)
+            for (var i = 0; i < transitions.Length; i++)
             {
-                state.Transitions[i] = (AI_Transition) Transitions[i].Duplicate();
+                state.transitions[i] = (AI_Transition) transitions[i].Duplicate();
             }
 
             return state;
@@ -34,7 +34,7 @@ namespace HeroesGuild.AI
 
         public void OnStart(StateMachine stateMachine)
         {
-            foreach (var action in Actions)
+            foreach (var action in actions)
             {
                 if (action == null || action.IsInitialized)
                 {
@@ -49,7 +49,7 @@ namespace HeroesGuild.AI
         private void PerformActions(StateMachine stateMachine, float delta)
         {
             var interrupt = false;
-            foreach (var action in Actions)
+            foreach (var action in actions)
             {
                 action.Perform(stateMachine, delta, ref interrupt);
                 if (interrupt)
@@ -61,11 +61,11 @@ namespace HeroesGuild.AI
 
         private void CheckAllTransitions(StateMachine stateMachine)
         {
-            foreach (var transition in Transitions)
+            foreach (var transition in transitions)
             {
-                var stateIndex = transition.Condition.Evaluate(stateMachine)
-                    ? transition.TrueStateIndex
-                    : transition.FalseStateIndex;
+                var stateIndex = transition.condition.Evaluate(stateMachine)
+                    ? transition.trueStateIndex
+                    : transition.falseStateIndex;
 
                 stateMachine.TransitionToState(stateIndex, out var result);
                 if (result)

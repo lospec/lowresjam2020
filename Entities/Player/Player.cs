@@ -22,11 +22,11 @@ namespace HeroesGuild.Entities.Player
         public string EquippedArmor { get; set; }
 
         public MarginContainer hudMargin;
-        private Label hudHealthLabel;
-        private Area2D chestDetector;
-        private Area2D deskDetector;
+        private Label _hudHealthLabel;
+        private Area2D _chestDetector;
+        private Area2D _deskDetector;
         public Camera2D camera;
-        private Area2D collisionDetector;
+        private Area2D _collisionDetector;
 
         public Node2D birdsSystem;
         public Node2D cloudsSystem;
@@ -34,11 +34,11 @@ namespace HeroesGuild.Entities.Player
         public override void _Ready()
         {
             hudMargin = GetNode<MarginContainer>("HUD/MarginContainer");
-            hudHealthLabel = GetNode<Label>("HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health");
-            chestDetector = GetNode<Area2D>("ChestDetector");
-            deskDetector = GetNode<Area2D>("DeskDetector");
+            _hudHealthLabel = GetNode<Label>("HUD/MarginContainer/HealthMargin/MarginContainer/HBoxContainer/Health");
+            _chestDetector = GetNode<Area2D>("ChestDetector");
+            _deskDetector = GetNode<Area2D>("DeskDetector");
             camera = GetNode<Camera2D>("Camera2D");
-            collisionDetector = GetNode<Area2D>("CollisionDetector");
+            _collisionDetector = GetNode<Area2D>("CollisionDetector");
             birdsSystem = GetNode<Node2D>("BirdsSystem");
             cloudsSystem = GetNode<Node2D>("CloudsSystem");
 
@@ -47,16 +47,16 @@ namespace HeroesGuild.Entities.Player
             Inventory = saveData.Inventory;
             EquippedWeapon = saveData.EquippedWeapon;
             EquippedArmor = saveData.EquippedArmor;
-            MaxHealth = saveData.MaxHealth;
+            maxHealth = saveData.MaxHealth;
             Health = saveData.Health;
             
             base._Ready();
             
-            hudHealthLabel.Text = $"{Health}/{MaxHealth}";
+            _hudHealthLabel.Text = $"{Health}/{maxHealth}";
             var texture =
                 ResourceLoader.Load<Texture>(
                     $"res://Entities/Player/spritesheets/{saveData.CharacterName}_Overworld.png");
-            Sprite.Texture = texture;
+            sprite.Texture = texture;
         }
 
         private void OnPlayerTree_Exiting()
@@ -66,7 +66,7 @@ namespace HeroesGuild.Entities.Player
             saveData.Inventory = Inventory;
             saveData.EquippedWeapon = EquippedWeapon;
             saveData.EquippedArmor = EquippedArmor;
-            saveData.MaxHealth = MaxHealth;
+            saveData.MaxHealth = maxHealth;
             saveData.Health = Health;
         }
 
@@ -77,13 +77,13 @@ namespace HeroesGuild.Entities.Player
                               - Input.GetActionStrength("player_move_left");
             inputVelocity.y = Input.GetActionStrength("player_move_down")
                               - Input.GetActionStrength("player_move_up");
-            Velocity = inputVelocity.Normalized() * MoveSpeed;
+            Velocity = inputVelocity.Normalized() * moveSpeed;
             base._PhysicsProcess(delta);
         }
 
         public override void _Process(float delta)
         {
-            hudHealthLabel.Text = $"{Health}/{MaxHealth}";
+            _hudHealthLabel.Text = $"{Health}/{maxHealth}";
         }
 
         private void OnEntityDetector_BodyEntered(Node body)
@@ -103,7 +103,7 @@ namespace HeroesGuild.Entities.Player
         {
             if (Input.IsActionJustPressed("open_chest"))
             {
-                var chests = chestDetector.GetOverlappingBodies();
+                var chests = _chestDetector.GetOverlappingBodies();
                 if (chests.Count > 0)
                 {
                     Node2D closestChest = null;
@@ -124,7 +124,7 @@ namespace HeroesGuild.Entities.Player
 
             if (Input.IsActionJustPressed("guild_hall_desk_interact"))
             {
-                var desks = deskDetector.GetOverlappingBodies();
+                var desks = _deskDetector.GetOverlappingBodies();
                 if (desks.Count == 0)
                 {
                     return;

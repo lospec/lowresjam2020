@@ -32,52 +32,52 @@ namespace HeroesGuild.Combat
         public Player playerInstance;
         public BaseEnemy enemyInstance;
 
-        private CombatMenu combatMenu;
-        private PlayerCombat playerCombat;
-        private EnemyCombat enemyCombat;
+        private CombatMenu _combatMenu;
+        private PlayerCombat _playerCombat;
+        private EnemyCombat _enemyCombat;
 
         public override void _Ready()
         {
-            combatMenu = GetNode<CombatMenu>("CombatMenu");
-            playerCombat = GetNode<PlayerCombat>("PlayerCombat");
-            enemyCombat = GetNode<EnemyCombat>("EnemyCombat");
+            _combatMenu = GetNode<CombatMenu>("CombatMenu");
+            _playerCombat = GetNode<PlayerCombat>("PlayerCombat");
+            _enemyCombat = GetNode<EnemyCombat>("EnemyCombat");
         }
 
         public void SetupCombat(Player player, BaseEnemy enemy)
         {
             GetNode<TextureRect>("Background").Texture = Backgrounds.RandomElement();
             AudioSystem.StopMusic();
-            playerCombat.CharacterInstance = player;
-            enemyCombat.CharacterInstance = enemy;
+            _playerCombat.characterInstance = player;
+            _enemyCombat.characterInstance = enemy;
 
-            combatMenu.CurrentMenu = CombatMenu.Menu.Main;
-            combatMenu.ResetUI();
+            _combatMenu.currentMenu = CombatMenu.Menu.Main;
+            _combatMenu.ResetUI();
 
             playerInstance = player;
             enemyInstance = enemy;
 
-            if (!playerInstance.IsConnected(nameof(BaseEntity.HealthChanged), combatMenu,
-                nameof(combatMenu.UpdatePlayerHealthValue)))
+            if (!playerInstance.IsConnected(nameof(BaseEntity.HealthChanged), _combatMenu,
+                nameof(_combatMenu.UpdatePlayerHealthValue)))
             {
-                playerInstance.Connect(nameof(BaseEntity.HealthChanged), combatMenu,
-                    nameof(combatMenu.UpdatePlayerHealthValue));
+                playerInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
+                    nameof(_combatMenu.UpdatePlayerHealthValue));
             }
 
-            if (!enemyInstance.IsConnected(nameof(BaseEntity.HealthChanged), combatMenu,
-                nameof(combatMenu.UpdateEnemyHealthValue)))
+            if (!enemyInstance.IsConnected(nameof(BaseEntity.HealthChanged), _combatMenu,
+                nameof(_combatMenu.UpdateEnemyHealthValue)))
             {
-                enemyInstance.Connect(nameof(BaseEnemy.HealthChanged), combatMenu,
-                    nameof(combatMenu.UpdateEnemyHealthValue));
+                enemyInstance.Connect(nameof(BaseEnemy.HealthChanged), _combatMenu,
+                    nameof(_combatMenu.UpdateEnemyHealthValue));
             }
 
-            if (!enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
+            if (!_enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
                 nameof(OnEnemy_TakeDamage)))
             {
-                enemyCombat.Connect(nameof(CombatChar.DamageTaken), this, nameof(OnEnemy_TakeDamage));
+                _enemyCombat.Connect(nameof(CombatChar.DamageTaken), this, nameof(OnEnemy_TakeDamage));
             }
 
-            combatMenu.SetPlayerHealthValue(playerInstance.MaxHealth, playerInstance.Health);
-            combatMenu.SetEnemyHealthValue(enemyInstance.MaxHealth, enemyInstance.Health);
+            _combatMenu.SetPlayerHealthValue(playerInstance.maxHealth, playerInstance.Health);
+            _combatMenu.SetEnemyHealthValue(enemyInstance.maxHealth, enemyInstance.Health);
 
             var weaponName = playerInstance.EquippedWeapon;
             var weaponTexture = GD.Load<Texture>($"res://Combat/WeaponSprites/{weaponName.ToLower()}.png");
@@ -86,9 +86,9 @@ namespace HeroesGuild.Combat
                 GD.PushWarning($"Weapon Battle sprite for {weaponName} not found");
             }
 
-            combatMenu.playerWeapon.Texture = weaponTexture;
-            ((AtlasTexture) combatMenu.enemyImage.Texture).Atlas = enemyInstance.battleTexture;
-            ((AtlasTexture) combatMenu.enemyImage.Texture).Region = new Rect2(
+            _combatMenu.playerWeapon.Texture = weaponTexture;
+            ((AtlasTexture) _combatMenu.enemyImage.Texture).Atlas = enemyInstance.battleTexture;
+            ((AtlasTexture) _combatMenu.enemyImage.Texture).Region = new Rect2(
                 CombatAnimationUtil.AnimationStateRegionPositionX[CombatAnimationUtil.AnimationState.Normal],
                 CombatAnimationUtil.BattleTexturePosY, CombatAnimationUtil.BattleTextureWidth,
                 CombatAnimationUtil.BattleTextureHeight);
@@ -104,27 +104,27 @@ namespace HeroesGuild.Combat
             while (combat)
             {
                 turnCount++;
-                combatMenu.UpdateParticle(enemyInstance);
+                _combatMenu.UpdateParticle(enemyInstance);
                 combat = await TakeTurn();
                 if (combat)
                 {
-                    foreach (var statusEffectsKey in playerInstance.StatusEffects.Keys)
+                    foreach (var statusEffectsKey in playerInstance.statusEffects.Keys)
                     {
-                        var statusEffect = playerInstance.StatusEffects[statusEffectsKey];
-                        statusEffect.OnTurnEnd(playerCombat);
-                        if (statusEffect.Expired)
+                        var statusEffect = playerInstance.statusEffects[statusEffectsKey];
+                        statusEffect.OnTurnEnd(_playerCombat);
+                        if (statusEffect.expired)
                         {
-                            playerInstance.StatusEffects.Remove(statusEffectsKey);
+                            playerInstance.statusEffects.Remove(statusEffectsKey);
                         }
                     }
 
-                    foreach (var statusEffectsKey in enemyInstance.StatusEffects.Keys)
+                    foreach (var statusEffectsKey in enemyInstance.statusEffects.Keys)
                     {
-                        var statusEffect = enemyInstance.StatusEffects[statusEffectsKey];
-                        statusEffect.OnTurnEnd(enemyCombat);
-                        if (statusEffect.Expired)
+                        var statusEffect = enemyInstance.statusEffects[statusEffectsKey];
+                        statusEffect.OnTurnEnd(_enemyCombat);
+                        if (statusEffect.expired)
                         {
-                            enemyInstance.StatusEffects.Remove(statusEffectsKey);
+                            enemyInstance.statusEffects.Remove(statusEffectsKey);
                         }
                     }
 
@@ -132,16 +132,16 @@ namespace HeroesGuild.Combat
                     {
                         if (playerInstance.Health <= 0)
                         {
-                            await combatMenu.ShowCombatLabel("YOU DIED", 2);
-                            await combatMenu.ShowCombatLabel("GAME OVER", 2);
-                            combatMenu.combatLabel.Visible = true;
+                            await _combatMenu.ShowCombatLabel("YOU DIED", 2);
+                            await _combatMenu.ShowCombatLabel("GAME OVER", 2);
+                            _combatMenu.combatLabel.Visible = true;
                             EndCombat(CombatUtil.CombatOutcome.CombatLose);
                         }
                         else if (enemyInstance.Health <= 0)
                         {
-                            await combatMenu.ShowCombatLabel("YOU WON", 2);
-                            await combatMenu.ShowCombatLabel("CONGRATULATION", 2);
-                            combatMenu.combatLabel.Visible = true;
+                            await _combatMenu.ShowCombatLabel("YOU WON", 2);
+                            await _combatMenu.ShowCombatLabel("CONGRATULATION", 2);
+                            _combatMenu.combatLabel.Visible = true;
                             EndCombat(CombatUtil.CombatOutcome.CombatWin);
                         }
 
@@ -151,17 +151,17 @@ namespace HeroesGuild.Combat
 
                 if (combat)
                 {
-                    combatMenu.ResetUI();
+                    _combatMenu.ResetUI();
                 }
             }
         }
 
         private void EndCombat(CombatUtil.CombatOutcome outcome)
         {
-            playerInstance.Disconnect(nameof(BaseEntity.HealthChanged), combatMenu,
-                nameof(combatMenu.UpdatePlayerHealthValue));
-            enemyInstance.Disconnect(nameof(BaseEntity.HealthChanged), combatMenu,
-                nameof(combatMenu.UpdateEnemyHealthValue));
+            playerInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
+                nameof(_combatMenu.UpdatePlayerHealthValue));
+            enemyInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
+                nameof(_combatMenu.UpdateEnemyHealthValue));
             EmitSignal(nameof(CombatDone), outcome, enemyInstance);
         }
 
@@ -173,17 +173,17 @@ namespace HeroesGuild.Combat
 
         private async Task<bool> TakeTurn()
         {
-            var playerAction = await playerCombat.GetAction();
-            var enemyAction = await enemyCombat.GetAction();
-            combatMenu.SetButtonsVisible(false);
-            await combatMenu.ShowTurnResult(playerAction, enemyAction);
+            var playerAction = await _playerCombat.GetAction();
+            var enemyAction = await _enemyCombat.GetAction();
+            _combatMenu.SetButtonsVisible(false);
+            await _combatMenu.ShowTurnResult(playerAction, enemyAction);
             var timer = GetTree().CreateTimer(1.5f);
             if (playerAction == CombatUtil.CombatAction.Flee)
             {
                 var flee = await PlayerFlee(enemyAction);
                 if (flee)
                 {
-                    combatMenu.combatLabel.Visible = true;
+                    _combatMenu.combatLabel.Visible = true;
                     EndCombat(CombatUtil.CombatOutcome.CombatFlee);
                     return false;
                 }
@@ -203,7 +203,7 @@ namespace HeroesGuild.Combat
                         await EnemyWin(enemyAction);
                         break;
                     default:
-                        await combatMenu.ShowCombatLabel("ERROR: Invalid win check", 2);
+                        await _combatMenu.ShowCombatLabel("ERROR: Invalid win check", 2);
                         throw new ArgumentOutOfRangeException();
                 }
             }
@@ -213,21 +213,21 @@ namespace HeroesGuild.Combat
                 await ToSignal(timer, "timeout");
             }
 
-            combatMenu.HideTurnResult();
+            _combatMenu.HideTurnResult();
             if (CheckCombatEnd())
             {
                 if (playerInstance.Health <= 0)
                 {
-                    await combatMenu.ShowCombatLabel("YOU DIED", 2);
-                    await combatMenu.ShowCombatLabel("GAME OVER", 2);
-                    combatMenu.combatLabel.Visible = true;
+                    await _combatMenu.ShowCombatLabel("YOU DIED", 2);
+                    await _combatMenu.ShowCombatLabel("GAME OVER", 2);
+                    _combatMenu.combatLabel.Visible = true;
                     EndCombat(CombatUtil.CombatOutcome.CombatLose);
                 }
                 else if (enemyInstance.Health <= 0)
                 {
-                    await combatMenu.ShowCombatLabel("YOU WON", 2);
-                    await combatMenu.ShowCombatLabel("CONGRATULATION", 2);
-                    combatMenu.Visible = true;
+                    await _combatMenu.ShowCombatLabel("YOU WON", 2);
+                    await _combatMenu.ShowCombatLabel("CONGRATULATION", 2);
+                    _combatMenu.Visible = true;
                     EndCombat(CombatUtil.CombatOutcome.CombatWin);
                 }
 
@@ -239,80 +239,80 @@ namespace HeroesGuild.Combat
 
         private async Task EnemyWin(CombatUtil.CombatAction enemyAction)
         {
-            var enemyDamage = enemyCombat.GetBaseDamage(enemyAction);
+            var enemyDamage = _enemyCombat.GetBaseDamage(enemyAction);
             switch (enemyAction)
             {
                 case CombatUtil.CombatAction.Quick:
-                    enemyCombat.Attack(playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
-                    await combatMenu.AnimatePlayerHurt(enemyDamage);
+                    _enemyCombat.Attack(_playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
+                    await _combatMenu.AnimatePlayerHurt(enemyDamage);
                     break;
                 case CombatUtil.CombatAction.Counter:
                     enemyDamage /= 2;
-                    enemyCombat.Attack(playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
-                    await combatMenu.AnimatePlayerHurt(enemyDamage, true);
+                    _enemyCombat.Attack(_playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
+                    await _combatMenu.AnimatePlayerHurt(enemyDamage, true);
                     break;
                 case CombatUtil.CombatAction.Heavy:
-                    enemyCombat.Attack(playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
-                    await combatMenu.AnimatePlayerHurt(enemyDamage);
+                    _enemyCombat.Attack(_playerCombat, enemyAction, enemyDamage, enemyInstance, playerInstance);
+                    await _combatMenu.AnimatePlayerHurt(enemyDamage);
                     break;
                 default:
-                    combatMenu.HideTurnResult();
-                    await combatMenu.ShowCombatLabel("ERROR. Unknown Action on EnemyWin()", 2);
+                    _combatMenu.HideTurnResult();
+                    await _combatMenu.ShowCombatLabel("ERROR. Unknown Action on EnemyWin()", 2);
                     throw new ArgumentOutOfRangeException(nameof(enemyAction), enemyAction, null);
             }
         }
 
         private async Task PlayerWin(CombatUtil.CombatAction playerAction)
         {
-            var playerDamage = playerCombat.GetBaseDamage(playerAction);
-            playerCombat.HitCombo += 1;
+            var playerDamage = _playerCombat.GetBaseDamage(playerAction);
+            _playerCombat.hitCombo += 1;
             switch (playerAction)
             {
                 case CombatUtil.CombatAction.Quick:
-                    await combatMenu.AnimatePlayerAttack(playerCombat, playerAction);
-                    playerCombat.Attack(enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
+                    await _combatMenu.AnimatePlayerAttack(_playerCombat, playerAction);
+                    _playerCombat.Attack(_enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
                     break;
                 case CombatUtil.CombatAction.Counter:
-                    await combatMenu.AnimatePlayerAttack(playerCombat, playerAction);
-                    playerCombat.Attack(enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
+                    await _combatMenu.AnimatePlayerAttack(_playerCombat, playerAction);
+                    _playerCombat.Attack(_enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
                     break;
                 case CombatUtil.CombatAction.Heavy:
-                    await combatMenu.AnimatePlayerAttack(playerCombat, playerAction);
-                    playerCombat.Attack(enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
+                    await _combatMenu.AnimatePlayerAttack(_playerCombat, playerAction);
+                    _playerCombat.Attack(_enemyCombat, playerAction, playerDamage, playerInstance, enemyInstance);
                     break;
                 default:
-                    combatMenu.HideTurnResult();
-                    await combatMenu.ShowCombatLabel("ERROR. Unknown Action on PlayerWin()", 2);
+                    _combatMenu.HideTurnResult();
+                    await _combatMenu.ShowCombatLabel("ERROR. Unknown Action on PlayerWin()", 2);
                     throw new ArgumentOutOfRangeException(nameof(playerAction), playerAction, null);
             }
         }
 
         private async Task Tie(CombatUtil.CombatAction action)
         {
-            var enemyDamage = enemyCombat.GetBaseDamage(action);
-            var playerDamage = playerCombat.GetBaseDamage(action);
+            var enemyDamage = _enemyCombat.GetBaseDamage(action);
+            var playerDamage = _playerCombat.GetBaseDamage(action);
             switch (action)
             {
                 case CombatUtil.CombatAction.Quick:
-                    await combatMenu.AnimatePlayerAttack(playerCombat, action);
-                    playerCombat.Attack(enemyCombat, action, playerDamage, playerInstance, enemyInstance);
-                    enemyCombat.Attack(playerCombat, action, enemyDamage, enemyInstance, playerInstance);
-                    await combatMenu.AnimatePlayerHurt(enemyDamage);
+                    await _combatMenu.AnimatePlayerAttack(_playerCombat, action);
+                    _playerCombat.Attack(_enemyCombat, action, playerDamage, playerInstance, enemyInstance);
+                    _enemyCombat.Attack(_playerCombat, action, enemyDamage, enemyInstance, playerInstance);
+                    await _combatMenu.AnimatePlayerHurt(enemyDamage);
                     break;
                 case CombatUtil.CombatAction.Counter:
                     await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
                     break;
                 case CombatUtil.CombatAction.Heavy:
-                    await combatMenu.AnimatePlayerAttack(playerCombat, action);
+                    await _combatMenu.AnimatePlayerAttack(_playerCombat, action);
                     playerDamage /= 2;
-                    playerCombat.Attack(enemyCombat, action, playerDamage, playerInstance, enemyInstance);
+                    _playerCombat.Attack(_enemyCombat, action, playerDamage, playerInstance, enemyInstance);
                     enemyDamage /= 2;
-                    enemyCombat.Attack(playerCombat, action, enemyDamage, enemyInstance, playerInstance);
-                    await combatMenu.AnimatePlayerHurt(enemyDamage);
+                    _enemyCombat.Attack(_playerCombat, action, enemyDamage, enemyInstance, playerInstance);
+                    await _combatMenu.AnimatePlayerHurt(enemyDamage);
                     break;
                 default:
-                    combatMenu.HideTurnResult();
-                    await combatMenu.ShowCombatLabel("ERROR. Unknown Action on Tie()", 2);
+                    _combatMenu.HideTurnResult();
+                    await _combatMenu.ShowCombatLabel("ERROR. Unknown Action on Tie()", 2);
                     throw new ArgumentOutOfRangeException(nameof(action), action, null);
             }
         }
@@ -320,24 +320,24 @@ namespace HeroesGuild.Combat
         private async Task<bool> PlayerFlee(CombatUtil.CombatAction enemyAction)
         {
             var rule = new CombatUtil.FleeRule(enemyAction);
-            var enemyDamage = enemyCombat.GetBaseDamage(enemyAction);
+            var enemyDamage = _enemyCombat.GetBaseDamage(enemyAction);
             var outcome = rule.Roll();
             switch (outcome)
             {
                 case CombatUtil.FleeRule.FleeOutcome.Success:
-                    await combatMenu.ShowCombatLabel("Got away safely", 2);
+                    await _combatMenu.ShowCombatLabel("Got away safely", 2);
                     return true;
                 case CombatUtil.FleeRule.FleeOutcome.SuccessDmg:
-                    enemyCombat.Attack(playerCombat, enemyAction, (int) (enemyDamage * rule.damageModifier),
+                    _enemyCombat.Attack(_playerCombat, enemyAction, (int) (enemyDamage * rule.damageModifier),
                         enemyInstance, playerInstance);
-                    combatMenu.AnimatePlayerHurt(enemyDamage);
-                    await combatMenu.ShowCombatLabel("Got away not so safely", 2);
+                    _combatMenu.AnimatePlayerHurt(enemyDamage);
+                    await _combatMenu.ShowCombatLabel("Got away not so safely", 2);
                     return true;
                 case CombatUtil.FleeRule.FleeOutcome.Fail:
-                    await combatMenu.ShowCombatLabel("Failed to flee", 2);
-                    enemyCombat.Attack(playerCombat, enemyAction, (int) (enemyDamage * rule.damageModifier),
+                    await _combatMenu.ShowCombatLabel("Failed to flee", 2);
+                    _enemyCombat.Attack(_playerCombat, enemyAction, (int) (enemyDamage * rule.damageModifier),
                         enemyInstance, playerInstance);
-                    combatMenu.AnimatePlayerHurt(enemyDamage);
+                    _combatMenu.AnimatePlayerHurt(enemyDamage);
                     return false;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -362,8 +362,8 @@ namespace HeroesGuild.Combat
 
         private void OnEnemy_TakeDamage(int damage, string damageType)
         {
-            combatMenu.UpdateParticle(enemyInstance);
-            combatMenu.AnimateEnemyHurt(enemyInstance, damage);
+            _combatMenu.UpdateParticle(enemyInstance);
+            _combatMenu.AnimateEnemyHurt(enemyInstance, damage);
         }
 
         private void OnPlayer_EnemyDetected(Player player, BaseEnemy enemy)
@@ -371,7 +371,7 @@ namespace HeroesGuild.Combat
             GetTree().Paused = true;
             player.hudMargin.Visible = false;
             SetupCombat(player, enemy);
-            combatMenu.Visible = true;
+            _combatMenu.Visible = true;
         }
 
         private void OnCounter_Pressed()
@@ -397,7 +397,7 @@ namespace HeroesGuild.Combat
 
         public override void _Process(float delta)
         {
-            GetNode<CanvasItem>("Background").Visible = combatMenu.Visible;
+            GetNode<CanvasItem>("Background").Visible = _combatMenu.Visible;
         }
     }
 }

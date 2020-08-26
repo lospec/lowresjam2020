@@ -14,7 +14,7 @@ namespace HeroesGuild.Entities.enemies.base_enemy
 
         [Signal] public delegate void Died(BaseEnemy enemy);
 
-        [Export] public string EnemyName;
+        [Export] public string enemyName;
 
         public EnemyRecord Stat { get; set; }
         public StateMachine stateMachine;
@@ -23,9 +23,9 @@ namespace HeroesGuild.Entities.enemies.base_enemy
         public override void _Ready()
         {
             stateMachine = GetNode<StateMachine>("StateMachine");
-            if (string.IsNullOrWhiteSpace(Stat.Race) && !string.IsNullOrWhiteSpace(EnemyName))
+            if (string.IsNullOrWhiteSpace(Stat.Race) && !string.IsNullOrWhiteSpace(enemyName))
             {
-                LoadEnemy(EnemyName);
+                LoadEnemy(enemyName);
                 base._Ready();
             }
         }
@@ -33,27 +33,27 @@ namespace HeroesGuild.Entities.enemies.base_enemy
         public async void LoadEnemy(string enemyDataName)
         {
             var data = Autoload.Get<Data>();
-            if (!data.EnemyData.ContainsKey(enemyDataName))
+            if (!data.enemyData.ContainsKey(enemyDataName))
             {
                 GD.PushError($"Enemy data for {enemyDataName} not found");
                 return;
             }
 
-            EnemyName = enemyDataName;
-            Stat = data.EnemyData[enemyDataName];
-            MoveSpeed = data.GetLerpedSpeedStat(Stat.MoveSpeed, MIN_SPEED, MAX_SPEED);
+            enemyName = enemyDataName;
+            Stat = data.enemyData[enemyDataName];
+            moveSpeed = data.GetLerpedSpeedStat(Stat.MoveSpeed, MIN_SPEED, MAX_SPEED);
             battleTexture = new AtlasTexture
             {
                 Atlas = GD.Load<Texture>($"res://Entities/enemies/sprites/{enemyDataName}_Battle.png")
             };
 
-            if (Sprite == null || stateMachine == null)
+            if (sprite == null || stateMachine == null)
             {
                 await ToSignal(this, "ready");
             }
 
-            Sprite.Texture = GD.Load<Texture>($"res://Entities/enemies/sprites/{enemyDataName}_Overworld.png");
-            stateMachine.Behaviour =
+            sprite.Texture = GD.Load<Texture>($"res://Entities/enemies/sprites/{enemyDataName}_Overworld.png");
+            stateMachine.behaviour =
                 GD.Load<AI_Behaviour>($"res://AI/Resources/{Stat.AiType.ToLower()}_behaviour.tres");
             EmitSignal(nameof(StatsLoaded));
         }

@@ -20,48 +20,48 @@ namespace HeroesGuild.Combat
             Attack
         }
 
-        public Menu CurrentMenu = Menu.Main;
-        private PackedScene damageLabel = ResourceLoader.Load<PackedScene>("res://Combat/Effects/DamageLabel.tscn");
-        private MarginContainer buttons;
-        private MarginContainer mainButtonsMenu;
-        private MarginContainer attackButtonsMenu;
+        public Menu currentMenu = Menu.Main;
+        private PackedScene _damageLabel = ResourceLoader.Load<PackedScene>("res://Combat/Effects/DamageLabel.tscn");
+        private MarginContainer _buttons;
+        private MarginContainer _mainButtonsMenu;
+        private MarginContainer _attackButtonsMenu;
         public Label combatLabel;
-        private CombatTurnResultUI combatTurnResult;
-        private Label playerHealthLabel;
-        private HealthIcon playerHealthIcon;
+        private CombatTurnResultUI _combatTurnResult;
+        private Label _playerHealthLabel;
+        private HealthIcon _playerHealthIcon;
         public TextureRect playerWeapon;
-        private TextureProgress enemyHealthBar;
-        private Tween enemyHealthBarTween;
+        private TextureProgress _enemyHealthBar;
+        private Tween _enemyHealthBarTween;
         public CombatEnemyTexture enemyImage;
-        private CombatAttackAnim attackEffect;
-        private Control damageSpawnArea;
-        private AnimationList effectAnimations;
-        private Control particlePos;
+        private CombatAttackAnim _attackEffect;
+        private Control _damageSpawnArea;
+        private AnimationList _effectAnimations;
+        private Control _particlePos;
 
 
         public override void _Ready()
         {
-            buttons = GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons");
-            mainButtonsMenu = GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu");
-            attackButtonsMenu =
+            _buttons = GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons");
+            _mainButtonsMenu = GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu");
+            _attackButtonsMenu =
                 GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu");
             combatLabel = GetNode<Label>("VBoxContainer/PlayerHUD/ChoiceHUD/CombatLabelPadding/CombatLabel");
-            combatTurnResult = GetNode<CombatTurnResultUI>("VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult");
-            playerHealthLabel =
+            _combatTurnResult = GetNode<CombatTurnResultUI>("VBoxContainer/PlayerHUD/ChoiceHUD/CombatTurnResult");
+            _playerHealthLabel =
                 GetNode<Label>("VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/Health");
-            playerHealthIcon =
+            _playerHealthIcon =
                 GetNode<HealthIcon>(
                     "VBoxContainer/PlayerHUD/HealthHUD/MarginContainer/HBoxContainer/MarginContainer/HealthIcon");
             playerWeapon = GetNode<TextureRect>("WeaponContainer/PlayerWeapon");
-            enemyHealthBar =
+            _enemyHealthBar =
                 GetNode<TextureProgress>("VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/EnemyHealthBar");
-            enemyHealthBarTween =
+            _enemyHealthBarTween =
                 GetNode<Tween>("VBoxContainer/EnemyHUD/VBoxContainer/MarginContainer/MarginContainer/Tween");
             enemyImage = GetNode<CombatEnemyTexture>("VBoxContainer/EnemyHUD/VBoxContainer/Enemy");
-            attackEffect = GetNode<CombatAttackAnim>("EffectsContainer/EffectTexture");
-            damageSpawnArea = GetNode<Control>("EffectsContainer/DamageSpawnArea");
-            effectAnimations = GetNode<AnimationList>("EffectAnimationList");
-            particlePos = GetNode<Control>("VBoxContainer/EnemyHUD/VBoxContainer/Enemy/ParticlePos");
+            _attackEffect = GetNode<CombatAttackAnim>("EffectsContainer/EffectTexture");
+            _damageSpawnArea = GetNode<Control>("EffectsContainer/DamageSpawnArea");
+            _effectAnimations = GetNode<AnimationList>("EffectAnimationList");
+            _particlePos = GetNode<Control>("VBoxContainer/EnemyHUD/VBoxContainer/Enemy/ParticlePos");
 
             Visible = false;
             ResetUI();
@@ -70,16 +70,16 @@ namespace HeroesGuild.Combat
         public void ResetUI()
         {
             HideTurnResult();
-            buttons.Visible = true;
-            switch (CurrentMenu)
+            _buttons.Visible = true;
+            switch (currentMenu)
             {
                 case Menu.Main:
-                    mainButtonsMenu.Visible = true;
-                    attackButtonsMenu.Visible = false;
+                    _mainButtonsMenu.Visible = true;
+                    _attackButtonsMenu.Visible = false;
                     break;
                 case Menu.Attack:
-                    mainButtonsMenu.Visible = false;
-                    attackButtonsMenu.Visible = true;
+                    _mainButtonsMenu.Visible = false;
+                    _attackButtonsMenu.Visible = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -90,43 +90,43 @@ namespace HeroesGuild.Combat
 
         public void HideTurnResult()
         {
-            combatTurnResult.winContainer.Visible = false;
-            combatTurnResult.compareContainer.Visible = false;
+            _combatTurnResult.winContainer.Visible = false;
+            _combatTurnResult.compareContainer.Visible = false;
         }
 
         public void SetPlayerHealthValue(int maxHealth, int currentHealth)
         {
-            playerHealthLabel.Text = $"{currentHealth}";
+            _playerHealthLabel.Text = $"{currentHealth}";
         }
 
         public void SetEnemyHealthValue(int maxHealth, int currentHealth)
         {
-            enemyHealthBar.MaxValue = maxHealth;
-            enemyHealthBar.Value = currentHealth;
+            _enemyHealthBar.MaxValue = maxHealth;
+            _enemyHealthBar.Value = currentHealth;
         }
 
         public void UpdatePlayerHealthValue(int oldHealth, int newHealth)
         {
-            playerHealthLabel.Text = $"{newHealth}";
+            _playerHealthLabel.Text = $"{newHealth}";
         }
 
         public void UpdateEnemyHealthValue(int oldHealth, int newHealth)
         {
-            enemyHealthBarTween.InterpolateProperty(enemyHealthBarTween, "value", enemyHealthBar.Value, newHealth,
+            _enemyHealthBarTween.InterpolateProperty(_enemyHealthBarTween, "value", _enemyHealthBar.Value, newHealth,
                 1f, Tween.TransitionType.Cubic, Tween.EaseType.Out);
-            enemyHealthBarTween.Start();
+            _enemyHealthBarTween.Start();
         }
 
         public void SetButtonsVisible(bool visible = true)
         {
-            buttons.Visible = visible;
+            _buttons.Visible = visible;
         }
 
         public async Task ShowTurnResult(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction)
         {
-            combatTurnResult.Visible = true;
-            await combatTurnResult.ShowTurnCompare(playerAction, enemyAction, 1.5f);
-            combatTurnResult.ShowWinResult(playerAction, enemyAction);
+            _combatTurnResult.Visible = true;
+            await _combatTurnResult.ShowTurnCompare(playerAction, enemyAction, 1.5f);
+            _combatTurnResult.ShowWinResult(playerAction, enemyAction);
         }
 
         public async Task ShowCombatLabel(string text, float duration = 0f)
@@ -145,28 +145,28 @@ namespace HeroesGuild.Combat
         {
             if (action == CombatUtil.CombatAction.Counter)
             {
-                attackEffect.Play(effectAnimations.GetAnimation("counter"),
+                _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-                await ToSignal(attackEffect, nameof(CombatAttackAnim.EffectDone));
+                await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
             }
 
             var damageType = playerCombat.GetDamageType(action);
-            var effectAnimation = effectAnimations.GetAnimation(damageType);
-            attackEffect.Play(effectAnimation, CombatUtil.GetActionColor(action));
-            await ToSignal(attackEffect, nameof(CombatAttackAnim.EffectDone));
+            var effectAnimation = _effectAnimations.GetAnimation(damageType);
+            _attackEffect.Play(effectAnimation, CombatUtil.GetActionColor(action));
+            await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
         }
 
         public async Task AnimatePlayerHurt(int damage, bool enemyCountered = false)
         {
             if (enemyCountered)
             {
-                attackEffect.Play(effectAnimations.GetAnimation("counter"),
+                _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-                await ToSignal(attackEffect, nameof(CombatAttackAnim.EffectDone));
+                await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
             }
 
             Shake(1, 20, 1);
-            playerHealthIcon.Blink(1, 6);
+            _playerHealthIcon.Blink(1, 6);
             await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
         }
 
@@ -200,18 +200,18 @@ namespace HeroesGuild.Combat
 
         private void SpawnEnemyDamageLabel(int damage)
         {
-            var label = (Label) damageLabel.Instance();
-            damageSpawnArea.AddChild(label);
+            var label = (Label) _damageLabel.Instance();
+            _damageSpawnArea.AddChild(label);
             label.RectPosition = new Vector2
             {
-                x = (int) GD.RandRange(0f, damageSpawnArea.RectSize.x) - label.RectSize.x / 2,
-                y = (int) GD.RandRange(0f, damageSpawnArea.RectSize.y) - label.RectSize.y / 2
+                x = (int) GD.RandRange(0f, _damageSpawnArea.RectSize.x) - label.RectSize.x / 2,
+                y = (int) GD.RandRange(0f, _damageSpawnArea.RectSize.y) - label.RectSize.y / 2
             };
             label.Text = $"{damage}";
         }
 
         private bool HasParticle(string name) =>
-            particlePos.GetChildren().Cast<Node>().Any(partice => partice.Name == name);
+            _particlePos.GetChildren().Cast<Node>().Any(partice => partice.Name == name);
 
         private void SpawnParticle(string name)
         {
@@ -223,16 +223,16 @@ namespace HeroesGuild.Combat
             var path = $"res://Particle Systems/Particles/{name.ToLower()}.tscn";
             var particle = GD.Load<PackedScene>(path).Instance();
             particle.Name = name;
-            particlePos.AddChild(particle);
+            _particlePos.AddChild(particle);
         }
 
         private void RemoveParticle(string name)
         {
-            foreach (Node particle in particlePos.GetChildren())
+            foreach (Node particle in _particlePos.GetChildren())
             {
                 if (particle.Name == name)
                 {
-                    particlePos.RemoveChild(particle);
+                    _particlePos.RemoveChild(particle);
                     particle.QueueFree();
                 }
             }
@@ -240,25 +240,25 @@ namespace HeroesGuild.Combat
 
         private void RemoveAllParticles()
         {
-            foreach (Node particle in particlePos.GetChildren())
+            foreach (Node particle in _particlePos.GetChildren())
             {
-                particlePos.RemoveChild(particle);
+                _particlePos.RemoveChild(particle);
                 particle.QueueFree();
             }
         }
 
         public void UpdateParticle(BaseEntity enemyInstance)
         {
-            foreach (var particleName in enemyInstance.StatusEffects.Keys
+            foreach (var particleName in enemyInstance.statusEffects.Keys
                 .Select(statusEffectsKey => statusEffectsKey.ToLower())
                 .Where(particleName => !HasParticle(particleName)))
             {
                 SpawnParticle(particleName);
             }
 
-            foreach (Node particle in particlePos.GetChildren())
+            foreach (Node particle in _particlePos.GetChildren())
             {
-                if (!enemyInstance.StatusEffects.ContainsKey(particle.Name))
+                if (!enemyInstance.statusEffects.ContainsKey(particle.Name))
                 {
                     RemoveParticle(particle.Name);
                 }
@@ -267,13 +267,13 @@ namespace HeroesGuild.Combat
 
         private void OpenMainMenu()
         {
-            CurrentMenu = Menu.Main;
+            currentMenu = Menu.Main;
             ResetUI();
         }
 
         private void OpenAttackMenu()
         {
-            CurrentMenu = Menu.Attack;
+            currentMenu = Menu.Attack;
             ResetUI();
         }
 
@@ -284,7 +284,7 @@ namespace HeroesGuild.Combat
 
         private void OnCombatMenu_GUIInput(InputEvent @event)
         {
-            if (Input.IsActionJustPressed("ui_cancel") && CurrentMenu == Menu.Attack)
+            if (Input.IsActionJustPressed("ui_cancel") && currentMenu == Menu.Attack)
             {
                 OpenMainMenu();
             }

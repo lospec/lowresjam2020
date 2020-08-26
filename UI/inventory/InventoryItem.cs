@@ -4,30 +4,30 @@ namespace HeroesGuild.UI.inventory
 {
     public class InventoryItem : MarginContainer
     {
-        public string ItemName;
+        public string itemName;
 
-        private TextureRect hoverSignifier;
+        private TextureRect _hoverSignifier;
         public TextureButton itemTextureButton;
 
         public Texture InventoryItemResource =>
-            GD.Load<Texture>($"res://items/inventory_sprites/{ItemName.ToLower().Replace(" ", "_")}.png");
+            GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
 
         public override void _Ready()
         {
-            hoverSignifier = GetNode<TextureRect>("HoverSignifier");
+            _hoverSignifier = GetNode<TextureRect>("HoverSignifier");
             itemTextureButton = GetNode<TextureButton>("MarginContainer/Item");
 
-            hoverSignifier.Visible = false;
+            _hoverSignifier.Visible = false;
         }
 
         private void OnInventoryItem_MouseEntered()
         {
-            hoverSignifier.Visible = true;
+            _hoverSignifier.Visible = true;
         }
 
         private void OnInventoryItem_MouseExited()
         {
-            hoverSignifier.Visible = false;
+            _hoverSignifier.Visible = false;
         }
     }
 }

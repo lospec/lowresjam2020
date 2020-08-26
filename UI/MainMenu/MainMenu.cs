@@ -10,7 +10,7 @@ namespace HeroesGuild.UI.MainMenu
         private TextureRect _startSignifierLabel;
         private AnimationPlayer _startSignifierAnimationPlayer;
 
-        private bool _changing_scene = false;
+        private bool _changingScene = false;
 
         private AudioStreamPlayer2D _sfxPlayer;
 
@@ -40,7 +40,7 @@ namespace HeroesGuild.UI.MainMenu
         {
             switch (@event)
             {
-                case InputEventKey eventKey when eventKey.Pressed && !_changing_scene:
+                case InputEventKey eventKey when eventKey.Pressed && !_changingScene:
                 {
                     if (OS.IsDebugBuild() && eventKey.Scancode == (int) KeyList.F9 && eventKey.Shift)
                     {
@@ -54,7 +54,7 @@ namespace HeroesGuild.UI.MainMenu
                     break;
                 }
                 case InputEventMouseButton eventMouseButton when eventMouseButton.Pressed && eventMouseButton
-                    .ButtonIndex == (int) ButtonList.Left && !_changing_scene:
+                    .ButtonIndex == (int) ButtonList.Left && !_changingScene:
                     GoToCharacterSelector();
                     break;
             }
@@ -64,7 +64,7 @@ namespace HeroesGuild.UI.MainMenu
         {
             _sfxPlayer?.Stop();
             AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, Vector2.Zero, -15);
-            _changing_scene = true;
+            _changingScene = true;
             var transitionParams = new Transitions.TransitionParams(Transitions.TransitionType.ShrinkingCircle, 0.2f);
             var transitions = Autoload.Get<Transitions>();
             await transitions.ChangeSceneDoubleTransition(CharacterSelectionScenePath, transitionParams);

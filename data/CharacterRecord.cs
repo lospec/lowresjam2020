@@ -5,12 +5,12 @@ namespace HeroesGuild.data
     public struct CharacterRecord : IDataRecord
     {
         [JsonProperty("race")]
-        public string Race;
+        public string race;
 
         [JsonProperty("guild_level")]
-        public int GuildLevel;
+        public int guildLevel;
         
         [JsonProperty("rarity")]
-        public int Rarity;
+        public int rarity;
     }
 }

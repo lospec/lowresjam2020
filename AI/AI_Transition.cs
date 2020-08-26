@@ -5,8 +5,8 @@ namespace HeroesGuild.AI
 {
     public class AI_Transition : Node
     {
-        [Export] public AI_State_Condition Condition;
-        [Export] public int TrueStateIndex;
-        [Export] public int FalseStateIndex;
+        [Export] public AI_State_Condition condition;
+        [Export] public int trueStateIndex;
+        [Export] public int falseStateIndex;
     }
 }

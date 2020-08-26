@@ -59,21 +59,21 @@ namespace HeroesGuild.Entities.BaseEntity
 
         [Signal] public delegate void HealthChanged(int oldHealth, int newHealth);
 
-        [Export] public int MaxHealth = 10;
-        [Export] public float MoveSpeed = 10;
+        [Export] public int maxHealth = 10;
+        [Export] public float moveSpeed = 10;
 
         public Vector2 Velocity { get; set; } = Vector2.Zero;
         public Vector2 realVelocity = Vector2.Zero;
         public Animations currentAnimation = Animations.IdleDown;
         public int animationFrame = 0;
-        public Dictionary<string, StatusEffect.Bases.StatusEffect> StatusEffects =
+        public Dictionary<string, StatusEffect.Bases.StatusEffect> statusEffects =
             new Dictionary<string, StatusEffect.Bases.StatusEffect>();
 
-        private Vector2 currentPosition;
-        private Vector2 oldPosition;
+        private Vector2 _currentPosition;
+        private Vector2 _oldPosition;
 
-        protected Sprite Sprite;
-        private AnimationPlayer animationPlayer;
+        protected Sprite sprite;
+        private AnimationPlayer _animationPlayer;
 
         private int _health;
 
@@ -91,14 +91,14 @@ namespace HeroesGuild.Entities.BaseEntity
 
         public override void _Ready()
         {
-            Sprite = GetNode<Sprite>("Sprite");
-            animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-            if (MaxHealth <= 0)
+            sprite = GetNode<Sprite>("Sprite");
+            _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+            if (maxHealth <= 0)
             {
                 return;
             }
 
-            Health = MaxHealth;
+            Health = maxHealth;
         }
 
         public override void _PhysicsProcess(float delta)
@@ -110,7 +110,7 @@ namespace HeroesGuild.Entities.BaseEntity
 
         private void Movement()
         {
-            oldPosition = Position;
+            _oldPosition = Position;
             realVelocity = MoveAndSlide(Velocity);
             var slideCount = GetSlideCount();
             if (slideCount >= 2)
@@ -143,19 +143,19 @@ namespace HeroesGuild.Entities.BaseEntity
                 ((Area2D) Get("collision_detector")).GetOverlappingBodies().Count > 0))
             {
                 var pos = Position;
-                if (Mathf.Abs(oldPosition.x - pos.x) > Mathf.Abs(oldPosition.y - pos.y))
+                if (Mathf.Abs(_oldPosition.x - pos.x) > Mathf.Abs(_oldPosition.y - pos.y))
                 {
-                    currentPosition.x = Mathf.Round(pos.x);
-                    currentPosition.y = Mathf.Round(pos.y + (currentPosition.x - pos.x) * realVelocity
+                    _currentPosition.x = Mathf.Round(pos.x);
+                    _currentPosition.y = Mathf.Round(pos.y + (_currentPosition.x - pos.x) * realVelocity
                         .y / realVelocity.x);
-                    pos.y = currentPosition.y;
+                    pos.y = _currentPosition.y;
                 }
-                else if (Mathf.Abs(oldPosition.x - pos.x) <= Mathf.Abs(oldPosition.y - pos.y))
+                else if (Mathf.Abs(_oldPosition.x - pos.x) <= Mathf.Abs(_oldPosition.y - pos.y))
                 {
-                    currentPosition.y = Mathf.Round(pos.y);
-                    currentPosition.x = Mathf.Round(pos.x + (currentPosition.y - pos.y) * realVelocity.x /
+                    _currentPosition.y = Mathf.Round(pos.y);
+                    _currentPosition.x = Mathf.Round(pos.x + (_currentPosition.y - pos.y) * realVelocity.x /
                         realVelocity.y);
-                    pos.x = currentPosition.x;
+                    pos.x = _currentPosition.x;
                 }
 
                 Position = pos;
@@ -171,7 +171,7 @@ namespace HeroesGuild.Entities.BaseEntity
         {
             if (Velocity.Length() > 0)
             {
-                Sprite.FlipH = Velocity.x < 0;
+                sprite.FlipH = Velocity.x < 0;
             }
 
             var oldAnimation = currentAnimation;
@@ -194,7 +194,7 @@ namespace HeroesGuild.Entities.BaseEntity
 
             if (currentAnimation != oldAnimation)
             {
-                animationPlayer.Play(GetAnimationName(currentAnimation));
+                _animationPlayer.Play(GetAnimationName(currentAnimation));
             }
         }
 
@@ -220,24 +220,24 @@ namespace HeroesGuild.Entities.BaseEntity
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            if (statusEffectName == "OnFire" && StatusEffects.ContainsKey("Frozen"))
+            if (statusEffectName == "OnFire" && statusEffects.ContainsKey("Frozen"))
             {
-                StatusEffects.Remove("Frozen");
+                statusEffects.Remove("Frozen");
                 return;
             }
 
-            if (statusEffectName == "Frozen" && StatusEffects.ContainsKey("OnFire"))
+            if (statusEffectName == "Frozen" && statusEffects.ContainsKey("OnFire"))
             {
-                StatusEffects.Remove("OnFire");
+                statusEffects.Remove("OnFire");
                 return;
             }
 
-            if (StatusEffects.ContainsKey(statusEffect.StatusEffectName))
+            if (statusEffects.ContainsKey(statusEffect.statusEffectName))
             {
-                StatusEffects.Remove(statusEffect.StatusEffectName);
+                statusEffects.Remove(statusEffect.statusEffectName);
             }
 
-            StatusEffects.Add(statusEffect.StatusEffectName, statusEffect);
+            statusEffects.Add(statusEffect.statusEffectName, statusEffect);
         }
     }
 }

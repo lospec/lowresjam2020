@@ -13,36 +13,36 @@ namespace HeroesGuild.Combat
     {
         [Signal] public delegate void DamageTaken(int damage, string damageType);
 
-        public int HitCombo = 0;
-        public BaseEntity CharacterInstance;
+        public int hitCombo = 0;
+        public BaseEntity characterInstance;
 
         public void TakeDamage(int damage, string damageType)
         {
             GD.Print($"TAKE DAMAGE: {damage} type {damageType}");
             EmitSignal(nameof(DamageTaken), damage, damageType);
 
-            if (CharacterInstance.StatusEffects.ContainsKey("Frozen") && damageType == "Fire")
+            if (characterInstance.statusEffects.ContainsKey("Frozen") && damageType == "Fire")
             {
-                CharacterInstance.StatusEffects.Remove("Frozen");
+                characterInstance.statusEffects.Remove("Frozen");
             }
 
-            CharacterInstance.Health -= damage;
+            characterInstance.Health -= damage;
 
-            if (CharacterInstance.Health <= 0)
+            if (characterInstance.Health <= 0)
             {
-                CharacterInstance.Health = 0;
+                characterInstance.Health = 0;
             }
 
-            HitCombo = 0;
+            hitCombo = 0;
 
-            switch (CharacterInstance)
+            switch (characterInstance)
             {
                 case Player _:
                     AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt, null, -30);
                     break;
                 case BaseEnemy enemy:
                 {
-                    var enemyRecord = Autoload.Get<Data>().EnemyData[enemy.EnemyName];
+                    var enemyRecord = Autoload.Get<Data>().enemyData[enemy.enemyName];
                     var sfx = enemyRecord.Race switch
                     {
                         "Beast" => AudioSystem.SFX.BeastHurt,
@@ -63,7 +63,7 @@ namespace HeroesGuild.Combat
         public void Attack(CombatChar target, CombatUtil.CombatAction action, int damage, BaseEntity instance,
             BaseEntity targetInstance)
         {
-            if (CharacterInstance.StatusEffects.ContainsKey("Weak"))
+            if (characterInstance.statusEffects.ContainsKey("Weak"))
             {
                 damage /= 2;
             }
@@ -75,7 +75,7 @@ namespace HeroesGuild.Combat
             var statusEffect = GetStatusEffect(action);
             var statusEffectChance = GetEffectChance(action);
 
-            var enemy = CharacterInstance as BaseEnemy;
+            var enemy = characterInstance as BaseEnemy;
             if (enemy?.Stat.Resistance == "Fire" && statusEffect == "OnFire")
             {
                 return;
@@ -83,7 +83,7 @@ namespace HeroesGuild.Combat
 
             if (GD.Randf() < statusEffectChance)
             {
-                target.CharacterInstance.AddStatusEffect(statusEffect);
+                target.characterInstance.AddStatusEffect(statusEffect);
                 AudioSystem.SFX sfx = statusEffect switch
                 {
                     "Charged" => AudioSystem.SFX.ChargedStatus,
@@ -98,7 +98,7 @@ namespace HeroesGuild.Combat
                 AudioSystem.PlaySFX(sfx, null, -30);
                 if (enemy != null)
                 {
-                    GD.Print($"Applied {statusEffect} to {enemy.EnemyName}");
+                    GD.Print($"Applied {statusEffect} to {enemy.enemyName}");
                 }
             }
         }

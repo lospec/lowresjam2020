@@ -9,7 +9,7 @@ namespace HeroesGuild.StatusEffect.Effects
 
         public Confused()
         {
-            StatusEffectName = "Confused";
+            statusEffectName = "Confused";
         }
 
         public override void OnTurnEnd(CombatChar combatChar)
@@ -17,7 +17,7 @@ namespace HeroesGuild.StatusEffect.Effects
             Duration -= 1;
             if (Duration <= 0)
             {
-                Expired = true;
+                expired = true;
             }
         }
     }

@@ -13,11 +13,11 @@ namespace HeroesGuild.UI.Settings.Audio_Settings
         [Signal] public delegate void VolumeValueUpdated(float volumeValue);
 
         public int volumeValue = STARTING_VOLUME;
-        private Label valueLabel;
+        private Label _valueLabel;
 
         public override void _Ready()
         {
-            valueLabel = GetNode<Label>("Value");
+            _valueLabel = GetNode<Label>("Value");
         }
 
         private void OnIncreaseValue_Pressed()
@@ -44,7 +44,7 @@ namespace HeroesGuild.UI.Settings.Audio_Settings
 
         private void UpdateVolumeValue()
         {
-            valueLabel.Text = $"{volumeValue}";
+            _valueLabel.Text = $"{volumeValue}";
             EmitSignal(nameof(VolumeValueUpdated), volumeValue);
         }
     }

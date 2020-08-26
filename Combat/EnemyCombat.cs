@@ -8,7 +8,7 @@ namespace HeroesGuild.Combat
 {
     public class EnemyCombat : CombatChar
     {
-        private new BaseEnemy CharacterInstance => (BaseEnemy) base.CharacterInstance;
+        private new BaseEnemy CharacterInstance => (BaseEnemy) base.characterInstance;
         public int poolIndex = 0;
 
         private CombatUtil.CombatAction PoolCharToAction(char combatActionChar)
@@ -29,7 +29,7 @@ namespace HeroesGuild.Combat
                 CombatUtil.CombatAction.Heavy => CharacterInstance.Stat.HeavyDamage,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            damage *= (1 + CombatUtil.MULTIPLIER_PER_COMBO * HitCombo);
+            damage *= (1 + CombatUtil.MULTIPLIER_PER_COMBO * hitCombo);
             return damage;
         }
 
@@ -54,15 +54,15 @@ namespace HeroesGuild.Combat
             switch (action)
             {
                 case CombatUtil.CombatAction.Quick:
-                    GD.Print(CharacterInstance.EnemyName);
+                    GD.Print(CharacterInstance.enemyName);
                     GD.Print(CharacterInstance.Stat.QuickDamageType);
                     return CharacterInstance.Stat.QuickDamageType;
                 case CombatUtil.CombatAction.Counter:
-                    GD.Print(CharacterInstance.EnemyName);
+                    GD.Print(CharacterInstance.enemyName);
                     GD.Print(CharacterInstance.Stat.CounterDamageType);
                     return CharacterInstance.Stat.CounterDamageType;
                 case CombatUtil.CombatAction.Heavy:
-                    GD.Print(CharacterInstance.EnemyName);
+                    GD.Print(CharacterInstance.enemyName);
                     GD.Print(CharacterInstance.Stat.HeavyDamageType);
                     return CharacterInstance.Stat.HeavyDamageType;
                 default:
@@ -73,7 +73,7 @@ namespace HeroesGuild.Combat
         public override async Task<CombatUtil.CombatAction> GetAction()
         {
             if (new[] {"Confused", "Asleep", "Frozen"}
-                .Any(key => CharacterInstance.StatusEffects.ContainsKey(key)))
+                .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
             {
                 return CombatUtil.CombatAction.None;
             }

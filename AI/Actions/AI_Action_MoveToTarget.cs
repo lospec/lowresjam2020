@@ -4,7 +4,7 @@ namespace HeroesGuild.AI.Actions
 {
     public class AI_Action_MoveToTarget : AI_State_Action
     {
-        [Export] public float MoveSpeedFactor = 1f;
+        [Export] public float moveSpeedFactor = 1f;
 
         public override void Perform(StateMachine stateMachine, float delta, ref bool interrupt)
         {
@@ -15,7 +15,7 @@ namespace HeroesGuild.AI.Actions
             }
 
             var move = (target.Position - stateMachine.Entity.Position).Normalized();
-            SetMove(stateMachine, move, MoveSpeedFactor, out _);
+            SetMove(stateMachine, move, moveSpeedFactor, out _);
         }
     }
 }

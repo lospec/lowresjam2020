@@ -4,12 +4,12 @@ namespace HeroesGuild.AI
 {
     public class AI_Behaviour : Node
     {
-        [Export] public AI_State[] States;
-        [Export] public int StartStateIndex;
+        [Export] public AI_State[] states;
+        [Export] public int startStateIndex;
 
         public void SetStartingState(StateMachine stateMachine)
         {
-            stateMachine.TransitionToState(StartStateIndex, out _);
+            stateMachine.TransitionToState(startStateIndex, out _);
         }
     }
 }

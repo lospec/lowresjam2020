@@ -7,7 +7,7 @@ namespace HeroesGuild.Combat.Effects.animations
 {
     public class AnimationList : Node
     {
-        private Dictionary<string, AnimatedTexture> AttackAnimations = new Dictionary<string, AnimatedTexture>();
+        private Dictionary<string, AnimatedTexture> _attackAnimations = new Dictionary<string, AnimatedTexture>();
 
         public override void _Ready()
         {
@@ -19,11 +19,11 @@ namespace HeroesGuild.Combat.Effects.animations
                 var path = $"res://Combat/Effects/animations/attack_animation_{name}.tres";
                 if (file.FileExists(path))
                 {
-                    AttackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
+                    _attackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
                 }
             }
 
-            AttackAnimations.Add("counter",
+            _attackAnimations.Add("counter",
                 GD.Load<AnimatedTexture>("res://Combat/Effects/animations/counter_animation.tres"));
         }
 
@@ -35,9 +35,9 @@ namespace HeroesGuild.Combat.Effects.animations
 
         public AnimatedTexture GetAnimation(string key)
         {
-            if (AttackAnimations.ContainsKey(key))
+            if (_attackAnimations.ContainsKey(key))
             {
-                return AttackAnimations[key];
+                return _attackAnimations[key];
             }
 
             throw new ArgumentOutOfRangeException();

@@ -4,22 +4,22 @@ namespace HeroesGuild.UI.character_selection
 {
     public class Character : MarginContainer
     {
-        public string CharacterName;
+        public string characterName;
 
         public TextureButton characterButton;
-        private TextureRect hoverTextureRect;
+        private TextureRect _hoverTextureRect;
 
         public override void _Ready()
         {
             characterButton = GetNode<TextureButton>("Character");
-            hoverTextureRect = GetNode<TextureRect>("Control/Hover");
+            _hoverTextureRect = GetNode<TextureRect>("Control/Hover");
         }
 
         public bool UpdateCharacter()
         {
             var tex = new AtlasTexture();
             tex.Atlas = GD.Load<Texture>
-                ($"res://Entities/Player/spritesheets/{CharacterName.Replace(" ", "_")}_Overworld.png");
+                ($"res://Entities/Player/spritesheets/{characterName.Replace(" ", "_")}_Overworld.png");
             if (tex.Atlas == null)
             {
                 return false;
@@ -32,12 +32,12 @@ namespace HeroesGuild.UI.character_selection
 
         private void OnCharacter_MouseEntered()
         {
-            hoverTextureRect.Visible = true;
+            _hoverTextureRect.Visible = true;
         }
 
         private void OnCharacter_MouseExited()
         {
-            hoverTextureRect.Visible = false;
+            _hoverTextureRect.Visible = false;
         }
     }
 }

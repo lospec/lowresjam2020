@@ -26,35 +26,35 @@ namespace HeroesGuild.UI.inventory
 
         public bool popupToBeVisible = false;
 
-        private Tween tween;
-        private Timer popupDisappearDelayTimer;
-        private TextureRect background;
-        private MarginContainer textMargin;
-        private VBoxContainer textVBox;
-        private Label itemNameLabel;
-        private MarginContainer damageMargin;
-        private HBoxContainer damageValuesHBox;
-        private Label quickDamageLabel;
-        private Label heavyDamageLabel;
-        private Label counterDamageLabel;
-        private MarginContainer healthGainedMargin;
-        private Label healthGainedLabel;
+        private Tween _tween;
+        private Timer _popupDisappearDelayTimer;
+        private TextureRect _background;
+        private MarginContainer _textMargin;
+        private VBoxContainer _textVBox;
+        private Label _itemNameLabel;
+        private MarginContainer _damageMargin;
+        private HBoxContainer _damageValuesHBox;
+        private Label _quickDamageLabel;
+        private Label _heavyDamageLabel;
+        private Label _counterDamageLabel;
+        private MarginContainer _healthGainedMargin;
+        private Label _healthGainedLabel;
 
         public override void _Ready()
         {
-            tween = GetNode<Tween>("Tween");
-            popupDisappearDelayTimer = GetNode<Timer>("PopupDisappearDelay");
-            background = GetNode<TextureRect>("Background");
-            textMargin = GetNode<MarginContainer>("TextMargin");
-            textVBox = textMargin.GetNode<VBoxContainer>("VBoxContainer");
-            itemNameLabel = textVBox.GetNode<Label>("Name");
-            damageMargin = textVBox.GetNode<MarginContainer>("DamageMargin");
-            damageValuesHBox = damageMargin.GetNode<HBoxContainer>("DamageValues");
-            quickDamageLabel = damageValuesHBox.GetNode<Label>("QuickDamage");
-            heavyDamageLabel = damageValuesHBox.GetNode<Label>("HeavyDamage");
-            counterDamageLabel = damageValuesHBox.GetNode<Label>("CounterDamage");
-            healthGainedMargin = textVBox.GetNode<MarginContainer>("HealthGainedMargin");
-            healthGainedLabel = healthGainedMargin.GetNode<Label>("HealthGained");
+            _tween = GetNode<Tween>("Tween");
+            _popupDisappearDelayTimer = GetNode<Timer>("PopupDisappearDelay");
+            _background = GetNode<TextureRect>("Background");
+            _textMargin = GetNode<MarginContainer>("TextMargin");
+            _textVBox = _textMargin.GetNode<VBoxContainer>("VBoxContainer");
+            _itemNameLabel = _textVBox.GetNode<Label>("Name");
+            _damageMargin = _textVBox.GetNode<MarginContainer>("DamageMargin");
+            _damageValuesHBox = _damageMargin.GetNode<HBoxContainer>("DamageValues");
+            _quickDamageLabel = _damageValuesHBox.GetNode<Label>("QuickDamage");
+            _heavyDamageLabel = _damageValuesHBox.GetNode<Label>("HeavyDamage");
+            _counterDamageLabel = _damageValuesHBox.GetNode<Label>("CounterDamage");
+            _healthGainedMargin = _textVBox.GetNode<MarginContainer>("HealthGainedMargin");
+            _healthGainedLabel = _healthGainedMargin.GetNode<Label>("HealthGained");
         }
 
         public void OnItem_MouseEntered(string itemName)
@@ -66,62 +66,62 @@ namespace HeroesGuild.UI.inventory
             }
 
             var data = Autoload.Get<Data>();
-            if (!data.ItemData.ContainsKey(itemName))
+            if (!data.itemData.ContainsKey(itemName))
             {
                 GD.PushError($"Item name {itemName} not found");
                 return;
             }
 
-            var itemRecord = data.ItemData[itemName];
-            var itemType = itemRecord.Type;
-            itemNameLabel.Text = itemName;
-            background.Texture = GetItemTypeBackground(itemType);
+            var itemRecord = data.itemData[itemName];
+            var itemType = itemRecord.type;
+            _itemNameLabel.Text = itemName;
+            _background.Texture = GetItemTypeBackground(itemType);
             switch (itemType)
             {
                 case "item":
-                    damageMargin.Visible = false;
-                    healthGainedLabel.Visible = false;
+                    _damageMargin.Visible = false;
+                    _healthGainedLabel.Visible = false;
                     break;
                 case "weapon":
-                    damageMargin.Visible = true;
-                    healthGainedMargin.Visible = false;
-                    quickDamageLabel.Text = $"{itemRecord.QuickDamage}";
-                    heavyDamageLabel.Text = $"{itemRecord.HeavyDamage}";
-                    counterDamageLabel.Text = $"{itemRecord.CounterDamage}";
+                    _damageMargin.Visible = true;
+                    _healthGainedMargin.Visible = false;
+                    _quickDamageLabel.Text = $"{itemRecord.quickDamage}";
+                    _heavyDamageLabel.Text = $"{itemRecord.heavyDamage}";
+                    _counterDamageLabel.Text = $"{itemRecord.counterDamage}";
                     break;
                 case "usable":
-                    damageMargin.Visible = false;
-                    healthGainedMargin.Visible = true;
-                    healthGainedLabel.Text = $"{itemRecord.HealthGained}";
+                    _damageMargin.Visible = false;
+                    _healthGainedMargin.Visible = true;
+                    _healthGainedLabel.Text = $"{itemRecord.healthGained}";
                     break;
                 case "armor":
-                    damageMargin.Visible = false;
-                    healthGainedMargin.Visible = true;
-                    healthGainedLabel.Text = $"{itemRecord.HealthAdded}";
+                    _damageMargin.Visible = false;
+                    _healthGainedMargin.Visible = true;
+                    _healthGainedLabel.Text = $"{itemRecord.healthAdded}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, BOTTOM_POS_Y),
+            _tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, BOTTOM_POS_Y),
                 ANIMATION_DURATION, Tween.TransitionType.Cubic, Tween.EaseType.Out);
-            tween.Start();
+            _tween.Start();
             popupToBeVisible = true;
         }
 
         public void OnItem_MouseExited()
         {
             popupToBeVisible = false;
-            popupDisappearDelayTimer.Start();
+            _popupDisappearDelayTimer.Start();
         }
 
         private void OnPopupDisappearDelay_Timeout()
         {
             if (!popupToBeVisible)
             {
-                tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, TOP_POS_Y),
+                _tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, TOP_POS_Y),
                     ANIMATION_DURATION, Tween.TransitionType.Cubic, Tween.EaseType.Out);
-                tween.Start();
+                _tween.Start();
             }
         }
 

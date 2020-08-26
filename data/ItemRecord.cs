@@ -5,57 +5,57 @@ namespace HeroesGuild.data
     public struct ItemRecord : IDataRecord
     {
         [JsonProperty("type")]
-        public string Type;
+        public string type;
 
         [JsonProperty("buy_value")]
-        public int BuyValue;
+        public int buyValue;
 
         [JsonProperty("sell_value")]
-        public int SellValue;
+        public int sellValue;
 
         [JsonProperty("quick_damage")]
-        public int QuickDamage;
+        public int quickDamage;
 
         [JsonProperty("quick_damage_type")]
-        public string QuickDamageType;
+        public string quickDamageType;
 
         [JsonProperty("quick_status_effect")]
-        public string QuickStatusEffect;
+        public string quickStatusEffect;
 
         [JsonProperty("quick_effect_chance")]
-        public float QuickEffectChance;
+        public float quickEffectChance;
 
         [JsonProperty("heavy_damage")]
-        public int HeavyDamage;
+        public int heavyDamage;
 
         [JsonProperty("heavy_damage_type")]
-        public string HeavyDamageType;
+        public string heavyDamageType;
 
         [JsonProperty("heavy_status_effect")]
-        public string HeavyStatusEffect;
+        public string heavyStatusEffect;
 
         [JsonProperty("heavy_effect_chance")]
-        public float HeavyEffectChance;
+        public float heavyEffectChance;
 
         [JsonProperty("counter_damage")]
-        public int CounterDamage;
+        public int counterDamage;
 
         [JsonProperty("counter_damage_type")]
-        public string CounterDamageType;
+        public string counterDamageType;
 
         [JsonProperty("counter_status_effect")]
-        public string CounterStatusEffect;
+        public string counterStatusEffect;
 
         [JsonProperty("counter_effect_chance")]
-        public float CounterEffectChance;
+        public float counterEffectChance;
 
         [JsonProperty("health_added")]
-        public int HealthAdded;
+        public int healthAdded;
 
         [JsonProperty("usable")]
-        public bool Usable;
+        public bool usable;
         
         [JsonProperty("health_gained")]
-        public int HealthGained;
+        public int healthGained;
     }
 }

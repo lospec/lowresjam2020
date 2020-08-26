@@ -8,7 +8,7 @@ namespace HeroesGuild.AI.Actions
 
         protected void SetMove(StateMachine stateMachine, Vector2 direction, float speedFactor, out Vector2 velocity)
         {
-            velocity = direction * (stateMachine.Entity.MoveSpeed * speedFactor);
+            velocity = direction * (stateMachine.Entity.moveSpeed * speedFactor);
             stateMachine.Entity.Velocity = velocity;
         }
 

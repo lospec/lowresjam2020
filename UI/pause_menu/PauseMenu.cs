@@ -76,68 +76,68 @@ namespace HeroesGuild.UI.pause_menu
             return ResourceLoader.Load<Texture>(path);
         }
 
-        public PackedScene InventoryItemScene =
+        public PackedScene inventoryItemScene =
             ResourceLoader.Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
-        public Menu CurrentMenu = Menu.Inventory;
-        public Player PlayerInstance;
+        public Menu currentMenu = Menu.Inventory;
+        public Player playerInstance;
 
         public Control pauseMenuControl;
-        private MarginContainer pauseMenuMargin;
-        private VBoxContainer pauseMenuVBox;
-        private MarginContainer inventoryItemsMargin;
-        private ScrollContainer inventoryItemsGrid;
-        private BoxContainer topHBox;
-        private BoxContainer buttons;
-        private TextureButton settingsButton;
-        private TextureButton infoButton;
-        private TextureButton inventoryButton;
-        private MarginContainer headerMargin;
-        private Label headerLabel;
-        private TextureRect headerDecor;
-        private BoxContainer secondRowHBox;
-        private MarginContainer coinsMargin;
-        private Label coinsLabel;
-        private TextureRect coinsDecor;
-        private TextureRect background;
-        private MarginContainer equippedItemsMargin;
-        private HBoxContainer equippedItemsHBox;
-        private InventoryItem equippedWeapon;
-        private InventoryItem equippedArmor;
-        private ItemStatPopUp itemStatsPopup;
-        private ItemInfoMenu itemInfoMenu;
-        private MarginContainer settingsMargin;
+        private MarginContainer _pauseMenuMargin;
+        private VBoxContainer _pauseMenuVBox;
+        private MarginContainer _inventoryItemsMargin;
+        private ScrollContainer _inventoryItemsGrid;
+        private BoxContainer _topHBox;
+        private BoxContainer _buttons;
+        private TextureButton _settingsButton;
+        private TextureButton _infoButton;
+        private TextureButton _inventoryButton;
+        private MarginContainer _headerMargin;
+        private Label _headerLabel;
+        private TextureRect _headerDecor;
+        private BoxContainer _secondRowHBox;
+        private MarginContainer _coinsMargin;
+        private Label _coinsLabel;
+        private TextureRect _coinsDecor;
+        private TextureRect _background;
+        private MarginContainer _equippedItemsMargin;
+        private HBoxContainer _equippedItemsHBox;
+        private InventoryItem _equippedWeapon;
+        private InventoryItem _equippedArmor;
+        private ItemStatPopUp _itemStatsPopup;
+        private ItemInfoMenu _itemInfoMenu;
+        private MarginContainer _settingsMargin;
 
         public override void _Ready()
         {
             pauseMenuControl = GetNode<Control>("PauseMenuControl");
-            pauseMenuMargin = pauseMenuControl.GetNode<MarginContainer>("PauseMenuMargin");
-            pauseMenuVBox = pauseMenuMargin.GetNode<VBoxContainer>("VBoxContainer");
-            inventoryItemsMargin = pauseMenuVBox.GetNode<MarginContainer>("InventoryItemsMargin");
-            inventoryItemsGrid = inventoryItemsMargin.GetNode<ScrollContainer>("InventoryItemsScrollContainer");
-            topHBox = pauseMenuVBox.GetNode<BoxContainer>("Top");
-            buttons = topHBox.GetNode<BoxContainer>("Buttons");
-            settingsButton = buttons.GetNode<TextureButton>("Settings");
-            infoButton = buttons.GetNode<TextureButton>("Info");
-            inventoryButton = buttons.GetNode<TextureButton>("Inventory");
-            headerMargin = topHBox.GetNode<MarginContainer>("MarginContainer");
-            headerLabel = headerMargin.GetNode<Label>("Header");
-            headerDecor = headerMargin.GetNode<TextureRect>("HeaderDecor");
-            secondRowHBox = pauseMenuVBox.GetNode<BoxContainer>("SecondRow");
-            coinsMargin = secondRowHBox.GetNode<MarginContainer>("Coins");
-            coinsLabel = coinsMargin.GetNode<Label>("CoinAmount");
-            coinsDecor = coinsMargin.GetNode<TextureRect>("CoinsDecor");
-            background = pauseMenuMargin.GetNode<TextureRect>("Background");
-            equippedItemsMargin = secondRowHBox.GetNode<MarginContainer>("EquippedMargin");
-            equippedItemsHBox = equippedItemsMargin.GetNode<HBoxContainer>("Equipped");
-            equippedWeapon = equippedItemsHBox.GetNode<InventoryItem>("EquippedWeapon");
-            equippedArmor = equippedItemsHBox.GetNode<InventoryItem>("EquippedArmor");
-            itemStatsPopup = pauseMenuControl.GetNode<ItemStatPopUp>("ItemStatsPopup");
-            itemInfoMenu = pauseMenuMargin.GetNode<ItemInfoMenu>("ItemInfoMenu");
-            settingsMargin = pauseMenuVBox.GetNode<MarginContainer>("SettingsMargin");
+            _pauseMenuMargin = pauseMenuControl.GetNode<MarginContainer>("PauseMenuMargin");
+            _pauseMenuVBox = _pauseMenuMargin.GetNode<VBoxContainer>("VBoxContainer");
+            _inventoryItemsMargin = _pauseMenuVBox.GetNode<MarginContainer>("InventoryItemsMargin");
+            _inventoryItemsGrid = _inventoryItemsMargin.GetNode<ScrollContainer>("InventoryItemsScrollContainer");
+            _topHBox = _pauseMenuVBox.GetNode<BoxContainer>("Top");
+            _buttons = _topHBox.GetNode<BoxContainer>("Buttons");
+            _settingsButton = _buttons.GetNode<TextureButton>("Settings");
+            _infoButton = _buttons.GetNode<TextureButton>("Info");
+            _inventoryButton = _buttons.GetNode<TextureButton>("Inventory");
+            _headerMargin = _topHBox.GetNode<MarginContainer>("MarginContainer");
+            _headerLabel = _headerMargin.GetNode<Label>("Header");
+            _headerDecor = _headerMargin.GetNode<TextureRect>("HeaderDecor");
+            _secondRowHBox = _pauseMenuVBox.GetNode<BoxContainer>("SecondRow");
+            _coinsMargin = _secondRowHBox.GetNode<MarginContainer>("Coins");
+            _coinsLabel = _coinsMargin.GetNode<Label>("CoinAmount");
+            _coinsDecor = _coinsMargin.GetNode<TextureRect>("CoinsDecor");
+            _background = _pauseMenuMargin.GetNode<TextureRect>("Background");
+            _equippedItemsMargin = _secondRowHBox.GetNode<MarginContainer>("EquippedMargin");
+            _equippedItemsHBox = _equippedItemsMargin.GetNode<HBoxContainer>("Equipped");
+            _equippedWeapon = _equippedItemsHBox.GetNode<InventoryItem>("EquippedWeapon");
+            _equippedArmor = _equippedItemsHBox.GetNode<InventoryItem>("EquippedArmor");
+            _itemStatsPopup = pauseMenuControl.GetNode<ItemStatPopUp>("ItemStatsPopup");
+            _itemInfoMenu = _pauseMenuMargin.GetNode<ItemInfoMenu>("ItemInfoMenu");
+            _settingsMargin = _pauseMenuVBox.GetNode<MarginContainer>("SettingsMargin");
 
             pauseMenuControl.Visible = false;
-            itemStatsPopup.RectPosition = new Vector2(itemStatsPopup.RectPosition.x, -19);
-            foreach (BaseButton button in buttons.GetChildren())
+            _itemStatsPopup.RectPosition = new Vector2(_itemStatsPopup.RectPosition.x, -19);
+            foreach (BaseButton button in _buttons.GetChildren())
             {
                 button.Connect("button_down", this, nameof(OnButton_ButtonDown), new Array {button});
                 button.Connect("button_up", this, nameof(OnButton_ButtonUp), new Array {button});
@@ -151,156 +151,156 @@ namespace HeroesGuild.UI.pause_menu
 
         public void TogglePause(Player player)
         {
-            PlayerInstance = player;
+            playerInstance = player;
             var paused = GetTree().Paused;
             paused = GetTree().Paused = !paused;
             pauseMenuControl.Visible = paused;
-            PlayerInstance.hudMargin.Visible = !paused;
+            playerInstance.hudMargin.Visible = !paused;
             if (paused)
             {
                 UpdateInventory();
                 UpdateEquippedItem();
                 UpdateMenuState();
-                coinsLabel.Text = $"{PlayerInstance.Coins}:COIN";
+                _coinsLabel.Text = $"{playerInstance.Coins}:COIN";
             }
         }
 
         public void UpdateInventory()
         {
-            foreach (Node child in inventoryItemsGrid.GetChildren())
+            foreach (Node child in _inventoryItemsGrid.GetChildren())
             {
                 child.QueueFree();
             }
 
-            var inventory = new List<string>(PlayerInstance.Inventory);
-            inventory.Remove(PlayerInstance.EquippedWeapon);
-            inventory.Remove(PlayerInstance.EquippedArmor);
+            var inventory = new List<string>(playerInstance.Inventory);
+            inventory.Remove(playerInstance.EquippedWeapon);
+            inventory.Remove(playerInstance.EquippedArmor);
             foreach (var item in inventory)
             {
-                var inventoryItem = (InventoryItem) InventoryItemScene.Instance();
-                inventoryItem.ItemName = item;
+                var inventoryItem = (InventoryItem) inventoryItemScene.Instance();
+                inventoryItem.itemName = item;
                 var itemTextureButton = inventoryItem.GetNode<TextureButton>("MarginContainer/Item");
                 itemTextureButton.TextureNormal = inventoryItem.InventoryItemResource;
-                inventoryItem.Connect("mouse_entered", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseEntered),
+                inventoryItem.Connect("mouse_entered", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseEntered),
                     new Array {item});
-                inventoryItem.Connect("mouse_exited", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseExited));
-                itemTextureButton.Connect("pressed", itemInfoMenu, nameof(itemInfoMenu.OnItem_Pressed), new
-                    Array {inventoryItem, PlayerInstance});
-                inventoryItemsGrid.AddChild(inventoryItem);
+                inventoryItem.Connect("mouse_exited", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseExited));
+                itemTextureButton.Connect("pressed", _itemInfoMenu, nameof(_itemInfoMenu.OnItem_Pressed), new
+                    Array {inventoryItem, playerInstance});
+                _inventoryItemsGrid.AddChild(inventoryItem);
             }
         }
 
         private void UpdateEquippedItem()
         {
-            if (PlayerInstance.EquippedWeapon == null)
+            if (playerInstance.EquippedWeapon == null)
             {
                 return;
             }
 
-            equippedWeapon.ItemName = PlayerInstance.EquippedWeapon;
-            if (PlayerInstance.EquippedWeapon != "")
+            _equippedWeapon.itemName = playerInstance.EquippedWeapon;
+            if (playerInstance.EquippedWeapon != "")
             {
-                var equippedWeaponTextureButton = equippedWeapon.GetNode<TextureButton>("MarginContainer/Item");
-                equippedWeaponTextureButton.TextureNormal = equippedWeapon.InventoryItemResource;
+                var equippedWeaponTextureButton = _equippedWeapon.GetNode<TextureButton>("MarginContainer/Item");
+                equippedWeaponTextureButton.TextureNormal = _equippedWeapon.InventoryItemResource;
             }
 
-            foreach (InventoryItem equippedItem in equippedItemsHBox.GetChildren())
+            foreach (InventoryItem equippedItem in _equippedItemsHBox.GetChildren())
             {
                 var itemButton = equippedItem.GetNode<TextureButton>("MarginContainer/Item");
-                equippedItem.Visible = !string.IsNullOrWhiteSpace(equippedItem.ItemName);
+                equippedItem.Visible = !string.IsNullOrWhiteSpace(equippedItem.itemName);
 
-                if (equippedItem.IsConnected("mouse_entered", itemStatsPopup,
-                    nameof(itemStatsPopup.OnItem_MouseEntered)))
+                if (equippedItem.IsConnected("mouse_entered", _itemStatsPopup,
+                    nameof(_itemStatsPopup.OnItem_MouseEntered)))
                 {
-                    equippedItem.Disconnect("mouse_entered", itemStatsPopup,
-                        nameof(itemStatsPopup.OnItem_MouseEntered));
+                    equippedItem.Disconnect("mouse_entered", _itemStatsPopup,
+                        nameof(_itemStatsPopup.OnItem_MouseEntered));
                 }
 
-                equippedItem.Connect("mouse_entered", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseEntered), new
-                    Array {equippedItem.ItemName});
+                equippedItem.Connect("mouse_entered", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseEntered), new
+                    Array {equippedItem.itemName});
 
-                if (equippedItem.IsConnected("mouse_exited", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseExited)))
+                if (equippedItem.IsConnected("mouse_exited", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseExited)))
                 {
-                    equippedItem.Disconnect("mouse_exited", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseExited));
+                    equippedItem.Disconnect("mouse_exited", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseExited));
                 }
 
-                equippedItem.Connect("mouse_exited", itemStatsPopup, nameof(itemStatsPopup.OnItem_MouseExited));
+                equippedItem.Connect("mouse_exited", _itemStatsPopup, nameof(_itemStatsPopup.OnItem_MouseExited));
 
-                if (itemButton.IsConnected("pressed", itemInfoMenu, nameof(itemInfoMenu.OnItem_Pressed)))
+                if (itemButton.IsConnected("pressed", _itemInfoMenu, nameof(_itemInfoMenu.OnItem_Pressed)))
                 {
-                    itemButton.Disconnect("pressed", itemInfoMenu, nameof(itemInfoMenu.OnItem_Pressed));
+                    itemButton.Disconnect("pressed", _itemInfoMenu, nameof(_itemInfoMenu.OnItem_Pressed));
                 }
 
-                itemButton.Connect("pressed", itemInfoMenu, nameof(itemInfoMenu.OnItem_Pressed), new
-                    Array {equippedItem, PlayerInstance});
+                itemButton.Connect("pressed", _itemInfoMenu, nameof(_itemInfoMenu.OnItem_Pressed), new
+                    Array {equippedItem, playerInstance});
             }
         }
 
         private void UpdateMenuState()
         {
-            switch (CurrentMenu)
+            switch (currentMenu)
             {
                 case Menu.Settings:
-                    settingsButton.Pressed = true;
-                    infoButton.Pressed = false;
-                    inventoryButton.Pressed = false;
-                    headerLabel.Text = "Settings";
-                    coinsMargin.Visible = false;
-                    inventoryItemsMargin.Visible = false;
-                    equippedItemsMargin.Visible = false;
-                    itemStatsPopup.Visible = false;
-                    settingsMargin.Visible = true;
-                    secondRowHBox.Visible = false;
+                    _settingsButton.Pressed = true;
+                    _infoButton.Pressed = false;
+                    _inventoryButton.Pressed = false;
+                    _headerLabel.Text = "Settings";
+                    _coinsMargin.Visible = false;
+                    _inventoryItemsMargin.Visible = false;
+                    _equippedItemsMargin.Visible = false;
+                    _itemStatsPopup.Visible = false;
+                    _settingsMargin.Visible = true;
+                    _secondRowHBox.Visible = false;
                     break;
                 case Menu.Info:
-                    settingsButton.Pressed = false;
-                    infoButton.Pressed = true;
-                    inventoryButton.Pressed = false;
-                    headerLabel.Text = "Info";
-                    coinsMargin.Visible = true;
-                    inventoryItemsMargin.Visible = false;
-                    equippedItemsMargin.Visible = false;
-                    itemStatsPopup.Visible = false;
-                    settingsMargin.Visible = false;
-                    secondRowHBox.Visible = true;
+                    _settingsButton.Pressed = false;
+                    _infoButton.Pressed = true;
+                    _inventoryButton.Pressed = false;
+                    _headerLabel.Text = "Info";
+                    _coinsMargin.Visible = true;
+                    _inventoryItemsMargin.Visible = false;
+                    _equippedItemsMargin.Visible = false;
+                    _itemStatsPopup.Visible = false;
+                    _settingsMargin.Visible = false;
+                    _secondRowHBox.Visible = true;
                     break;
                 case Menu.Inventory:
-                    settingsButton.Pressed = false;
-                    infoButton.Pressed = false;
-                    inventoryButton.Pressed = true;
-                    headerLabel.Text = "Inventory";
-                    coinsMargin.Visible = false;
-                    inventoryItemsMargin.Visible = true;
-                    equippedItemsMargin.Visible = true;
-                    itemStatsPopup.Visible = true;
-                    settingsMargin.Visible = false;
-                    secondRowHBox.Visible = true;
+                    _settingsButton.Pressed = false;
+                    _infoButton.Pressed = false;
+                    _inventoryButton.Pressed = true;
+                    _headerLabel.Text = "Inventory";
+                    _coinsMargin.Visible = false;
+                    _inventoryItemsMargin.Visible = true;
+                    _equippedItemsMargin.Visible = true;
+                    _itemStatsPopup.Visible = true;
+                    _settingsMargin.Visible = false;
+                    _secondRowHBox.Visible = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            background.Texture = GetMenuBackground(CurrentMenu);
-            foreach (BaseButton button in buttons.GetChildren())
+            _background.Texture = GetMenuBackground(currentMenu);
+            foreach (BaseButton button in _buttons.GetChildren())
             {
                 button.Modulate = button.Pressed
-                    ? GetMenuButtonPressedColor(CurrentMenu)
-                    : GetMenuButtonNormalColor(CurrentMenu);
-                headerDecor.Modulate = GetMenuHeaderColor(CurrentMenu);
-                if (MenuCoinDecorColor.ContainsKey(CurrentMenu))
+                    ? GetMenuButtonPressedColor(currentMenu)
+                    : GetMenuButtonNormalColor(currentMenu);
+                _headerDecor.Modulate = GetMenuHeaderColor(currentMenu);
+                if (MenuCoinDecorColor.ContainsKey(currentMenu))
                 {
-                    coinsDecor.Modulate = MenuCoinDecorColor[CurrentMenu];
+                    _coinsDecor.Modulate = MenuCoinDecorColor[currentMenu];
                 }
             }
         }
 
         private void OnButton_ButtonDown(BaseButton button)
         {
-            CurrentMenu = button switch
+            currentMenu = button switch
             {
-                var b when b == settingsButton => Menu.Settings,
-                var b when b == infoButton => Menu.Info,
-                var b when b == inventoryButton => Menu.Inventory,
+                var b when b == _settingsButton => Menu.Settings,
+                var b when b == _infoButton => Menu.Info,
+                var b when b == _inventoryButton => Menu.Inventory,
                 _ => throw new ArgumentOutOfRangeException()
             };
             AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, null, -15);
@@ -331,13 +331,13 @@ namespace HeroesGuild.UI.pause_menu
 
         public void TogglePauseCombat(Player player)
         {
-            PlayerInstance = player;
+            playerInstance = player;
             pauseMenuControl.Visible = !pauseMenuControl.Visible;
-            PlayerInstance.hudMargin.Visible = false;
+            playerInstance.hudMargin.Visible = false;
             UpdateInventory();
             UpdateEquippedItem();
             UpdateMenuState();
-            coinsLabel.Text = $"{PlayerInstance.Coins}:COIN";
+            _coinsLabel.Text = $"{playerInstance.Coins}:COIN";
         }
     }
 }

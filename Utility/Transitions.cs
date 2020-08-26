@@ -33,25 +33,25 @@ namespace HeroesGuild.Utility
 
 		public struct TransitionParams
 		{
-			public TransitionType TransitionType;
-			public float Duration;
-			public bool Invert;
-			public Color Color;
-			public float TransitionFeather;
-			public Tween.TransitionType TweenTransitionType;
-			public Tween.EaseType TweenEaseType;
+			public TransitionType transitionType;
+			public float duration;
+			public bool invert;
+			public Color color;
+			public float transitionFeather;
+			public Tween.TransitionType tweenTransitionType;
+			public Tween.EaseType tweenEaseType;
 
 			public TransitionParams(TransitionType transitionType, float duration, bool invert = false, Color color =
 				default, float transitionFeather = 0.2f, Tween.TransitionType tweenTransitionType = Tween.TransitionType
 				.Linear, Tween.EaseType tweenEaseType = Tween.EaseType.InOut)
 			{
-				TransitionType = transitionType;
-				Duration = duration;
-				Invert = invert;
-				Color = color == default ? Colors.Black : color;
-				TransitionFeather = transitionFeather;
-				TweenTransitionType = tweenTransitionType;
-				TweenEaseType = tweenEaseType;
+				this.transitionType = transitionType;
+				this.duration = duration;
+				this.invert = invert;
+				this.color = color == default ? Colors.Black : color;
+				this.transitionFeather = transitionFeather;
+				this.tweenTransitionType = tweenTransitionType;
+				this.tweenEaseType = tweenEaseType;
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace HeroesGuild.Utility
 		public async Task ChangeSceneDoubleTransition(string scenePath, TransitionParams @params)
 		{
 			var invertParams = @params;
-			invertParams.Invert = !@params.Invert;
+			invertParams.invert = !@params.invert;
 			StartTransition(invertParams);
 			await ToSignal(_tween, "tween_completed");
 			ChangeScene(scenePath, @params);
@@ -88,13 +88,13 @@ namespace HeroesGuild.Utility
 
 		public void StartTransition(TransitionParams @params)
 		{
-			_transitionShader.SetShaderParam("mask_tex", GetTransitionTextures(@params.TransitionType));
-			_transitionShader.SetShaderParam("transition_invert_mask", @params.Invert);
-			_transitionShader.SetShaderParam("transition_col", @params.Color);
-			_transitionShader.SetShaderParam("transition_feather", @params.TransitionFeather);
+			_transitionShader.SetShaderParam("mask_tex", GetTransitionTextures(@params.transitionType));
+			_transitionShader.SetShaderParam("transition_invert_mask", @params.invert);
+			_transitionShader.SetShaderParam("transition_col", @params.color);
+			_transitionShader.SetShaderParam("transition_feather", @params.transitionFeather);
 			_transitionShader.SetShaderParam("transition_time", 1);
-			_tween.InterpolateProperty(_transitionShader, "shader_param/transition_time", 1, 0, @params.Duration, @params
-				.TweenTransitionType, @params.TweenEaseType);
+			_tween.InterpolateProperty(_transitionShader, "shader_param/transition_time", 1, 0, @params.duration, @params
+				.tweenTransitionType, @params.tweenEaseType);
 			_tween.Start();
 		}
 	}

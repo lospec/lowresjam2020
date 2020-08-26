@@ -8,10 +8,10 @@ namespace HeroesGuild.Combat
 
         public bool isBlinking = false;
         private float _duration = 0;
-        private float _time_left = 0;
+        private float _timeLeft = 0;
         private int _frequency;
 
-        private float T => _duration - _time_left;
+        private float T => _duration - _timeLeft;
 
         public override void _Process(float delta)
         {
@@ -20,7 +20,7 @@ namespace HeroesGuild.Combat
                 return;
             }
 
-            if (_time_left <= 0)
+            if (_timeLeft <= 0)
             {
                 StopBlink();
                 return;
@@ -29,13 +29,13 @@ namespace HeroesGuild.Combat
             var color = Modulate;
             color.a = Mathf.FloorToInt(T * _frequency) % 2 == 0 ? 0 : 1;
             Modulate = color;
-            _time_left -= delta;
+            _timeLeft -= delta;
         }
 
         private void StopBlink()
         {
             isBlinking = false;
-            _time_left = 0;
+            _timeLeft = 0;
             var color = Modulate;
             color.a = 1;
             Modulate = color;
@@ -44,14 +44,14 @@ namespace HeroesGuild.Combat
 
         public void Blink(float duration, int frequency)
         {
-            if (_time_left > 0)
+            if (_timeLeft > 0)
             {
                 StopBlink();
             }
 
             isBlinking = true;
             _duration = duration;
-            _time_left = duration;
+            _timeLeft = duration;
             _frequency = frequency;
         }
     }

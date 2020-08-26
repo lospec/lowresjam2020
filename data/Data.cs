@@ -13,9 +13,9 @@ namespace HeroesGuild.data
         private const string ENEMY_DATA_PATH = "res://data/enemy_data.json";
         private const string CHARACTER_DATA_PATH = "res://data/character_data.json";
 
-        public Dictionary<string, ItemRecord> ItemData = new Dictionary<string, ItemRecord>();
-        public Dictionary<string, EnemyRecord> EnemyData = new Dictionary<string, EnemyRecord>();
-        public Dictionary<string, CharacterRecord> CharacterData = new Dictionary<string, CharacterRecord>();
+        public Dictionary<string, ItemRecord> itemData = new Dictionary<string, ItemRecord>();
+        public Dictionary<string, EnemyRecord> enemyData = new Dictionary<string, EnemyRecord>();
+        public Dictionary<string, CharacterRecord> characterData = new Dictionary<string, CharacterRecord>();
 
         private int _minSpeedStat = int.MinValue;
         private int _maxSpeedStat = int.MaxValue;
@@ -23,9 +23,9 @@ namespace HeroesGuild.data
 
         public override void _Ready()
         {
-            ItemData = ParseData<ItemRecord>(ITEM_DATA_PATH);
-            EnemyData = ParseData<EnemyRecord>(ENEMY_DATA_PATH);
-            CharacterData = ParseData<CharacterRecord>(CHARACTER_DATA_PATH);
+            itemData = ParseData<ItemRecord>(ITEM_DATA_PATH);
+            enemyData = ParseData<EnemyRecord>(ENEMY_DATA_PATH);
+            characterData = ParseData<CharacterRecord>(CHARACTER_DATA_PATH);
             SetMinMaxSpeedStat();
         }
 
@@ -42,7 +42,7 @@ namespace HeroesGuild.data
 
         private void SetMinMaxSpeedStat()
         {
-            foreach (var speed in EnemyData.Values.Select(enemyRecord => enemyRecord.MoveSpeed))
+            foreach (var speed in enemyData.Values.Select(enemyRecord => enemyRecord.MoveSpeed))
             {
                 if (speed < _minSpeedStat)
                 {

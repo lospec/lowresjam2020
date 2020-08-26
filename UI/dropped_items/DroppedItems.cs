@@ -16,17 +16,17 @@ namespace HeroesGuild.UI.dropped_items
         private Player _playerInstance;
 
         public MarginContainer margin;
-        private Label coinAmountLabel;
-        private GridContainer itemsDroppedGrid;
-        private Timer autoCloseTimer;
+        private Label _coinAmountLabel;
+        private GridContainer _itemsDroppedGrid;
+        private Timer _autoCloseTimer;
 
         public override void _Ready()
         {
             margin = GetNode<MarginContainer>("MarginContainer");
-            coinAmountLabel = GetNode<Label>
+            _coinAmountLabel = GetNode<Label>
                 ("MarginContainer/MarginContainer/VBoxContainer/CoinsDropped/HBoxContainer/CoinAmount");
-            itemsDroppedGrid = GetNode<GridContainer>("MarginContainer/MarginContainer/VBoxContainer/ItemsDropped");
-            autoCloseTimer = GetNode<Timer>("AutoClose");
+            _itemsDroppedGrid = GetNode<GridContainer>("MarginContainer/MarginContainer/VBoxContainer/ItemsDropped");
+            _autoCloseTimer = GetNode<Timer>("AutoClose");
         }
 
         
@@ -35,7 +35,7 @@ namespace HeroesGuild.UI.dropped_items
         {
             GetTree().Paused = true;
             _playerInstance = playerInstance;
-            var enemyRecord = Autoload.Get<Data>().EnemyData[enemyName];
+            var enemyRecord = Autoload.Get<Data>().enemyData[enemyName];
             var coinsDropped = (int) GD.RandRange(enemyRecord.CoinDropAmount * MIN_COIN_DROP, enemyRecord
                 .CoinDropAmount * MAX_COIN_DROP + 1);
             if (coinsDropped <= 0 && enemyRecord.CoinDropAmount > 0)
@@ -43,10 +43,10 @@ namespace HeroesGuild.UI.dropped_items
                 coinsDropped = 1;
             }
 
-            coinAmountLabel.Text = $"{coinsDropped}";
+            _coinAmountLabel.Text = $"{coinsDropped}";
             _playerInstance.Coins += coinsDropped;
 
-            foreach (Node child in itemsDroppedGrid.GetChildren())
+            foreach (Node child in _itemsDroppedGrid.GetChildren())
             {
                 child.QueueFree();
             }
@@ -76,7 +76,7 @@ namespace HeroesGuild.UI.dropped_items
                     {
                         var itemDropped = ItemDroppedResource.Instance();
                         itemDropped.GetNode<TextureRect>("Item").Texture = Utility.Utility.GetInventoryItemResource(item.Key);
-                        itemsDroppedGrid.AddChild(itemDropped);
+                        _itemsDroppedGrid.AddChild(itemDropped);
                         playerInstance.Inventory.Add(item.Key);
                     }
                 }
@@ -84,7 +84,7 @@ namespace HeroesGuild.UI.dropped_items
 
             playerInstance.hudMargin.Visible = false;
             margin.Visible = true;
-            autoCloseTimer.Start();
+            _autoCloseTimer.Start();
         }
 
         public void Close()
