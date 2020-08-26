@@ -39,7 +39,7 @@ namespace HeroesGuild.guild_hall.chest
             foreach (ChestItems chestItems in _chestContents.GetChildren())
             {
                 chestItems.Connect(nameof(ChestItems.LeftClicked), this,
-                    nameof(NotificationCrash));
+                    nameof(OnChestItem_LeftClicked));
             }
         }
 
@@ -117,11 +117,16 @@ namespace HeroesGuild.guild_hall.chest
 
         private void UpdateChestUI()
         {
-            _margin.Visible = false;
-            foreach (ChestItems chestItem in _chestContents.GetChildren())
+            if (_chestInstance == null)
             {
-                chestItem.Connect(nameof(ChestItems.LeftClicked), this,
-                    nameof(OnChestItem_LeftClicked));
+                GD.PushError("Chest instance not found");
+                return;
+            }
+
+            for (var i = 0; i < _chestInstance.contents.Count; i++)
+            {
+                var itemName = _chestInstance.contents[i];
+                _chestContents.GetChild<ChestItems>(i).ItemName = itemName;
             }
         }
 
