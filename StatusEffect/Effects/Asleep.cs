@@ -1,4 +1,3 @@
-using Godot;
 using HeroesGuild.Combat;
 
 namespace HeroesGuild.StatusEffect.Effects

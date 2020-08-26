@@ -1,4 +1,3 @@
-using System;
 using HeroesGuild.Combat;
 
 namespace HeroesGuild.StatusEffect.Effects

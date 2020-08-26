@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.data;
 using HeroesGuild.Entities.BaseEntity;
 using HeroesGuild.Entities.enemies.base_enemy;
 using HeroesGuild.Entities.Player;
