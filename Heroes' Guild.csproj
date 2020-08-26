@@ -85,6 +85,7 @@
     <Compile Include="Combat\CombatMenu.cs" />
     <Compile Include="Combat\CombatUtil.cs" />
     <Compile Include="Combat\CombatTurnResultUI.cs" />
+    <Compile Include="Combat\DamageLabel.cs" />
     <Compile Include="Combat\Effects\animations\AnimationList.cs" />
     <Compile Include="Combat\EnemyCombat.cs" />
     <Compile Include="Combat\HealthIcon.cs" />
