@@ -14,121 +14,121 @@
 [sub_resource type="Resource" id=1]
 resource_name = "Wander"
 script = ExtResource( 4 )
-MoveSpeedFactor = 1.0
-UpdateTime = 5.0
+moveSpeedFactor = 1.0
+updateTime = 5.0
 
 [sub_resource type="Resource" id=2]
 resource_name = "SearchForPlayer"
 script = ExtResource( 3 )
-SearchRange = 32.0
+searchRange = 32.0
 
 [sub_resource type="Resource" id=3]
 resource_name = "FarFromOrigin"
 script = ExtResource( 6 )
-DistanceFromOrigin = 80.0
+distanceFromOrigin = 80.0
 
 [sub_resource type="Resource" id=4]
 resource_name = "is_far"
 script = ExtResource( 1 )
-Condition = SubResource( 3 )
-TrueStateIndex = 2
-FalseStateIndex = -1
+condition = SubResource( 3 )
+trueStateIndex = 2
+falseStateIndex = -1
 
 [sub_resource type="Resource" id=5]
 resource_name = "HasTarget"
 script = ExtResource( 5 )
-HasTarget = true
+hasTarget = true
 
 [sub_resource type="Resource" id=6]
 resource_name = "found_player"
 script = ExtResource( 1 )
-Condition = SubResource( 5 )
-TrueStateIndex = 1
-FalseStateIndex = -1
+condition = SubResource( 5 )
+trueStateIndex = 1
+falseStateIndex = -1
 
 [sub_resource type="Resource" id=7]
 resource_name = "search"
 script = ExtResource( 7 )
-Actions = [ SubResource( 1 ), SubResource( 2 ) ]
-Transitions = [ SubResource( 4 ), SubResource( 6 ) ]
+actions = [ SubResource( 1 ), SubResource( 2 ) ]
+transitions = [ SubResource( 4 ), SubResource( 6 ) ]
 
 [sub_resource type="Resource" id=8]
 resource_name = "MoveToTarget"
 script = ExtResource( 8 )
-MoveSpeedFactor = 1.0
+moveSpeedFactor = 1.0
 
 [sub_resource type="Resource" id=9]
 resource_name = "FarFromOrigin"
 script = ExtResource( 6 )
-DistanceFromOrigin = 160.0
+distanceFromOrigin = 160.0
 
 [sub_resource type="Resource" id=10]
 resource_name = "is_far"
 script = ExtResource( 1 )
-Condition = SubResource( 9 )
-TrueStateIndex = 2
-FalseStateIndex = -1
+condition = SubResource( 9 )
+trueStateIndex = 2
+falseStateIndex = -1
 
 [sub_resource type="Resource" id=11]
 resource_name = "TargetInRange"
 script = ExtResource( 10 )
-MaxRange = 48.0
+naxRange = 48.0
 
 [sub_resource type="Resource" id=12]
 resource_name = "target_far"
 script = ExtResource( 1 )
 Condition = SubResource( 11 )
-TrueStateIndex = -1
-FalseStateIndex = 0
+trueStateIndex = -1
+falseStateIndex = 0
 
 [sub_resource type="Resource" id=13]
 resource_name = "chase"
 script = ExtResource( 7 )
-Actions = [ SubResource( 8 ) ]
-Transitions = [ SubResource( 10 ), SubResource( 12 ) ]
+actions = [ SubResource( 8 ) ]
+transitions = [ SubResource( 10 ), SubResource( 12 ) ]
 
 [sub_resource type="Resource" id=14]
 resource_name = "ReturnToOrigin"
 script = ExtResource( 2 )
-MoveSpeedFactor = 1.0
+moveSpeedFactor = 1.0
 
 [sub_resource type="Resource" id=15]
 resource_name = "SearchForPlayer"
 script = ExtResource( 3 )
-SearchRange = 32.0
+searchRange = 32.0
 
 [sub_resource type="Resource" id=16]
 resource_name = "HasTarget"
 script = ExtResource( 5 )
-HasTarget = true
+hasTarget = true
 
 [sub_resource type="Resource" id=17]
 resource_name = "found_player"
 script = ExtResource( 1 )
-Condition = SubResource( 16 )
-TrueStateIndex = 1
-FalseStateIndex = -1
+condition = SubResource( 16 )
+trueStateIndex = 1
+falseStateIndex = -1
 
 [sub_resource type="Resource" id=18]
 resource_name = "FarFromOrigin"
 script = ExtResource( 6 )
-DistanceFromOrigin = 5.0
+distanceFromOrigin = 5.0
 
 [sub_resource type="Resource" id=19]
 resource_name = "is_back"
 script = ExtResource( 1 )
-Condition = SubResource( 18 )
-TrueStateIndex = -1
-FalseStateIndex = 0
+condition = SubResource( 18 )
+trueStateIndex = -1
+falseStateIndex = 0
 
 [sub_resource type="Resource" id=20]
 resource_name = "return"
 script = ExtResource( 7 )
-Actions = [ SubResource( 14 ), SubResource( 15 ) ]
-Transitions = [ SubResource( 17 ), SubResource( 19 ) ]
+actions = [ SubResource( 14 ), SubResource( 15 ) ]
+transitions = [ SubResource( 17 ), SubResource( 19 ) ]
 
 [resource]
 resource_name = "aggressive_state"
 script = ExtResource( 9 )
-States = [ SubResource( 7 ), SubResource( 13 ), SubResource( 20 ) ]
-StartStateIndex = 0
+states = [ SubResource( 7 ), SubResource( 13 ), SubResource( 20 ) ]
+startStateIndex = 0

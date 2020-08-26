@@ -10,52 +10,52 @@
 [sub_resource type="Resource" id=1]
 resource_name = "Wander"
 script = ExtResource( 5 )
-MoveSpeedFactor = 1.0
-UpdateTime = 5.0
+moveSpeedFactor = 1.0
+updateTime = 5.0
 
 [sub_resource type="Resource" id=2]
 resource_name = "FarFromOrigin"
 script = ExtResource( 4 )
-DistanceFromOrigin = 96.0
+distanceFromOrigin = 96.0
 
 [sub_resource type="Resource" id=3]
 resource_name = "is_far"
 script = ExtResource( 2 )
-Condition = SubResource( 2 )
-TrueStateIndex = 1
-FalseStateIndex = -1
+condition = SubResource( 2 )
+trueStateIndex = 1
+falseStateIndex = -1
 
 [sub_resource type="Resource" id=4]
 resource_name = "wander"
 script = ExtResource( 1 )
-Actions = [ SubResource( 1 ) ]
-Transitions = [ SubResource( 3 ) ]
+actions = [ SubResource( 1 ) ]
+transitions = [ SubResource( 3 ) ]
 
 [sub_resource type="Resource" id=5]
 resource_name = "ReturnToOrigin"
 script = ExtResource( 3 )
-MoveSpeedFactor = 1.0
+moveSpeedFactor = 1.0
 
 [sub_resource type="Resource" id=6]
 resource_name = "FarFromOrigin"
 script = ExtResource( 4 )
-DistanceFromOrigin = 32.0
+distanceFromOrigin = 32.0
 
 [sub_resource type="Resource" id=7]
 resource_name = "is_back"
 script = ExtResource( 2 )
-Condition = SubResource( 6 )
-TrueStateIndex = -1
-FalseStateIndex = 0
+condition = SubResource( 6 )
+trueStateIndex = -1
+falseStateIndex = 0
 
 [sub_resource type="Resource" id=8]
 resource_name = "return"
 script = ExtResource( 1 )
-Actions = [ SubResource( 5 ) ]
-Transitions = [ SubResource( 7 ) ]
+actions = [ SubResource( 5 ) ]
+transitions = [ SubResource( 7 ) ]
 
 [resource]
 resource_name = "neutral_behaviour"
 script = ExtResource( 6 )
-States = [ SubResource( 4 ), SubResource( 8 ) ]
-StartStateIndex = 0
+states = [ SubResource( 4 ), SubResource( 8 ) ]
+startStateIndex = 0
