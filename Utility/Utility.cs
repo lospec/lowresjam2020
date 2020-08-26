@@ -19,13 +19,14 @@ namespace HeroesGuild.Utility
 
         public static T RandomElement<T>(this IList<T> list)
         {
-            var idx = (int) (GD.Randi() % list.Count);
+            var idx = (int) Mathf.PosMod(GD.Randi(), list.Count);
             return list[idx];
         }
 
         public static Texture GetInventoryItemResource(string itemName)
         {
-            return GD.Load<Texture>($"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
+            return GD.Load<Texture>(
+                $"res://items/inventory_sprites/{itemName.ToLower().Replace(" ", "_")}.png");
         }
     }
 }
