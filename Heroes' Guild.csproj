@@ -1,0 +1,7 @@
+<Project Sdk="Godot.NET.Sdk/3.2.3">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>HeroesGuild</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+</Project>
