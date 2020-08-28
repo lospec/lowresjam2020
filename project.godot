@@ -19,6 +19,20 @@ config/name="Heroes' Guild"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
+[autoload]
+
+PixelPerfectScaling="*res://autoload/PixelPerfectScaling.cs"
+
+[display]
+
+window/size/width=64
+window/size/height=64
+window/size/test_width=512
+window/size/test_height=512
+window/dpi/allow_hidpi=true
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [input]
 
 player_move_left={
@@ -56,3 +70,4 @@ quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
