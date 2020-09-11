@@ -1,4 +1,9 @@
+### Export Builds Folder
 exports/
+
+### Aseprite Files
+*.aseprite
+*.ase
 
 # Created by https://www.toptal.com/developers/gitignore/api/godot
 # Edit at https://www.toptal.com/developers/gitignore?templates=godot
