@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://static_objects/guild_hall/flag_frames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://static_objects/guild_hall/guild_hall.png" type="Texture" id=2]
+[ext_resource path="res://interactable_objects/InteractableObject.tscn" type="PackedScene" id=3]
+[ext_resource path="res://static_objects/guild_hall/GuildHall.cs" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 3 )
+
+[node name="GuildHall" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2147483648
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Flag" type="AnimatedSprite" parent="."]
+position = Vector2( 10, 6 )
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="Flag2" type="AnimatedSprite" parent="."]
+position = Vector2( 63, 7 )
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="Flag3" type="AnimatedSprite" parent="."]
+position = Vector2( 9, 33 )
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="Flag4" type="AnimatedSprite" parent="."]
+position = Vector2( 64, 34 )
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 31, 35 )
+polygon = PoolVector2Array( 21, -17, 21, 27, 16, 31, 9, 31, 8, 33, 3, 33, 3, 18, -7, 18, -7, 33, -12, 33, -13, 31, -20, 31, -25, 25, -25, -17 )
+
+[node name="InteractableDoor" parent="." instance=ExtResource( 3 )]
+position = Vector2( 29, 56 )
+
+[node name="CollisionShape2D" parent="InteractableDoor" index="0"]
+shape = SubResource( 1 )
+
+[node name="PlayerExitPosition" type="Position2D" parent="."]
+position = Vector2( 29, 5 )
+[connection signal="body_entered" from="InteractableDoor" to="." method="_on_InteractableDoor_body_entered"]
+
+[editable path="InteractableDoor"]
