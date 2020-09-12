@@ -5,6 +5,7 @@
 
 [node name="Player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+moveSpeed = 25.0
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 current = true
