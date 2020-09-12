@@ -93,7 +93,7 @@ player_move_down={
 2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Static Objects"
 2d_physics/layer_3="Entities"
-2d_physics/layer_4="Interactive Objects"
+2d_physics/layer_4="Interactable Objects"
 
 [rendering]
 
