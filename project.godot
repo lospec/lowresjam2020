@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Heroes' Guild"
+run/main_scene="res://world/World.tscn"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
