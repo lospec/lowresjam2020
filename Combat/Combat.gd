@@ -56,6 +56,7 @@ func setup_combat(player, enemy):
 		enemy_instance.connect("health_changed", combat_menu, "update_enemy_health_value")
 	
 	if !enemy_combat.is_connected("damage_taken", self, "_on_enemy_take_damage"):
+		# warning-ignore:return_value_discarded
 		enemy_combat.connect("damage_taken", self, "_on_enemy_take_damage")
 	
 	combat_menu.set_player_health_value(player_instance.max_health,

@@ -31,22 +31,22 @@ func take_damage(damage: int, damage_type: String, instance: BaseEntity):
 	hit_combo = 0
 	
 	if instance.is_in_group("PlayerGroup"):
-		AudioSystem.play_sfx(AudioSystem.SFX.PLAYER_HURT, null, -30)
+		var _a = AudioSystem.play_sfx(AudioSystem.SFX.PLAYER_HURT, null, -30)
 	else:
 		var enemy_data = Data.enemy_data[instance.enemy_name]
 		match enemy_data.race:
 			"Beast":
-				AudioSystem.play_sfx(AudioSystem.SFX.BEAST_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.BEAST_HURT, null, -30)
 			"Demon":
-				AudioSystem.play_sfx(AudioSystem.SFX.DEMON_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.DEMON_HURT, null, -30)
 			"Flora":
-				AudioSystem.play_sfx(AudioSystem.SFX.FLORA_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.FLORA_HURT, null, -30)
 			"Human":
-				AudioSystem.play_sfx(AudioSystem.SFX.HUMAN_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.HUMAN_HURT, null, -30)
 			"Robot":
-				AudioSystem.play_sfx(AudioSystem.SFX.ROBOT_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.ROBOT_HURT, null, -30)
 			"Slime":
-				AudioSystem.play_sfx(AudioSystem.SFX.SLIME_HURT, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.SLIME_HURT, null, -30)
 
 
 func attack(target: CombatChar, action: int, damage: int, instance: BaseEntity,
@@ -73,17 +73,17 @@ func attack(target: CombatChar, action: int, damage: int, instance: BaseEntity,
 		
 		match se:
 			"Charged":
-				AudioSystem.play_sfx(AudioSystem.SFX.CHARGED_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.CHARGED_STATUS, null, -30)
 			"Confusion":
-				AudioSystem.play_sfx(AudioSystem.SFX.CONFUSION_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.CONFUSION_STATUS, null, -30)
 			"Frozen":
-				AudioSystem.play_sfx(AudioSystem.SFX.FROZEN_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.FROZEN_STATUS, null, -30)
 			"Poisoned":
-				AudioSystem.play_sfx(AudioSystem.SFX.POISONED_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.POISONED_STATUS, null, -30)
 			"OnFire":
-				AudioSystem.play_sfx(AudioSystem.SFX.ONFIRE_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.ONFIRE_STATUS, null, -30)
 			"Weak":
-				AudioSystem.play_sfx(AudioSystem.SFX.WEAK_STATUS, null, -30)
+				var _a = AudioSystem.play_sfx(AudioSystem.SFX.WEAK_STATUS, null, -30)
 		
 		if "enemy_name" in target.char_instance:
 			print("Applied %s to %s" % [se, target.char_instance.enemy_name])
