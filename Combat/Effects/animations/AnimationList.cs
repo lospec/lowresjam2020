@@ -47,7 +47,7 @@ namespace HeroesGuild.Combat.Effects.animations
                 return _attackAnimations[key];
             }
 
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException($"{key} not found");
         }
     }
 }
