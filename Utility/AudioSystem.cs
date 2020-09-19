@@ -100,7 +100,7 @@ namespace HeroesGuild.Utility
                 SFX.HeroesGuildPureasbestos1 => "res://sfx/Heroes_Guild_PureAsbestos_take1.wav",
                 SFX.HeroesGuildUnsettled1 => "res://sfx/Heroes_Guild_Unsettled_take1.wav",
                 SFX.HeroesGuildWildleoknight2 => "res://sfx/Heroes_Guild_WildLeoKnight_take2.wav",
-                SFX.BattleIntro => "res://sfx/battle intro.wav",
+                SFX.BattleIntro => "res://sfx/battle intro.ogg",
                 SFX.VictoryJingle => "res://sfx/Victory jingle.wav",
                 SFX.BeastHurt => "res://sfx/Beast_hit.wav",
                 SFX.DemonHurt => "res://sfx/Demon_hit.wav",
