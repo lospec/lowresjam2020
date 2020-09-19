@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Heroes' Guild"
+run/main_scene="res://world/World.tscn"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
@@ -87,9 +88,17 @@ player_move_down={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Tiles"
+2d_physics/layer_2="Static Objects"
+2d_physics/layer_3="Entities"
+2d_physics/layer_4="Interactable Objects"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/2d/use_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

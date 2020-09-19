@@ -1,11 +1,14 @@
 [gd_resource type="TileSet" load_steps=3 format=2]
 
-[ext_resource path="res://world/tiles/tiles.png" type="Texture" id=1]
-[ext_resource path="res://world/tiles/water.png" type="Texture" id=2]
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/tiles.png-5612c69b4134d53fc2d54985bb93a07e.stex"
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/water.png-40166f31ebb01f36ae681abb365c74fa.stex"
 
 [resource]
 0/name = "grass"
-0/texture = ExtResource( 1 )
+0/texture = SubResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 44, 29 )
@@ -28,7 +31,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "water"
-1/texture = ExtResource( 2 )
+1/texture = SubResource( 2 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 44, 29 )
