@@ -98,7 +98,7 @@ namespace HeroesGuild.World
                 while (!safe)
                 {
                     enemy.Position = enemySpawn.GetRandomGlobalPosition();
-                    _map.CallDeferred(nameof(_map.AddChild), enemy);
+                    _map.CallDeferred("add_child", enemy);
                     safe = enemy.IsInAllowedTile();
 
                     if (!safe)
@@ -209,7 +209,7 @@ namespace HeroesGuild.World
         private async void OnEnemy_Death(EnemySpawn.EnemySpawn enemySpawnInstance)
         {
             var timer = new Timer();
-            CallDeferred(nameof(AddChild), timer);
+            CallDeferred("add_child", timer);
             timer.Connect("timeout", this, nameof(SpawnEnemy),
                 new Array {enemySpawnInstance});
             timer.Connect("timeout", timer, nameof(QueueFree));
