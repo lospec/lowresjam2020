@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.AI;
 using HeroesGuild.data;
@@ -28,12 +29,12 @@ namespace HeroesGuild.Entities.enemies.base_enemy
 
         public override void _Ready()
         {
+            base._Ready();
             stateMachine = GetNode<StateMachine>("StateMachine");
             if (string.IsNullOrWhiteSpace(Stat.Race) &&
                 !string.IsNullOrWhiteSpace(enemyName))
             {
                 LoadEnemy(enemyName);
-                base._Ready();
             }
         }
 
