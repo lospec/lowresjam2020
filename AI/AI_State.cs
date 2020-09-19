@@ -30,6 +30,8 @@ namespace HeroesGuild.AI
 
         public void UpdateState(StateMachine stateMachine, float delta)
         {
+            PerformActions(stateMachine, delta);
+            CheckAllTransitions(stateMachine);
         }
 
         public void OnStart(StateMachine stateMachine)
