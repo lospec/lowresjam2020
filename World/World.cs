@@ -206,13 +206,13 @@ namespace HeroesGuild.World
                     Transitions.TransitionType.ShrinkingCircle, 0.2f));
         }
 
-        private async void OnEnemy_Death(EnemySpawn.EnemySpawn enemySpawnInstance)
+        private async void OnEnemy_Death(BaseEnemy enemy, EnemySpawn.EnemySpawn enemySpawnInstance)
         {
             var timer = new Timer();
             CallDeferred("add_child", timer);
             timer.Connect("timeout", this, nameof(SpawnEnemy),
                 new Array {enemySpawnInstance});
-            timer.Connect("timeout", timer, nameof(QueueFree));
+            timer.Connect("timeout", timer, "queue_free");
             await ToSignal(timer, "ready");
             timer.Start((float) GD.RandRange(5, 10));
         }
