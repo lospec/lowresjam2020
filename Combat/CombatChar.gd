@@ -54,7 +54,7 @@ func attack(target: CombatChar, action: int, damage: int, instance: BaseEntity,
 	if char_instance.status_effects.has("Weak"):
 		damage /= 2
 	
-	damage = max(damage, 1)
+	damage = int(max(damage, 1))
 	
 	var damage_type = get_damage_type(action)
 	target.take_damage(damage, damage_type, target_instance)
