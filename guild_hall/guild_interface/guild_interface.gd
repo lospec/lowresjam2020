@@ -289,17 +289,24 @@ func _on_Deposit_pressed():
 	if _player_instance.coins == 0:
 		return
 	
-	_player_instance.coins = max(_player_instance.coins - deposit_amount, 0)
+	var new_coins_amount = max(_player_instance.coins - deposit_amount, 0)
+	
+	SaveData.coins_deposited += _player_instance.coins - new_coins_amount
+	
+	_player_instance.coins = new_coins_amount
 	
 	var total_coins_for_next_level = SaveData.guild_level * 250
 	deposit_progress_bar.max_value = total_coins_for_next_level
 	
-	SaveData.coins_deposited += deposit_amount
-	
+	var levelled_up = false
 	while SaveData.coins_deposited > total_coins_for_next_level:
 		SaveData.coins_deposited -= total_coins_for_next_level
 		SaveData.guild_level += 1
+		levelled_up = true
 		
+		total_coins_for_next_level = SaveData.guild_level * 250
+	
+	if levelled_up:
 		emit_signal("guild_hall_level_up")
 	
 	update_coins()
