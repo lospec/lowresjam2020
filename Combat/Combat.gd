@@ -160,6 +160,8 @@ func play_battle_music():
 
 
 func end_combat(outcome):
+	AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
+	
 	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
 	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", outcome, enemy_instance)
