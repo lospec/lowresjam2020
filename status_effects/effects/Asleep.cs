@@ -1,6 +1,6 @@
 using HeroesGuild.Combat;
 
-namespace HeroesGuild.StatusEffect.Effects
+namespace HeroesGuild.StatusEffects.Effects
 {
     public class Asleep : StatusEffect
     {

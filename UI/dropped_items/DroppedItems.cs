@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Godot;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Entities.Player;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.UI.dropped_items
+namespace HeroesGuild.UI.DroppedItems
 {
     public class DroppedItems : CanvasLayer
     {
@@ -35,7 +35,7 @@ namespace HeroesGuild.UI.dropped_items
         {
             GetTree().Paused = true;
             _playerInstance = playerInstance;
-            var enemyRecord = Autoload.Get<Data>().enemyData[enemyName];
+            var enemyRecord = Autoload.Get<Data.Data>().enemyData[enemyName];
             var coinsDropped = (int) GD.RandRange(enemyRecord.CoinDropAmount * MIN_COIN_DROP, enemyRecord
                 .CoinDropAmount * MAX_COIN_DROP + 1);
             if (coinsDropped <= 0 && enemyRecord.CoinDropAmount > 0)

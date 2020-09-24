@@ -1,8 +1,8 @@
 using HeroesGuild.Combat;
 
-namespace HeroesGuild.StatusEffect.Effects
+namespace HeroesGuild.StatusEffects.Effects
 {
-    public class Weak : Bases
+    public class Weak : StatusEffect
     {
         public int Duration { get; private set; } = 2;
 

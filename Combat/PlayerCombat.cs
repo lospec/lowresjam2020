@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Entities.Player;
 using HeroesGuild.Utility;
 
@@ -13,7 +13,7 @@ namespace HeroesGuild.Combat
         [Signal] private delegate void ActionChosen(CombatUtil.CombatAction action);
 
         private new Player CharacterInstance => (Player) base.CharacterInstance;
-        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
+        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data.Data>()
             .itemData[CharacterInstance.EquippedWeapon];
 
         public override int GetBaseDamage(CombatUtil.CombatAction action)

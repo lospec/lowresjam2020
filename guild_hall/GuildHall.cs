@@ -1,19 +1,19 @@
 using System.Linq;
 using Godot;
 using HeroesGuild.Entities.Player;
-using HeroesGuild.guild_hall.chest;
-using HeroesGuild.guild_hall.guild_interface;
-using HeroesGuild.UI.pause_menu;
+using HeroesGuild.GuildHall.Chest;
+using HeroesGuild.GuildHall.GuildInterface;
+using HeroesGuild.UI.PauseMenu;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.guild_hall
+namespace HeroesGuild.GuildHall
 {
     public class GuildHall : Node
     {
         private static readonly PackedScene ChestResource = ResourceLoader
             .Load<PackedScene>("res://guild_hall/chest/chest.tscn");
 
-        private const string WorldScenePath = "res://World/World.tscn";
+        private const string WorldScenePath = "res://world/world.tscn";
 
         private const int CHEST_GAP_X = 10;
         private const int CHEST_GAP_Y = 0;
@@ -32,14 +32,14 @@ namespace HeroesGuild.guild_hall
             Wall
         }
 
-        public Chest currentOpenedChest = null;
+        public Chest.Chest currentOpenedChest = null;
         public bool guildInterfaceOpen = false;
 
         private ChestGUI _chestGUI;
         private YSort _objectsYSort;
         private Player _player;
         private PauseMenu _pauseMenu;
-        private GuildInterface _guildInterface;
+        private GuildInterface.GuildInterface _guildInterface;
         private TileMap _extendedTileMap;
         private Vector2 _firstChestPosition;
         private CollisionShape2D _rightBorder;
@@ -50,7 +50,7 @@ namespace HeroesGuild.guild_hall
             _objectsYSort = GetNode<YSort>("Objects");
             _player = _objectsYSort.GetNode<Player>("Player");
             _pauseMenu = GetNode<PauseMenu>("PauseMenu");
-            _guildInterface = GetNode<GuildInterface>("GuildInterface");
+            _guildInterface = GetNode<GuildInterface.GuildInterface>("GuildInterface");
             _extendedTileMap = GetNode<TileMap>("Extended");
             _firstChestPosition = GetNode<Position2D>("FirstChestPosition").Position;
             _rightBorder = GetNode<CollisionShape2D>("Borders/Right");
@@ -71,7 +71,7 @@ namespace HeroesGuild.guild_hall
             }
         }
 
-        private async void OnPlayerOpenChest_InputReceived(Chest chest)
+        private async void OnPlayerOpenChest_InputReceived(Chest.Chest chest)
         {
             if (currentOpenedChest != null || chest.animatedSprite.Playing)
             {
@@ -146,7 +146,7 @@ namespace HeroesGuild.guild_hall
 
                 var position = _firstChestPosition +
                                new Vector2(CHEST_GAP_X * i, CHEST_GAP_Y * i);
-                var chestInstance = (Chest) ChestResource.Instance();
+                var chestInstance = (Chest.Chest) ChestResource.Instance();
                 chestInstance.Position = position;
                 chestInstance.chestID = i;
                 _objectsYSort.AddChild(chestInstance);

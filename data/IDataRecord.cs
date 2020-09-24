@@ -1,4 +1,4 @@
-namespace HeroesGuild.data
+namespace HeroesGuild.Data
 {
     public interface IDataRecord
     {

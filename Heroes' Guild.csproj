@@ -14,9 +14,6 @@
     <Deterministic>false</Deterministic>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\..\..\..\ProgramData\chocolatey\lib\godot-mono\tools\godot_v3.2.2-stable_mono_win64\GodotSharp\Tools\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -65,13 +62,13 @@
     <Compile Include="guild_hall\guild_interface\GuildInterface.cs" />
     <Compile Include="guild_hall\guild_interface\PopupItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="status_effect\bases\StatusEffect.cs" />
-    <Compile Include="status_effect\effects\Asleep.cs" />
-    <Compile Include="status_effect\effects\Confused.cs" />
-    <Compile Include="status_effect\effects\Frozen.cs" />
-    <Compile Include="status_effect\effects\OnFire.cs" />
-    <Compile Include="status_effect\effects\Poison.cs" />
-    <Compile Include="status_effect\effects\Weak.cs" />
+    <Compile Include="status_effects\StatusEffect.cs" />
+    <Compile Include="status_effects\effects\Asleep.cs" />
+    <Compile Include="status_effects\effects\Confused.cs" />
+    <Compile Include="status_effects\effects\Frozen.cs" />
+    <Compile Include="status_effects\effects\OnFire.cs" />
+    <Compile Include="status_effects\effects\Poison.cs" />
+    <Compile Include="status_effects\effects\Weak.cs" />
     <Compile Include="ui\character_selection\Character.cs" />
     <Compile Include="ui\character_selection\CharacterSelector.cs" />
     <Compile Include="ui\credits\Credits.cs" />
@@ -94,5 +91,8 @@
     <Compile Include="utility\WeaponUtil.cs" />
     <Compile Include="world\enemy_spawn\EnemySpawn.cs" />
     <Compile Include="world\World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>

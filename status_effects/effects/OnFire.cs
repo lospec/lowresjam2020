@@ -1,9 +1,9 @@
 using Godot;
 using HeroesGuild.Combat;
 
-namespace HeroesGuild.StatusEffect.Effects
+namespace HeroesGuild.StatusEffects.Effects
 {
-    public class OnFire : Bases
+    public class OnFire : StatusEffect
     {
         public int Duration { get; private set; } = 4;
         public int Delay { get; private set; } = 2;

@@ -1,7 +1,7 @@
 using Godot;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.UI.pause_menu
+namespace HeroesGuild.UI.PauseMenu
 {
     public class SettingsMargin : MarginContainer
     {

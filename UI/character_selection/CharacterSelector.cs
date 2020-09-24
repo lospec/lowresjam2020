@@ -1,9 +1,9 @@
 using Godot;
 using Godot.Collections;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.UI.character_selection
+namespace HeroesGuild.UI.CharacterSelection
 {
     public class CharacterSelector : MarginContainer
     {
@@ -50,7 +50,7 @@ namespace HeroesGuild.UI.character_selection
         {
             var saveData = Autoload.Get<SaveData>();
 
-            foreach (var keyValuePair in Autoload.Get<Data>().characterData)
+            foreach (var keyValuePair in Autoload.Get<Data.Data>().characterData)
             {
                 var characterName = keyValuePair.Key;
                 var characterRecord = keyValuePair.Value;

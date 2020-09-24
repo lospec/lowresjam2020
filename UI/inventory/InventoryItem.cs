@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.UI.inventory
+namespace HeroesGuild.UI.Inventory
 {
     public class InventoryItem : MarginContainer
     {

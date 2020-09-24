@@ -2,7 +2,7 @@ using System;
 using Godot;
 using Godot.Collections;
 using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.enemies.base_enemy;
+using HeroesGuild.Entities.Enemies.BaseEnemy;
 
 namespace HeroesGuild.AI
 {

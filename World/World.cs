@@ -1,11 +1,11 @@
 using System;
 using Godot;
 using HeroesGuild.Combat;
-using HeroesGuild.data;
-using HeroesGuild.Entities.enemies.base_enemy;
+using HeroesGuild.Data;
+using HeroesGuild.Entities.Enemies.BaseEnemy;
 using HeroesGuild.Entities.Player;
-using HeroesGuild.UI.dropped_items;
-using HeroesGuild.UI.pause_menu;
+using HeroesGuild.UI.DroppedItems;
+using HeroesGuild.UI.PauseMenu;
 using HeroesGuild.Utility;
 using Array = Godot.Collections.Array;
 
@@ -86,7 +86,7 @@ namespace HeroesGuild.World
                     return;
                 }
 
-                var data = Autoload.Get<Data>();
+                var data = Autoload.Get<Data.Data>();
                 if (!data.enemyData.ContainsKey(enemyName))
                 {
                     GD.PushError(

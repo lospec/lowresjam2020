@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.guild_hall.guild_interface
+namespace HeroesGuild.GuildHall.GuildInterface
 {
     public class PopupItem : MarginContainer
     {

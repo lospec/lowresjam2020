@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using HeroesGuild.StatusEffect.Effects;
+using HeroesGuild.StatusEffects.Effects;
 using HeroesGuild.Utility;
 
 namespace HeroesGuild.Entities.BaseEntity
@@ -67,8 +67,8 @@ namespace HeroesGuild.Entities.BaseEntity
         public Vector2 realVelocity = Vector2.Zero;
         public Animations currentAnimation = Animations.IdleDown;
         public int animationFrame = 0;
-        public Dictionary<string, StatusEffect.Bases.StatusEffect> statusEffects =
-            new Dictionary<string, StatusEffect.Bases.StatusEffect>();
+        public Dictionary<string, StatusEffects.StatusEffect> statusEffects =
+            new Dictionary<string, StatusEffects.StatusEffect>();
 
         private Vector2 _currentPosition;
         private Vector2 _oldPosition;
@@ -210,7 +210,7 @@ namespace HeroesGuild.Entities.BaseEntity
 
         public void AddStatusEffect(string statusEffectName)
         {
-            StatusEffect.Bases.StatusEffect statusEffect = statusEffectName switch
+            StatusEffects.StatusEffect statusEffect = statusEffectName switch
             {
                 "Asleep" => new Asleep(),
                 "Confused" => new Confused(),

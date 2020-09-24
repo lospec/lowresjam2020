@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.enemies.base_enemy;
+using HeroesGuild.Entities.Enemies.BaseEnemy;
 using HeroesGuild.Entities.Player;
 using HeroesGuild.Utility;
 
@@ -42,7 +42,7 @@ namespace HeroesGuild.Combat
                     break;
                 case BaseEnemy enemy:
                 {
-                    var enemyRecord = Autoload.Get<Data>().enemyData[enemy.enemyName];
+                    var enemyRecord = Autoload.Get<Data.Data>().enemyData[enemy.enemyName];
                     var sfx = enemyRecord.Race switch
                     {
                         "Beast" => AudioSystem.SFX.BeastHurt,

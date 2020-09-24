@@ -1,8 +1,8 @@
 using HeroesGuild.Combat;
 
-namespace HeroesGuild.StatusEffect.Effects
+namespace HeroesGuild.StatusEffects.Effects
 {
-    public class Frozen : Bases
+    public class Frozen : StatusEffect
     {
         public int Duration { get; private set; } = 4;
 

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Entities.enemies.base_enemy;
+using HeroesGuild.Entities.Enemies.BaseEnemy;
 
 namespace HeroesGuild.Combat
 {

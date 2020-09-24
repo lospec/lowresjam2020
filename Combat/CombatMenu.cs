@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Combat.Effects.animations;
+using HeroesGuild.Combat.Effects.Animations;
 using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.enemies.base_enemy;
+using HeroesGuild.Entities.Enemies.BaseEnemy;
 
 namespace HeroesGuild.Combat
 {

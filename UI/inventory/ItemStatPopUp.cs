@@ -1,9 +1,9 @@
 using System;
 using Godot;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.UI.inventory
+namespace HeroesGuild.UI.Inventory
 {
     public class ItemStatPopUp : MarginContainer
     {
@@ -65,7 +65,7 @@ namespace HeroesGuild.UI.inventory
                 return;
             }
 
-            var data = Autoload.Get<Data>();
+            var data = Autoload.Get<Data.Data>();
             if (!data.itemData.ContainsKey(itemName))
             {
                 GD.PushError($"Item name {itemName} not found");

@@ -1,8 +1,8 @@
 using HeroesGuild.Combat;
 
-namespace HeroesGuild.StatusEffect.Effects
+namespace HeroesGuild.StatusEffects.Effects
 {
-    public class Poison : Bases
+    public class Poison : StatusEffect
     {
         public int Duration { get; private set; } = 3;
         public int Damage { get; private set; } = 1;

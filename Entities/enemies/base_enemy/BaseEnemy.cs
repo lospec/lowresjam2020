@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.AI;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.Entities.enemies.base_enemy
+namespace HeroesGuild.Entities.Enemies.BaseEnemy
 {
     public class BaseEnemy : BaseEntity.BaseEntity
     {
@@ -40,7 +40,7 @@ namespace HeroesGuild.Entities.enemies.base_enemy
 
         public async void LoadEnemy(string enemyDataName)
         {
-            var data = Autoload.Get<Data>();
+            var data = Autoload.Get<Data.Data>();
             if (!data.enemyData.ContainsKey(enemyDataName))
             {
                 GD.PushError($"Enemy data for {enemyDataName} not found");

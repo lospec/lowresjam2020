@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using HeroesGuild.Entities.Player;
-using HeroesGuild.UI.inventory;
-using HeroesGuild.UI.inventory.item_info;
+using HeroesGuild.UI.Inventory;
+using HeroesGuild.UI.Inventory.ItemInfo;
 using HeroesGuild.Utility;
 using Array = Godot.Collections.Array;
 
-namespace HeroesGuild.UI.pause_menu
+namespace HeroesGuild.UI.PauseMenu
 {
     public class PauseMenu : CanvasLayer
     {

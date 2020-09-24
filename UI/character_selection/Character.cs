@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.UI.character_selection
+namespace HeroesGuild.UI.CharacterSelection
 {
     public class Character : MarginContainer
     {
