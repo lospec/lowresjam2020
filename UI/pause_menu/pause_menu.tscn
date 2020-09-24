@@ -20,9 +20,6 @@
 [ext_resource path="res://ui/settings/audio_settings/volume_control.tscn" type="PackedScene" id=18]
 [ext_resource path="res://ui/pause_menu/SettingsMargin.cs" type="Script" id=19]
 
-
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 4
 extra_spacing_top = -1

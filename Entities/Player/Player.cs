@@ -62,7 +62,7 @@ namespace HeroesGuild.Entities.Player
 
             var texture =
                 ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
-                    saveData.CharacterName));
+                    saveData.CharacterName.ToLower()));
 
             sprite.Texture = texture;
         }

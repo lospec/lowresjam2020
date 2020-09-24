@@ -71,7 +71,7 @@ namespace HeroesGuild.Utility
 			var error = GetTree().ChangeScene(scenePath);
 			if (error != Error.Ok)
 			{
-				GD.PrintErr($"Error {error} occured while attempting to change scene.");
+				GD.PrintErr($"Error {error} occured while attempting to change to the {scenePath} scene.");
 			}
 
 			StartTransition(@params);
