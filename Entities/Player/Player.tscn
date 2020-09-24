@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Entities/Player/Player.cs" type="Script" id=2]
-[ext_resource path="res://UI/hud/hud.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Particle Systems/Birds/BirdsSystem.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Particle Systems/Clouds/CloudsSystem.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/base_entity/base_entity.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
+[ext_resource path="res://ui/hud/hud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://particle_systems/birds/birds_system.tscn" type="PackedScene" id=4]
+[ext_resource path="res://particle_systems/clouds/clouds_system.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 7.34592

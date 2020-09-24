@@ -13,11 +13,11 @@ namespace HeroesGuild.World
 {
     public class World : Node
     {
-        private const string MainMenuScenePath = "res://UI/Main Menu/Main Menu.tscn";
+        private const string MainMenuScenePath = "res://ui/main_menu/main_menu.tscn";
         private const string GuildHallScenePath = "res://guild_hall/guild_hall.tscn";
         private readonly PackedScene _baseEnemyScene =
             ResourceLoader.Load<PackedScene>(
-                "res://Entities/enemies/base_enemy/base_enemy.tscn");
+                "res://entities/enemies/base_enemy/base_enemy.tscn");
 
         private YSort _map;
         private Node2D _enemySpawns;

@@ -15,9 +15,9 @@ namespace HeroesGuild.Combat
         [Signal] public delegate void BagOpened();
 
         private static readonly PackedScene DamageLabel =
-            ResourceLoader.Load<PackedScene>("res://Combat/Effects/DamageLabel.tscn");
+            ResourceLoader.Load<PackedScene>("res://combat/effects/damage_label.tscn");
 
-        private const string ParticlePath = "res://Particle Systems/Particles/{0}.tscn";
+        private const string ParticlePath = "res://particle_systems/particles/{0}.tscn";
 
         public enum Menu
         {

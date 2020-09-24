@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using Godot;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.Combat.Effects.animations
+namespace HeroesGuild.Combat.Effects.Animations
 {
     public class AnimationList : Node
     {
-        private const string CounterAnimationPath =
-            "res://Combat/Effects/animations/counter_animation.tres";
-
         private readonly Dictionary<string, AnimatedTexture> _attackAnimations =
             new Dictionary<string, AnimatedTexture>();
 
@@ -22,16 +19,12 @@ namespace HeroesGuild.Combat.Effects.animations
             {
                 var name = WeaponUtil.GetDamageTypeName(type).ToLower();
                 var path =
-                    $"res://Combat/Effects/animations/attack_animation_{name}.tres";
+                    $"res://combat/effects/animations/attack_animation_{name}.tres";
                 if (file.FileExists(path))
                 {
                     _attackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
                 }
             }
-
-
-            _attackAnimations.Add("counter",
-                GD.Load<AnimatedTexture>(CounterAnimationPath));
         }
 
         public AnimatedTexture GetAnimation(WeaponUtil.DamageType type)

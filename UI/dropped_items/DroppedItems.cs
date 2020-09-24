@@ -11,7 +11,7 @@ namespace HeroesGuild.UI.dropped_items
         private const float MAX_COIN_DROP = 1.2f;
         private const float MIN_COIN_DROP = 0.8f;
         private static readonly PackedScene ItemDroppedResource =
-            ResourceLoader.Load<PackedScene>("res://UI/dropped_items/item_dropped.tscn");
+            ResourceLoader.Load<PackedScene>("res://ui/dropped_items/item_dropped.tscn");
 
         private Player _playerInstance;
 

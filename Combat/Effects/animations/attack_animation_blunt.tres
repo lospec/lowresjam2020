@@ -1,13 +1,13 @@
 [gd_resource type="AnimatedTexture" load_steps=9 format=2]
 
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_0.png" type="Texture" id=1]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_1.png" type="Texture" id=2]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_2.png" type="Texture" id=3]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_4.png" type="Texture" id=4]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_3.png" type="Texture" id=5]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_5.png" type="Texture" id=6]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_7.png" type="Texture" id=7]
-[ext_resource path="res://Combat/Effects/blunt/blunt_attack_animation_Blunt_6.png" type="Texture" id=8]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_0.png" type="Texture" id=1]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_1.png" type="Texture" id=2]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_2.png" type="Texture" id=3]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_4.png" type="Texture" id=4]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_3.png" type="Texture" id=5]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_5.png" type="Texture" id=6]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_7.png" type="Texture" id=7]
+[ext_resource path="res://combat/Effects/blunt/blunt_attack_animation_blunt_6.png" type="Texture" id=8]
 
 [resource]
 frames = 8

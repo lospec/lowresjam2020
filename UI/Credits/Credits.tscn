@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/Credits/Credits.cs" type="Script" id=1]
-[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=2]
-[ext_resource path="res://UI/Credits/Credits Section.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/Credits/Credits Name.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/credits/Credits.cs" type="Script" id=1]
+[ext_resource path="res://ui/font_resources/wendy-10.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/credits/credits_section.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/credits/credits_name.tscn" type="PackedScene" id=5]
 
 [node name="Credits" type="MarginContainer"]
 anchor_right = 1.0

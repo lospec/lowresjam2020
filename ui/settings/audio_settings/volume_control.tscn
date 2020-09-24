@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://ui/font_resources/Wendy-10.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/settings/audio_settings/increase_volume_default.png" type="Texture" id=2]
+[ext_resource path="res://ui/settings/audio_settings/increase_volume_hover.png" type="Texture" id=3]
+[ext_resource path="res://ui/settings/audio_settings/decrease_volume_hover.png" type="Texture" id=4]
+[ext_resource path="res://ui/settings/audio_settings/increase_volume_clicked.png" type="Texture" id=5]
+[ext_resource path="res://ui/settings/audio_settings/decrease_volume_default.png" type="Texture" id=6]
+[ext_resource path="res://ui/settings/audio_settings/decrease_volume_clicked.png" type="Texture" id=7]
+[ext_resource path="res://ui/settings/audio_settings/VolumeControl.cs" type="Script" id=8]
+
+[node name="Volume Control" type="HBoxContainer"]
+margin_right = 31.0
+margin_bottom = 9.0
+custom_constants/separation = 2
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Decrease Value" type="TextureButton" parent="."]
+margin_top = 1.0
+margin_right = 6.0
+margin_bottom = 7.0
+size_flags_vertical = 4
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 4 )
+
+[node name="Value" type="Label" parent="."]
+margin_left = 8.0
+margin_right = 19.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 11, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+align = 1
+
+[node name="Increase Value" type="TextureButton" parent="."]
+margin_left = 21.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 7.0
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 3 )
+[connection signal="pressed" from="Decrease Value" to="." method="OnDecreaseValue_Pressed"]
+[connection signal="pressed" from="Increase Value" to="." method="OnIncreaseValue_Pressed"]

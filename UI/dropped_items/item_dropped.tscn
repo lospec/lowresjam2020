@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://UI/dropped_items/blue_dot.png" type="Texture" id=1]
+[ext_resource path="res://ui/dropped_items/blue_dot.png" type="Texture" id=1]
 
 [node name="ItemDropped" type="HBoxContainer"]
 anchor_right = 1.0

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Entities/enemies/base_enemy/BaseEnemy.cs" type="Script" id=1]
-[ext_resource path="res://Entities/BaseEntity/BaseEntity.tscn" type="PackedScene" id=2]
-[ext_resource path="res://AI/StateMachineNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/base_enemy/BaseEnemy.cs" type="Script" id=1]
+[ext_resource path="res://entities/base_entity/BaseEntity.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ai/state_machine_node.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.1515

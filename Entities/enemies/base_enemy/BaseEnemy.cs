@@ -9,10 +9,10 @@ namespace HeroesGuild.Entities.enemies.base_enemy
     public class BaseEnemy : BaseEntity.BaseEntity
     {
         private const string BattleSpritePath =
-            "res://Entities/enemies/sprites/{0}_Battle.png";
+            "res://entities/enemies/sprites/{0}_battle.png";
         private const string OverworldSpritePath =
-            "res://Entities/enemies/sprites/{0}_Overworld.png";
-        private const string AIResourcePath = "res://AI/Resources/{0}_behaviour.tres";
+            "res://entities/enemies/sprites/{0}_overworld.png";
+        private const string AIResourcePath = "res://ai/resources/{0}_behaviour.tres";
 
         private const float MAX_SPEED = 40;
         private const float MIN_SPEED = 5;

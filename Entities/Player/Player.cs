@@ -7,7 +7,7 @@ namespace HeroesGuild.Entities.Player
     public class Player : BaseEntity.BaseEntity
     {
         private const string OverWorldSprite =
-            "res://Entities/Player/spritesheets/{0}_Overworld.png";
+            "res://entities/player/spritesheets/{0}_overworld.png";
 
         [Signal] public delegate void EnemyDetected(BaseEntity.BaseEntity player,
             BaseEntity.BaseEntity enemy);

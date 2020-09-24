@@ -25,16 +25,16 @@ namespace HeroesGuild.UI.inventory.item_info
         {
             var path = damageType switch
             {
-                "none" => "res://UI/inventory/item_info/type_icons/none_type_icon.png",
+                "none" => "res://ui/inventory/item_info/type_icons/none_type_icon.png",
                 "Pierce" =>
-                    "res://UI/inventory/item_info/type_icons/pierce_type_icon.png",
+                    "res://ui/inventory/item_info/type_icons/pierce_type_icon.png",
                 "Blunt" =>
-                    "res://UI/inventory/item_info/type_icons/blunt_type_icon.png",
-                "Fire" => "res://UI/inventory/item_info/type_icons/fire_type_icon.png",
+                    "res://ui/inventory/item_info/type_icons/blunt_type_icon.png",
+                "Fire" => "res://ui/inventory/item_info/type_icons/fire_type_icon.png",
                 "Water" =>
-                    "res://UI/inventory/item_info/type_icons/water_type_icon.png",
+                    "res://ui/inventory/item_info/type_icons/water_type_icon.png",
                 "Electricity" =>
-                    "res://UI/inventory/item_info/type_icons/electricity_type_icon.png",
+                    "res://ui/inventory/item_info/type_icons/electricity_type_icon.png",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return ResourceLoader.Load<Texture>(path);

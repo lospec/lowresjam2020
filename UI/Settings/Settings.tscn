@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
-[ext_resource path="res://UI/settings/Settings.gd" type="Script" id=2]
+[ext_resource path="res://ui/font_resources/wendy-10.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/settings/settings.gd" type="Script" id=2]
 
 [node name="Settings" type="MarginContainer"]
 anchor_right = 1.0

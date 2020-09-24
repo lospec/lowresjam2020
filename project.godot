@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "PriorityQueue",
 "language": "GDScript",
-"path": "res://World/MapGen/PriorityQueue.gd"
+"path": "res://world/map_gen/priority_queue.gd"
 } ]
 _global_script_class_icons={
 "PriorityQueue": ""
@@ -21,8 +21,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Heroes' Guild"
-run/main_scene="res://UI/SplashScreen/Splash Screen.tscn"
-boot_splash/image="res://UI/SplashScreen/Splash Screen First Frame.png"
+run/main_scene="res://ui/splash_screen/splash_screen.tscn"
+boot_splash/image="res://ui/splash_screen/splash_screen_first_frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
@@ -32,13 +32,13 @@ default_bus_layout=""
 
 [autoload]
 
-Transitions="*res://Utility/Transitions.tscn"
-AudioSystem="*res://Utility/AudioSystem.tscn"
-PaletteSwap="*res://Utility/PaletteSwap.tscn"
+Transitions="*res://utility/transitions.tscn"
+AudioSystem="*res://utility/audio_system.tscn"
+PaletteSwap="*res://utility/palette_swap.tscn"
 Data="*res://data/Data.cs"
-SaveData="*res://Utility/SaveData.cs"
-Autoload="*res://Utility/Autoload.cs"
-PixelPerfectScaling="*res://Utility/PixelPerfectScaling.cs"
+SaveData="*res://utility/SaveData.cs"
+Autoload="*res://utility/Autoload.cs"
+PixelPerfectScaling="*res://utility/PixelPerfectScaling.cs"
 
 [display]
 

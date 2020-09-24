@@ -68,9 +68,9 @@ namespace HeroesGuild.UI.pause_menu
         {
             var path = menu switch
             {
-                Menu.Settings => "res://UI/Settings/background.png",
-                Menu.Info => "res://UI/information/background.png",
-                Menu.Inventory => "res://UI/inventory/background.png",
+                Menu.Settings => "res://ui/settings/background.png",
+                Menu.Info => "res://ui/information/background.png",
+                Menu.Inventory => "res://ui/inventory/background.png",
                 _ => throw new ArgumentException()
             };
 
@@ -78,7 +78,7 @@ namespace HeroesGuild.UI.pause_menu
         }
 
         public static readonly PackedScene InventoryItemScene =
-            ResourceLoader.Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
+            ResourceLoader.Load<PackedScene>("res://ui/inventory/inventory_item.tscn");
         
         
         public Menu currentMenu = Menu.Inventory;

@@ -11,7 +11,7 @@ namespace HeroesGuild.Combat
 {
     public class Combat : CanvasLayer
     {
-        private const string WeaponTexturePath = "res://Combat/WeaponSprites/{0}.png";
+        private const string WeaponTexturePath = "res://combat/weapon_sprites/{0}.png";
 
         [Signal] private delegate void CombatDone(CombatUtil.CombatOutcome outcome,
             BaseEnemy enemyInstance);
@@ -20,16 +20,16 @@ namespace HeroesGuild.Combat
 
         private static readonly Texture[] Backgrounds =
         {
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/Rocks.png"),
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/beach.png"),
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/forest.png"),
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/lakes.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/rocks.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/beach.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/forest.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/lakes.png"),
             ResourceLoader.Load<Texture>(
-                "res://Combat/ScenicBackgrounds/mountainlittle.png"),
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/path.png"),
-            ResourceLoader.Load<Texture>("res://Combat/ScenicBackgrounds/plain.png"),
+                "res://combat/scenic_backgrounds/mountain_little.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/path.png"),
+            ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/plain.png"),
             ResourceLoader.Load<Texture>(
-                "res://Combat/ScenicBackgrounds/plateausmall.png"),
+                "res://combat/scenic_backgrounds/plateau_small.png"),
         };
 
 

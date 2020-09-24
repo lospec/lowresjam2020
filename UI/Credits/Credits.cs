@@ -4,7 +4,7 @@ namespace HeroesGuild.UI.Credits
 {
     public class Credits : Node
     {
-        private const string MainMenuPath = "res://UI/Main Menu/Main Menu.tscn";
+        private const string MainMenuPath = "res://ui/main_menu/main_menu.tscn";
         private const int SCROLL_SPEED = 5;
         private const int THANKS_GAP = 20;
         private const int MAX_THANKS_POS_Y = 0;

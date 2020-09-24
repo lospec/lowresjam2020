@@ -15,10 +15,10 @@ namespace HeroesGuild.UI.inventory
         {
             var path = itemType switch
             {
-                "item" => "res://UI/inventory/item_stats_popup.png",
-                "weapon" => "res://UI/inventory/weapon_stats_popup.png",
-                "usable" => "res://UI/inventory/usable_armor_stats_popup.png",
-                "armor" => "res://UI/inventory/usable_armor_stats_popup.png",
+                "item" => "res://ui/inventory/item_stats_popup.png",
+                "weapon" => "res://ui/inventory/weapon_stats_popup.png",
+                "usable" => "res://ui/inventory/usable_armor_stats_popup.png",
+                "armor" => "res://ui/inventory/usable_armor_stats_popup.png",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return ResourceLoader.Load<Texture>(path);

@@ -7,8 +7,8 @@ namespace HeroesGuild.UI.character_selection
 {
     public class CharacterSelector : MarginContainer
     {
-        private const string WORLD_SCENE_PATH = "res://World/World.tscn";
-        private const string CHARACTER_RESOURCE_PATH = "res://UI/character_selection/character.tscn";
+        private const string WORLD_SCENE_PATH = "res://world/world.tscn";
+        private const string CHARACTER_RESOURCE_PATH = "res://ui/character_selection/character.tscn";
         private const int SCROLL_AMOUNT = 40;
         private static readonly PackedScene CharacterResource = ResourceLoader.Load<PackedScene>(CHARACTER_RESOURCE_PATH);
 

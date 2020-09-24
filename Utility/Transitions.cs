@@ -20,12 +20,12 @@ namespace HeroesGuild.Utility
 		{
 			var path = transitionType switch
 			{
-				TransitionType.ShrinkingCircle => "res://Transitions/shrinking_circle.png",
-				TransitionType.MultipleSquares => "res://Transitions/multiple_squares.png",
-				TransitionType.MultipleCirclesFilled => "res://Transitions/multiple_circles_filled.png",
-				TransitionType.Lines => "res://Transitions/lines.png",
-				TransitionType.Swirl => "res://Transitions/swirl.png",
-				TransitionType.Blocks => "res://Transitions/blocks.png",
+				TransitionType.ShrinkingCircle => "res://transitions/shrinking_circle.png",
+				TransitionType.MultipleSquares => "res://transitions/multiple_squares.png",
+				TransitionType.MultipleCirclesFilled => "res://transitions/multiple_circles_filled.png",
+				TransitionType.Lines => "res://transitions/lines.png",
+				TransitionType.Swirl => "res://transitions/swirl.png",
+				TransitionType.Blocks => "res://transitions/blocks.png",
 				_ => throw new ArgumentException()
 			};
 			return ResourceLoader.Load<Texture>(path);

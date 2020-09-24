@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
-[ext_resource path="res://AI/Editor/AI_Editor.gd" type="Script" id=2]
+[ext_resource path="res://ui/font Resources/wendy-10.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ai/editor/ai_editor.gd" type="Script" id=2]
 
 [sub_resource type="ButtonGroup" id=1]
 
