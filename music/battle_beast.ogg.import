@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/battle_beast.ogg-b64ed96c70884111ed2c4c7469d5228e.oggstr"
+
+[deps]
+
+source_file="res://music/battle_beast.ogg"
+dest_files=[ "res://.import/battle_beast.ogg-b64ed96c70884111ed2c4c7469d5228e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
