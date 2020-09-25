@@ -52,7 +52,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "MonoDebuggerQM-1.0.2" )
 
 [importer_defaults]
 
@@ -148,6 +148,10 @@ guild_hall_desk_interact={
 2d_physics/layer_4="Guild Hall Door"
 2d_physics/layer_5="Chests"
 2d_physics/layer_6="Guild Hall Desk"
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [network]
 
