@@ -1,1 +1,0 @@
-# lowresjam2020
