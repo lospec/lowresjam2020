@@ -1,0 +1,61 @@
+[gd_resource type="Resource" load_steps=15 format=2]
+
+[ext_resource path="res://ai/AI_State.cs" type="Script" id=1]
+[ext_resource path="res://ai/AI_Transition.cs" type="Script" id=2]
+[ext_resource path="res://ai/actions/AI_Action_ReturnToOrigin.cs" type="Script" id=3]
+[ext_resource path="res://ai/conditions/AI_Condition_FarFromOrigin.cs" type="Script" id=4]
+[ext_resource path="res://ai/actions/AI_Action_Wander.cs" type="Script" id=5]
+[ext_resource path="res://ai/AI_Behaviour.cs" type="Script" id=6]
+
+[sub_resource type="Resource" id=1]
+resource_name = "Wander"
+script = ExtResource( 5 )
+moveSpeedFactor = 1.0
+updateTime = 5.0
+
+[sub_resource type="Resource" id=2]
+resource_name = "FarFromOrigin"
+script = ExtResource( 4 )
+distanceFromOrigin = 96.0
+
+[sub_resource type="Resource" id=3]
+resource_name = "is_far"
+script = ExtResource( 2 )
+condition = SubResource( 2 )
+trueStateIndex = 1
+falseStateIndex = -1
+
+[sub_resource type="Resource" id=4]
+resource_name = "wander"
+script = ExtResource( 1 )
+actions = [ SubResource( 1 ) ]
+transitions = [ SubResource( 3 ) ]
+
+[sub_resource type="Resource" id=5]
+resource_name = "ReturnToOrigin"
+script = ExtResource( 3 )
+moveSpeedFactor = 1.0
+
+[sub_resource type="Resource" id=6]
+resource_name = "FarFromOrigin"
+script = ExtResource( 4 )
+distanceFromOrigin = 32.0
+
+[sub_resource type="Resource" id=7]
+resource_name = "is_back"
+script = ExtResource( 2 )
+condition = SubResource( 6 )
+trueStateIndex = -1
+falseStateIndex = 0
+
+[sub_resource type="Resource" id=8]
+resource_name = "return"
+script = ExtResource( 1 )
+actions = [ SubResource( 5 ) ]
+transitions = [ SubResource( 7 ) ]
+
+[resource]
+resource_name = "neutral_behaviour"
+script = ExtResource( 6 )
+states = [ SubResource( 4 ), SubResource( 8 ) ]
+startStateIndex = 0

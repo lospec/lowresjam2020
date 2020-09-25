@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://world/static_objects/flag_frames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://world/static_objects/guild_hall.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 3 )
+
+[node name="GuildHall" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2147483648
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -58 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Flag" type="AnimatedSprite" parent="."]
+position = Vector2( 10, -51.5 )
+frames = ExtResource( 1 )
+animation = "idle"
+frame = 1
+playing = true
+
+[node name="Flag2" type="AnimatedSprite" parent="."]
+position = Vector2( 63, -51.5 )
+frames = ExtResource( 1 )
+animation = "idle"
+frame = 2
+playing = true
+
+[node name="Flag3" type="AnimatedSprite" parent="."]
+position = Vector2( 9, -24.5 )
+frames = ExtResource( 1 )
+animation = "idle"
+frame = 3
+playing = true
+
+[node name="Flag4" type="AnimatedSprite" parent="."]
+position = Vector2( 64, -24.5 )
+frames = ExtResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 31, -23 )
+polygon = PoolVector2Array( 21, -17, 21, 27, 16, 31, 9, 31, 9, 34, 5, 34, 3, 32, 3, 18, -7, 18, -7, 33, -12, 33, -13, 31, -20, 31, -25, 25, -25, -17 )
+
+[node name="DoorDetection" type="Area2D" parent="."]
+position = Vector2( 29, -2 )
+collision_layer = 8
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDetection"]
+position = Vector2( 2.38419e-07, -1.90735e-06 )
+shape = SubResource( 1 )
+
+[node name="PlayerExitPosition" type="Position2D" parent="."]
+position = Vector2( 29, 5 )
