@@ -132,7 +132,7 @@ namespace HeroesGuild.Combat
 
         public void UpdateEnemyHealthValue(int oldHealth, int newHealth)
         {
-            _enemyHealthBarTween.InterpolateProperty(_enemyHealthBarTween, "value",
+            _enemyHealthBarTween.InterpolateProperty(_enemyHealthBar, "value",
                 _enemyHealthBar.Value, newHealth,
                 1f, Tween.TransitionType.Cubic, Tween.EaseType.Out);
             _enemyHealthBarTween.Start();
