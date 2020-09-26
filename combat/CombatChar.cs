@@ -21,7 +21,8 @@ namespace HeroesGuild.Combat
             GD.Print($"TAKE DAMAGE: {damage} type {damageType}");
             EmitSignal(nameof(DamageTaken), damage, damageType);
 
-            if (CharacterInstance.statusEffects.ContainsKey("Frozen") && damageType == "Fire")
+            if (CharacterInstance.statusEffects.ContainsKey("Frozen") &&
+                damageType == "Fire")
             {
                 CharacterInstance.statusEffects.Remove("Frozen");
             }
@@ -42,17 +43,34 @@ namespace HeroesGuild.Combat
                     break;
                 case BaseEnemy enemy:
                 {
-                    var enemyRecord = Autoload.Get<Data.Data>().enemyData[enemy.enemyName];
-                    var sfx = enemyRecord.Race switch
+                    var enemyRecord =
+                        Autoload.Get<Data.Data>().enemyData[enemy.enemyName];
+
+                    AudioSystem.SFX sfx;
+                    switch (enemyRecord.Race)
                     {
-                        "Beast" => AudioSystem.SFX.BeastHurt,
-                        "Demon" => AudioSystem.SFX.DemonHurt,
-                        "Flora" => AudioSystem.SFX.FloraHurt,
-                        "Human" => AudioSystem.SFX.HumanHurt,
-                        "Robot" => AudioSystem.SFX.RobotHurt,
-                        "Slime" => AudioSystem.SFX.SlimeHurt,
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
+                        case "Beast":
+                            sfx = AudioSystem.SFX.BeastHurt;
+                            break;
+                        case "Demon":
+                            sfx = AudioSystem.SFX.DemonHurt;
+                            break;
+                        case "Flora":
+                            sfx = AudioSystem.SFX.FloraHurt;
+                            break;
+                        case "Human":
+                            sfx = AudioSystem.SFX.HumanHurt;
+                            break;
+                        case "Robot":
+                            sfx = AudioSystem.SFX.RobotHurt;
+                            break;
+                        case "Slime":
+                            sfx = AudioSystem.SFX.SlimeHurt;
+                            break;
+                        default:
+                            GD.PrintErr($"No SFX found for {enemyRecord.Race} race");
+                            return;
+                    }
 
                     AudioSystem.PlaySFX(sfx, null, -30f);
                     break;
@@ -60,7 +78,8 @@ namespace HeroesGuild.Combat
             }
         }
 
-        public void Attack(CombatChar target, CombatUtil.CombatAction action, int damage, BaseEntity instance,
+        public void Attack(CombatChar target, CombatUtil.CombatAction action,
+            int damage, BaseEntity instance,
             BaseEntity targetInstance)
         {
             if (CharacterInstance.statusEffects.ContainsKey("Weak"))
@@ -111,6 +130,5 @@ namespace HeroesGuild.Combat
 
         public abstract Task<CombatUtil.CombatAction> GetAction();
         public abstract int GetBaseDamage(CombatUtil.CombatAction action);
-        
     }
 }
