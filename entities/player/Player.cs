@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using HeroesGuild.entities.base_entity;
@@ -7,8 +8,11 @@ namespace HeroesGuild.entities.player
 {
     public class Player : BaseEntity
     {
+        public event Action<BaseEntity, bool> ToggleEnemyActive;
+        
         [Signal] public delegate void EnemyDetected(BaseEntity player,
             BaseEntity enemy);
+
 
         [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
 
@@ -99,6 +103,22 @@ namespace HeroesGuild.entities.player
         {
             if (body.IsInGroup("enemies"))
                 EmitSignal(nameof(EnemyDetected), this, body);
+        }
+
+        private void OnEntityActivator_BodyEntered(Node body)
+        {
+            if (body.IsInGroup("enemies"))
+            {
+                ToggleEnemyActive?.Invoke(body as BaseEntity, true);    
+            }
+        }
+
+        private void OnEntityActivator_BodyExited(Node body)
+        {
+            if (body.IsInGroup("enemies"))
+            {
+                ToggleEnemyActive?.Invoke(body as BaseEntity, false);
+            }
         }
 
         private void OnInventory_Pressed()

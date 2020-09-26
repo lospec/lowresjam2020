@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/base_entity/base_entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
@@ -7,7 +7,10 @@
 [ext_resource path="res://particle_systems/clouds/clouds_system.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 7.34592
+radius = 7.5
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 150.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 6.0
@@ -42,7 +45,15 @@ collision_mask = 4
 position = Vector2( 0, -2.5 )
 shape = SubResource( 1 )
 
-[node name="ChestDetector" type="Area2D" parent="." index="4"]
+[node name="EntityActivator" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityActivator" index="0"]
+position = Vector2( 0, -2.5 )
+shape = SubResource( 6 )
+
+[node name="ChestDetector" type="Area2D" parent="." index="5"]
 collision_layer = 0
 collision_mask = 2147483664
 
@@ -50,7 +61,7 @@ collision_mask = 2147483664
 position = Vector2( 0, -2.5 )
 shape = SubResource( 2 )
 
-[node name="DeskDetector" type="Area2D" parent="." index="5"]
+[node name="DeskDetector" type="Area2D" parent="." index="6"]
 collision_layer = 0
 collision_mask = 2147483680
 
@@ -58,18 +69,18 @@ collision_mask = 2147483680
 position = Vector2( 0, -2.5 )
 shape = SubResource( 3 )
 
-[node name="CollisionDetector" type="Area2D" parent="." index="6"]
+[node name="CollisionDetector" type="Area2D" parent="." index="7"]
 collision_layer = 0
 collision_mask = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetector" index="0"]
 shape = SubResource( 4 )
 
-[node name="CollisionShape2D" parent="." index="7"]
+[node name="CollisionShape2D" parent="." index="8"]
 position = Vector2( 0, 0 )
 shape = SubResource( 5 )
 
-[node name="HUD" parent="." index="8" instance=ExtResource( 3 )]
+[node name="HUD" parent="." index="9" instance=ExtResource( 3 )]
 
 [node name="MarginContainer" parent="HUD" index="0"]
 mouse_filter = 2
@@ -90,15 +101,17 @@ margin_left = 12.0
 margin_right = 24.0
 text = "10/10"
 
-[node name="BirdsSystem" parent="." index="9" instance=ExtResource( 4 )]
+[node name="BirdsSystem" parent="." index="10" instance=ExtResource( 4 )]
 position = Vector2( 0, 96 )
 z_index = 1
 
-[node name="CloudsSystem" parent="." index="10" instance=ExtResource( 5 )]
+[node name="CloudsSystem" parent="." index="11" instance=ExtResource( 5 )]
 position = Vector2( 0, 150 )
 z_index = 1
 [connection signal="tree_exiting" from="." to="." method="OnPlayerTree_Exiting"]
 [connection signal="body_entered" from="EntityDetector" to="." method="OnEntityDetector_BodyEntered"]
+[connection signal="body_entered" from="EntityActivator" to="." method="OnEntityActivator_BodyEntered"]
+[connection signal="body_exited" from="EntityActivator" to="." method="OnEntityActivator_BodyExited"]
 [connection signal="pressed" from="HUD/MarginContainer/MarginContainer/Inventory" to="." method="OnInventory_Pressed"]
 
 [editable path="HUD"]

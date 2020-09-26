@@ -36,6 +36,7 @@ namespace HeroesGuild.ai
 
         public override async void _Ready()
         {
+            base._Ready();
             Entity = GetParent<BaseEntity>();
             _circleArea = GetNode<Area2D>("CircleArea2D");
             _collisionCircleShape =
@@ -43,14 +44,25 @@ namespace HeroesGuild.ai
             if (Entity.HasSignal(nameof(BaseEnemy.StatsLoaded)))
                 await ToSignal(Entity, nameof(BaseEnemy.StatsLoaded));
 
+            active = false;
+
             OriginPosition = Entity.Position;
             behaviour.SetStartingState(this);
         }
 
         public override void _Process(float delta)
         {
+            base._Process(delta);
             UpdateCurrentState(delta);
-            if (Entity.GetSlideCount() > 0) EmitSignal(nameof(OnCollision), this);
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            base._PhysicsProcess(delta);
+            if (active)
+            {
+                if (Entity.GetSlideCount() > 0) EmitSignal(nameof(OnCollision), this);
+            }
         }
 
         private void UpdateCurrentState(float delta)
