@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.AI.Conditions
+namespace HeroesGuild.ai.conditions
 {
     public class AI_Condition_FarFromOrigin : AI_State_Condition
     {

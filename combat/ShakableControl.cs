@@ -1,11 +1,16 @@
 using Godot;
-using HeroesGuild.Combat.Effects;
+using HeroesGuild.combat.Effects;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class ShakableControl : Control, IShakable
     {
         private IShakable _shakableImplementation;
+
+        public void Shake(float duration, float frequency, float amplitude)
+        {
+            _shakableImplementation.Shake(duration, frequency, amplitude);
+        }
 
         public override void _Ready()
         {
@@ -17,11 +22,6 @@ namespace HeroesGuild.Combat
         {
             base._Process(delta);
             ((ShakeEffect) _shakableImplementation).Process(delta);
-        }
-
-        public void Shake(float duration, float frequency, float amplitude)
-        {
-            _shakableImplementation.Shake(duration, frequency, amplitude);
         }
     }
 }

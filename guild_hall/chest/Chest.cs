@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace HeroesGuild.GuildHall.Chest
+namespace HeroesGuild.guild_hall.chest
 {
     public class Chest : StaticBody2D
     {
+        public AnimatedSprite animatedSprite;
         public int chestID;
         public Dictionary<int, string> contents;
-
-        public AnimatedSprite animatedSprite;
 
         public override void _Ready()
         {

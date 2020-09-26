@@ -1,24 +1,20 @@
 using Godot;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class HealthIcon : TextureRect
     {
-        [Signal] private delegate void Stopped();
+        private float _duration = 0;
+        private int _frequency;
+        private float _timeLeft = 0;
 
         public bool isBlinking = false;
-        private float _duration = 0;
-        private float _timeLeft = 0;
-        private int _frequency;
 
         private float T => _duration - _timeLeft;
 
         public override void _Process(float delta)
         {
-            if (!isBlinking)
-            {
-                return;
-            }
+            if (!isBlinking) return;
 
             if (_timeLeft <= 0)
             {
@@ -44,15 +40,14 @@ namespace HeroesGuild.Combat
 
         public void Blink(float duration, int frequency)
         {
-            if (_timeLeft > 0)
-            {
-                StopBlink();
-            }
+            if (_timeLeft > 0) StopBlink();
 
             isBlinking = true;
             _duration = duration;
             _timeLeft = duration;
             _frequency = frequency;
         }
+
+        [Signal] private delegate void Stopped();
     }
 }

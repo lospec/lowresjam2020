@@ -1,15 +1,31 @@
 using System;
 using Godot;
-using HeroesGuild.Data;
-using HeroesGuild.Utility;
+using HeroesGuild.data;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.UI.Inventory
+namespace HeroesGuild.ui.inventory
 {
     public class ItemStatPopUp : MarginContainer
     {
         private const int TOP_POS_Y = -19;
         private const int BOTTOM_POS_Y = 0;
         private const float ANIMATION_DURATION = 0.15f;
+        private TextureRect _background;
+        private Label _counterDamageLabel;
+        private MarginContainer _damageMargin;
+        private HBoxContainer _damageValuesHBox;
+        private Label _healthGainedLabel;
+        private MarginContainer _healthGainedMargin;
+        private Label _heavyDamageLabel;
+        private Label _itemNameLabel;
+        private Timer _popupDisappearDelayTimer;
+        private Label _quickDamageLabel;
+        private MarginContainer _textMargin;
+        private VBoxContainer _textVBox;
+
+        private Tween _tween;
+
+        public bool popupToBeVisible = false;
 
         private static Texture GetItemTypeBackground(string itemType)
         {
@@ -24,22 +40,6 @@ namespace HeroesGuild.UI.Inventory
             return ResourceLoader.Load<Texture>(path);
         }
 
-        public bool popupToBeVisible = false;
-
-        private Tween _tween;
-        private Timer _popupDisappearDelayTimer;
-        private TextureRect _background;
-        private MarginContainer _textMargin;
-        private VBoxContainer _textVBox;
-        private Label _itemNameLabel;
-        private MarginContainer _damageMargin;
-        private HBoxContainer _damageValuesHBox;
-        private Label _quickDamageLabel;
-        private Label _heavyDamageLabel;
-        private Label _counterDamageLabel;
-        private MarginContainer _healthGainedMargin;
-        private Label _healthGainedLabel;
-
         public override void _Ready()
         {
             _tween = GetNode<Tween>("Tween");
@@ -53,7 +53,8 @@ namespace HeroesGuild.UI.Inventory
             _quickDamageLabel = _damageValuesHBox.GetNode<Label>("QuickDamage");
             _heavyDamageLabel = _damageValuesHBox.GetNode<Label>("HeavyDamage");
             _counterDamageLabel = _damageValuesHBox.GetNode<Label>("CounterDamage");
-            _healthGainedMargin = _textVBox.GetNode<MarginContainer>("HealthGainedMargin");
+            _healthGainedMargin =
+                _textVBox.GetNode<MarginContainer>("HealthGainedMargin");
             _healthGainedLabel = _healthGainedMargin.GetNode<Label>("HealthGained");
         }
 
@@ -61,11 +62,11 @@ namespace HeroesGuild.UI.Inventory
         {
             if (string.IsNullOrWhiteSpace(itemName))
             {
-                GD.PushError($"Item name must not be empty");
+                GD.PushError("Item name must not be empty");
                 return;
             }
 
-            var data = Autoload.Get<Data.Data>();
+            var data = Autoload.Get<Data>();
             if (!data.itemData.ContainsKey(itemName))
             {
                 GD.PushError($"Item name {itemName} not found");
@@ -103,7 +104,8 @@ namespace HeroesGuild.UI.Inventory
                     throw new ArgumentOutOfRangeException();
             }
 
-            _tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, BOTTOM_POS_Y),
+            _tween.InterpolateProperty(this, "rect_position", RectPosition,
+                new Vector2(RectPosition.x, BOTTOM_POS_Y),
                 ANIMATION_DURATION, Tween.TransitionType.Cubic, Tween.EaseType.Out);
             _tween.Start();
             popupToBeVisible = true;
@@ -119,7 +121,8 @@ namespace HeroesGuild.UI.Inventory
         {
             if (!popupToBeVisible)
             {
-                _tween.InterpolateProperty(this, "rect_position", RectPosition, new Vector2(RectPosition.x, TOP_POS_Y),
+                _tween.InterpolateProperty(this, "rect_position", RectPosition,
+                    new Vector2(RectPosition.x, TOP_POS_Y),
                     ANIMATION_DURATION, Tween.TransitionType.Cubic, Tween.EaseType.Out);
                 _tween.Start();
             }

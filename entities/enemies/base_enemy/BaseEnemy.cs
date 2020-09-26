@@ -1,92 +1,86 @@
-using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.AI;
-using HeroesGuild.Data;
-using HeroesGuild.Utility;
+using HeroesGuild.ai;
+using HeroesGuild.data;
+using HeroesGuild.entities.base_entity;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.Entities.Enemies.BaseEnemy
+namespace HeroesGuild.entities.enemies.base_enemy
 {
-	public class BaseEnemy : BaseEntity.BaseEntity
-	{
-		private const string BattleSpritePath =
-			"res://entities/enemies/sprites/{0}_battle.png";
-		private const string OverworldSpritePath =
-			"res://entities/enemies/sprites/{0}_overworld.png";
-		private const string AIResourcePath = "res://ai/resources/{0}_behaviour.tres";
+    public class BaseEnemy : BaseEntity
+    {
+        [Signal] public delegate void Died(BaseEnemy enemy);
 
-		private const float MAX_SPEED = 40;
-		private const float MIN_SPEED = 5;
+        [Signal] public delegate void StatsLoaded();
 
-		[Signal] public delegate void StatsLoaded();
+        private const string BattleSpritePath =
+            "res://entities/enemies/sprites/{0}_battle.png";
+        private const string OverworldSpritePath =
+            "res://entities/enemies/sprites/{0}_overworld.png";
+        private const string AIResourcePath = "res://ai/resources/{0}_behaviour.tres";
 
-		[Signal] public delegate void Died(BaseEnemy enemy);
+        private const float MAX_SPEED = 40;
+        private const float MIN_SPEED = 5;
+        public AtlasTexture battleTexture;
 
-		[Export] public string enemyName;
+        [Export] public string enemyName;
+        public StateMachine stateMachine;
 
-		public EnemyRecord Stat { get; set; }
-		public StateMachine stateMachine;
-		public AtlasTexture battleTexture;
+        public EnemyRecord Stat { get; set; }
 
-		public override void _Ready()
-		{
-			base._Ready();
-			stateMachine = GetNode<StateMachine>("StateMachine");
-			if (string.IsNullOrWhiteSpace(Stat.Race) &&
-				!string.IsNullOrWhiteSpace(enemyName))
-			{
-				LoadEnemy(enemyName);
-			}
-		}
+        public override void _Ready()
+        {
+            base._Ready();
+            stateMachine = GetNode<StateMachine>("StateMachine");
+            if (string.IsNullOrWhiteSpace(Stat.Race) &&
+                !string.IsNullOrWhiteSpace(enemyName))
+                LoadEnemy(enemyName);
+        }
 
-		public async void LoadEnemy(string enemyDataName)
-		{
-			var data = Autoload.Get<Data.Data>();
-			if (!data.enemyData.ContainsKey(enemyDataName))
-			{
-				GD.PushError($"Enemy data for {enemyDataName} not found");
-				return;
-			}
+        public async void LoadEnemy(string enemyDataName)
+        {
+            var data = Autoload.Get<Data>();
+            if (!data.enemyData.ContainsKey(enemyDataName))
+            {
+                GD.PushError($"Enemy data for {enemyDataName} not found");
+                return;
+            }
 
-			enemyName = enemyDataName;
-			Stat = data.enemyData[enemyDataName];
-			moveSpeed = data.GetLerpedSpeedStat(Stat.MoveSpeed, MIN_SPEED, MAX_SPEED);
+            enemyName = enemyDataName;
+            Stat = data.enemyData[enemyDataName];
+            moveSpeed = data.GetLerpedSpeedStat(Stat.MoveSpeed, MIN_SPEED, MAX_SPEED);
 
-			battleTexture = new AtlasTexture
-			{
-				Atlas = GD.Load<Texture>(string.Format(BattleSpritePath, enemyDataName.ToLower()))
-			};
+            battleTexture = new AtlasTexture
+            {
+                Atlas = GD.Load<Texture>(string.Format(BattleSpritePath,
+                    enemyDataName.ToLower()))
+            };
 
-			if (sprite == null || stateMachine == null)
-			{
-				await ToSignal(this, "ready");
-			}
+            if (sprite == null || stateMachine == null) await ToSignal(this, "ready");
 
 
-			sprite.Texture =
-				GD.Load<Texture>(string.Format(OverworldSpritePath, enemyDataName.ToLower()));
+            sprite.Texture =
+                GD.Load<Texture>(string.Format(OverworldSpritePath,
+                    enemyDataName.ToLower()));
 
-			stateMachine.behaviour =
-				GD.Load<AI_Behaviour>(string.Format(AIResourcePath,
-					Stat.AiType.ToLower()));
-			EmitSignal(nameof(StatsLoaded));
-		}
+            stateMachine.behaviour =
+                GD.Load<AI_Behaviour>(string.Format(AIResourcePath,
+                    Stat.AiType.ToLower()));
+            EmitSignal(nameof(StatsLoaded));
+        }
 
-		public bool IsInAllowedTile()
-		{
-			var isSpawnSafeArea2D = GetNode<Area2D>("IsSpawnSafeArea2D");
-			if (isSpawnSafeArea2D.GetOverlappingBodies().Count == 0)
-			{
-				return true;
-			}
+        public bool IsInAllowedTile()
+        {
+            var isSpawnSafeArea2D = GetNode<Area2D>("IsSpawnSafeArea2D");
+            if (isSpawnSafeArea2D.GetOverlappingBodies().Count == 0) return true;
 
-			isSpawnSafeArea2D.QueueFree();
-			return false;
-		}
+            isSpawnSafeArea2D.QueueFree();
+            return false;
+        }
 
-		public void Die()
-		{
-			EmitSignal(nameof(Died), this);
-			QueueFree();
-		}
-	}
+        public void Die()
+        {
+            EmitSignal(nameof(Died), this);
+            QueueFree();
+        }
+    }
 }

@@ -1,13 +1,13 @@
 using Godot;
 
-namespace HeroesGuild.UI.Inventory
+namespace HeroesGuild.ui.inventory
 {
     public class InventoryItem : MarginContainer
     {
         private const string SpritePath = "res://items/inventory_sprites/{0}.png";
-        public string itemName;
 
         private TextureRect _hoverSignifier;
+        public string itemName;
         public TextureButton itemTextureButton;
 
         public Texture InventoryItemResource =>

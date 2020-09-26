@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public class PaletteSwap : CanvasLayer
     {
@@ -15,12 +15,10 @@ namespace HeroesGuild.Utility
             set
             {
                 _enabled = value;
-                if (!HasNode("TextureRect"))
-                {
-                    return;
-                }
+                if (!HasNode("TextureRect")) return;
 
-                ((ShaderMaterial) _paletteSwapTextureRect.Material).SetShaderParam("enabled", _enabled);
+                ((ShaderMaterial) _paletteSwapTextureRect.Material).SetShaderParam(
+                    "enabled", _enabled);
             }
         }
         [Export] public Texture Palette
@@ -29,12 +27,10 @@ namespace HeroesGuild.Utility
             set
             {
                 _palette = value;
-                if (!HasNode("TextureRect"))
-                {
-                    return;
-                }
+                if (!HasNode("TextureRect")) return;
 
-                ((ShaderMaterial) _paletteSwapTextureRect.Material).SetShaderParam("palette_tex", _palette);
+                ((ShaderMaterial) _paletteSwapTextureRect.Material).SetShaderParam(
+                    "palette_tex", _palette);
             }
         }
 

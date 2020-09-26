@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HeroesGuild.Data
+namespace HeroesGuild.data
 {
     public struct CharacterRecord : IDataRecord
     {
@@ -9,7 +9,7 @@ namespace HeroesGuild.Data
 
         [JsonProperty("guild_level")]
         public int guildLevel;
-        
+
         [JsonProperty("rarity")]
         public int rarity;
     }

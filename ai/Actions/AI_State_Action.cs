@@ -1,12 +1,13 @@
 using Godot;
 
-namespace HeroesGuild.AI.Actions
+namespace HeroesGuild.ai.actions
 {
     public abstract class AI_State_Action : Resource
     {
         public bool IsInitialized { get; private set; } = false;
 
-        protected void SetMove(StateMachine stateMachine, Vector2 direction, float speedFactor, out Vector2 velocity)
+        protected void SetMove(StateMachine stateMachine, Vector2 direction,
+            float speedFactor, out Vector2 velocity)
         {
             velocity = direction * (stateMachine.Entity.moveSpeed * speedFactor);
             stateMachine.Entity.Velocity = velocity;
@@ -22,6 +23,7 @@ namespace HeroesGuild.AI.Actions
             IsInitialized = true;
         }
 
-        public abstract void Perform(StateMachine stateMachine, float delta, ref bool interrupt);
+        public abstract void Perform(StateMachine stateMachine, float delta,
+            ref bool interrupt);
     }
 }

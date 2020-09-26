@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public static class ColorValues
     {

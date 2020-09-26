@@ -1,6 +1,7 @@
 using Godot;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.GuildHall.Chest
+namespace HeroesGuild.guild_hall.chest
 {
     public class ChestItems : MarginContainer
     {
@@ -19,7 +20,7 @@ namespace HeroesGuild.GuildHall.Chest
                 var textureRect = GetNode<TextureRect>("ItemCenter/Item");
                 textureRect.Texture = string.IsNullOrWhiteSpace(_itemName)
                     ? null
-                    : Utility.Utility.GetInventoryItemResource(value);
+                    : Utility.GetInventoryItemResource(value);
             }
         }
 
@@ -33,9 +34,7 @@ namespace HeroesGuild.GuildHall.Chest
             if (@event is InputEventMouseButton mouseButton &&
                 mouseButton.ButtonIndex == (int) ButtonList.Left &&
                 mouseButton.IsPressed())
-            {
                 EmitSignal(nameof(LeftClicked), this);
-            }
         }
     }
 }

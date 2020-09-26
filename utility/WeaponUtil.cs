@@ -1,6 +1,6 @@
 using System;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public static class WeaponUtil
     {
@@ -11,7 +11,7 @@ namespace HeroesGuild.Utility
             Blunt,
             Fire,
             Water,
-            Electricity,
+            Electricity
         }
 
         public static string GetDamageTypeName(DamageType type)

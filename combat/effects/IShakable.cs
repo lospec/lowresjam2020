@@ -1,4 +1,4 @@
-namespace HeroesGuild.Combat.Effects
+namespace HeroesGuild.combat.Effects
 {
     public interface IShakable
     {

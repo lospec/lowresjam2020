@@ -2,12 +2,10 @@ using System;
 using Godot;
 using Array = Godot.Collections.Array;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public class AudioSystem : Node
     {
-        public static AudioSystem instance;
-
         public enum Music
         {
             None = -1,
@@ -21,27 +19,7 @@ namespace HeroesGuild.Utility
             BattleHuman,
             BattleRobot,
             BattleSlime,
-            GameOver,
-        }
-
-        public static AudioStream GetMusicResource(Music music)
-        {
-            var path = music switch
-            {
-                Music.TitleScreen => "res://music/title_chiptune.ogg",
-                Music.Overworld => "res://music/overworld.ogg",
-                Music.Guild => "res://music/guild.ogg",
-                Music.BattleBeast => "res://music/battle_beast.ogg",
-                Music.BattleDemon => "res://music/battle_demon.ogg",
-                Music.BattleFlora => "res://music/battle_flora.ogg",
-                Music.BattleGnome => "res://music/battle_gnome.ogg",
-                Music.BattleHuman => "res://music/battle_human.ogg",
-                Music.BattleRobot => "res://music/battle_robot.ogg",
-                Music.BattleSlime => "res://music/battle_slime.ogg",
-                Music.GameOver => "res://music/game_over.ogg",
-                _ => throw new ArgumentException()
-            };
-            return ResourceLoader.Load<AudioStream>(path);
+            GameOver
         }
 
         public enum SFX
@@ -78,7 +56,62 @@ namespace HeroesGuild.Utility
             OnfireStatus,
             FrozenStatus,
             PoisonedStatus,
-            WeakStatus,
+            WeakStatus
+        }
+
+        private const float FADE_IN_START_VOLUME = -80f;
+        private const float FADE_IN_DURATION = 0.5f;
+        public static AudioSystem instance;
+
+        public static Music currentPlayingMusic = Music.None;
+        private AudioStreamPlayer _musicPlayer;
+
+        private float _musicVolume;
+        private float _sfxVolume;
+        private Tween _tween;
+
+        public static float MusicVolume
+        {
+            get => instance._musicVolume;
+            set
+            {
+                value = Mathf.Max(-80, value);
+                instance._musicPlayer.VolumeDb += value - instance._musicVolume;
+                instance._musicVolume = value;
+            }
+        }
+        public static float SFXVolume
+        {
+            get => instance._sfxVolume;
+            set
+            {
+                value = Mathf.Max(-80, value);
+                foreach (AudioStreamPlayer sfxPlayer in instance.GetTree()
+                    .GetNodesInGroup("sfx_players"))
+                    sfxPlayer.VolumeDb += value - instance._sfxVolume;
+
+                instance._sfxVolume = value;
+            }
+        }
+
+        public static AudioStream GetMusicResource(Music music)
+        {
+            var path = music switch
+            {
+                Music.TitleScreen => "res://music/title_chiptune.ogg",
+                Music.Overworld => "res://music/overworld.ogg",
+                Music.Guild => "res://music/guild.ogg",
+                Music.BattleBeast => "res://music/battle_beast.ogg",
+                Music.BattleDemon => "res://music/battle_demon.ogg",
+                Music.BattleFlora => "res://music/battle_flora.ogg",
+                Music.BattleGnome => "res://music/battle_gnome.ogg",
+                Music.BattleHuman => "res://music/battle_human.ogg",
+                Music.BattleRobot => "res://music/battle_robot.ogg",
+                Music.BattleSlime => "res://music/battle_slime.ogg",
+                Music.GameOver => "res://music/game_over.ogg",
+                _ => throw new ArgumentException()
+            };
+            return ResourceLoader.Load<AudioStream>(path);
         }
 
         public static AudioStream GetSFXResource(SFX sfx)
@@ -124,42 +157,6 @@ namespace HeroesGuild.Utility
                 _ => throw new ArgumentException()
             };
             return ResourceLoader.Load<AudioStream>(path);
-        }
-
-        private const float FADE_IN_START_VOLUME = -80f;
-        private const float FADE_IN_DURATION = 0.5f;
-
-        public static Music currentPlayingMusic = Music.None;
-
-        private float _musicVolume;
-        private float _sfxVolume;
-        private AudioStreamPlayer _musicPlayer;
-        private Tween _tween;
-
-        public static float MusicVolume
-        {
-            get => instance._musicVolume;
-            set
-            {
-                value = Mathf.Max(-80, value);
-                instance._musicPlayer.VolumeDb += value - instance._musicVolume;
-                instance._musicVolume = value;
-            }
-        }
-        public static float SFXVolume
-        {
-            get => instance._sfxVolume;
-            set
-            {
-                value = Mathf.Max(-80, value);
-                foreach (AudioStreamPlayer sfxPlayer in instance.GetTree()
-                    .GetNodesInGroup("sfx_players"))
-                {
-                    sfxPlayer.VolumeDb += value - instance._sfxVolume;
-                }
-
-                instance._sfxVolume = value;
-            }
         }
 
         public override void _Ready()

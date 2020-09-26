@@ -2,21 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.Enemies.BaseEnemy;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.Utility;
+using HeroesGuild.entities.base_entity;
+using HeroesGuild.entities.enemies.base_enemy;
+using HeroesGuild.entities.player;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class Combat : CanvasLayer
     {
         private const string WeaponTexturePath = "res://combat/weapon_sprites/{0}.png";
-
-        [Signal] private delegate void CombatDone(CombatUtil.CombatOutcome outcome,
-            BaseEnemy enemyInstance);
-
-        [Signal] private delegate void BagOpened(Player playerInstance);
 
         private static readonly Texture[] Backgrounds =
         {
@@ -29,16 +24,16 @@ namespace HeroesGuild.Combat
             ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/path.png"),
             ResourceLoader.Load<Texture>("res://combat/scenic_backgrounds/plain.png"),
             ResourceLoader.Load<Texture>(
-                "res://combat/scenic_backgrounds/plateau_small.png"),
+                "res://combat/scenic_backgrounds/plateau_small.png")
         };
+
+        private CombatMenu _combatMenu;
+        private EnemyCombat _enemyCombat;
+        private BaseEnemy _enemyInstance;
+        private PlayerCombat _playerCombat;
 
 
         private Player _playerInstance;
-        private BaseEnemy _enemyInstance;
-
-        private CombatMenu _combatMenu;
-        private PlayerCombat _playerCombat;
-        private EnemyCombat _enemyCombat;
 
         public override void _Ready()
         {
@@ -63,25 +58,19 @@ namespace HeroesGuild.Combat
             if (!_playerInstance.IsConnected(nameof(BaseEntity.HealthChanged),
                 _combatMenu,
                 nameof(_combatMenu.UpdatePlayerHealthValue)))
-            {
                 _playerInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
                     nameof(_combatMenu.UpdatePlayerHealthValue));
-            }
 
             if (!_enemyInstance.IsConnected(nameof(BaseEntity.HealthChanged),
                 _combatMenu,
                 nameof(_combatMenu.UpdateEnemyHealthValue)))
-            {
                 _enemyInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
                     nameof(_combatMenu.UpdateEnemyHealthValue));
-            }
 
             if (!_enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
                 nameof(OnEnemy_TakeDamage)))
-            {
                 _enemyCombat.Connect(nameof(CombatChar.DamageTaken), this,
                     nameof(OnEnemy_TakeDamage));
-            }
 
             _combatMenu.SetPlayerHealthValue(_playerInstance.maxHealth,
                 _playerInstance.Health);
@@ -93,9 +82,7 @@ namespace HeroesGuild.Combat
                 GD.Load<Texture>(string.Format(WeaponTexturePath,
                     weaponName.ToLower()));
             if (weaponTexture == null)
-            {
                 GD.PushWarning($"Weapon Battle sprite for {weaponName} not found");
-            }
 
             _combatMenu.playerWeapon.Texture = weaponTexture;
             ((AtlasTexture) _combatMenu.enemyImage.Texture).Atlas =
@@ -126,9 +113,7 @@ namespace HeroesGuild.Combat
                             _playerInstance.statusEffects[statusEffectsKey];
                         statusEffect.OnTurnEnd(_playerCombat);
                         if (statusEffect.expired)
-                        {
                             _playerInstance.statusEffects.Remove(statusEffectsKey);
-                        }
                     }
 
                     foreach (var statusEffectsKey in _enemyInstance.statusEffects.Keys)
@@ -137,9 +122,7 @@ namespace HeroesGuild.Combat
                             _enemyInstance.statusEffects[statusEffectsKey];
                         statusEffect.OnTurnEnd(_enemyCombat);
                         if (statusEffect.expired)
-                        {
                             _enemyInstance.statusEffects.Remove(statusEffectsKey);
-                        }
                     }
 
                     if (CheckCombatEnd())
@@ -163,10 +146,7 @@ namespace HeroesGuild.Combat
                     }
                 }
 
-                if (combat)
-                {
-                    _combatMenu.ResetUI();
-                }
+                if (combat) _combatMenu.ResetUI();
             }
         }
 
@@ -224,10 +204,7 @@ namespace HeroesGuild.Combat
                 }
             }
 
-            if (timer.TimeLeft > 0)
-            {
-                await ToSignal(timer, "timeout");
-            }
+            if (timer.TimeLeft > 0) await ToSignal(timer, "timeout");
 
             _combatMenu.HideTurnResult();
             if (CheckCombatEnd())
@@ -432,5 +409,10 @@ namespace HeroesGuild.Combat
         {
             GetNode<CanvasItem>("Background").Visible = _combatMenu.Visible;
         }
+
+        [Signal] private delegate void CombatDone(CombatUtil.CombatOutcome outcome,
+            BaseEnemy enemyInstance);
+
+        [Signal] private delegate void BagOpened(Player playerInstance);
     }
 }

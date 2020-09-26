@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.AI.Conditions
+namespace HeroesGuild.ai.conditions
 {
     public abstract class AI_State_Condition : Resource
     {

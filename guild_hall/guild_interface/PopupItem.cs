@@ -1,13 +1,12 @@
 using Godot;
 
-namespace HeroesGuild.GuildHall.GuildInterface
+namespace HeroesGuild.guild_hall.guild_interface
 {
     public class PopupItem : MarginContainer
     {
-        public string itemName;
-
         private TextureRect _hoverSignifier;
         private TextureButton _itemTextureButton;
+        public string itemName;
 
         public override void _Ready()
         {

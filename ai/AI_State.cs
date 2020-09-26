@@ -1,7 +1,7 @@
 using Godot;
-using HeroesGuild.AI.Actions;
+using HeroesGuild.ai.actions;
 
-namespace HeroesGuild.AI
+namespace HeroesGuild.ai
 {
     public class AI_State : Resource
     {
@@ -16,14 +16,10 @@ namespace HeroesGuild.AI
                 transitions = new AI_Transition[transitions.Length]
             };
             for (var i = 0; i < state.actions.Length; i++)
-            {
                 state.actions[i] = (AI_State_Action) actions[i].Duplicate();
-            }
 
             for (var i = 0; i < transitions.Length; i++)
-            {
                 state.transitions[i] = (AI_Transition) transitions[i].Duplicate();
-            }
 
             return state;
         }
@@ -38,10 +34,7 @@ namespace HeroesGuild.AI
         {
             foreach (var action in actions)
             {
-                if (action == null || action.IsInitialized)
-                {
-                    continue;
-                }
+                if (action == null || action.IsInitialized) continue;
 
                 action.ResourceLocalToScene = true;
                 action.OnStart(stateMachine);
@@ -54,10 +47,7 @@ namespace HeroesGuild.AI
             foreach (var action in actions)
             {
                 action.Perform(stateMachine, delta, ref interrupt);
-                if (interrupt)
-                {
-                    return;
-                }
+                if (interrupt) return;
             }
         }
 
@@ -70,10 +60,7 @@ namespace HeroesGuild.AI
                     : transition.falseStateIndex;
 
                 stateMachine.TransitionToState(stateIndex, out var result);
-                if (result)
-                {
-                    return;
-                }
+                if (result) return;
             }
         }
     }

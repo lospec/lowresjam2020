@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public static class Utility
     {

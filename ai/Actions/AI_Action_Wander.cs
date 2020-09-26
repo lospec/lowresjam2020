@@ -1,14 +1,14 @@
 using Godot;
 
-namespace HeroesGuild.AI.Actions
+namespace HeroesGuild.ai.actions
 {
     public class AI_Action_Wander : AI_State_Action
     {
-        [Export] public float moveSpeedFactor = 1;
-        [Export] public float updateTime = 1;
+        private Vector2 _currentVelocity = Vector2.Zero;
 
         private float _timer = 0f;
-        private Vector2 _currentVelocity = Vector2.Zero;
+        [Export] public float moveSpeedFactor = 1;
+        [Export] public float updateTime = 1;
 
         private void SetNewVelocity(StateMachine stateMachine)
         {
@@ -25,10 +25,12 @@ namespace HeroesGuild.AI.Actions
         {
             base.OnStart(stateMachine);
             _timer = updateTime;
-            stateMachine.Connect(nameof(StateMachine.OnCollision), this, nameof(SetNewVelocity));
+            stateMachine.Connect(nameof(StateMachine.OnCollision), this,
+                nameof(SetNewVelocity));
         }
 
-        public override void Perform(StateMachine stateMachine, float delta, ref bool interrupt)
+        public override void Perform(StateMachine stateMachine, float delta,
+            ref bool interrupt)
         {
             _timer += delta;
             if (_timer >= updateTime)

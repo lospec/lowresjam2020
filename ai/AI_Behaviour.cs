@@ -1,11 +1,11 @@
 using Godot;
 
-namespace HeroesGuild.AI
+namespace HeroesGuild.ai
 {
     public class AI_Behaviour : Resource
     {
-        [Export] public AI_State[] states;
         [Export] public int startStateIndex;
+        [Export] public AI_State[] states;
 
         public void SetStartingState(StateMachine stateMachine)
         {

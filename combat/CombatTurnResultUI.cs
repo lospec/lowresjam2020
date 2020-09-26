@@ -2,21 +2,21 @@ using System;
 using System.Threading.Tasks;
 using Godot;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class CombatTurnResultUI : MarginContainer
     {
-        [Export] public float actionTweenDelay = 1f;
-        [Export] public float actionTweenDuration = 1f;
+        private Label _enemyActionLabel;
+        private Label _lineLabel;
+        private Label _playerActionLabel;
 
         private Tween _tween;
-        public HBoxContainer compareContainer;
-        private Label _lineLabel;
-        public VBoxContainer winContainer;
-        private Label _playerActionLabel;
-        private Label _enemyActionLabel;
-        private Label _winActorLabel;
         private Label _winActionLabel;
+        private Label _winActorLabel;
+        [Export] public float actionTweenDelay = 1f;
+        [Export] public float actionTweenDuration = 1f;
+        public HBoxContainer compareContainer;
+        public VBoxContainer winContainer;
 
         public override void _Ready()
         {
@@ -24,13 +24,16 @@ namespace HeroesGuild.Combat
             compareContainer = GetNode<HBoxContainer>("CompareContainer");
             _lineLabel = GetNode<Label>("LineLabel");
             winContainer = GetNode<VBoxContainer>("WinResultContainer");
-            _playerActionLabel = GetNode<Label>("CompareContainer/PlayerTurnContainer/ActionLabel");
-            _enemyActionLabel = GetNode<Label>("CompareContainer/EnemyTurnContainer/ActionLabel");
+            _playerActionLabel =
+                GetNode<Label>("CompareContainer/PlayerTurnContainer/ActionLabel");
+            _enemyActionLabel =
+                GetNode<Label>("CompareContainer/EnemyTurnContainer/ActionLabel");
             _winActorLabel = GetNode<Label>("WinResultContainer/ActorLabel");
             _winActionLabel = GetNode<Label>("WinResultContainer/ActionLabel");
         }
 
-        public async Task ShowTurnCompare(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction,
+        public async Task ShowTurnCompare(CombatUtil.CombatAction playerAction,
+            CombatUtil.CombatAction enemyAction,
             float duration = 1.5f)
         {
             _playerActionLabel.Text = CombatUtil.GetActionName(playerAction);
@@ -49,10 +52,12 @@ namespace HeroesGuild.Combat
                 color.a = 0;
                 _enemyActionLabel.Modulate = color;
 
-                _tween.InterpolateProperty(_enemyActionLabel, "modulate:a", 0f, 1f, actionTweenDuration, Tween
-                    .TransitionType.Quad, Tween.EaseType.Out, actionTweenDelay);
-                _tween.InterpolateProperty(_playerActionLabel, "modulate:a", 0f, 1f, actionTweenDuration, Tween
-                    .TransitionType.Quad, Tween.EaseType.Out, actionTweenDelay);
+                _tween.InterpolateProperty(_enemyActionLabel, "modulate:a", 0f, 1f,
+                    actionTweenDuration, Tween.TransitionType.Quad, Tween.EaseType.Out,
+                    actionTweenDelay);
+                _tween.InterpolateProperty(_playerActionLabel, "modulate:a", 0f, 1f,
+                    actionTweenDuration, Tween.TransitionType.Quad, Tween.EaseType.Out,
+                    actionTweenDelay);
                 _tween.Start();
 
                 await ToSignal(_tween, "tween_all_completed");
@@ -71,10 +76,12 @@ namespace HeroesGuild.Combat
             _winActionLabel.Modulate = CombatUtil.GetActionColor(action);
         }
 
-        public async void ShowWinResult(CombatUtil.CombatAction playerAction, CombatUtil.CombatAction enemyAction,
+        public async void ShowWinResult(CombatUtil.CombatAction playerAction,
+            CombatUtil.CombatAction enemyAction,
             float duration = 0)
         {
-            if (playerAction == CombatUtil.CombatAction.Flee || enemyAction == CombatUtil.CombatAction.Flee)
+            if (playerAction == CombatUtil.CombatAction.Flee ||
+                enemyAction == CombatUtil.CombatAction.Flee)
             {
                 await ToSignal(GetTree(), "idle_frame");
                 return;
