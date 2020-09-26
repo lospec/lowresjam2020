@@ -4,7 +4,7 @@ using Godot;
 using HeroesGuild.Entities.Player;
 using HeroesGuild.Utility;
 
-namespace HeroesGuild.guild_hall.chest
+namespace HeroesGuild.GuildHall.Chest
 {
     public class ChestGUI : Node
     {

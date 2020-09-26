@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.guild_hall.chest
+namespace HeroesGuild.GuildHall.Chest
 {
     public class ChestItems : MarginContainer
     {

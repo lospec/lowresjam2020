@@ -4,8 +4,7 @@ using Godot;
 using Newtonsoft.Json;
 using File = Godot.File;
 
-
-namespace HeroesGuild.data
+namespace HeroesGuild.Data
 {
     public class Data : Node
     {
