@@ -2,12 +2,19 @@ using Godot;
 using HeroesGuild.ai;
 using HeroesGuild.data;
 using HeroesGuild.entities.base_entity;
+using HeroesGuild.entities.player;
 using HeroesGuild.utility;
 
 namespace HeroesGuild.entities.enemies.base_enemy
 {
-    public class BaseEnemy : BaseEntity
+    public class BaseEnemy : BaseEntity, IDependency<BaseEnemy.EnemyDependencies>
     {
+        public struct EnemyDependencies
+        {
+            public BaseEntity PlayerInstance { get; set; }
+            public string EnemyName { get; set; }
+        }
+
         [Signal] public delegate void Died(BaseEnemy enemy);
 
         [Signal] public delegate void StatsLoaded();
@@ -24,6 +31,9 @@ namespace HeroesGuild.entities.enemies.base_enemy
 
         [Export] public string enemyName;
         public StateMachine stateMachine;
+        private readonly DependencyRequester<EnemyDependencies>
+            _dependencyImplementation =
+                new DependencyRequester<EnemyDependencies>();
 
         public EnemyRecord Stat { get; set; }
 
@@ -31,12 +41,19 @@ namespace HeroesGuild.entities.enemies.base_enemy
         {
             base._Ready();
             stateMachine = GetNode<StateMachine>("StateMachine");
-            if (string.IsNullOrWhiteSpace(Stat.Race) &&
-                !string.IsNullOrWhiteSpace(enemyName))
-                LoadEnemy(enemyName);
+
+            var dependency = _dependencyImplementation.Dependency;
+            LoadEnemy(dependency.EnemyName);
+            ((Player) dependency.PlayerInstance).ToggleEnemyActive += (entity, b) =>
+            {
+                if (entity == this)
+                {
+                    stateMachine.active = b;
+                }
+            };
         }
 
-        public async void LoadEnemy(string enemyDataName)
+        private async void LoadEnemy(string enemyDataName)
         {
             var data = Autoload.Get<Data>();
             if (!data.enemyData.ContainsKey(enemyDataName))
@@ -81,6 +98,12 @@ namespace HeroesGuild.entities.enemies.base_enemy
         {
             EmitSignal(nameof(Died), this);
             QueueFree();
+        }
+
+        public IDependency<EnemyDependencies>.Dependency OnDependency
+        {
+            get => _dependencyImplementation.OnDependency;
+            set => _dependencyImplementation.OnDependency = value;
         }
     }
 }
