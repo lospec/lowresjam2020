@@ -25,6 +25,7 @@ run/main_scene="res://ui/splash_screen/splash_screen.tscn"
 boot_splash/image="res://ui/splash_screen/splash_screen_first_frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [audio]
 
