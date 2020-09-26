@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bayer16tile4_64.png-ba389feb1b488b4a5bdc6c19092af323.stex"
+path="res://.import/bayer16tile4_64.png-e7acad737acf86525f4597b4a7cfd51f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://shaders/Textures/bayer16tile4_64.png"
-dest_files=[ "res://.import/bayer16tile4_64.png-ba389feb1b488b4a5bdc6c19092af323.stex" ]
+source_file="res://shaders/textures/bayer16tile4_64.png"
+dest_files=[ "res://.import/bayer16tile4_64.png-e7acad737acf86525f4597b4a7cfd51f.stex" ]
 
 [params]
 

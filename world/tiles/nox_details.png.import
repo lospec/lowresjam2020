@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nox_details.png-896e7ecb48ae4a785c7f1cafad5b8ff7.stex"
+path="res://.import/nox_details.png-2f78d7b8af61a9cae94d04e83795db1e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/Tiles/nox_details.png"
-dest_files=[ "res://.import/nox_details.png-896e7ecb48ae4a785c7f1cafad5b8ff7.stex" ]
+source_file="res://world/tiles/nox_details.png"
+dest_files=[ "res://.import/nox_details.png-2f78d7b8af61a9cae94d04e83795db1e.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rope_bridge.png-89cf0ce36ee66ce7212f37b544111324.stex"
+path="res://.import/rope_bridge.png-55ec929ad72d647e91ffc63748187052.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/Tiles/rope_bridge.png"
-dest_files=[ "res://.import/rope_bridge.png-89cf0ce36ee66ce7212f37b544111324.stex" ]
+source_file="res://world/tiles/rope_bridge.png"
+dest_files=[ "res://.import/rope_bridge.png-55ec929ad72d647e91ffc63748187052.stex" ]
 
 [params]
 

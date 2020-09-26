@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/the_one.png-6da881efc5306d2bb301376b05104ceb.stex"
+path="res://.import/the_one.png-ecd8f2ab5cb0d5774c5db8b676d1882f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/Tiles/the_one.png"
-dest_files=[ "res://.import/the_one.png-6da881efc5306d2bb301376b05104ceb.stex" ]
+source_file="res://world/tiles/the_one.png"
+dest_files=[ "res://.import/the_one.png-ecd8f2ab5cb0d5774c5db8b676d1882f.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/increase_volume_hover.png-674f3306d10c5cdaa6310674ffe8a4e8.stex"
+path="res://.import/increase_volume_hover.png-43d473b1fffd58152d8c8bf5c3486ca3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/Settings/audio_settings/increase_volume_hover.png"
-dest_files=[ "res://.import/increase_volume_hover.png-674f3306d10c5cdaa6310674ffe8a4e8.stex" ]
+source_file="res://ui/settings/audio_settings/increase_volume_hover.png"
+dest_files=[ "res://.import/increase_volume_hover.png-43d473b1fffd58152d8c8bf5c3486ca3.stex" ]
 
 [params]
 

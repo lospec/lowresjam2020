@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/big_bridge.png-ce7c144791953e3fe68a34ebfa018859.stex"
+path="res://.import/big_bridge.png-586c69f43d981bd19ff01bf38321cd2c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/Tiles/big_bridge.png"
-dest_files=[ "res://.import/big_bridge.png-ce7c144791953e3fe68a34ebfa018859.stex" ]
+source_file="res://world/tiles/big_bridge.png"
+dest_files=[ "res://.import/big_bridge.png-586c69f43d981bd19ff01bf38321cd2c.stex" ]
 
 [params]
 
