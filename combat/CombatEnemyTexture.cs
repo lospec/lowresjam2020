@@ -27,9 +27,10 @@ namespace HeroesGuild.Combat
                 return;
             }
 
-            _lastShookTimer = _lastShookTimer + delta;
+            _lastShookTimer += delta;
             while (_lastShookTimer >= _periodInMs)
             {
+                _lastShookTimer -= _periodInMs;
                 var intensity = _amplitude * (1 - (_duration - _timer) / _duration);
                 var newX = (float) GD.RandRange(-1f, 1f);
                 var newY = (float) GD.RandRange(-1f, 1f);
@@ -40,7 +41,7 @@ namespace HeroesGuild.Combat
                 };
                 _previous = next;
                 var newOffset = next;
-                RectPosition -= _lastOffset + newOffset;
+                RectPosition = RectPosition - _lastOffset + newOffset;
                 _lastOffset = newOffset;
             }
 
