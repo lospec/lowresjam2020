@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/footballer_overworld.png-fc2715739a85e4337257cc6eac269c32.stex"
+path="res://.import/footballer_overworld.png-ab7db1969502495b1987bf94184a39da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/footballer_overworld.png"
-dest_files=[ "res://.import/footballer_overworld.png-fc2715739a85e4337257cc6eac269c32.stex" ]
+source_file="res://entities/enemies/sprites/footballer_overworld.png"
+dest_files=[ "res://.import/footballer_overworld.png-ab7db1969502495b1987bf94184a39da.stex" ]
 
 [params]
 

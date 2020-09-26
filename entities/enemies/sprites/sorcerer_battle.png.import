@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sorcerer_battle.png-e891084510a6e0ab476e4ca69f771d4a.stex"
+path="res://.import/sorcerer_battle.png-fbfa471205494343c0be49de9ce3cdb9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/sorcerer_battle.png"
-dest_files=[ "res://.import/sorcerer_battle.png-e891084510a6e0ab476e4ca69f771d4a.stex" ]
+source_file="res://entities/enemies/sprites/sorcerer_battle.png"
+dest_files=[ "res://.import/sorcerer_battle.png-fbfa471205494343c0be49de9ce3cdb9.stex" ]
 
 [params]
 

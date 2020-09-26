@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/counter_normal.png-796ea2a925c5fe2a37be339f8f0db798.stex"
+path="res://.import/counter_normal.png-25d367355d53e69d06a7050265daed71.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/UI/Buttons/Attacks/counter_normal.png"
-dest_files=[ "res://.import/counter_normal.png-796ea2a925c5fe2a37be339f8f0db798.stex" ]
+source_file="res://combat/ui/buttons/attacks/counter_normal.png"
+dest_files=[ "res://.import/counter_normal.png-25d367355d53e69d06a7050265daed71.stex" ]
 
 [params]
 

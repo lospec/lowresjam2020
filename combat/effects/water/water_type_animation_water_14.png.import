@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/water_type_animation_water_14.png-4169dd90e55f049255de4b5d5447c479.stex"
+path="res://.import/water_type_animation_water_14.png-0b5cb436298cabae5af6e97248f28d02.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/Effects/Water/water_type_animation_water_14.png"
-dest_files=[ "res://.import/water_type_animation_water_14.png-4169dd90e55f049255de4b5d5447c479.stex" ]
+source_file="res://combat/effects/water/water_type_animation_water_14.png"
+dest_files=[ "res://.import/water_type_animation_water_14.png-0b5cb436298cabae5af6e97248f28d02.stex" ]
 
 [params]
 

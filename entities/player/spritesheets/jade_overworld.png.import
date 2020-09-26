@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jade_overworld.png-0106308b7ccfc34f450691d806caa75b.stex"
+path="res://.import/jade_overworld.png-25792e1a63fa88a3b0db5975bce2f9c5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/jade_overworld.png"
-dest_files=[ "res://.import/jade_overworld.png-0106308b7ccfc34f450691d806caa75b.stex" ]
+source_file="res://entities/player/spritesheets/jade_overworld.png"
+dest_files=[ "res://.import/jade_overworld.png-25792e1a63fa88a3b0db5975bce2f9c5.stex" ]
 
 [params]
 

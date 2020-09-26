@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gnight_battle.png-2cc230baf0e8640ebb60cef7f282ceee.stex"
+path="res://.import/gnight_battle.png-46b1819c82cd8b792efc74eebeefa940.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/gnight_battle.png"
-dest_files=[ "res://.import/gnight_battle.png-2cc230baf0e8640ebb60cef7f282ceee.stex" ]
+source_file="res://entities/enemies/sprites/gnight_battle.png"
+dest_files=[ "res://.import/gnight_battle.png-46b1819c82cd8b792efc74eebeefa940.stex" ]
 
 [params]
 

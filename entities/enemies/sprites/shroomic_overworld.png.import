@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shroomic_overworld.png-d4dc76d7e5593c9179b8991f16a0a478.stex"
+path="res://.import/shroomic_overworld.png-afd26390c5d128033ff42a6c55d488cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/shroomic_overworld.png"
-dest_files=[ "res://.import/shroomic_overworld.png-d4dc76d7e5593c9179b8991f16a0a478.stex" ]
+source_file="res://entities/enemies/sprites/shroomic_overworld.png"
+dest_files=[ "res://.import/shroomic_overworld.png-afd26390c5d128033ff42a6c55d488cc.stex" ]
 
 [params]
 

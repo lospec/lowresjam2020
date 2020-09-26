@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stairs.png-8fcdfd985bd38960d3441748449d30f4.stex"
+path="res://.import/stairs.png-d61563702031e04b81f243eb4fe845a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Tiles/stairs.png"
-dest_files=[ "res://.import/stairs.png-8fcdfd985bd38960d3441748449d30f4.stex" ]
+source_file="res://world/Tiles/stairs.png"
+dest_files=[ "res://.import/stairs.png-d61563702031e04b81f243eb4fe845a8.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lb_plantflag_01.png-4e4d9ba7fe9d45f12efbf3892c4fe436.stex"
+path="res://.import/lb_plantflag_01.png-3f453e5c0ef2d1670d87ec29e9ac8430.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/splash_screen/lb_plantflag_01.png"
-dest_files=[ "res://.import/lb_plantflag_01.png-4e4d9ba7fe9d45f12efbf3892c4fe436.stex" ]
+source_file="res://ui/splash_screen/lb_plantflag_01.png"
+dest_files=[ "res://.import/lb_plantflag_01.png-3f453e5c0ef2d1670d87ec29e9ac8430.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/manuello_overworld.png-fff3a1c3052d5890bfb1af0eebd606c1.stex"
+path="res://.import/manuello_overworld.png-47fae76fe8c2db81cf559047c71f0764.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/manuello_overworld.png"
-dest_files=[ "res://.import/manuello_overworld.png-fff3a1c3052d5890bfb1af0eebd606c1.stex" ]
+source_file="res://entities/player/spritesheets/manuello_overworld.png"
+dest_files=[ "res://.import/manuello_overworld.png-47fae76fe8c2db81cf559047c71f0764.stex" ]
 
 [params]
 

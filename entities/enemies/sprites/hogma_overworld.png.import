@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hogma_overworld.png-8964726a40e6ba5bc581fc4f5d54700b.stex"
+path="res://.import/hogma_overworld.png-e06de22b3592306d68e673116b586688.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/hogma_overworld.png"
-dest_files=[ "res://.import/hogma_overworld.png-8964726a40e6ba5bc581fc4f5d54700b.stex" ]
+source_file="res://entities/enemies/sprites/hogma_overworld.png"
+dest_files=[ "res://.import/hogma_overworld.png-e06de22b3592306d68e673116b586688.stex" ]
 
 [params]
 

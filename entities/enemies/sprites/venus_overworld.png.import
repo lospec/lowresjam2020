@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/venus_overworld.png-e05d743e4a49b8fb2e54c35386a44531.stex"
+path="res://.import/venus_overworld.png-f62fb2076223ba67eb3ec0df4d110423.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/venus_overworld.png"
-dest_files=[ "res://.import/venus_overworld.png-e05d743e4a49b8fb2e54c35386a44531.stex" ]
+source_file="res://entities/enemies/sprites/venus_overworld.png"
+dest_files=[ "res://.import/venus_overworld.png-f62fb2076223ba67eb3ec0df4d110423.stex" ]
 
 [params]
 

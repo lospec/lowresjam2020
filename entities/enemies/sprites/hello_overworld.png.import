@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hello_overworld.png-89364965f18e07fef9fc402b06e7704d.stex"
+path="res://.import/hello_overworld.png-9fa05cdb874eb0dbedabfa6a362505c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/hello_overworld.png"
-dest_files=[ "res://.import/hello_overworld.png-89364965f18e07fef9fc402b06e7704d.stex" ]
+source_file="res://entities/enemies/sprites/hello_overworld.png"
+dest_files=[ "res://.import/hello_overworld.png-9fa05cdb874eb0dbedabfa6a362505c0.stex" ]
 
 [params]
 

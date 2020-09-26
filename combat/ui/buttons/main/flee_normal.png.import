@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flee_normal.png-ec34e2838b498441cc8dfcdb1c4f4782.stex"
+path="res://.import/flee_normal.png-c262801315dcd8a135e054aab7fc8e13.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/UI/Buttons/Main/flee_normal.png"
-dest_files=[ "res://.import/flee_normal.png-ec34e2838b498441cc8dfcdb1c4f4782.stex" ]
+source_file="res://combat/ui/buttons/main/flee_normal.png"
+dest_files=[ "res://.import/flee_normal.png-c262801315dcd8a135e054aab7fc8e13.stex" ]
 
 [params]
 

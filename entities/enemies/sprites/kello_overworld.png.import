@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kello_overworld.png-a748606606b887f2b57dc39216885a04.stex"
+path="res://.import/kello_overworld.png-185b84b71d512be1097baaedc7bf5736.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/kello_overworld.png"
-dest_files=[ "res://.import/kello_overworld.png-a748606606b887f2b57dc39216885a04.stex" ]
+source_file="res://entities/enemies/sprites/kello_overworld.png"
+dest_files=[ "res://.import/kello_overworld.png-185b84b71d512be1097baaedc7bf5736.stex" ]
 
 [params]
 

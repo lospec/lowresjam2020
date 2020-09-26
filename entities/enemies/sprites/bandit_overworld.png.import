@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bandit_overworld.png-5e8d665f41223bbf683d88cfbd79590f.stex"
+path="res://.import/bandit_overworld.png-2440a02ea8108e4c1d6fd9c1da29743d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/bandit_overworld.png"
-dest_files=[ "res://.import/bandit_overworld.png-5e8d665f41223bbf683d88cfbd79590f.stex" ]
+source_file="res://entities/enemies/sprites/bandit_overworld.png"
+dest_files=[ "res://.import/bandit_overworld.png-2440a02ea8108e4c1d6fd9c1da29743d.stex" ]
 
 [params]
 

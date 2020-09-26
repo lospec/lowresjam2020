@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lozepekistan_logo.png-8f02bab7835c4db282b3609009753fbb.stex"
+path="res://.import/lozepekistan_logo.png-e6ceb7870c09229d391fdc3c06f704b9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/splash_screen/lozepekistan_logo.png"
-dest_files=[ "res://.import/lozepekistan_logo.png-8f02bab7835c4db282b3609009753fbb.stex" ]
+source_file="res://ui/splash_screen/lozepekistan_logo.png"
+dest_files=[ "res://.import/lozepekistan_logo.png-e6ceb7870c09229d391fdc3c06f704b9.stex" ]
 
 [params]
 

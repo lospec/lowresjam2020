@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bueller_overworld.png-49dcb9998f7dcda094807bd844de83a9.stex"
+path="res://.import/bueller_overworld.png-315300755375111a8acde1dc9299b186.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/bueller_overworld.png"
-dest_files=[ "res://.import/bueller_overworld.png-49dcb9998f7dcda094807bd844de83a9.stex" ]
+source_file="res://entities/player/spritesheets/bueller_overworld.png"
+dest_files=[ "res://.import/bueller_overworld.png-315300755375111a8acde1dc9299b186.stex" ]
 
 [params]
 

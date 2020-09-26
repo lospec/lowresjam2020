@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cye_overworld.png-6c2a074dab92e5c5cbeeca62c6a5266a.stex"
+path="res://.import/cye_overworld.png-f1069162327cd14c4c0ae2a726677fd6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/cye_overworld.png"
-dest_files=[ "res://.import/cye_overworld.png-6c2a074dab92e5c5cbeeca62c6a5266a.stex" ]
+source_file="res://entities/enemies/sprites/cye_overworld.png"
+dest_files=[ "res://.import/cye_overworld.png-f1069162327cd14c4c0ae2a726677fd6.stex" ]
 
 [params]
 

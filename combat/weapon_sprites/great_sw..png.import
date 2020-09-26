@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/great_sw..png-cbbd7e718d3d859936e9531a649ea85a.stex"
+path="res://.import/great_sw..png-0a16c09b5bb3fedcb16d43e3decb8fd1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/great_sw..png"
-dest_files=[ "res://.import/great_sw..png-cbbd7e718d3d859936e9531a649ea85a.stex" ]
+source_file="res://combat/weapon_sprites/great_sw..png"
+dest_files=[ "res://.import/great_sw..png-0a16c09b5bb3fedcb16d43e3decb8fd1.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pierce_type_icon.png-40560f8f10071584d5417b35e887a5d9.stex"
+path="res://.import/pierce_type_icon.png-6d02514ccc636caaac1f82433ce4c2e6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/type_icons/pierce_type_icon.png"
-dest_files=[ "res://.import/pierce_type_icon.png-40560f8f10071584d5417b35e887a5d9.stex" ]
+source_file="res://ui/inventory/item_info/type_icons/pierce_type_icon.png"
+dest_files=[ "res://.import/pierce_type_icon.png-6d02514ccc636caaac1f82433ce4c2e6.stex" ]
 
 [params]
 

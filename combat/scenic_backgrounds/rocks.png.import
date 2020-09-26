@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rocks.png-481d95dd4ffa1786bae24c7062344bd8.stex"
+path="res://.import/rocks.png-d4a52581a954f9caa0c201d29bb69044.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/scenic_backgrounds/rocks.png"
-dest_files=[ "res://.import/rocks.png-481d95dd4ffa1786bae24c7062344bd8.stex" ]
+source_file="res://combat/scenic_backgrounds/rocks.png"
+dest_files=[ "res://.import/rocks.png-d4a52581a954f9caa0c201d29bb69044.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lance.png-6388e3d8dfd42d5d57da3b69392fdb09.stex"
+path="res://.import/lance.png-4cc9ff12e2e7879caebd93502a48ac19.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/lance.png"
-dest_files=[ "res://.import/lance.png-6388e3d8dfd42d5d57da3b69392fdb09.stex" ]
+source_file="res://combat/weapon_sprites/lance.png"
+dest_files=[ "res://.import/lance.png-4cc9ff12e2e7879caebd93502a48ac19.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tripod_overworld.png-1d52f8144d9f9e1046809b7af9010e10.stex"
+path="res://.import/tripod_overworld.png-1fa110094e0d3ab43adb289938116d5f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/tripod_overworld.png"
-dest_files=[ "res://.import/tripod_overworld.png-1d52f8144d9f9e1046809b7af9010e10.stex" ]
+source_file="res://entities/enemies/sprites/tripod_overworld.png"
+dest_files=[ "res://.import/tripod_overworld.png-1fa110094e0d3ab43adb289938116d5f.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/d'wole_overworld.png-9cac9671949bf87b56266e0f0b5cd9cd.stex"
+path="res://.import/d'wole_overworld.png-7c6dbcfdb89c63b6793cac975e6fdcb4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/d'wole_overworld.png"
-dest_files=[ "res://.import/d'wole_overworld.png-9cac9671949bf87b56266e0f0b5cd9cd.stex" ]
+source_file="res://entities/enemies/sprites/d'wole_overworld.png"
+dest_files=[ "res://.import/d'wole_overworld.png-7c6dbcfdb89c63b6793cac975e6fdcb4.stex" ]
 
 [params]
 

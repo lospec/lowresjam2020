@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bugademon_battle.png-5e024202fe59d39f2741a05aa57e1838.stex"
+path="res://.import/bugademon_battle.png-4f45da4ddc1d015e74b6c57c6b2ffbf1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/bugademon_battle.png"
-dest_files=[ "res://.import/bugademon_battle.png-5e024202fe59d39f2741a05aa57e1838.stex" ]
+source_file="res://entities/enemies/sprites/bugademon_battle.png"
+dest_files=[ "res://.import/bugademon_battle.png-4f45da4ddc1d015e74b6c57c6b2ffbf1.stex" ]
 
 [params]
 

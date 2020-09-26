@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lb_wavingflag_01.png-91817cfbce25a1efeba05ee8edfe45f5.stex"
+path="res://.import/lb_wavingflag_01.png-edf23a849af7934c603b7165c16c59aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/splash_screen/lb_wavingflag_01.png"
-dest_files=[ "res://.import/lb_wavingflag_01.png-91817cfbce25a1efeba05ee8edfe45f5.stex" ]
+source_file="res://ui/splash_screen/lb_wavingflag_01.png"
+dest_files=[ "res://.import/lb_wavingflag_01.png-edf23a849af7934c603b7165c16c59aa.stex" ]
 
 [params]
 

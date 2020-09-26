@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bunbite_battle.png-6cd38975e63eefe2ef2f445e0be39462.stex"
+path="res://.import/bunbite_battle.png-e0977d3cefa1c5719d859bdeee24088c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/bunbite_battle.png"
-dest_files=[ "res://.import/bunbite_battle.png-6cd38975e63eefe2ef2f445e0be39462.stex" ]
+source_file="res://entities/enemies/sprites/bunbite_battle.png"
+dest_files=[ "res://.import/bunbite_battle.png-e0977d3cefa1c5719d859bdeee24088c.stex" ]
 
 [params]
 

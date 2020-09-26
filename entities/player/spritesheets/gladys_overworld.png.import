@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gladys_overworld.png-75eafcff466c94de58018bb32a732f6f.stex"
+path="res://.import/gladys_overworld.png-5b8cfdf5799b7385ad033ec729ca43ce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/gladys_overworld.png"
-dest_files=[ "res://.import/gladys_overworld.png-75eafcff466c94de58018bb32a732f6f.stex" ]
+source_file="res://entities/player/spritesheets/gladys_overworld.png"
+dest_files=[ "res://.import/gladys_overworld.png-5b8cfdf5799b7385ad033ec729ca43ce.stex" ]
 
 [params]
 

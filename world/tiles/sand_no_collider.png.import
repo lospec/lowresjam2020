@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sand_no_collider.png-58182e634fc2341bdf5687981dd25f88.stex"
+path="res://.import/sand_no_collider.png-6fd904b76be9a313934010d033170688.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Tiles/sand_no_collider.png"
-dest_files=[ "res://.import/sand_no_collider.png-58182e634fc2341bdf5687981dd25f88.stex" ]
+source_file="res://world/Tiles/sand_no_collider.png"
+dest_files=[ "res://.import/sand_no_collider.png-6fd904b76be9a313934010d033170688.stex" ]
 
 [params]
 

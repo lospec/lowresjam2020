@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yes_button_normal.png-9e0999b18f3f456968298e14c3847dd2.stex"
+path="res://.import/yes_button_normal.png-23f6f7356c87a754eb0cff8ef52837de.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/confirm_use_popup/yes_button_normal.png"
-dest_files=[ "res://.import/yes_button_normal.png-9e0999b18f3f456968298e14c3847dd2.stex" ]
+source_file="res://ui/inventory/item_info/confirm_use_popup/yes_button_normal.png"
+dest_files=[ "res://.import/yes_button_normal.png-23f6f7356c87a754eb0cff8ef52837de.stex" ]
 
 [params]
 

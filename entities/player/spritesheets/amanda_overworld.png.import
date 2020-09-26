@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/amanda_overworld.png-30fcc662e457c7e7963a0032c62b7492.stex"
+path="res://.import/amanda_overworld.png-3ccd6428136f81f498265e37ee0e8766.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/amanda_overworld.png"
-dest_files=[ "res://.import/amanda_overworld.png-30fcc662e457c7e7963a0032c62b7492.stex" ]
+source_file="res://entities/player/spritesheets/amanda_overworld.png"
+dest_files=[ "res://.import/amanda_overworld.png-3ccd6428136f81f498265e37ee0e8766.stex" ]
 
 [params]
 

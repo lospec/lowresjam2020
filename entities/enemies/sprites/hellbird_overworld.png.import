@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hellbird_overworld.png-52f39841b5d5771ab349dd6a9cd377d8.stex"
+path="res://.import/hellbird_overworld.png-689580071caf0274cb8213b48ee902bc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/hellbird_overworld.png"
-dest_files=[ "res://.import/hellbird_overworld.png-52f39841b5d5771ab349dd6a9cd377d8.stex" ]
+source_file="res://entities/enemies/sprites/hellbird_overworld.png"
+dest_files=[ "res://.import/hellbird_overworld.png-689580071caf0274cb8213b48ee902bc.stex" ]
 
 [params]
 

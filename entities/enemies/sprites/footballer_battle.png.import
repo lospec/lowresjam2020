@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/footballer_battle.png-982d57f397f34dc5a4993bb246b4f03c.stex"
+path="res://.import/footballer_battle.png-118f2f8984bc3903be48e1fada6d91f8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/footballer_battle.png"
-dest_files=[ "res://.import/footballer_battle.png-982d57f397f34dc5a4993bb246b4f03c.stex" ]
+source_file="res://entities/enemies/sprites/footballer_battle.png"
+dest_files=[ "res://.import/footballer_battle.png-118f2f8984bc3903be48e1fada6d91f8.stex" ]
 
 [params]
 

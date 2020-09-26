@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sahil_overworld.png-0c0c85a2d64fd0b002ec3eb99610bb1a.stex"
+path="res://.import/sahil_overworld.png-12b587b456dce170fab3ce3bac187fb2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/sahil_overworld.png"
-dest_files=[ "res://.import/sahil_overworld.png-0c0c85a2d64fd0b002ec3eb99610bb1a.stex" ]
+source_file="res://entities/player/spritesheets/sahil_overworld.png"
+dest_files=[ "res://.import/sahil_overworld.png-12b587b456dce170fab3ce3bac187fb2.stex" ]
 
 [params]
 

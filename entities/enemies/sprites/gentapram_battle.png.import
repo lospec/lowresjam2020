@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gentapram_battle.png-980a119598e7154a75eb2f1a129d8753.stex"
+path="res://.import/gentapram_battle.png-337e8fa879f4dc44086efa99246fe299.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/gentapram_battle.png"
-dest_files=[ "res://.import/gentapram_battle.png-980a119598e7154a75eb2f1a129d8753.stex" ]
+source_file="res://entities/enemies/sprites/gentapram_battle.png"
+dest_files=[ "res://.import/gentapram_battle.png-337e8fa879f4dc44086efa99246fe299.stex" ]
 
 [params]
 

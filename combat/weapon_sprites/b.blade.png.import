@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/b.blade.png-846e574384c1f47808c133cbb4fac3ac.stex"
+path="res://.import/b.blade.png-56895cc0dff986fd6cf27b546ceb5ff4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/b.blade.png"
-dest_files=[ "res://.import/b.blade.png-846e574384c1f47808c133cbb4fac3ac.stex" ]
+source_file="res://combat/weapon_sprites/b.blade.png"
+dest_files=[ "res://.import/b.blade.png-56895cc0dff986fd6cf27b546ceb5ff4.stex" ]
 
 [params]
 

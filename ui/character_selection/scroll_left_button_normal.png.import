@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scroll_left_button_normal.png-4320d6eb9638301936c938b495d2ecfd.stex"
+path="res://.import/scroll_left_button_normal.png-da84f7092b895e452938c819472a0ce0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/character_selection/scroll_left_button_normal.png"
-dest_files=[ "res://.import/scroll_left_button_normal.png-4320d6eb9638301936c938b495d2ecfd.stex" ]
+source_file="res://ui/character_selection/scroll_left_button_normal.png"
+dest_files=[ "res://.import/scroll_left_button_normal.png-da84f7092b895e452938c819472a0ce0.stex" ]
 
 [params]
 

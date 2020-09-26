@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/plateau_small.png-fa2abd90436c9a95d426d4a134f83fdf.stex"
+path="res://.import/plateau_small.png-1126a401e8f86417fc1c0acd19ec197f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/scenic_backgrounds/plateau_small.png"
-dest_files=[ "res://.import/plateau_small.png-fa2abd90436c9a95d426d4a134f83fdf.stex" ]
+source_file="res://combat/scenic_backgrounds/plateau_small.png"
+dest_files=[ "res://.import/plateau_small.png-1126a401e8f86417fc1c0acd19ec197f.stex" ]
 
 [params]
 

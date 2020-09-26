@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/toxicwhip.png-6c1f3e781fa675a14ec2a42aeadf3a27.stex"
+path="res://.import/toxicwhip.png-89c0188d5645ab3e032284197f0c22e7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/toxicwhip.png"
-dest_files=[ "res://.import/toxicwhip.png-6c1f3e781fa675a14ec2a42aeadf3a27.stex" ]
+source_file="res://combat/weapon_sprites/toxicwhip.png"
+dest_files=[ "res://.import/toxicwhip.png-89c0188d5645ab3e032284197f0c22e7.stex" ]
 
 [params]
 

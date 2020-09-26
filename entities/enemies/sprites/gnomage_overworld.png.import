@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gnomage_overworld.png-1caa4c247ea1bf0b54b3f0b724196cf3.stex"
+path="res://.import/gnomage_overworld.png-439f5b60bc6e35241b0543595aceffcf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/gnomage_overworld.png"
-dest_files=[ "res://.import/gnomage_overworld.png-1caa4c247ea1bf0b54b3f0b724196cf3.stex" ]
+source_file="res://entities/enemies/sprites/gnomage_overworld.png"
+dest_files=[ "res://.import/gnomage_overworld.png-439f5b60bc6e35241b0543595aceffcf.stex" ]
 
 [params]
 

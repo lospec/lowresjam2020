@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/katie_overworld.png-0cd3d601b671a8f811396462432d8a75.stex"
+path="res://.import/katie_overworld.png-9f5a010755d9baf5f123278bde8d0ead.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/katie_overworld.png"
-dest_files=[ "res://.import/katie_overworld.png-0cd3d601b671a8f811396462432d8a75.stex" ]
+source_file="res://entities/player/spritesheets/katie_overworld.png"
+dest_files=[ "res://.import/katie_overworld.png-9f5a010755d9baf5f123278bde8d0ead.stex" ]
 
 [params]
 

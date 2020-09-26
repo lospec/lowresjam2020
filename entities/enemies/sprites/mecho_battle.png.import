@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mecho_battle.png-58703b5f2642bf6ef33fc61f0d15208f.stex"
+path="res://.import/mecho_battle.png-de472d69e403df42477acbc78ab905fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/mecho_battle.png"
-dest_files=[ "res://.import/mecho_battle.png-58703b5f2642bf6ef33fc61f0d15208f.stex" ]
+source_file="res://entities/enemies/sprites/mecho_battle.png"
+dest_files=[ "res://.import/mecho_battle.png-de472d69e403df42477acbc78ab905fc.stex" ]
 
 [params]
 

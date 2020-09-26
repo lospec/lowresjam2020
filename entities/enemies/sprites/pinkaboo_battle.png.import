@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pinkaboo_battle.png-9b203fa423ca3221c5264fe3224a8330.stex"
+path="res://.import/pinkaboo_battle.png-56b943339d701afba32b609be1cdd96d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/pinkaboo_battle.png"
-dest_files=[ "res://.import/pinkaboo_battle.png-9b203fa423ca3221c5264fe3224a8330.stex" ]
+source_file="res://entities/enemies/sprites/pinkaboo_battle.png"
+dest_files=[ "res://.import/pinkaboo_battle.png-56b943339d701afba32b609be1cdd96d.stex" ]
 
 [params]
 

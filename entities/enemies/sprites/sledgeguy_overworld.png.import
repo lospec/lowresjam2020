@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sledgeguy_overworld.png-6fcb23d5cb11a2b8523fc56ca331c655.stex"
+path="res://.import/sledgeguy_overworld.png-ea20673913bad54ef040760b8880a523.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/sledgeguy_overworld.png"
-dest_files=[ "res://.import/sledgeguy_overworld.png-6fcb23d5cb11a2b8523fc56ca331c655.stex" ]
+source_file="res://entities/enemies/sprites/sledgeguy_overworld.png"
+dest_files=[ "res://.import/sledgeguy_overworld.png-ea20673913bad54ef040760b8880a523.stex" ]
 
 [params]
 

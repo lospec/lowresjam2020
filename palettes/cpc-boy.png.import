@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cpc-boy.png-002edd200a4d573a4e806dfa2bb9c7d6.stex"
+path="res://.import/cpc-boy.png-2fb27157e0cb44c08d91e474a5eb3d64.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Palettes/cpc-boy.png"
-dest_files=[ "res://.import/cpc-boy.png-002edd200a4d573a4e806dfa2bb9c7d6.stex" ]
+source_file="res://palettes/cpc-boy.png"
+dest_files=[ "res://.import/cpc-boy.png-2fb27157e0cb44c08d91e474a5eb3d64.stex" ]
 
 [params]
 

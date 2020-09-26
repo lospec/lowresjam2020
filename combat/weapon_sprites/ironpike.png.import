@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ironpike.png-0211564af369908cf2b8c1298b2a698c.stex"
+path="res://.import/ironpike.png-0cd63d02b34a8f84dda271717e4df61b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/ironpike.png"
-dest_files=[ "res://.import/ironpike.png-0211564af369908cf2b8c1298b2a698c.stex" ]
+source_file="res://combat/weapon_sprites/ironpike.png"
+dest_files=[ "res://.import/ironpike.png-0cd63d02b34a8f84dda271717e4df61b.stex" ]
 
 [params]
 

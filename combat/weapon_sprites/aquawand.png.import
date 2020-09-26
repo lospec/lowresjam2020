@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aquawand.png-1cbc1d46548efbe727715b38c35482d1.stex"
+path="res://.import/aquawand.png-128f443d54f3b1303d00628b5d2acb96.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/aquawand.png"
-dest_files=[ "res://.import/aquawand.png-1cbc1d46548efbe727715b38c35482d1.stex" ]
+source_file="res://combat/weapon_sprites/aquawand.png"
+dest_files=[ "res://.import/aquawand.png-128f443d54f3b1303d00628b5d2acb96.stex" ]
 
 [params]
 

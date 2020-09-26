@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/asleep_status_icon.png-8069e7bea56353fda8c5cc0b79345001.stex"
+path="res://.import/asleep_status_icon.png-77fa838a268652ea1cce08239d8907f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/status_icons/asleep_status_icon.png"
-dest_files=[ "res://.import/asleep_status_icon.png-8069e7bea56353fda8c5cc0b79345001.stex" ]
+source_file="res://ui/inventory/item_info/status_icons/asleep_status_icon.png"
+dest_files=[ "res://.import/asleep_status_icon.png-77fa838a268652ea1cce08239d8907f4.stex" ]
 
 [params]
 

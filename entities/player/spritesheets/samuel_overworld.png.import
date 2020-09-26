@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/samuel_overworld.png-3af229bda3dc7a6cfc02f2250f1230af.stex"
+path="res://.import/samuel_overworld.png-0d5b0667f7548c5b483be94ad27ed0d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/samuel_overworld.png"
-dest_files=[ "res://.import/samuel_overworld.png-3af229bda3dc7a6cfc02f2250f1230af.stex" ]
+source_file="res://entities/player/spritesheets/samuel_overworld.png"
+dest_files=[ "res://.import/samuel_overworld.png-0d5b0667f7548c5b483be94ad27ed0d3.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/miss rezlow_battle.png-bb682e6fe483dadc7cdf998c582d2e58.stex"
+path="res://.import/miss rezlow_battle.png-26904cf4205abb02d66c3bf84aa8f70d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/miss rezlow_battle.png"
-dest_files=[ "res://.import/miss rezlow_battle.png-bb682e6fe483dadc7cdf998c582d2e58.stex" ]
+source_file="res://entities/enemies/sprites/miss rezlow_battle.png"
+dest_files=[ "res://.import/miss rezlow_battle.png-26904cf4205abb02d66c3bf84aa8f70d.stex" ]
 
 [params]
 

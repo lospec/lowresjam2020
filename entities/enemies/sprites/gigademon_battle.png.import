@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gigademon_battle.png-ed2574bf95384f48b81e89288981f81c.stex"
+path="res://.import/gigademon_battle.png-6bf556b3b7f27d9d923bccdd77604eec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/gigademon_battle.png"
-dest_files=[ "res://.import/gigademon_battle.png-ed2574bf95384f48b81e89288981f81c.stex" ]
+source_file="res://entities/enemies/sprites/gigademon_battle.png"
+dest_files=[ "res://.import/gigademon_battle.png-6bf556b3b7f27d9d923bccdd77604eec.stex" ]
 
 [params]
 

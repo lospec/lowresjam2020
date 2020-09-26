@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/confused_status_icon.png-3bcb3337009dcb05aca9701be71599d9.stex"
+path="res://.import/confused_status_icon.png-a903f5216ddf57d9e31d08d461a013b2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/status_icons/confused_status_icon.png"
-dest_files=[ "res://.import/confused_status_icon.png-3bcb3337009dcb05aca9701be71599d9.stex" ]
+source_file="res://ui/inventory/item_info/status_icons/confused_status_icon.png"
+dest_files=[ "res://.import/confused_status_icon.png-a903f5216ddf57d9e31d08d461a013b2.stex" ]
 
 [params]
 

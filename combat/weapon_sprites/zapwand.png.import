@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zapwand.png-dddd09c8d1868826ff3db8591b11107f.stex"
+path="res://.import/zapwand.png-a9355ffc49d30fdb7d39ca035d3a4610.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/zapwand.png"
-dest_files=[ "res://.import/zapwand.png-dddd09c8d1868826ff3db8591b11107f.stex" ]
+source_file="res://combat/weapon_sprites/zapwand.png"
+dest_files=[ "res://.import/zapwand.png-a9355ffc49d30fdb7d39ca035d3a4610.stex" ]
 
 [params]
 

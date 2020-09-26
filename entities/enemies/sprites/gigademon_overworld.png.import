@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gigademon_overworld.png-c93b8311a61800c488f619939d07bca3.stex"
+path="res://.import/gigademon_overworld.png-0485429224bc28c8e5189f612858c3e4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/gigademon_overworld.png"
-dest_files=[ "res://.import/gigademon_overworld.png-c93b8311a61800c488f619939d07bca3.stex" ]
+source_file="res://entities/enemies/sprites/gigademon_overworld.png"
+dest_files=[ "res://.import/gigademon_overworld.png-0485429224bc28c8e5189f612858c3e4.stex" ]
 
 [params]
 

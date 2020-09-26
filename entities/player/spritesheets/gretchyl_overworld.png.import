@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gretchyl_overworld.png-8188f7b9839810ee60800bd146881e56.stex"
+path="res://.import/gretchyl_overworld.png-7c7d8cd13362e69df42664a08d8ba2ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/gretchyl_overworld.png"
-dest_files=[ "res://.import/gretchyl_overworld.png-8188f7b9839810ee60800bd146881e56.stex" ]
+source_file="res://entities/player/spritesheets/gretchyl_overworld.png"
+dest_files=[ "res://.import/gretchyl_overworld.png-7c7d8cd13362e69df42664a08d8ba2ca.stex" ]
 
 [params]
 

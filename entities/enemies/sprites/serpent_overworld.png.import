@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/serpent_overworld.png-c48646981e47f9d04ed9ff2650a132bd.stex"
+path="res://.import/serpent_overworld.png-5c1d595c98f0045835f0b33cffb33b51.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/serpent_overworld.png"
-dest_files=[ "res://.import/serpent_overworld.png-c48646981e47f9d04ed9ff2650a132bd.stex" ]
+source_file="res://entities/enemies/sprites/serpent_overworld.png"
+dest_files=[ "res://.import/serpent_overworld.png-5c1d595c98f0045835f0b33cffb33b51.stex" ]
 
 [params]
 

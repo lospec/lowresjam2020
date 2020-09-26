@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lizalman_battle.png-0958d4ce84c22441091bffb67070c417.stex"
+path="res://.import/lizalman_battle.png-eef1a6bfa1d18ab03ed222d7a122cddf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/lizalman_battle.png"
-dest_files=[ "res://.import/lizalman_battle.png-0958d4ce84c22441091bffb67070c417.stex" ]
+source_file="res://entities/enemies/sprites/lizalman_battle.png"
+dest_files=[ "res://.import/lizalman_battle.png-eef1a6bfa1d18ab03ed222d7a122cddf.stex" ]
 
 [params]
 

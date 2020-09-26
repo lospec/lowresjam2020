@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/venus_battle.png-3a1069824b534337d33a5579c8ba77cf.stex"
+path="res://.import/venus_battle.png-e06cdae11e83f6bcf1a9f2f0e81217da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/venus_battle.png"
-dest_files=[ "res://.import/venus_battle.png-3a1069824b534337d33a5579c8ba77cf.stex" ]
+source_file="res://entities/enemies/sprites/venus_battle.png"
+dest_files=[ "res://.import/venus_battle.png-e06cdae11e83f6bcf1a9f2f0e81217da.stex" ]
 
 [params]
 

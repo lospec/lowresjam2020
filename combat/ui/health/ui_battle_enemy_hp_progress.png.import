@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ui_battle_enemy_hp_progress.png-d7126400a5b26a9a3e89c6c208ffe862.stex"
+path="res://.import/ui_battle_enemy_hp_progress.png-b78261c24d8ff4c2b571d6f1ac967133.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/UI/Health/ui_battle_enemy_hp_progress.png"
-dest_files=[ "res://.import/ui_battle_enemy_hp_progress.png-d7126400a5b26a9a3e89c6c208ffe862.stex" ]
+source_file="res://combat/ui/health/ui_battle_enemy_hp_progress.png"
+dest_files=[ "res://.import/ui_battle_enemy_hp_progress.png-b78261c24d8ff4c2b571d6f1ac967133.stex" ]
 
 [params]
 

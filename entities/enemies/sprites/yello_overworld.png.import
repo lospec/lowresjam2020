@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yello_overworld.png-1cc2c726fd2be4eb57b8e700098a3529.stex"
+path="res://.import/yello_overworld.png-58608d5aa9eae026e16742df985f7bb9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/yello_overworld.png"
-dest_files=[ "res://.import/yello_overworld.png-1cc2c726fd2be4eb57b8e700098a3529.stex" ]
+source_file="res://entities/enemies/sprites/yello_overworld.png"
+dest_files=[ "res://.import/yello_overworld.png-58608d5aa9eae026e16742df985f7bb9.stex" ]
 
 [params]
 

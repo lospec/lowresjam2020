@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/demongal_overworld.png-b39014e1a1ba434c765cff3c6127e23e.stex"
+path="res://.import/demongal_overworld.png-0c4cd1f2862c99f311654fab724f0a34.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/demongal_overworld.png"
-dest_files=[ "res://.import/demongal_overworld.png-b39014e1a1ba434c765cff3c6127e23e.stex" ]
+source_file="res://entities/enemies/sprites/demongal_overworld.png"
+dest_files=[ "res://.import/demongal_overworld.png-0c4cd1f2862c99f311654fab724f0a34.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/counter_animation_4.png-093bff86eb821451d0e9371f56d40ce3.stex"
+path="res://.import/counter_animation_4.png-23867fe5eff23252704ab89ed84b8972.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/Effects/Counter/counter_animation_4.png"
-dest_files=[ "res://.import/counter_animation_4.png-093bff86eb821451d0e9371f56d40ce3.stex" ]
+source_file="res://combat/effects/counter/counter_animation_4.png"
+dest_files=[ "res://.import/counter_animation_4.png-23867fe5eff23252704ab89ed84b8972.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pinkaboo_overworld.png-59b8076bc882c0b8cf62dea9c583b59e.stex"
+path="res://.import/pinkaboo_overworld.png-8166bbfeedc78650ad5712b7e622197d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/pinkaboo_overworld.png"
-dest_files=[ "res://.import/pinkaboo_overworld.png-59b8076bc882c0b8cf62dea9c583b59e.stex" ]
+source_file="res://entities/enemies/sprites/pinkaboo_overworld.png"
+dest_files=[ "res://.import/pinkaboo_overworld.png-8166bbfeedc78650ad5712b7e622197d.stex" ]
 
 [params]
 

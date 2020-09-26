@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kiki_overworld.png-85700b31a47c9b1bf016189e0feb82dc.stex"
+path="res://.import/kiki_overworld.png-7774a2b35db927198fda2fb4daeb2438.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/kiki_overworld.png"
-dest_files=[ "res://.import/kiki_overworld.png-85700b31a47c9b1bf016189e0feb82dc.stex" ]
+source_file="res://entities/player/spritesheets/kiki_overworld.png"
+dest_files=[ "res://.import/kiki_overworld.png-7774a2b35db927198fda2fb4daeb2438.stex" ]
 
 [params]
 

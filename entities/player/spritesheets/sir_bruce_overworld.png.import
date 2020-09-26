@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sir_bruce_overworld.png-d91a172b7ebf4119ff6defc95d95d157.stex"
+path="res://.import/sir_bruce_overworld.png-55efba9a5f69fe555c43a0cdef42879a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/sir_bruce_overworld.png"
-dest_files=[ "res://.import/sir_bruce_overworld.png-d91a172b7ebf4119ff6defc95d95d157.stex" ]
+source_file="res://entities/player/spritesheets/sir_bruce_overworld.png"
+dest_files=[ "res://.import/sir_bruce_overworld.png-55efba9a5f69fe555c43a0cdef42879a.stex" ]
 
 [params]
 

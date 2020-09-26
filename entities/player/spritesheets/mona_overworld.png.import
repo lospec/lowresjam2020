@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mona_overworld.png-058c70246b231712e944ed1d0f726e00.stex"
+path="res://.import/mona_overworld.png-3720b24c614b7bf747dc66dcc6c9e01d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/mona_overworld.png"
-dest_files=[ "res://.import/mona_overworld.png-058c70246b231712e944ed1d0f726e00.stex" ]
+source_file="res://entities/player/spritesheets/mona_overworld.png"
+dest_files=[ "res://.import/mona_overworld.png-3720b24c614b7bf747dc66dcc6c9e01d.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/devilfork.png-c58f8d7056e2755500d48e20f74e27b2.stex"
+path="res://.import/devilfork.png-14c18ab5a3a4df968b10d6e6e4425e33.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/devilfork.png"
-dest_files=[ "res://.import/devilfork.png-c58f8d7056e2755500d48e20f74e27b2.stex" ]
+source_file="res://combat/weapon_sprites/devilfork.png"
+dest_files=[ "res://.import/devilfork.png-14c18ab5a3a4df968b10d6e6e4425e33.stex" ]
 
 [params]
 

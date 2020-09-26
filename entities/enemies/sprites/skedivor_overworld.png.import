@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skedivor_overworld.png-d26d7d054fa277b326f9dd90bfccede0.stex"
+path="res://.import/skedivor_overworld.png-638da97398a3ca50542853a703cdc970.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/skedivor_overworld.png"
-dest_files=[ "res://.import/skedivor_overworld.png-d26d7d054fa277b326f9dd90bfccede0.stex" ]
+source_file="res://entities/enemies/sprites/skedivor_overworld.png"
+dest_files=[ "res://.import/skedivor_overworld.png-638da97398a3ca50542853a703cdc970.stex" ]
 
 [params]
 

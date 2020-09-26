@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zombie-dima_battle.png-f6d906c7c48138aa8fd0fc7c63d6c70b.stex"
+path="res://.import/zombie-dima_battle.png-925af26a62400b162ec751af9c1e833c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/zombie-dima_battle.png"
-dest_files=[ "res://.import/zombie-dima_battle.png-f6d906c7c48138aa8fd0fc7c63d6c70b.stex" ]
+source_file="res://entities/enemies/sprites/zombie-dima_battle.png"
+dest_files=[ "res://.import/zombie-dima_battle.png-925af26a62400b162ec751af9c1e833c.stex" ]
 
 [params]
 

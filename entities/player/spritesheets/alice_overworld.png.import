@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/alice_overworld.png-cf3c688048590118f0a01bd0c528593d.stex"
+path="res://.import/alice_overworld.png-7e0fa33ea53f2c2a6ecc57cbfe11f03a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/alice_overworld.png"
-dest_files=[ "res://.import/alice_overworld.png-cf3c688048590118f0a01bd0c528593d.stex" ]
+source_file="res://entities/player/spritesheets/alice_overworld.png"
+dest_files=[ "res://.import/alice_overworld.png-7e0fa33ea53f2c2a6ecc57cbfe11f03a.stex" ]
 
 [params]
 

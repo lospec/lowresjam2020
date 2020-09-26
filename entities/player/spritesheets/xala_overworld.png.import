@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/xala_overworld.png-ce8d4795faba33e779095a567ce41e5b.stex"
+path="res://.import/xala_overworld.png-74309f41f609aa3e2082c34c99712ceb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/xala_overworld.png"
-dest_files=[ "res://.import/xala_overworld.png-ce8d4795faba33e779095a567ce41e5b.stex" ]
+source_file="res://entities/player/spritesheets/xala_overworld.png"
+dest_files=[ "res://.import/xala_overworld.png-74309f41f609aa3e2082c34c99712ceb.stex" ]
 
 [params]
 

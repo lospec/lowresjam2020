@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sickle.png-ee906946fcbe0f000e49b5fbc858c8f1.stex"
+path="res://.import/sickle.png-403168f8a6c3ff68ba1e42fec063c25d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/sickle.png"
-dest_files=[ "res://.import/sickle.png-ee906946fcbe0f000e49b5fbc858c8f1.stex" ]
+source_file="res://combat/weapon_sprites/sickle.png"
+dest_files=[ "res://.import/sickle.png-403168f8a6c3ff68ba1e42fec063c25d.stex" ]
 
 [params]
 

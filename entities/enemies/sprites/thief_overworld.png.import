@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/thief_overworld.png-87a15031b8c96818870ba5574373b6a1.stex"
+path="res://.import/thief_overworld.png-691fe1add05d8dd5158df2888dbf0765.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/thief_overworld.png"
-dest_files=[ "res://.import/thief_overworld.png-87a15031b8c96818870ba5574373b6a1.stex" ]
+source_file="res://entities/enemies/sprites/thief_overworld.png"
+dest_files=[ "res://.import/thief_overworld.png-691fe1add05d8dd5158df2888dbf0765.stex" ]
 
 [params]
 

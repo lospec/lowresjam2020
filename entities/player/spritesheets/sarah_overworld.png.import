@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sarah_overworld.png-7411049d8446b881cd9e26634358948d.stex"
+path="res://.import/sarah_overworld.png-519af07ddae6888b62cd4fa50a584947.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/sarah_overworld.png"
-dest_files=[ "res://.import/sarah_overworld.png-7411049d8446b881cd9e26634358948d.stex" ]
+source_file="res://entities/player/spritesheets/sarah_overworld.png"
+dest_files=[ "res://.import/sarah_overworld.png-519af07ddae6888b62cd4fa50a584947.stex" ]
 
 [params]
 

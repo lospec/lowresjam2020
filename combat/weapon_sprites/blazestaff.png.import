@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blazestaff.png-8c7289ca3110c3bbaa4083cfe831deb3.stex"
+path="res://.import/blazestaff.png-eef8a72eb06c55d2451f9ea5a606e88c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/blazestaff.png"
-dest_files=[ "res://.import/blazestaff.png-8c7289ca3110c3bbaa4083cfe831deb3.stex" ]
+source_file="res://combat/weapon_sprites/blazestaff.png"
+dest_files=[ "res://.import/blazestaff.png-eef8a72eb06c55d2451f9ea5a606e88c.stex" ]
 
 [params]
 

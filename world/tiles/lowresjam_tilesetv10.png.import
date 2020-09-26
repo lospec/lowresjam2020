@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lowresjam_tilesetv10.png-25aeaa7800592ccf76a340d2b93ff85b.stex"
+path="res://.import/lowresjam_tilesetv10.png-94406b7e018776dde53c6a41764e3a98.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Tiles/lowresjam_tilesetv10.png"
-dest_files=[ "res://.import/lowresjam_tilesetv10.png-25aeaa7800592ccf76a340d2b93ff85b.stex" ]
+source_file="res://world/Tiles/lowresjam_tilesetv10.png"
+dest_files=[ "res://.import/lowresjam_tilesetv10.png-94406b7e018776dde53c6a41764e3a98.stex" ]
 
 [params]
 

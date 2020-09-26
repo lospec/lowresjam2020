@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/heavy_hover.png-312b3b308224681819bf8ab5da6c6580.stex"
+path="res://.import/heavy_hover.png-390ada366b043425b4171f21b024d785.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/UI/Buttons/Attacks/heavy_hover.png"
-dest_files=[ "res://.import/heavy_hover.png-312b3b308224681819bf8ab5da6c6580.stex" ]
+source_file="res://combat/ui/buttons/attacks/heavy_hover.png"
+dest_files=[ "res://.import/heavy_hover.png-390ada366b043425b4171f21b024d785.stex" ]
 
 [params]
 

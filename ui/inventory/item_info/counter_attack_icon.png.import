@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/counter_attack_icon.png-526121f356ea0d5ce70c69013fd06943.stex"
+path="res://.import/counter_attack_icon.png-f4a15491a6925e1dec4c51f51b661b74.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/item_info/counter_attack_icon.png"
-dest_files=[ "res://.import/counter_attack_icon.png-526121f356ea0d5ce70c69013fd06943.stex" ]
+source_file="res://ui/inventory/item_info/counter_attack_icon.png"
+dest_files=[ "res://.import/counter_attack_icon.png-f4a15491a6925e1dec4c51f51b661b74.stex" ]
 
 [params]
 

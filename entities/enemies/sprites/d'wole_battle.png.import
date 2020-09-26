@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/d'wole_battle.png-ff7955eee3de1fd19e5ca28d2278a574.stex"
+path="res://.import/d'wole_battle.png-e6cbba2717656e7c0cf991115f6ef146.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/enemies/sprites/d'wole_battle.png"
-dest_files=[ "res://.import/d'wole_battle.png-ff7955eee3de1fd19e5ca28d2278a574.stex" ]
+source_file="res://entities/enemies/sprites/d'wole_battle.png"
+dest_files=[ "res://.import/d'wole_battle.png-e6cbba2717656e7c0cf991115f6ef146.stex" ]
 
 [params]
 

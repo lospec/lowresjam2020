@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aysha_overworld.png-2832a169ea1e3f89519d5f72dba5e8ad.stex"
+path="res://.import/aysha_overworld.png-7a73a56ce5a2ef5bb6906cee89ceb589.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/spritesheets/aysha_overworld.png"
-dest_files=[ "res://.import/aysha_overworld.png-2832a169ea1e3f89519d5f72dba5e8ad.stex" ]
+source_file="res://entities/player/spritesheets/aysha_overworld.png"
+dest_files=[ "res://.import/aysha_overworld.png-7a73a56ce5a2ef5bb6906cee89ceb589.stex" ]
 
 [params]
 

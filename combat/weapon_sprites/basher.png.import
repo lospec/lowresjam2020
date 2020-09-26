@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/basher.png-0402df00641bd8695fe230b438f027f1.stex"
+path="res://.import/basher.png-e3d12da02cc1edf144a6dbee05d1d6d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/weapon_sprites/basher.png"
-dest_files=[ "res://.import/basher.png-0402df00641bd8695fe230b438f027f1.stex" ]
+source_file="res://combat/weapon_sprites/basher.png"
+dest_files=[ "res://.import/basher.png-e3d12da02cc1edf144a6dbee05d1d6d3.stex" ]
 
 [params]
 
