@@ -25,7 +25,7 @@ namespace HeroesGuild.Combat.Effects.Animations
                     _attackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
                 }
             }
-            
+
             _attackAnimations.Add("counter",
                 GD.Load<AnimatedTexture>(
                     "res://Combat/Effects/animations/counter_animation.tres"));
@@ -39,6 +39,7 @@ namespace HeroesGuild.Combat.Effects.Animations
 
         public AnimatedTexture GetAnimation(string key)
         {
+            key = key.ToLower();
             if (_attackAnimations.ContainsKey(key))
             {
                 return _attackAnimations[key];
