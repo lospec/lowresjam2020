@@ -12,7 +12,7 @@ namespace HeroesGuild.UI.MainMenu
 
         private bool _changingScene = false;
 
-        private AudioStreamPlayer2D _sfxPlayer;
+        private AudioStreamPlayer _sfxPlayer;
 
         public override void _Ready()
         {

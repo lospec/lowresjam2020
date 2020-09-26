@@ -207,34 +207,40 @@ namespace HeroesGuild.Utility
             float volumeDb = 0f,
             float pitchScale = 1f)
         {
+            volumeDb += instance._sfxVolume;
             var sfxPlayer = new AudioStreamPlayer2D
             {
-                Position = audioPosition, Stream = GetSFXResource(sfx)
+                Position = audioPosition,
+                Stream = GetSFXResource(sfx),
+                VolumeDb = volumeDb,
+                PitchScale = pitchScale
             };
-            volumeDb += instance._sfxVolume;
-            sfxPlayer.VolumeDb = volumeDb;
-            sfxPlayer.PitchScale = pitchScale;
-            instance.AddChild(sfxPlayer);
             sfxPlayer.Play();
-            sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished),
-                new Array {sfxPlayer});
-            sfxPlayer.AddToGroup("sfx_players");
+            ConfigureSfxPlayer(sfxPlayer);
             return sfxPlayer;
         }
 
-        public static AudioStreamPlayer2D PlaySFX(SFX sfx, float volumeDb = 0f,
+        public static AudioStreamPlayer PlaySFX(SFX sfx, float volumeDb = 0f,
             float pitchScale = 1f)
         {
-            var sfxPlayer = new AudioStreamPlayer2D {Stream = GetSFXResource(sfx)};
             volumeDb += instance._sfxVolume;
-            sfxPlayer.VolumeDb = volumeDb;
-            sfxPlayer.PitchScale = pitchScale;
-            instance.AddChild(sfxPlayer);
+            var sfxPlayer = new AudioStreamPlayer
+            {
+                Stream = GetSFXResource(sfx),
+                VolumeDb = volumeDb,
+                PitchScale = pitchScale
+            };
             sfxPlayer.Play();
+            ConfigureSfxPlayer(sfxPlayer);
+            return sfxPlayer;
+        }
+
+        private static void ConfigureSfxPlayer(Node sfxPlayer)
+        {
+            instance.AddChild(sfxPlayer);
             sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished),
                 new Array {sfxPlayer});
             sfxPlayer.AddToGroup("sfx_players");
-            return sfxPlayer;
         }
 
 
