@@ -168,26 +168,24 @@ namespace HeroesGuild.Combat
         {
             if (action == CombatUtil.CombatAction.Counter)
             {
-                _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
+                await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-                await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
             }
 
             var damageType = playerCombat.GetDamageType(action);
             var effectAnimation = _effectAnimations.GetAnimation(damageType);
-            _attackEffect.Play(effectAnimation, CombatUtil.GetActionColor(action));
-            await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
+            await _attackEffect.Play(effectAnimation,
+                CombatUtil.GetActionColor(action));
         }
 
         public async Task AnimatePlayerHurt(int damage, bool enemyCountered = false)
         {
             if (enemyCountered)
             {
-                _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
+                await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-                await ToSignal(_attackEffect, nameof(CombatAttackAnim.EffectDone));
             }
-
+            
             Shake(1, 20, 1);
             _playerHealthIcon.Blink(1, 6);
             await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
