@@ -172,6 +172,7 @@ namespace HeroesGuild.Combat
 
         private void EndCombat(CombatUtil.CombatOutcome outcome)
         {
+            AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
             _playerInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
                 nameof(_combatMenu.UpdatePlayerHealthValue));
             _enemyInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
