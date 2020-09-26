@@ -18,9 +18,9 @@ namespace HeroesGuild.Combat
         public override void _Process(float delta)
         {
             var rectPosition = RectPosition;
-            rectPosition.y -= delta * delta;
+            rectPosition.y -= delta * floatSpeed;
             RectPosition = rectPosition;
-            _alpha = Mathf.Max(0, 1 - delta / fadeDuration);
+            _alpha = Mathf.Max(0, _alpha - delta / fadeDuration);
             var modulate = Modulate;
             modulate.a = _alpha;
             Modulate = modulate;
