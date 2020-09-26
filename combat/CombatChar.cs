@@ -94,7 +94,7 @@ namespace HeroesGuild.Combat
             var statusEffect = GetStatusEffect(action);
             var statusEffectChance = GetEffectChance(action);
 
-            var enemy = CharacterInstance as BaseEnemy;
+            var enemy = target.CharacterInstance as BaseEnemy;
             if (enemy?.Stat.Resistance == "Fire" && statusEffect == "OnFire")
             {
                 return;
