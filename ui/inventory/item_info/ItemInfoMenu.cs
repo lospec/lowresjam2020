@@ -272,8 +272,13 @@ namespace HeroesGuild.UI.Inventory.ItemInfo
 					_equipButton.Visible = false;
 					break;
 				case "armor":
+					if (!string.IsNullOrWhiteSpace(playerInstance.EquippedArmor))
+					{
+						var oldArmorData = data[playerInstance.EquippedArmor];
+						playerInstance.Health -= oldArmorData.healthAdded;
+					}
 					playerInstance.EquippedArmor = selectedItem;
-					playerInstance.maxHealth = 10 + itemRecord.healthAdded;
+					playerInstance.maxHealth = SaveData.DEFAULT_HEALTH + itemRecord.healthAdded;
 					playerInstance.Health += itemRecord.healthAdded;
 					EmitSignal(nameof(EquippedArmorChanged));
 					_equipButton.Visible = false;
