@@ -380,18 +380,29 @@ namespace HeroesGuild.GuildHall.GuildInterface
                 return;
             }
 
-            _playerInstance.Coins = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
+            var newCoinsAmount = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
+
             var saveData = Autoload.Get<SaveData>();
+            saveData.CoinsDeposited += _playerInstance.Coins - newCoinsAmount;
+            _playerInstance.Coins = newCoinsAmount;
+
             var totalCoinsForNextLevel = saveData.GuildLevel * 250;
             _depositProgressBar.MaxValue = totalCoinsForNextLevel;
-            saveData.CoinsDeposited += depositAmount;
+
+            var levelledUp = false;
             while (saveData.CoinsDeposited > totalCoinsForNextLevel)
             {
                 saveData.CoinsDeposited -= totalCoinsForNextLevel;
                 saveData.GuildLevel += 1;
+                levelledUp = true;
+                totalCoinsForNextLevel = saveData.GuildLevel * 250;
             }
-            
-            EmitSignal(nameof(GuildHallLevelUp));
+
+            if (levelledUp)
+            {
+                EmitSignal(nameof(GuildHallLevelUp));
+            }
+
             UpdateCoins();
             UpdateGuildLevel();
             UpdateProgressBarInstantly();
