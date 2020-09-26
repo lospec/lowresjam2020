@@ -11,5 +11,5 @@ dest_files=[ "res://.import/battle_intro.ogg-4c17e8750c153de273cb6bcab0bebbce.og
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
