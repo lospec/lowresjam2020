@@ -56,6 +56,7 @@ func setup_combat(player, enemy):
 		enemy_instance.connect("health_changed", combat_menu, "update_enemy_health_value")
 	
 	if !enemy_combat.is_connected("damage_taken", self, "_on_enemy_take_damage"):
+		# warning-ignore:return_value_discarded
 		enemy_combat.connect("damage_taken", self, "_on_enemy_take_damage")
 	
 	combat_menu.set_player_health_value(player_instance.max_health,
@@ -159,6 +160,8 @@ func play_battle_music():
 
 
 func end_combat(outcome):
+	AudioSystem.play_music(AudioSystem.Music.OVERWORLD, -30)
+	
 	player_instance.disconnect("health_changed", combat_menu, "update_player_health_value")
 	enemy_instance.disconnect("health_changed", combat_menu, "update_enemy_health_value")
 	emit_signal("combat_done", outcome, enemy_instance)

@@ -174,8 +174,12 @@ func _on_Equip_pressed():
 			emit_signal("equipped_weapon_changed")
 			equip_button.visible = false
 		"armor":
+			if player_instance.equipped_armor:
+				var old_armor_data = Data.item_data[player_instance.equipped_armor]
+				player_instance.health -= old_armor_data.health_added
+			
 			player_instance.equipped_armor = selected_item
-			player_instance.max_health = 10 + selected_item_data.health_added
+			player_instance.max_health = SaveData.DEFAULT_HEALTH + selected_item_data.health_added
 			player_instance.health += selected_item_data.health_added
 			emit_signal("equipped_armor_changed")
 			equip_button.visible = false

@@ -23,6 +23,3 @@ func _ready():
 		var path = "res://Combat/Effects/animations/attack_animation_%s.tres" % type
 		if file.file_exists(path):
 			attack_anims[type] = load(path)
-	
-	# PLACEHOLDER
-	attack_anims["counter"] = load("res://Combat/Effects/animations/counter_animation.tres")

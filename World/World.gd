@@ -89,7 +89,7 @@ func _on_DoorDetection_body_entered(body):
 		SaveData.world_position = player.position + offset
 		
 		# Transition to guild hall scene & play sound
-		AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -30)
+		var _a = AudioSystem.play_sfx(AudioSystem.SFX.DOOR_OPEN, null, -30)
 		Transitions.change_scene_double_transition("res://guild_hall/guild_hall.tscn",
 			Transitions.Transition_Type.SHRINKING_CIRCLE,
 			0.3)

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blunt_attack_animation_Blunt_7.png-6d10a2317780a47662e8beea39f9237b.stex"
+path="res://.import/blunt_attack_animation_blunt_7.png-aa7124d53e6f010fa30d6ad7adac3790.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/Effects/Blunt/blunt_attack_animation_Blunt_7.png"
-dest_files=[ "res://.import/blunt_attack_animation_Blunt_7.png-6d10a2317780a47662e8beea39f9237b.stex" ]
+source_file="res://Combat/Effects/Blunt/blunt_attack_animation_blunt_7.png"
+dest_files=[ "res://.import/blunt_attack_animation_blunt_7.png-aa7124d53e6f010fa30d6ad7adac3790.stex" ]
 
 [params]
 

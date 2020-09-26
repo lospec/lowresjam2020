@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lighting_type_animation_Electric_0.png-3a188ee9ea691f9c4cf1c1f06463d53c.stex"
+path="res://.import/lighting_type_animation_electric_0.png-41f9b1676d8686c5261958c23eb5b48b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Combat/Effects/Lightning/lighting_type_animation_Electric_0.png"
-dest_files=[ "res://.import/lighting_type_animation_Electric_0.png-3a188ee9ea691f9c4cf1c1f06463d53c.stex" ]
+source_file="res://Combat/Effects/Lightning/lighting_type_animation_electric_0.png"
+dest_files=[ "res://.import/lighting_type_animation_electric_0.png-41f9b1676d8686c5261958c23eb5b48b.stex" ]
 
 [params]
 

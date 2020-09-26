@@ -11,7 +11,7 @@ var enemy_data: Dictionary
 var character_data: Dictionary
 
 var _min_speed_stat = 9223372036854775807
-var _max_speed_stat = -9223372036854775808
+var _max_speed_stat = -9223372036854775807
 var _speed_stat_read = false
 
 
