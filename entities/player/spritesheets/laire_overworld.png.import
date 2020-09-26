@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laire_overworld.png-80c5f218728c5a0dfd16788cf133eef0.stex"
+path="res://.import/laire_overworld.png-561a2cc6675d6467974150f779bda84b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/laire_overworld.png"
-dest_files=[ "res://.import/laire_overworld.png-80c5f218728c5a0dfd16788cf133eef0.stex" ]
+source_file="res://Entities/Player/spritesheets/laire_overworld.png"
+dest_files=[ "res://.import/laire_overworld.png-561a2cc6675d6467974150f779bda84b.stex" ]
 
 [params]
 

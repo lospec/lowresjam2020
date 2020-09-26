@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hello_battle.png-e227d56776ea64a783632590110e818b.stex"
+path="res://.import/hello_battle.png-8ac4171bd9f57b76d84ba673e4f1678a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/hello_battle.png"
-dest_files=[ "res://.import/hello_battle.png-e227d56776ea64a783632590110e818b.stex" ]
+source_file="res://Entities/enemies/sprites/hello_battle.png"
+dest_files=[ "res://.import/hello_battle.png-8ac4171bd9f57b76d84ba673e4f1678a.stex" ]
 
 [params]
 

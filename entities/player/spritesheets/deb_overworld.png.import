@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/deb_overworld.png-a5138968528acb193f5aa5a4676bee1a.stex"
+path="res://.import/deb_overworld.png-9e3db1c0e1e796033a4fb3f5e852611b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/deb_overworld.png"
-dest_files=[ "res://.import/deb_overworld.png-a5138968528acb193f5aa5a4676bee1a.stex" ]
+source_file="res://Entities/Player/spritesheets/deb_overworld.png"
+dest_files=[ "res://.import/deb_overworld.png-9e3db1c0e1e796033a4fb3f5e852611b.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/devil_battle.png-22d347128618d022a1f5796e8b10dffa.stex"
+path="res://.import/devil_battle.png-1e2b644d31b935a2d94ce657f1e9a45f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/devil_battle.png"
-dest_files=[ "res://.import/devil_battle.png-22d347128618d022a1f5796e8b10dffa.stex" ]
+source_file="res://Entities/enemies/sprites/devil_battle.png"
+dest_files=[ "res://.import/devil_battle.png-1e2b644d31b935a2d94ce657f1e9a45f.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kello_battle.png-893251d522c0d2fbc06e6993ce58647f.stex"
+path="res://.import/kello_battle.png-0680cb5af8d91b1b564b2c7d68b94a17.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/kello_battle.png"
-dest_files=[ "res://.import/kello_battle.png-893251d522c0d2fbc06e6993ce58647f.stex" ]
+source_file="res://Entities/enemies/sprites/kello_battle.png"
+dest_files=[ "res://.import/kello_battle.png-0680cb5af8d91b1b564b2c7d68b94a17.stex" ]
 
 [params]
 

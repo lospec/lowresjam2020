@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grello_battle.png-6dc49c6752bd394910d8879fc921b5aa.stex"
+path="res://.import/grello_battle.png-d229a517b5def1ffd5b3b6f22d3411a7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/grello_battle.png"
-dest_files=[ "res://.import/grello_battle.png-6dc49c6752bd394910d8879fc921b5aa.stex" ]
+source_file="res://Entities/enemies/sprites/grello_battle.png"
+dest_files=[ "res://.import/grello_battle.png-d229a517b5def1ffd5b3b6f22d3411a7.stex" ]
 
 [params]
 

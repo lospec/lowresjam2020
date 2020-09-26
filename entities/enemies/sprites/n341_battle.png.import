@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/n341_battle.png-52ca60c00a93fcfe8cff8b8d9fa301d4.stex"
+path="res://.import/n341_battle.png-a1b178e8218e67ef3aa6c46ff5233bc6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/n341_battle.png"
-dest_files=[ "res://.import/n341_battle.png-52ca60c00a93fcfe8cff8b8d9fa301d4.stex" ]
+source_file="res://Entities/enemies/sprites/n341_battle.png"
+dest_files=[ "res://.import/n341_battle.png-a1b178e8218e67ef3aa6c46ff5233bc6.stex" ]
 
 [params]
 

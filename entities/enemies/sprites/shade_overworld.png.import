@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shade_overworld.png-fedec4b19296b2f38ea4e36192e7f513.stex"
+path="res://.import/shade_overworld.png-461ba97c897544a5c8cb2f6b49c86d9c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/shade_overworld.png"
-dest_files=[ "res://.import/shade_overworld.png-fedec4b19296b2f38ea4e36192e7f513.stex" ]
+source_file="res://Entities/enemies/sprites/shade_overworld.png"
+dest_files=[ "res://.import/shade_overworld.png-461ba97c897544a5c8cb2f6b49c86d9c.stex" ]
 
 [params]
 

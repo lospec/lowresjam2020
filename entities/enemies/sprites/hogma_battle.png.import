@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hogma_battle.png-e44150fc717b3e311dcde82f926d0626.stex"
+path="res://.import/hogma_battle.png-767e654b96110c3e3a317e6fbf8f1aa9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/hogma_battle.png"
-dest_files=[ "res://.import/hogma_battle.png-e44150fc717b3e311dcde82f926d0626.stex" ]
+source_file="res://Entities/enemies/sprites/hogma_battle.png"
+dest_files=[ "res://.import/hogma_battle.png-767e654b96110c3e3a317e6fbf8f1aa9.stex" ]
 
 [params]
 

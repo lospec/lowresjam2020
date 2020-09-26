@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/broccolion_battle.png-831488b696a32791fd6a8adb55ebea11.stex"
+path="res://.import/broccolion_battle.png-f3eb62c95fe18e40c0c7c9ffc67e1d1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/broccolion_battle.png"
-dest_files=[ "res://.import/broccolion_battle.png-831488b696a32791fd6a8adb55ebea11.stex" ]
+source_file="res://Entities/enemies/sprites/broccolion_battle.png"
+dest_files=[ "res://.import/broccolion_battle.png-f3eb62c95fe18e40c0c7c9ffc67e1d1b.stex" ]
 
 [params]
 

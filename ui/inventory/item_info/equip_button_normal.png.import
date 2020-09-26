@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/equip_button_normal.png-f406f8d1c20cce7e46c42218260544db.stex"
+path="res://.import/equip_button_normal.png-e56ac92889722024b909aaa65308adad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/inventory/item_info/equip_button_normal.png"
-dest_files=[ "res://.import/equip_button_normal.png-f406f8d1c20cce7e46c42218260544db.stex" ]
+source_file="res://UI/inventory/item_info/equip_button_normal.png"
+dest_files=[ "res://.import/equip_button_normal.png-e56ac92889722024b909aaa65308adad.stex" ]
 
 [params]
 

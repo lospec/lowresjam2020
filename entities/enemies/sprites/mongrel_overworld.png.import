@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mongrel_overworld.png-177b3a1cd464b67ed5891cb8be8c531c.stex"
+path="res://.import/mongrel_overworld.png-95640afcdf485738dd4e17f15dab7bf3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/mongrel_overworld.png"
-dest_files=[ "res://.import/mongrel_overworld.png-177b3a1cd464b67ed5891cb8be8c531c.stex" ]
+source_file="res://Entities/enemies/sprites/mongrel_overworld.png"
+dest_files=[ "res://.import/mongrel_overworld.png-95640afcdf485738dd4e17f15dab7bf3.stex" ]
 
 [params]
 

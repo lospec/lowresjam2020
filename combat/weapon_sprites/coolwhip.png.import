@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/coolwhip.png-e1788f7d98d636ea64322a4515a63a86.stex"
+path="res://.import/coolwhip.png-f4d5c7c9e632e21668ac043955e2008d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/coolwhip.png"
-dest_files=[ "res://.import/coolwhip.png-e1788f7d98d636ea64322a4515a63a86.stex" ]
+source_file="res://Combat/weapon_sprites/coolwhip.png"
+dest_files=[ "res://.import/coolwhip.png-f4d5c7c9e632e21668ac043955e2008d.stex" ]
 
 [params]
 

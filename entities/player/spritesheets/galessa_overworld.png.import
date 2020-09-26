@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/galessa_overworld.png-826a96b9f4fd4a356c8bf5f818d6d356.stex"
+path="res://.import/galessa_overworld.png-ea0ae82613f778ca43fa8d7b19e40ad8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/galessa_overworld.png"
-dest_files=[ "res://.import/galessa_overworld.png-826a96b9f4fd4a356c8bf5f818d6d356.stex" ]
+source_file="res://Entities/Player/spritesheets/galessa_overworld.png"
+dest_files=[ "res://.import/galessa_overworld.png-ea0ae82613f778ca43fa8d7b19e40ad8.stex" ]
 
 [params]
 

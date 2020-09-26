@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flail.png-0da21572adf3915129bb88e217a075b3.stex"
+path="res://.import/flail.png-70f83874e3e50ce10b63c0bce5c43a1f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/flail.png"
-dest_files=[ "res://.import/flail.png-0da21572adf3915129bb88e217a075b3.stex" ]
+source_file="res://Combat/weapon_sprites/flail.png"
+dest_files=[ "res://.import/flail.png-70f83874e3e50ce10b63c0bce5c43a1f.stex" ]
 
 [params]
 

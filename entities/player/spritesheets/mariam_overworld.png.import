@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mariam_overworld.png-6d9591d72857a3bcaf483ac6c3a02187.stex"
+path="res://.import/mariam_overworld.png-730f01da24c60f504daea06fae5b1952.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/mariam_overworld.png"
-dest_files=[ "res://.import/mariam_overworld.png-6d9591d72857a3bcaf483ac6c3a02187.stex" ]
+source_file="res://Entities/Player/spritesheets/mariam_overworld.png"
+dest_files=[ "res://.import/mariam_overworld.png-730f01da24c60f504daea06fae5b1952.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bloo_sw..png-6c7c7208d0583e09ad7f80cac652692b.stex"
+path="res://.import/bloo_sw..png-2cf11655b4f4ef5d472e9dce66bba1cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/bloo_sw..png"
-dest_files=[ "res://.import/bloo_sw..png-6c7c7208d0583e09ad7f80cac652692b.stex" ]
+source_file="res://Combat/weapon_sprites/bloo_sw..png"
+dest_files=[ "res://.import/bloo_sw..png-2cf11655b4f4ef5d472e9dce66bba1cb.stex" ]
 
 [params]
 

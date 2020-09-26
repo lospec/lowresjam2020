@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/farhan_overworld.png-42cdbe8bee820509f7af545c2b6e2696.stex"
+path="res://.import/farhan_overworld.png-9c4cc5649f69727094f321c54af25e08.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/farhan_overworld.png"
-dest_files=[ "res://.import/farhan_overworld.png-42cdbe8bee820509f7af545c2b6e2696.stex" ]
+source_file="res://Entities/Player/spritesheets/farhan_overworld.png"
+dest_files=[ "res://.import/farhan_overworld.png-9c4cc5649f69727094f321c54af25e08.stex" ]
 
 [params]
 

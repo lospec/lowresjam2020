@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/demongal_battle.png-944c7534f37994360510f5fdab94bdfb.stex"
+path="res://.import/demongal_battle.png-a487043319110ce7d05e6dc33c8d8d0a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/demongal_battle.png"
-dest_files=[ "res://.import/demongal_battle.png-944c7534f37994360510f5fdab94bdfb.stex" ]
+source_file="res://Entities/enemies/sprites/demongal_battle.png"
+dest_files=[ "res://.import/demongal_battle.png-a487043319110ce7d05e6dc33c8d8d0a.stex" ]
 
 [params]
 

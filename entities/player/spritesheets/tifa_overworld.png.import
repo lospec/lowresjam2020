@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tifa_overworld.png-afb14c9258efa820f1638890f2b94b30.stex"
+path="res://.import/tifa_overworld.png-1f36545ef95a2a46ce2ee2888e32059a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/tifa_overworld.png"
-dest_files=[ "res://.import/tifa_overworld.png-afb14c9258efa820f1638890f2b94b30.stex" ]
+source_file="res://Entities/Player/spritesheets/tifa_overworld.png"
+dest_files=[ "res://.import/tifa_overworld.png-1f36545ef95a2a46ce2ee2888e32059a.stex" ]
 
 [params]
 

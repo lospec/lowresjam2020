@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tyrone_overworld.png-faa0df4e711adb926c4d4b5c143edf00.stex"
+path="res://.import/tyrone_overworld.png-385b8b9fe69dc00f02722d00446b0c91.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/tyrone_overworld.png"
-dest_files=[ "res://.import/tyrone_overworld.png-faa0df4e711adb926c4d4b5c143edf00.stex" ]
+source_file="res://Entities/Player/spritesheets/tyrone_overworld.png"
+dest_files=[ "res://.import/tyrone_overworld.png-385b8b9fe69dc00f02722d00446b0c91.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gentapram_overworld.png-8b9bcfb6daa8b924914052311718d9f4.stex"
+path="res://.import/gentapram_overworld.png-464b32dcd2a096b765d1a6fc7022b321.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/gentapram_overworld.png"
-dest_files=[ "res://.import/gentapram_overworld.png-8b9bcfb6daa8b924914052311718d9f4.stex" ]
+source_file="res://Entities/enemies/sprites/gentapram_overworld.png"
+dest_files=[ "res://.import/gentapram_overworld.png-464b32dcd2a096b765d1a6fc7022b321.stex" ]
 
 [params]
 

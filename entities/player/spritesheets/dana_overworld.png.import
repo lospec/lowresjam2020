@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dana_overworld.png-44e44d415c69aa3b72088ab93955a1fa.stex"
+path="res://.import/dana_overworld.png-ba91855d52c99175de786e0dbe9fcccd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/dana_overworld.png"
-dest_files=[ "res://.import/dana_overworld.png-44e44d415c69aa3b72088ab93955a1fa.stex" ]
+source_file="res://Entities/Player/spritesheets/dana_overworld.png"
+dest_files=[ "res://.import/dana_overworld.png-ba91855d52c99175de786e0dbe9fcccd.stex" ]
 
 [params]
 

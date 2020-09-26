@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inventory_icon_hover.png-eb0d34877b28a3428df3c58368750ace.stex"
+path="res://.import/inventory_icon_hover.png-a8e03c8a26cef16ffc451a6728ae64b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/inventory_icon_hover.png"
-dest_files=[ "res://.import/inventory_icon_hover.png-eb0d34877b28a3428df3c58368750ace.stex" ]
+source_file="res://UI/hud/inventory_icon_hover.png"
+dest_files=[ "res://.import/inventory_icon_hover.png-a8e03c8a26cef16ffc451a6728ae64b4.stex" ]
 
 [params]
 

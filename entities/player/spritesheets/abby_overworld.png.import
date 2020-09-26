@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/abby_overworld.png-d2c749fa93a20f794da9bfaad875a079.stex"
+path="res://.import/abby_overworld.png-445bc1cebc00032ad6a9effe728ae6c8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/abby_overworld.png"
-dest_files=[ "res://.import/abby_overworld.png-d2c749fa93a20f794da9bfaad875a079.stex" ]
+source_file="res://Entities/Player/spritesheets/abby_overworld.png"
+dest_files=[ "res://.import/abby_overworld.png-445bc1cebc00032ad6a9effe728ae6c8.stex" ]
 
 [params]
 

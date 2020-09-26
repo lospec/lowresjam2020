@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blazewand.png-c4ac9a7f8e86d6050f41ecfb3e4d29c7.stex"
+path="res://.import/blazewand.png-3b89fb36fb2144f7f407e9029f247dd7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/blazewand.png"
-dest_files=[ "res://.import/blazewand.png-c4ac9a7f8e86d6050f41ecfb3e4d29c7.stex" ]
+source_file="res://Combat/weapon_sprites/blazewand.png"
+dest_files=[ "res://.import/blazewand.png-3b89fb36fb2144f7f407e9029f247dd7.stex" ]
 
 [params]
 

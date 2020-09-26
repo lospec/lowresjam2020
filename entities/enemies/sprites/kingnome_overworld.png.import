@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kingnome_overworld.png-5329f5e71e1c03ab2345cd4f8dbba29b.stex"
+path="res://.import/kingnome_overworld.png-23949b3942c33196e84ace1e212b226c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/kingnome_overworld.png"
-dest_files=[ "res://.import/kingnome_overworld.png-5329f5e71e1c03ab2345cd4f8dbba29b.stex" ]
+source_file="res://Entities/enemies/sprites/kingnome_overworld.png"
+dest_files=[ "res://.import/kingnome_overworld.png-23949b3942c33196e84ace1e212b226c.stex" ]
 
 [params]
 

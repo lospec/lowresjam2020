@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jessa_overworld.png-cadb426e03395567380cc1f94cb85549.stex"
+path="res://.import/jessa_overworld.png-87bb4f054f2cd7d557382b6cdef45276.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/jessa_overworld.png"
-dest_files=[ "res://.import/jessa_overworld.png-cadb426e03395567380cc1f94cb85549.stex" ]
+source_file="res://Entities/Player/spritesheets/jessa_overworld.png"
+dest_files=[ "res://.import/jessa_overworld.png-87bb4f054f2cd7d557382b6cdef45276.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mountain_little.png-a3074b8413dba5a279d4ac3661007d4b.stex"
+path="res://.import/mountain_little.png-75c7bac8c7ff406e57469431dfd43c7c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/scenic_backgrounds/mountain_little.png"
-dest_files=[ "res://.import/mountain_little.png-a3074b8413dba5a279d4ac3661007d4b.stex" ]
+source_file="res://Combat/scenic_backgrounds/mountain_little.png"
+dest_files=[ "res://.import/mountain_little.png-75c7bac8c7ff406e57469431dfd43c7c.stex" ]
 
 [params]
 

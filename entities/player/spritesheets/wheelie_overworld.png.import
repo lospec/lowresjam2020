@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wheelie_overworld.png-b72d634b03123cf713633cc879b9664a.stex"
+path="res://.import/wheelie_overworld.png-95d81f5f5184840b3ea67140063090c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/wheelie_overworld.png"
-dest_files=[ "res://.import/wheelie_overworld.png-b72d634b03123cf713633cc879b9664a.stex" ]
+source_file="res://Entities/Player/spritesheets/wheelie_overworld.png"
+dest_files=[ "res://.import/wheelie_overworld.png-95d81f5f5184840b3ea67140063090c0.stex" ]
 
 [params]
 

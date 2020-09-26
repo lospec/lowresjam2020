@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mello_battle.png-20f3639ad9a7d9265506c4dee64a32b8.stex"
+path="res://.import/mello_battle.png-79d1e65808c006485b1ac2349084b4f7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/mello_battle.png"
-dest_files=[ "res://.import/mello_battle.png-20f3639ad9a7d9265506c4dee64a32b8.stex" ]
+source_file="res://Entities/enemies/sprites/mello_battle.png"
+dest_files=[ "res://.import/mello_battle.png-79d1e65808c006485b1ac2349084b4f7.stex" ]
 
 [params]
 

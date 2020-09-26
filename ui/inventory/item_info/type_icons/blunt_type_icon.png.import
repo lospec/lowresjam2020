@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blunt_type_icon.png-2bb7c079ed8b9c5d2a4600b04576c9a2.stex"
+path="res://.import/blunt_type_icon.png-4561a47d06783eee5256399fa856d28e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/inventory/item_info/type_icons/blunt_type_icon.png"
-dest_files=[ "res://.import/blunt_type_icon.png-2bb7c079ed8b9c5d2a4600b04576c9a2.stex" ]
+source_file="res://UI/inventory/item_info/type_icons/blunt_type_icon.png"
+dest_files=[ "res://.import/blunt_type_icon.png-4561a47d06783eee5256399fa856d28e.stex" ]
 
 [params]
 

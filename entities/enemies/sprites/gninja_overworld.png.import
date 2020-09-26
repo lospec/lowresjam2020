@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gninja_overworld.png-b2b42d1e7476804f4305fc6096e44eb4.stex"
+path="res://.import/gninja_overworld.png-92e0b127e61b7335878e7019611b14d5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/gninja_overworld.png"
-dest_files=[ "res://.import/gninja_overworld.png-b2b42d1e7476804f4305fc6096e44eb4.stex" ]
+source_file="res://Entities/enemies/sprites/gninja_overworld.png"
+dest_files=[ "res://.import/gninja_overworld.png-92e0b127e61b7335878e7019611b14d5.stex" ]
 
 [params]
 

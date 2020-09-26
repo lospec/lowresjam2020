@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/firedagger.png-e8beb2728c0ec81f00a6d533adf25fda.stex"
+path="res://.import/firedagger.png-bd623cfee159c95721ee482f198dff22.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/firedagger.png"
-dest_files=[ "res://.import/firedagger.png-e8beb2728c0ec81f00a6d533adf25fda.stex" ]
+source_file="res://Combat/weapon_sprites/firedagger.png"
+dest_files=[ "res://.import/firedagger.png-bd623cfee159c95721ee482f198dff22.stex" ]
 
 [params]
 

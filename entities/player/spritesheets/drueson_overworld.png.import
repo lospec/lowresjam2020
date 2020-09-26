@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/drueson_overworld.png-a1e1ed73874a9f9666b89ec5e40519a2.stex"
+path="res://.import/drueson_overworld.png-dcb12900cab6367a4b57b13e21c40e63.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/drueson_overworld.png"
-dest_files=[ "res://.import/drueson_overworld.png-a1e1ed73874a9f9666b89ec5e40519a2.stex" ]
+source_file="res://Entities/Player/spritesheets/drueson_overworld.png"
+dest_files=[ "res://.import/drueson_overworld.png-dcb12900cab6367a4b57b13e21c40e63.stex" ]
 
 [params]
 

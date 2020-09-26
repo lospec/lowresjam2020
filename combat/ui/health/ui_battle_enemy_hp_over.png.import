@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ui_battle_enemy_hp_over.png-28b310e8a7eae5627d1432efc4a0b67a.stex"
+path="res://.import/ui_battle_enemy_hp_over.png-1768cc83e4e6a41bfecb3cd759d18cd0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/ui/health/ui_battle_enemy_hp_over.png"
-dest_files=[ "res://.import/ui_battle_enemy_hp_over.png-28b310e8a7eae5627d1432efc4a0b67a.stex" ]
+source_file="res://Combat/UI/Health/ui_battle_enemy_hp_over.png"
+dest_files=[ "res://.import/ui_battle_enemy_hp_over.png-1768cc83e4e6a41bfecb3cd759d18cd0.stex" ]
 
 [params]
 

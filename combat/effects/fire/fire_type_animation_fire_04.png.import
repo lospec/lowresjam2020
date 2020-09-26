@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_type_animation_fire_04.png-c7f041cd07e88974e14462cfcd15e4f9.stex"
+path="res://.import/fire_type_animation_fire_04.png-f82ba7361b6db46b51faef808371b1f1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/effects/fire/fire_type_animation_fire_04.png"
-dest_files=[ "res://.import/fire_type_animation_fire_04.png-c7f041cd07e88974e14462cfcd15e4f9.stex" ]
+source_file="res://Combat/Effects/Fire/fire_type_animation_fire_04.png"
+dest_files=[ "res://.import/fire_type_animation_fire_04.png-f82ba7361b6db46b51faef808371b1f1.stex" ]
 
 [params]
 

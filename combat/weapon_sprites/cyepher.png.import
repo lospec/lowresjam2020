@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cyepher.png-aeafbdb4b29373cd4e1335b0ba86f77c.stex"
+path="res://.import/cyepher.png-926ee44ac80825e2a782239939a0d176.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/cyepher.png"
-dest_files=[ "res://.import/cyepher.png-aeafbdb4b29373cd4e1335b0ba86f77c.stex" ]
+source_file="res://Combat/weapon_sprites/cyepher.png"
+dest_files=[ "res://.import/cyepher.png-926ee44ac80825e2a782239939a0d176.stex" ]
 
 [params]
 

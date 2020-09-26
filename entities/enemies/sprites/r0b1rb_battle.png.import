@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/r0b1rb_battle.png-c63097d386c9aa412c957aa17b00a97e.stex"
+path="res://.import/r0b1rb_battle.png-2561dfaa72317374b442a311b149884f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/r0b1rb_battle.png"
-dest_files=[ "res://.import/r0b1rb_battle.png-c63097d386c9aa412c957aa17b00a97e.stex" ]
+source_file="res://Entities/enemies/sprites/r0b1rb_battle.png"
+dest_files=[ "res://.import/r0b1rb_battle.png-2561dfaa72317374b442a311b149884f.stex" ]
 
 [params]
 

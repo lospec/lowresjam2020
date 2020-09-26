@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/buttshroom_battle.png-9c1afe64d1857ddce346cd89f001a623.stex"
+path="res://.import/buttshroom_battle.png-3e2962da14e0b06fea2d56c8128fe794.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/buttshroom_battle.png"
-dest_files=[ "res://.import/buttshroom_battle.png-9c1afe64d1857ddce346cd89f001a623.stex" ]
+source_file="res://Entities/enemies/sprites/buttshroom_battle.png"
+dest_files=[ "res://.import/buttshroom_battle.png-3e2962da14e0b06fea2d56c8128fe794.stex" ]
 
 [params]
 

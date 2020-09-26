@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/alexia_overworld.png-bc27f533d6e028037153fe0ad095ee01.stex"
+path="res://.import/alexia_overworld.png-0efc477587aba8d5ade1cdb8fd45beea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/alexia_overworld.png"
-dest_files=[ "res://.import/alexia_overworld.png-bc27f533d6e028037153fe0ad095ee01.stex" ]
+source_file="res://Entities/Player/spritesheets/alexia_overworld.png"
+dest_files=[ "res://.import/alexia_overworld.png-0efc477587aba8d5ade1cdb8fd45beea.stex" ]
 
 [params]
 

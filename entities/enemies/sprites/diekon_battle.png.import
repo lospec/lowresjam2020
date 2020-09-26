@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/diekon_battle.png-e4d7dca8bf8685e249ec26ca499dab46.stex"
+path="res://.import/diekon_battle.png-e6a09fad36b30db1064aabdd7b0ca98f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/diekon_battle.png"
-dest_files=[ "res://.import/diekon_battle.png-e4d7dca8bf8685e249ec26ca499dab46.stex" ]
+source_file="res://Entities/enemies/sprites/diekon_battle.png"
+dest_files=[ "res://.import/diekon_battle.png-e6a09fad36b30db1064aabdd7b0ca98f.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/derek_overworld.png-2d910983047f9349be939f8428ca9e29.stex"
+path="res://.import/derek_overworld.png-e9eaa2471c7740fee40af4f755fc84e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/derek_overworld.png"
-dest_files=[ "res://.import/derek_overworld.png-2d910983047f9349be939f8428ca9e29.stex" ]
+source_file="res://Entities/Player/spritesheets/derek_overworld.png"
+dest_files=[ "res://.import/derek_overworld.png-e9eaa2471c7740fee40af4f755fc84e5.stex" ]
 
 [params]
 

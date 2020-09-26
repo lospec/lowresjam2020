@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sir chad_battle.png-4b046d7d1bc9127f1d9db69711c3605a.stex"
+path="res://.import/sir chad_battle.png-f65915c6be1e7688b4e6093f1f51e047.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/sir chad_battle.png"
-dest_files=[ "res://.import/sir chad_battle.png-4b046d7d1bc9127f1d9db69711c3605a.stex" ]
+source_file="res://Entities/enemies/sprites/sir chad_battle.png"
+dest_files=[ "res://.import/sir chad_battle.png-f65915c6be1e7688b4e6093f1f51e047.stex" ]
 
 [params]
 

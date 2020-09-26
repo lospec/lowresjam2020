@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pierce_attack_animation_pierce_5.png-bd5c6c301f571ce0b2e68565b553b093.stex"
+path="res://.import/pierce_attack_animation_pierce_5.png-1c49145676af94910bbb2500c343a50f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/effects/pierce/pierce_attack_animation_pierce_5.png"
-dest_files=[ "res://.import/pierce_attack_animation_pierce_5.png-bd5c6c301f571ce0b2e68565b553b093.stex" ]
+source_file="res://Combat/Effects/Pierce/pierce_attack_animation_pierce_5.png"
+dest_files=[ "res://.import/pierce_attack_animation_pierce_5.png-1c49145676af94910bbb2500c343a50f.stex" ]
 
 [params]
 

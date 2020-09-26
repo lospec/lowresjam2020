@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/emberwhip.png-67ab01cadac453d86ad6104669e84641.stex"
+path="res://.import/emberwhip.png-7d04e5760c189a87c5f8968f86fc12db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/emberwhip.png"
-dest_files=[ "res://.import/emberwhip.png-67ab01cadac453d86ad6104669e84641.stex" ]
+source_file="res://Combat/weapon_sprites/emberwhip.png"
+dest_files=[ "res://.import/emberwhip.png-7d04e5760c189a87c5f8968f86fc12db.stex" ]
 
 [params]
 

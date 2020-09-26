@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cliff_tiles_no_collider.png-ca0751f8ce5b1e048413601051ffd453.stex"
+path="res://.import/cliff_tiles_no_collider.png-0abb96c24b900d9e48955d60586a710d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world/tiles/cliff_tiles_no_collider.png"
-dest_files=[ "res://.import/cliff_tiles_no_collider.png-ca0751f8ce5b1e048413601051ffd453.stex" ]
+source_file="res://World/Tiles/cliff_tiles_no_collider.png"
+dest_files=[ "res://.import/cliff_tiles_no_collider.png-0abb96c24b900d9e48955d60586a710d.stex" ]
 
 [params]
 

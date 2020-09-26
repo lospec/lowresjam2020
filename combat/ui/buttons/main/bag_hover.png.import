@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bag_hover.png-d6ac158a4ff4719ba33d3967d3189b91.stex"
+path="res://.import/bag_hover.png-d3db672d8001ee0f004eac5157c13424.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/ui/buttons/main/bag_hover.png"
-dest_files=[ "res://.import/bag_hover.png-d6ac158a4ff4719ba33d3967d3189b91.stex" ]
+source_file="res://Combat/UI/Buttons/Main/bag_hover.png"
+dest_files=[ "res://.import/bag_hover.png-d3db672d8001ee0f004eac5157c13424.stex" ]
 
 [params]
 

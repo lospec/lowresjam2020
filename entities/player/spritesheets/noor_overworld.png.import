@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/noor_overworld.png-a2b07239bd049cdf4c68c7bedf33a9a0.stex"
+path="res://.import/noor_overworld.png-7db80e321be3ca509ed57ab432f34630.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/noor_overworld.png"
-dest_files=[ "res://.import/noor_overworld.png-a2b07239bd049cdf4c68c7bedf33a9a0.stex" ]
+source_file="res://Entities/Player/spritesheets/noor_overworld.png"
+dest_files=[ "res://.import/noor_overworld.png-7db80e321be3ca509ed57ab432f34630.stex" ]
 
 [params]
 

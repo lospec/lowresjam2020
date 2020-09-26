@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/buttshroom_overworld.png-dabc533796081145d2287c0a0902c404.stex"
+path="res://.import/buttshroom_overworld.png-51bb8938b7f4d0df7e85232a0c50772d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/buttshroom_overworld.png"
-dest_files=[ "res://.import/buttshroom_overworld.png-dabc533796081145d2287c0a0902c404.stex" ]
+source_file="res://Entities/enemies/sprites/buttshroom_overworld.png"
+dest_files=[ "res://.import/buttshroom_overworld.png-51bb8938b7f4d0df7e85232a0c50772d.stex" ]
 
 [params]
 

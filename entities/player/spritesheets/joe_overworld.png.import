@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/joe_overworld.png-a76c582e8bc0d9573062ae1166437788.stex"
+path="res://.import/joe_overworld.png-7ecdae87d8c92b9854deb43114d01cc0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/joe_overworld.png"
-dest_files=[ "res://.import/joe_overworld.png-a76c582e8bc0d9573062ae1166437788.stex" ]
+source_file="res://Entities/Player/spritesheets/joe_overworld.png"
+dest_files=[ "res://.import/joe_overworld.png-7ecdae87d8c92b9854deb43114d01cc0.stex" ]
 
 [params]
 

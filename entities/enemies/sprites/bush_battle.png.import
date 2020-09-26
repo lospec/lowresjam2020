@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bush_battle.png-8880a8530bc1aea5e5ccd244f19946e2.stex"
+path="res://.import/bush_battle.png-4e06bfb76ee9e99da62ba948e0bf206d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/bush_battle.png"
-dest_files=[ "res://.import/bush_battle.png-8880a8530bc1aea5e5ccd244f19946e2.stex" ]
+source_file="res://Entities/enemies/sprites/bush_battle.png"
+dest_files=[ "res://.import/bush_battle.png-4e06bfb76ee9e99da62ba948e0bf206d.stex" ]
 
 [params]
 

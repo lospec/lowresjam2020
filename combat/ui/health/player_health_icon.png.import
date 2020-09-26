@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_health_icon.png-a39f72bdbcb171b99a9e61a77f43e0fa.stex"
+path="res://.import/player_health_icon.png-b341404ee75bbc8f4284f70a0d6ef329.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/ui/health/player_health_icon.png"
-dest_files=[ "res://.import/player_health_icon.png-a39f72bdbcb171b99a9e61a77f43e0fa.stex" ]
+source_file="res://Combat/UI/Health/player_health_icon.png"
+dest_files=[ "res://.import/player_health_icon.png-b341404ee75bbc8f4284f70a0d6ef329.stex" ]
 
 [params]
 

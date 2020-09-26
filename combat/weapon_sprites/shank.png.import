@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shank.png-e52b614b7c92d403f7f66ea41aecb744.stex"
+path="res://.import/shank.png-c2288628b37bb0defcff4ff4501bb955.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/shank.png"
-dest_files=[ "res://.import/shank.png-e52b614b7c92d403f7f66ea41aecb744.stex" ]
+source_file="res://Combat/weapon_sprites/shank.png"
+dest_files=[ "res://.import/shank.png-c2288628b37bb0defcff4ff4501bb955.stex" ]
 
 [params]
 

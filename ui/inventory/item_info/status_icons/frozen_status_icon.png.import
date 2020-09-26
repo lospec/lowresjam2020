@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/frozen_status_icon.png-42e1800368433feda65efb70a641b3b6.stex"
+path="res://.import/frozen_status_icon.png-fa90520d66e1ef436e8b032123d226ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/inventory/item_info/status_icons/frozen_status_icon.png"
-dest_files=[ "res://.import/frozen_status_icon.png-42e1800368433feda65efb70a641b3b6.stex" ]
+source_file="res://UI/inventory/item_info/status_icons/frozen_status_icon.png"
+dest_files=[ "res://.import/frozen_status_icon.png-fa90520d66e1ef436e8b032123d226ef.stex" ]
 
 [params]
 

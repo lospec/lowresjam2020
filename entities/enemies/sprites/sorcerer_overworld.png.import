@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sorcerer_overworld.png-e66b8b19b2ea18f751dfaa04b2bae28c.stex"
+path="res://.import/sorcerer_overworld.png-e641ab195e310e6e90fbde751282ded0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/sorcerer_overworld.png"
-dest_files=[ "res://.import/sorcerer_overworld.png-e66b8b19b2ea18f751dfaa04b2bae28c.stex" ]
+source_file="res://Entities/enemies/sprites/sorcerer_overworld.png"
+dest_files=[ "res://.import/sorcerer_overworld.png-e641ab195e310e6e90fbde751282ded0.stex" ]
 
 [params]
 

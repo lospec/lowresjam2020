@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dev1t0_battle.png-b3d02e698b12e378f345ee3ad3dfd0b4.stex"
+path="res://.import/dev1t0_battle.png-35fb1e4e8d56268c53da8df9e54c2bba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/dev1t0_battle.png"
-dest_files=[ "res://.import/dev1t0_battle.png-b3d02e698b12e378f345ee3ad3dfd0b4.stex" ]
+source_file="res://Entities/enemies/sprites/dev1t0_battle.png"
+dest_files=[ "res://.import/dev1t0_battle.png-35fb1e4e8d56268c53da8df9e54c2bba.stex" ]
 
 [params]
 

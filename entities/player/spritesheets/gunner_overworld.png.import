@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gunner_overworld.png-acaf0c4055a1bc2bdf6d1f78598fb0fa.stex"
+path="res://.import/gunner_overworld.png-c1dd23aa8a1c9a81d26ab3e5d8a778c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/gunner_overworld.png"
-dest_files=[ "res://.import/gunner_overworld.png-acaf0c4055a1bc2bdf6d1f78598fb0fa.stex" ]
+source_file="res://Entities/Player/spritesheets/gunner_overworld.png"
+dest_files=[ "res://.import/gunner_overworld.png-c1dd23aa8a1c9a81d26ab3e5d8a778c0.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/leaflets_overworld.png-bdc0af1fc8b496baefa6baea39396f49.stex"
+path="res://.import/leaflets_overworld.png-541968ca28b1c8cf42c79636668da1ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/leaflets_overworld.png"
-dest_files=[ "res://.import/leaflets_overworld.png-bdc0af1fc8b496baefa6baea39396f49.stex" ]
+source_file="res://Entities/enemies/sprites/leaflets_overworld.png"
+dest_files=[ "res://.import/leaflets_overworld.png-541968ca28b1c8cf42c79636668da1ef.stex" ]
 
 [params]
 

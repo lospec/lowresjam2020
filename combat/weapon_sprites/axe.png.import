@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/axe.png-8c5e6417141b34a52a653231ed084a47.stex"
+path="res://.import/axe.png-3d9044be97bd9715fd9b1fa0092644d1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/axe.png"
-dest_files=[ "res://.import/axe.png-8c5e6417141b34a52a653231ed084a47.stex" ]
+source_file="res://Combat/weapon_sprites/axe.png"
+dest_files=[ "res://.import/axe.png-3d9044be97bd9715fd9b1fa0092644d1.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/robon_battle.png-fe3492bd3c0c06e00ce1f7992d1e6383.stex"
+path="res://.import/robon_battle.png-55c5725bb0afef049f18bbbf90c81ada.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/robon_battle.png"
-dest_files=[ "res://.import/robon_battle.png-fe3492bd3c0c06e00ce1f7992d1e6383.stex" ]
+source_file="res://Entities/enemies/sprites/robon_battle.png"
+dest_files=[ "res://.import/robon_battle.png-55c5725bb0afef049f18bbbf90c81ada.stex" ]
 
 [params]
 

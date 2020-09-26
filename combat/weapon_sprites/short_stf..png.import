@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/short_stf..png-b41d2a8eeed1b21d4c5b90fa6d6a1f2f.stex"
+path="res://.import/short_stf..png-b2b7639aceaa6a6ea061435b13a8f520.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/short_stf..png"
-dest_files=[ "res://.import/short_stf..png-b41d2a8eeed1b21d4c5b90fa6d6a1f2f.stex" ]
+source_file="res://Combat/weapon_sprites/short_stf..png"
+dest_files=[ "res://.import/short_stf..png-b2b7639aceaa6a6ea061435b13a8f520.stex" ]
 
 [params]
 

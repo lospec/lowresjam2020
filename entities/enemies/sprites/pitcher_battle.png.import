@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pitcher_battle.png-4f7d909ccb8676508302c786a6d244c8.stex"
+path="res://.import/pitcher_battle.png-8c3c6769d7e5a64834724457ac9c404e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/pitcher_battle.png"
-dest_files=[ "res://.import/pitcher_battle.png-4f7d909ccb8676508302c786a6d244c8.stex" ]
+source_file="res://Entities/enemies/sprites/pitcher_battle.png"
+dest_files=[ "res://.import/pitcher_battle.png-8c3c6769d7e5a64834724457ac9c404e.stex" ]
 
 [params]
 

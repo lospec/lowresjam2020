@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/matt_overworld.png-84730ec53d00a8747aab1854ef98bd22.stex"
+path="res://.import/matt_overworld.png-40f2a7782e66e02660bec7e9e6a49b18.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/matt_overworld.png"
-dest_files=[ "res://.import/matt_overworld.png-84730ec53d00a8747aab1854ef98bd22.stex" ]
+source_file="res://Entities/Player/spritesheets/matt_overworld.png"
+dest_files=[ "res://.import/matt_overworld.png-40f2a7782e66e02660bec7e9e6a49b18.stex" ]
 
 [params]
 

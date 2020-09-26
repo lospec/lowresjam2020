@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/twistywhip.png-2e1c27b22d88725523eb95c2d6793ce3.stex"
+path="res://.import/twistywhip.png-f5bb648568c9ce4cb5f23deb6c243799.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/weapon_sprites/twistywhip.png"
-dest_files=[ "res://.import/twistywhip.png-2e1c27b22d88725523eb95c2d6793ce3.stex" ]
+source_file="res://Combat/weapon_sprites/twistywhip.png"
+dest_files=[ "res://.import/twistywhip.png-f5bb648568c9ce4cb5f23deb6c243799.stex" ]
 
 [params]
 

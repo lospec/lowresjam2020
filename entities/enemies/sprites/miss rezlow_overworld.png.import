@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/miss rezlow_overworld.png-c5ac5ccca33c9f15a11d5d3809329fb2.stex"
+path="res://.import/miss rezlow_overworld.png-2cd62f8a2785a334d1b5572ced3f917d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/miss rezlow_overworld.png"
-dest_files=[ "res://.import/miss rezlow_overworld.png-c5ac5ccca33c9f15a11d5d3809329fb2.stex" ]
+source_file="res://Entities/enemies/sprites/miss rezlow_overworld.png"
+dest_files=[ "res://.import/miss rezlow_overworld.png-2cd62f8a2785a334d1b5572ced3f917d.stex" ]
 
 [params]
 

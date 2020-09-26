@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bandit_battle.png-b6cd8526b5eae12e8dcee833c5a7becb.stex"
+path="res://.import/bandit_battle.png-4309ebd66e5c0bd24aa7997ab24f798f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/bandit_battle.png"
-dest_files=[ "res://.import/bandit_battle.png-b6cd8526b5eae12e8dcee833c5a7becb.stex" ]
+source_file="res://Entities/enemies/sprites/bandit_battle.png"
+dest_files=[ "res://.import/bandit_battle.png-4309ebd66e5c0bd24aa7997ab24f798f.stex" ]
 
 [params]
 

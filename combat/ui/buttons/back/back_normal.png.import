@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back_normal.png-6d164ed369bd8ead1c42dfcb0394133e.stex"
+path="res://.import/back_normal.png-4114a8acdc4157f5d2e07db4ec0479b5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/ui/buttons/back/back_normal.png"
-dest_files=[ "res://.import/back_normal.png-6d164ed369bd8ead1c42dfcb0394133e.stex" ]
+source_file="res://Combat/UI/Buttons/Back/back_normal.png"
+dest_files=[ "res://.import/back_normal.png-4114a8acdc4157f5d2e07db4ec0479b5.stex" ]
 
 [params]
 

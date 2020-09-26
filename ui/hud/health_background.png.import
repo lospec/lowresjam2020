@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/health_background.png-3afb496fe095c3aadfa66a12885bfe84.stex"
+path="res://.import/health_background.png-964340c3895571705bb0d7e6185c7ca2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/health_background.png"
-dest_files=[ "res://.import/health_background.png-3afb496fe095c3aadfa66a12885bfe84.stex" ]
+source_file="res://UI/hud/health_background.png"
+dest_files=[ "res://.import/health_background.png-964340c3895571705bb0d7e6185c7ca2.stex" ]
 
 [params]
 

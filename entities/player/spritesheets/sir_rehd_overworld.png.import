@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sir_rehd_overworld.png-89fb896239ed7a1b1b11c66ef1ad4252.stex"
+path="res://.import/sir_rehd_overworld.png-3b36378db6c438bdf8b3da97a4184dde.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/sir_rehd_overworld.png"
-dest_files=[ "res://.import/sir_rehd_overworld.png-89fb896239ed7a1b1b11c66ef1ad4252.stex" ]
+source_file="res://Entities/Player/spritesheets/sir_rehd_overworld.png"
+dest_files=[ "res://.import/sir_rehd_overworld.png-3b36378db6c438bdf8b3da97a4184dde.stex" ]
 
 [params]
 

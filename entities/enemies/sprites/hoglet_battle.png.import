@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hoglet_battle.png-9d8530817ac2d028d6638af2e6f0d71d.stex"
+path="res://.import/hoglet_battle.png-cfc94ba2efba0988bf02ce0712b9749d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/hoglet_battle.png"
-dest_files=[ "res://.import/hoglet_battle.png-9d8530817ac2d028d6638af2e6f0d71d.stex" ]
+source_file="res://Entities/enemies/sprites/hoglet_battle.png"
+dest_files=[ "res://.import/hoglet_battle.png-cfc94ba2efba0988bf02ce0712b9749d.stex" ]
 
 [params]
 

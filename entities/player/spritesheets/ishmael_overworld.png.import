@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ishmael_overworld.png-4cd726df9b9cfd5e9d9ab25c41c2ff65.stex"
+path="res://.import/ishmael_overworld.png-fee98687d6537c4bd4e54150aebc9105.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/spritesheets/ishmael_overworld.png"
-dest_files=[ "res://.import/ishmael_overworld.png-4cd726df9b9cfd5e9d9ab25c41c2ff65.stex" ]
+source_file="res://Entities/Player/spritesheets/ishmael_overworld.png"
+dest_files=[ "res://.import/ishmael_overworld.png-fee98687d6537c4bd4e54150aebc9105.stex" ]
 
 [params]
 

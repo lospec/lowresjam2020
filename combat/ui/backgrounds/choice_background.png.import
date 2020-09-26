@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/choice_background.png-023c9b4f7a7f5e7d12353346a2fafc2d.stex"
+path="res://.import/choice_background.png-07ba1b97dcccb99b4b84b2b4441affdf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://combat/ui/backgrounds/choice_background.png"
-dest_files=[ "res://.import/choice_background.png-023c9b4f7a7f5e7d12353346a2fafc2d.stex" ]
+source_file="res://Combat/UI/Backgrounds/choice_background.png"
+dest_files=[ "res://.import/choice_background.png-07ba1b97dcccb99b4b84b2b4441affdf.stex" ]
 
 [params]
 

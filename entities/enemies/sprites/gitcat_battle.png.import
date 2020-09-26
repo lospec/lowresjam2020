@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gitcat_battle.png-ede2f512b34c07e42052337db6914b28.stex"
+path="res://.import/gitcat_battle.png-e82d2f42a56ff3611d483cf34a04330e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/sprites/gitcat_battle.png"
-dest_files=[ "res://.import/gitcat_battle.png-ede2f512b34c07e42052337db6914b28.stex" ]
+source_file="res://Entities/enemies/sprites/gitcat_battle.png"
+dest_files=[ "res://.import/gitcat_battle.png-e82d2f42a56ff3611d483cf34a04330e.stex" ]
 
 [params]
 
