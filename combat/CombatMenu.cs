@@ -46,6 +46,7 @@ namespace HeroesGuild.Combat
 
         public override void _Ready()
         {
+            base._Ready();
             _buttons =
                 GetNode<MarginContainer>("VBoxContainer/PlayerHUD/ChoiceHUD/Buttons");
             _mainButtonsMenu =

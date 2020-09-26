@@ -43,6 +43,8 @@
     <Compile Include="combat\CombatTurnResultUI.cs" />
     <Compile Include="combat\DamageLabel.cs" />
     <Compile Include="combat\Effects\animations\AnimationList.cs" />
+    <Compile Include="combat\Effects\IShakable.cs" />
+    <Compile Include="combat\Effects\ShakeEffect.cs" />
     <Compile Include="combat\EnemyCombat.cs" />
     <Compile Include="combat\HealthIcon.cs" />
     <Compile Include="combat\PlayerCombat.cs" />
