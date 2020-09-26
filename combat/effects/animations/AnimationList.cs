@@ -7,6 +7,11 @@ namespace HeroesGuild.Combat.Effects.Animations
 {
     public class AnimationList : Node
     {
+        private const string AttackAnimationPath =
+            "res://combat/effects/animations/attack_animation_{0}.tres";
+        private const string CounterAnimationPath =
+            "res://combat/effects/animations/counter_animation.tres";
+        
         private readonly Dictionary<string, AnimatedTexture> _attackAnimations =
             new Dictionary<string, AnimatedTexture>();
 
@@ -18,8 +23,7 @@ namespace HeroesGuild.Combat.Effects.Animations
                 typeof(WeaponUtil.DamageType)))
             {
                 var name = WeaponUtil.GetDamageTypeName(type).ToLower();
-                var path =
-                    $"res://combat/effects/animations/attack_animation_{name}.tres";
+                var path = string.Format(AttackAnimationPath, name);
                 if (file.FileExists(path))
                 {
                     _attackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
@@ -27,8 +31,7 @@ namespace HeroesGuild.Combat.Effects.Animations
             }
 
             _attackAnimations.Add("counter",
-                GD.Load<AnimatedTexture>(
-                    "res://Combat/Effects/animations/counter_animation.tres"));
+                GD.Load<AnimatedTexture>(CounterAnimationPath));
         }
 
         public AnimatedTexture GetAnimation(WeaponUtil.DamageType type)
