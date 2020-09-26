@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/heroes_guild_wildleoknight_take2.wav-5212eec7f2baf8be3419bb5909ce224f.sample"
+
+[deps]
+
+source_file="res://sfx/heroes_guild_wildleoknight_take2.wav"
+dest_files=[ "res://.import/heroes_guild_wildleoknight_take2.wav-5212eec7f2baf8be3419bb5909ce224f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -4,8 +4,7 @@ using Godot;
 using Newtonsoft.Json;
 using File = Godot.File;
 
-
-namespace HeroesGuild.data
+namespace HeroesGuild.Data
 {
     public class Data : Node
     {
@@ -17,8 +16,8 @@ namespace HeroesGuild.data
         public Dictionary<string, EnemyRecord> enemyData = new Dictionary<string, EnemyRecord>();
         public Dictionary<string, CharacterRecord> characterData = new Dictionary<string, CharacterRecord>();
 
-        private int _minSpeedStat = int.MinValue;
-        private int _maxSpeedStat = int.MaxValue;
+        private int _minSpeedStat = int.MaxValue;
+        private int _maxSpeedStat = int.MinValue;
         private bool _speedStatRead = false;
 
         public override void _Ready()

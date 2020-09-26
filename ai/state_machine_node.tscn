@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ai/StateMachine.cs" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[node name="StateMachine" type="Node2D"]
+script = ExtResource( 1 )
+active = true
+
+[node name="CircleArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CircleArea2D"]
+shape = SubResource( 1 )

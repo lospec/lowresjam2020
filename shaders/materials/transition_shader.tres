@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://shaders/transition.shader" type="Shader" id=1]
+[ext_resource path="res://transitions/shrinking_circle.png" type="Texture" id=2]
+[ext_resource path="res://shaders/textures/bayer16tile4_64.png" type="Texture" id=3]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/transition_time = 0.0
+shader_param/transition_feather = 0.457
+shader_param/transition_col = Color( 0, 0, 0, 1 )
+shader_param/transition_invert_mask = false
+shader_param/transition_invert_time = false
+shader_param/transition_flip_x = false
+shader_param/transition_flip_y = false
+shader_param/transition_dither = true
+shader_param/mask_tex = ExtResource( 2 )
+shader_param/dither_tex = ExtResource( 3 )

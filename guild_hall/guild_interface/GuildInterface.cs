@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using HeroesGuild.data;
+using HeroesGuild.Data;
 using HeroesGuild.Entities.Player;
-using HeroesGuild.UI.inventory;
+using HeroesGuild.UI.Inventory;
 using HeroesGuild.Utility;
 using Array = Godot.Collections.Array;
 
-namespace HeroesGuild.guild_hall.guild_interface
+namespace HeroesGuild.GuildHall.GuildInterface
 {
     public class GuildInterface : CanvasLayer
     {
@@ -317,7 +317,7 @@ namespace HeroesGuild.guild_hall.guild_interface
             }
 
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
             var itemSellValue = itemRecord.sellValue;
             var itemPriceLabel =
                 _itemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
@@ -345,7 +345,7 @@ namespace HeroesGuild.guild_hall.guild_interface
         private void SellItem(InventoryItem item)
         {
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
             var itemSellValue = itemRecord.sellValue;
             _playerInstance.Inventory.Remove(itemName);
             _playerInstance.Coins += itemSellValue;
@@ -380,18 +380,29 @@ namespace HeroesGuild.guild_hall.guild_interface
                 return;
             }
 
-            _playerInstance.Coins = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
+            var newCoinsAmount = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
+
             var saveData = Autoload.Get<SaveData>();
+            saveData.CoinsDeposited += _playerInstance.Coins - newCoinsAmount;
+            _playerInstance.Coins = newCoinsAmount;
+
             var totalCoinsForNextLevel = saveData.GuildLevel * 250;
             _depositProgressBar.MaxValue = totalCoinsForNextLevel;
-            saveData.CoinsDeposited += depositAmount;
+
+            var levelledUp = false;
             while (saveData.CoinsDeposited > totalCoinsForNextLevel)
             {
                 saveData.CoinsDeposited -= totalCoinsForNextLevel;
                 saveData.GuildLevel += 1;
+                levelledUp = true;
+                totalCoinsForNextLevel = saveData.GuildLevel * 250;
             }
-            
-            EmitSignal(nameof(GuildHallLevelUp));
+
+            if (levelledUp)
+            {
+                EmitSignal(nameof(GuildHallLevelUp));
+            }
+
             UpdateCoins();
             UpdateGuildLevel();
             UpdateProgressBarInstantly();
@@ -429,7 +440,7 @@ namespace HeroesGuild.guild_hall.guild_interface
             }
 
             var saveData = Autoload.Get<SaveData>();
-            var buyableItems = (from pair in Autoload.Get<Data>().itemData
+            var buyableItems = (from pair in Autoload.Get<Data.Data>().itemData
                 let itemRecord = pair.Value
                 where itemRecord.buyValue > 0 && itemRecord.buyValue <=
                     saveData.GuildLevel * MAX_MARKET_PRICE_LEVEL_MULTIPLIER
@@ -466,7 +477,7 @@ namespace HeroesGuild.guild_hall.guild_interface
             }
 
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
             var itemPriceLabel =
                 _marketItemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
             itemPriceLabel.Text = $"{itemRecord.buyValue}:c";
@@ -491,7 +502,7 @@ namespace HeroesGuild.guild_hall.guild_interface
         private bool BuyItem(InventoryItem item)
         {
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
             if (_playerInstance.Coins < itemRecord.buyValue)
             {
                 return false;

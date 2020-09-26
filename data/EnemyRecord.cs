@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HeroesGuild.data
+namespace HeroesGuild.Data
 {
     public struct EnemyRecord : IDataRecord
     {
