@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HeroesGuild.Data
+namespace HeroesGuild.data
 {
     public struct EnemyRecord : IDataRecord
     {
@@ -30,7 +30,7 @@ namespace HeroesGuild.Data
 
         [JsonProperty("item_drop_2_chance")]
         public float ItemDrop2Chance { get; set; }
-        
+
         [JsonProperty("item_drop_3")]
         public string ItemDrop3 { get; set; }
 

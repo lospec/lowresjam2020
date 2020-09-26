@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.AI.Conditions
+namespace HeroesGuild.ai.conditions
 {
     public class AI_Condition_TargetInRange : AI_State_Condition
     {
@@ -8,10 +8,7 @@ namespace HeroesGuild.AI.Conditions
 
         public override bool Evaluate(StateMachine stateMachine)
         {
-            if (stateMachine.Target == null)
-            {
-                return false;
-            }
+            if (stateMachine.Target == null) return false;
 
             return stateMachine.DistanceToTarget < maxRange;
         }

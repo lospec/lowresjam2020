@@ -1,38 +1,39 @@
 using System.Collections.Generic;
 using Godot;
-using HeroesGuild.Utility;
+using HeroesGuild.entities.base_entity;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.Entities.Player
+namespace HeroesGuild.entities.player
 {
-    public class Player : BaseEntity.BaseEntity
+    public class Player : BaseEntity
     {
-        private const string OverWorldSprite =
-            "res://entities/player/spritesheets/{0}_overworld.png";
+        [Signal] public delegate void EnemyDetected(BaseEntity player,
+            BaseEntity enemy);
 
-        [Signal] public delegate void EnemyDetected(BaseEntity.BaseEntity player,
-            BaseEntity.BaseEntity enemy);
+        [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
 
         [Signal] public delegate void InventoryButtonPressed(
-            BaseEntity.BaseEntity player);
+            BaseEntity player);
 
         [Signal] public delegate void OpenChestInputReceived(Node2D chest);
-        
-        [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
+
+        private const string OverWorldSprite =
+            "res://entities/player/spritesheets/{0}_overworld.png";
+        private Area2D _chestDetector;
+        private Area2D _collisionDetector;
+        private Area2D _deskDetector;
+        private Label _hudHealthLabel;
+
+        public Node2D birdsSystem;
+        public Camera2D camera;
+        public Node2D cloudsSystem;
+
+        public MarginContainer hudMargin;
 
         public int Coins { get; set; }
         public List<string> Inventory { get; set; } = new List<string>();
         public string EquippedWeapon { get; set; }
         public string EquippedArmor { get; set; }
-
-        public MarginContainer hudMargin;
-        private Label _hudHealthLabel;
-        private Area2D _chestDetector;
-        private Area2D _deskDetector;
-        public Camera2D camera;
-        private Area2D _collisionDetector;
-
-        public Node2D birdsSystem;
-        public Node2D cloudsSystem;
 
         public override void _Ready()
         {
@@ -97,9 +98,7 @@ namespace HeroesGuild.Entities.Player
         private void OnEntityDetector_BodyEntered(Node body)
         {
             if (body.IsInGroup("enemies"))
-            {
                 EmitSignal(nameof(EnemyDetected), this, body);
-            }
         }
 
         private void OnInventory_Pressed()
@@ -133,10 +132,7 @@ namespace HeroesGuild.Entities.Player
             if (Input.IsActionJustPressed("guild_hall_desk_interact"))
             {
                 var desks = _deskDetector.GetOverlappingBodies();
-                if (desks.Count == 0)
-                {
-                    return;
-                }
+                if (desks.Count == 0) return;
 
                 var desk = desks[0];
                 EmitSignal(nameof(GuildHallDeskInputReceived), desk);

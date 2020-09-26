@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HeroesGuild.Data
+namespace HeroesGuild.data
 {
     public struct ItemRecord : IDataRecord
     {
@@ -54,7 +54,7 @@ namespace HeroesGuild.Data
 
         [JsonProperty("usable")]
         public bool usable;
-        
+
         [JsonProperty("health_gained")]
         public int healthGained;
     }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class CombatAnimationUtil
     {
@@ -15,12 +15,13 @@ namespace HeroesGuild.Combat
         public const float BattleTextureWidth = 32f;
         public const float BattleTextureHeight = 32f;
 
-        public static readonly Dictionary<AnimationState, float> AnimationStateRegionPositionX =
-            new Dictionary<AnimationState, float>
-            {
-                {AnimationState.Normal, 0f},
-                {AnimationState.EyesClosed, 32f},
-                {AnimationState.Hurt, 64f}
-            };
+        public static readonly Dictionary<AnimationState, float>
+            AnimationStateRegionPositionX =
+                new Dictionary<AnimationState, float>
+                {
+                    {AnimationState.Normal, 0f},
+                    {AnimationState.EyesClosed, 32f},
+                    {AnimationState.Hurt, 64f}
+                };
     }
 }

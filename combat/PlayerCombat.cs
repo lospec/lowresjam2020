@@ -2,18 +2,16 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Data;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.Utility;
+using HeroesGuild.data;
+using HeroesGuild.entities.player;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class PlayerCombat : CombatChar
     {
-        [Signal] private delegate void ActionChosen(CombatUtil.CombatAction action);
-
         private new Player CharacterInstance => (Player) base.CharacterInstance;
-        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data.Data>()
+        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
             .itemData[CharacterInstance.EquippedWeapon];
 
         public override int GetBaseDamage(CombatUtil.CombatAction action)
@@ -70,9 +68,7 @@ namespace HeroesGuild.Combat
         {
             if (new[] {"Confused", "Asleep", "Frozen"}
                 .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
-            {
                 return CombatUtil.CombatAction.None;
-            }
 
             var action = await ToSignal(this, nameof(ActionChosen));
             return (CombatUtil.CombatAction) action.Single();
@@ -82,5 +78,7 @@ namespace HeroesGuild.Combat
         {
             EmitSignal(nameof(ActionChosen), action);
         }
+
+        [Signal] private delegate void ActionChosen(CombatUtil.CombatAction action);
     }
 }

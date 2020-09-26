@@ -1,49 +1,46 @@
 using Godot;
 
-namespace HeroesGuild.UI.CharacterSelection
+namespace HeroesGuild.ui.character_selection
 {
-	public class Character : MarginContainer
-	{
-		private const string OverworldSpriteSheetPath =
-			"res://Entities/Player/spritesheets/{0}_overworld.png";
-		
-		public string characterName;
+    public class Character : MarginContainer
+    {
+        private const string OverworldSpriteSheetPath =
+            "res://Entities/Player/spritesheets/{0}_overworld.png";
+        private TextureRect _hoverTextureRect;
 
-		public TextureButton characterButton;
-		private TextureRect _hoverTextureRect;
+        public TextureButton characterButton;
 
-		public override void _Ready()
-		{
-			characterButton = GetNode<TextureButton>("Character");
-			_hoverTextureRect = GetNode<TextureRect>("Control/Hover");
-		}
+        public string characterName;
 
-		public bool UpdateCharacter()
-		{
-			var tex = new AtlasTexture
-			{
-				Atlas = GD.Load<Texture>(string.Format(OverworldSpriteSheetPath,
-					characterName.Replace(" ", "_").ToLower()))
-			};
+        public override void _Ready()
+        {
+            characterButton = GetNode<TextureButton>("Character");
+            _hoverTextureRect = GetNode<TextureRect>("Control/Hover");
+        }
 
-			if (tex.Atlas == null)
-			{
-				return false;
-			}
+        public bool UpdateCharacter()
+        {
+            var tex = new AtlasTexture
+            {
+                Atlas = GD.Load<Texture>(string.Format(OverworldSpriteSheetPath,
+                    characterName.Replace(" ", "_").ToLower()))
+            };
 
-			tex.Region = new Rect2(0, 0, 8, 12);
-			characterButton.TextureNormal = tex;
-			return true;
-		}
+            if (tex.Atlas == null) return false;
 
-		private void OnCharacter_MouseEntered()
-		{
-			_hoverTextureRect.Visible = true;
-		}
+            tex.Region = new Rect2(0, 0, 8, 12);
+            characterButton.TextureNormal = tex;
+            return true;
+        }
 
-		private void OnCharacter_MouseExited()
-		{
-			_hoverTextureRect.Visible = false;
-		}
-	}
+        private void OnCharacter_MouseEntered()
+        {
+            _hoverTextureRect.Visible = true;
+        }
+
+        private void OnCharacter_MouseExited()
+        {
+            _hoverTextureRect.Visible = false;
+        }
+    }
 }

@@ -1,27 +1,15 @@
 using System.Linq;
 using Godot;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.GuildHall.Chest;
-using HeroesGuild.GuildHall.GuildInterface;
-using HeroesGuild.UI.PauseMenu;
-using HeroesGuild.Utility;
+using HeroesGuild.entities.player;
+using HeroesGuild.guild_hall.chest;
+using HeroesGuild.guild_hall.guild_interface;
+using HeroesGuild.ui.pause_menu;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.GuildHall
+namespace HeroesGuild.guild_hall
 {
     public class GuildHall : Node
     {
-        private static readonly PackedScene ChestResource = ResourceLoader
-            .Load<PackedScene>("res://guild_hall/chest/chest.tscn");
-
-        private const string WorldScenePath = "res://world/world.tscn";
-
-        private const int CHEST_GAP_X = 10;
-        private const int CHEST_GAP_Y = 0;
-        private const int TOP_POS_Y = -8;
-        private const int BOTTOM_POS_Y = 6;
-        private const int BLACK_TILES_POS_Y = 7;
-        private const int PLANK_START_POS_Y = -2;
-
         public enum Tiles
         {
             Empty = -1,
@@ -32,17 +20,28 @@ namespace HeroesGuild.GuildHall
             Wall
         }
 
-        public Chest.Chest currentOpenedChest = null;
-        public bool guildInterfaceOpen = false;
+        private const string WorldScenePath = "res://world/world.tscn";
+
+        private const int CHEST_GAP_X = 10;
+        private const int CHEST_GAP_Y = 0;
+        private const int TOP_POS_Y = -8;
+        private const int BOTTOM_POS_Y = 6;
+        private const int BLACK_TILES_POS_Y = 7;
+        private const int PLANK_START_POS_Y = -2;
+        private static readonly PackedScene ChestResource = ResourceLoader
+            .Load<PackedScene>("res://guild_hall/chest/chest.tscn");
 
         private ChestGUI _chestGUI;
-        private YSort _objectsYSort;
-        private Player _player;
-        private PauseMenu _pauseMenu;
-        private GuildInterface.GuildInterface _guildInterface;
         private TileMap _extendedTileMap;
         private Vector2 _firstChestPosition;
+        private GuildInterface _guildInterface;
+        private YSort _objectsYSort;
+        private PauseMenu _pauseMenu;
+        private Player _player;
         private CollisionShape2D _rightBorder;
+
+        public Chest currentOpenedChest = null;
+        public bool guildInterfaceOpen = false;
 
         public override void _Ready()
         {
@@ -50,7 +49,7 @@ namespace HeroesGuild.GuildHall
             _objectsYSort = GetNode<YSort>("Objects");
             _player = _objectsYSort.GetNode<Player>("Player");
             _pauseMenu = GetNode<PauseMenu>("PauseMenu");
-            _guildInterface = GetNode<GuildInterface.GuildInterface>("GuildInterface");
+            _guildInterface = GetNode<GuildInterface>("GuildInterface");
             _extendedTileMap = GetNode<TileMap>("Extended");
             _firstChestPosition = GetNode<Position2D>("FirstChestPosition").Position;
             _rightBorder = GetNode<CollisionShape2D>("Borders/Right");
@@ -63,7 +62,7 @@ namespace HeroesGuild.GuildHall
         {
             if (!body.IsInGroup("enemies"))
             {
-                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen,  -30);
+                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, -30);
                 await Autoload.Get<Transitions>().ChangeSceneDoubleTransition
                 (WorldScenePath,
                     new Transitions.TransitionParams(
@@ -71,14 +70,11 @@ namespace HeroesGuild.GuildHall
             }
         }
 
-        private async void OnPlayerOpenChest_InputReceived(Chest.Chest chest)
+        private async void OnPlayerOpenChest_InputReceived(Chest chest)
         {
-            if (currentOpenedChest != null || chest.animatedSprite.Playing)
-            {
-                return;
-            }
+            if (currentOpenedChest != null || chest.animatedSprite.Playing) return;
 
-            AudioSystem.PlaySFX(AudioSystem.SFX.ChestOpen,  -25);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ChestOpen, -25);
             chest.animatedSprite.Play("open");
             await ToSignal(chest.animatedSprite, "animation_finished");
             chest.animatedSprite.Stop();
@@ -126,41 +122,33 @@ namespace HeroesGuild.GuildHall
         private void UpdateGuildFromLevel()
         {
             foreach (Vector2 tile in _extendedTileMap.GetUsedCells())
-            {
                 _extendedTileMap.SetCellv(tile, (int) Tiles.Empty);
-            }
 
             foreach (Node chest in GetTree().GetNodesInGroup("Chest"))
-            {
                 chest.QueueFree();
-            }
 
             var saveData = Autoload.Get<SaveData>();
             for (var i = 0; i < saveData.GuildLevel; i++)
             {
                 if (i >= saveData.ChestContent.Count)
-                {
                     saveData.ChestContent.Add(Enumerable.Range(0, 8)
                         .ToDictionary(key => key, _ => string.Empty));
-                }
 
                 var position = _firstChestPosition +
                                new Vector2(CHEST_GAP_X * i, CHEST_GAP_Y * i);
-                var chestInstance = (Chest.Chest) ChestResource.Instance();
+                var chestInstance = (Chest) ChestResource.Instance();
                 chestInstance.Position = position;
                 chestInstance.chestID = i;
                 _objectsYSort.AddChild(chestInstance);
 
                 var x = i;
                 _extendedTileMap.SetCell(x, BLACK_TILES_POS_Y, (int) Tiles.Black);
-                for (int y = TOP_POS_Y; y < BOTTOM_POS_Y + 1; y++)
+                for (var y = TOP_POS_Y; y < BOTTOM_POS_Y + 1; y++)
                 {
                     x = y % 2 == 0 ? i + 1 : i;
                     var tile = Tiles.Wall;
                     if (y >= PLANK_START_POS_Y)
-                    {
                         tile = y % 2 == 0 ? Tiles.PlankEven : Tiles.PlankOdd;
-                    }
 
                     _extendedTileMap.SetCell(x, y, (int) tile);
                 }

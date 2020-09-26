@@ -1,7 +1,7 @@
 using Godot;
-using HeroesGuild.Utility;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.UI.PauseMenu
+namespace HeroesGuild.ui.pause_menu
 {
     public class SettingsMargin : MarginContainer
     {
@@ -10,12 +10,14 @@ namespace HeroesGuild.UI.PauseMenu
 
         private void OnMusicVolume_VolumeValueUpdated(float newVolume)
         {
-            AudioSystem.MusicVolume = GD.Linear2Db(newVolume / VOLUME_DIVISOR) - _volumeSubtracted;
+            AudioSystem.MusicVolume =
+                GD.Linear2Db(newVolume / VOLUME_DIVISOR) - _volumeSubtracted;
         }
 
         private void OnSFXVolume_VolumeValueUpdated(float newVolume)
         {
-            AudioSystem.SFXVolume = GD.Linear2Db(newVolume / VOLUME_DIVISOR) - _volumeSubtracted;
+            AudioSystem.SFXVolume =
+                GD.Linear2Db(newVolume / VOLUME_DIVISOR) - _volumeSubtracted;
         }
     }
 }

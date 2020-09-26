@@ -1,13 +1,13 @@
 using Godot;
-using HeroesGuild.Combat;
+using HeroesGuild.combat;
 
-namespace HeroesGuild.StatusEffects
+namespace HeroesGuild.status_effects
 {
     public abstract class StatusEffect : Resource
     {
-        public string statusEffectName = "none";
         public bool expired = false;
         public bool initialized = false;
+        public string statusEffectName = "none";
 
         public abstract void OnTurnEnd(CombatChar combatChar);
     }

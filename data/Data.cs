@@ -2,23 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Newtonsoft.Json;
-using File = Godot.File;
 
-namespace HeroesGuild.Data
+namespace HeroesGuild.data
 {
     public class Data : Node
     {
         private const string ITEM_DATA_PATH = "res://data/item_data.json";
         private const string ENEMY_DATA_PATH = "res://data/enemy_data.json";
         private const string CHARACTER_DATA_PATH = "res://data/character_data.json";
-
-        public Dictionary<string, ItemRecord> itemData = new Dictionary<string, ItemRecord>();
-        public Dictionary<string, EnemyRecord> enemyData = new Dictionary<string, EnemyRecord>();
-        public Dictionary<string, CharacterRecord> characterData = new Dictionary<string, CharacterRecord>();
+        private int _maxSpeedStat = int.MinValue;
 
         private int _minSpeedStat = int.MaxValue;
-        private int _maxSpeedStat = int.MinValue;
         private bool _speedStatRead = false;
+        public Dictionary<string, CharacterRecord> characterData =
+            new Dictionary<string, CharacterRecord>();
+        public Dictionary<string, EnemyRecord> enemyData =
+            new Dictionary<string, EnemyRecord>();
+
+        public Dictionary<string, ItemRecord> itemData =
+            new Dictionary<string, ItemRecord>();
 
         public override void _Ready()
         {
@@ -30,10 +32,7 @@ namespace HeroesGuild.Data
 
         public float GetLerpedSpeedStat(int speedStat, float minSpeed, float maxSpeed)
         {
-            if (!_speedStatRead)
-            {
-                SetMinMaxSpeedStat();
-            }
+            if (!_speedStatRead) SetMinMaxSpeedStat();
 
             return Mathf.Lerp(minSpeed, maxSpeed,
                 (float) (speedStat - _minSpeedStat) / (_maxSpeedStat - _minSpeedStat));
@@ -41,17 +40,12 @@ namespace HeroesGuild.Data
 
         private void SetMinMaxSpeedStat()
         {
-            foreach (var speed in enemyData.Values.Select(enemyRecord => enemyRecord.MoveSpeed))
+            foreach (var speed in enemyData.Values.Select(enemyRecord =>
+                enemyRecord.MoveSpeed))
             {
-                if (speed < _minSpeedStat)
-                {
-                    _minSpeedStat = speed;
-                }
+                if (speed < _minSpeedStat) _minSpeedStat = speed;
 
-                if (speed > _maxSpeedStat)
-                {
-                    _maxSpeedStat = speed;
-                }
+                if (speed > _maxSpeedStat) _maxSpeedStat = speed;
 
                 _speedStatRead = true;
             }

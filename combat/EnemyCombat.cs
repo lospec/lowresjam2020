@@ -2,23 +2,25 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Entities.Enemies.BaseEnemy;
+using HeroesGuild.entities.enemies.base_enemy;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class EnemyCombat : CombatChar
     {
-        private new BaseEnemy CharacterInstance => (BaseEnemy) base.CharacterInstance;
         private int _poolIndex = 0;
+        private new BaseEnemy CharacterInstance => (BaseEnemy) base.CharacterInstance;
 
         private static CombatUtil.CombatAction PoolCharToAction(char combatActionChar)
-            => combatActionChar switch
+        {
+            return combatActionChar switch
             {
                 'q' => CombatUtil.CombatAction.Quick,
                 'c' => CombatUtil.CombatAction.Counter,
                 'h' => CombatUtil.CombatAction.Heavy,
                 _ => CombatUtil.CombatAction.Invalid
             };
+        }
 
         public override int GetBaseDamage(CombatUtil.CombatAction action)
         {
@@ -29,12 +31,13 @@ namespace HeroesGuild.Combat
                 CombatUtil.CombatAction.Heavy => CharacterInstance.Stat.HeavyDamage,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            damage *= (1 + CombatUtil.MULTIPLIER_PER_COMBO * hitCombo);
+            damage *= 1 + CombatUtil.MULTIPLIER_PER_COMBO * hitCombo;
             return damage;
         }
 
-        protected override float GetEffectChance(CombatUtil.CombatAction action) =>
-            action switch
+        protected override float GetEffectChance(CombatUtil.CombatAction action)
+        {
+            return action switch
             {
                 CombatUtil.CombatAction.Quick => CharacterInstance.Stat
                     .QuickEffectChance,
@@ -44,9 +47,11 @@ namespace HeroesGuild.Combat
                     .HeavyEffectChance,
                 _ => 0f
             };
+        }
 
-        protected override string GetStatusEffect(CombatUtil.CombatAction action) =>
-            action switch
+        protected override string GetStatusEffect(CombatUtil.CombatAction action)
+        {
+            return action switch
             {
                 CombatUtil.CombatAction.Quick => CharacterInstance.Stat
                     .QuickStatusEffect,
@@ -56,6 +61,7 @@ namespace HeroesGuild.Combat
                     .HeavyStatusEffect,
                 _ => "none"
             };
+        }
 
         public override string GetDamageType(CombatUtil.CombatAction action)
         {
@@ -83,9 +89,7 @@ namespace HeroesGuild.Combat
             await Task.Delay(0);
             if (new[] {"Confused", "Asleep", "Frozen"}
                 .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
-            {
                 return CombatUtil.CombatAction.None;
-            }
 
             if (!string.IsNullOrWhiteSpace(CharacterInstance.Stat.AttackPool))
             {

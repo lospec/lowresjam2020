@@ -1,23 +1,20 @@
-using HeroesGuild.Combat;
+using HeroesGuild.combat;
 
-namespace HeroesGuild.StatusEffects.Effects
+namespace HeroesGuild.status_effects.effects
 {
     public class Frozen : StatusEffect
     {
-        public int Duration { get; private set; } = 4;
-
         public Frozen()
         {
             statusEffectName = "Frozen";
         }
 
+        public int Duration { get; private set; } = 4;
+
         public override void OnTurnEnd(CombatChar combatChar)
         {
             Duration -= 1;
-            if (Duration <= 0)
-            {
-                expired = true;
-            }
+            if (Duration <= 0) expired = true;
         }
     }
 }

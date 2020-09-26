@@ -1,14 +1,15 @@
 using System.Linq;
 using Godot;
-using HeroesGuild.Entities.BaseEntity;
+using HeroesGuild.entities.base_entity;
 
-namespace HeroesGuild.AI.Actions
+namespace HeroesGuild.ai.actions
 {
     public class AI_Action_SearchForPlayer : AI_State_Action
     {
         [Export] public float searchRange = 1f;
 
-        public override void Perform(StateMachine stateMachine, float delta, ref bool interrupt)
+        public override void Perform(StateMachine stateMachine, float delta,
+            ref bool interrupt)
         {
             // TODO: Default might not be null here
             var target =

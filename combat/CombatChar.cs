@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Data;
-using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.Enemies.BaseEnemy;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.Utility;
+using HeroesGuild.data;
+using HeroesGuild.entities.base_entity;
+using HeroesGuild.entities.enemies.base_enemy;
+using HeroesGuild.entities.player;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public abstract class CombatChar : Node
     {
@@ -39,12 +39,12 @@ namespace HeroesGuild.Combat
             switch (CharacterInstance)
             {
                 case Player _:
-                    AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt,  -30);
+                    AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt, -30);
                     break;
                 case BaseEnemy enemy:
                 {
                     var enemyRecord =
-                        Autoload.Get<Data.Data>().enemyData[enemy.enemyName];
+                        Autoload.Get<Data>().enemyData[enemy.enemyName];
 
                     AudioSystem.SFX sfx;
                     switch (enemyRecord.Race)
@@ -72,7 +72,7 @@ namespace HeroesGuild.Combat
                             return;
                     }
 
-                    AudioSystem.PlaySFX(sfx,  -30f);
+                    AudioSystem.PlaySFX(sfx, -30f);
                     break;
                 }
             }
@@ -103,7 +103,7 @@ namespace HeroesGuild.Combat
             if (GD.Randf() < statusEffectChance)
             {
                 target.CharacterInstance.AddStatusEffect(statusEffect);
-                AudioSystem.SFX sfx = statusEffect switch
+                var sfx = statusEffect switch
                 {
                     "Charged" => AudioSystem.SFX.ChargedStatus,
                     "Confusion" => AudioSystem.SFX.ConfusionStatus,
@@ -114,7 +114,7 @@ namespace HeroesGuild.Combat
                     _ => throw new ArgumentOutOfRangeException()
                 };
 
-                AudioSystem.PlaySFX(sfx,  -30);
+                AudioSystem.PlaySFX(sfx, -30);
                 if (enemy != null)
                 {
                     GD.Print($"Applied {statusEffect} to {enemy.enemyName}");

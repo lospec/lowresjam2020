@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class CombatAttackAnim : TextureRect
     {
@@ -11,10 +11,7 @@ namespace HeroesGuild.Combat
             float minDuration = 0f)
         {
             SceneTreeTimer timer = null;
-            if (minDuration > 0)
-            {
-                timer = GetTree().CreateTimer(minDuration);
-            }
+            if (minDuration > 0) timer = GetTree().CreateTimer(minDuration);
 
             Texture = texture;
             ((AnimatedTexture) Texture).CurrentFrame = 0;

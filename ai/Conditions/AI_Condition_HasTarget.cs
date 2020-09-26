@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.AI.Conditions
+namespace HeroesGuild.ai.conditions
 {
     public class AI_Condition_HasTarget : AI_State_Condition
     {
@@ -8,7 +8,9 @@ namespace HeroesGuild.AI.Conditions
 
         public override bool Evaluate(StateMachine stateMachine)
         {
-            return hasTarget ? stateMachine.Target != null : stateMachine.Target == null;
+            return hasTarget
+                ? stateMachine.Target != null
+                : stateMachine.Target == null;
         }
     }
 }

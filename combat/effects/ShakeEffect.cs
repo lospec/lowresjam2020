@@ -1,29 +1,44 @@
 using Godot;
 
-namespace HeroesGuild.Combat.Effects
+namespace HeroesGuild.combat.Effects
 {
     public class ShakeEffect : IShakable
     {
-        private float _duration = 0f;
-        private float _periodInMs = 0f;
+        private readonly Control _control;
         private float _amplitude = 0f;
+        private float _duration = 0f;
+        private Vector2 _lastOffset = Vector2.Zero;
+        private float _lastShookTimer = 0f;
+        private float _periodInMs = 0f;
+        private Vector2 _previous = Vector2.Zero;
 
         private float _timer = 0f;
-        private float _lastShookTimer = 0f;
-        private Vector2 _previous = Vector2.Zero;
-        private Vector2 _lastOffset = Vector2.Zero;
 
-        private readonly Control _control;
+        public ShakeEffect(Control control)
+        {
+            _control = control;
+            _control.SetProcess(true);
+        }
+
         private Vector2 RectPosition
         {
             get => _control.RectPosition;
             set => _control.RectPosition = value;
         }
 
-        public ShakeEffect(Control control)
+        public void Shake(float duration, float frequency, float amplitude)
         {
-            _control = control;
-            _control.SetProcess(true);
+            _duration = duration;
+            _timer = duration;
+            _periodInMs = 1f / frequency;
+            _amplitude = amplitude;
+            _previous = new Vector2
+            {
+                x = (float) GD.RandRange(-1f, 1f),
+                y = (float) GD.RandRange(-1f, 1f)
+            };
+            RectPosition -= _lastOffset;
+            _lastOffset = Vector2.Zero;
         }
 
         public void Process(float delta)
@@ -57,21 +72,6 @@ namespace HeroesGuild.Combat.Effects
                 _timer = 0;
                 RectPosition -= _lastOffset;
             }
-        }
-
-        public void Shake(float duration, float frequency, float amplitude)
-        {
-            _duration = duration;
-            _timer = duration;
-            _periodInMs = 1f / frequency;
-            _amplitude = amplitude;
-            _previous = new Vector2
-            {
-                x = (float) GD.RandRange(-1f, 1f),
-                y = (float) GD.RandRange(-1f, 1f)
-            };
-            RectPosition -= _lastOffset;
-            _lastOffset = Vector2.Zero;
         }
     }
 }

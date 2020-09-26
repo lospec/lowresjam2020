@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public class SaveData : Node
     {

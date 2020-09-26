@@ -2,11 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
-using HeroesGuild.Combat.Effects.Animations;
-using HeroesGuild.Entities.BaseEntity;
-using HeroesGuild.Entities.Enemies.BaseEnemy;
+using HeroesGuild.combat.Effects.animations;
+using HeroesGuild.entities.base_entity;
+using HeroesGuild.entities.enemies.base_enemy;
 
-namespace HeroesGuild.Combat
+namespace HeroesGuild.combat
 {
     public class CombatMenu : ShakableControl
     {
@@ -14,34 +14,34 @@ namespace HeroesGuild.Combat
 
         [Signal] public delegate void BagOpened();
 
-        private static readonly PackedScene DamageLabel =
-            ResourceLoader.Load<PackedScene>("res://combat/effects/damage_label.tscn");
-
-        private const string ParticlePath = "res://particle_systems/particles/{0}.tscn";
-
         public enum Menu
         {
             Main,
             Attack
         }
 
-        public Menu currentMenu = Menu.Main;
+        private const string ParticlePath = "res://particle_systems/particles/{0}.tscn";
+
+        private static readonly PackedScene DamageLabel =
+            ResourceLoader.Load<PackedScene>("res://combat/effects/damage_label.tscn");
+        private MarginContainer _attackButtonsMenu;
+        private CombatAttackAnim _attackEffect;
 
         private MarginContainer _buttons;
-        private MarginContainer _mainButtonsMenu;
-        private MarginContainer _attackButtonsMenu;
-        public Label combatLabel;
         private CombatTurnResultUI _combatTurnResult;
-        private Label _playerHealthLabel;
-        private HealthIcon _playerHealthIcon;
-        public TextureRect playerWeapon;
-        private TextureProgress _enemyHealthBar;
-        private Tween _enemyHealthBarTween;
-        public CombatEnemyTexture enemyImage;
-        private CombatAttackAnim _attackEffect;
         private Control _damageSpawnArea;
         private AnimationList _effectAnimations;
+        private TextureProgress _enemyHealthBar;
+        private Tween _enemyHealthBarTween;
+        private MarginContainer _mainButtonsMenu;
         private Control _particlePos;
+        private HealthIcon _playerHealthIcon;
+        private Label _playerHealthLabel;
+        public Label combatLabel;
+
+        public Menu currentMenu = Menu.Main;
+        public CombatEnemyTexture enemyImage;
+        public TextureRect playerWeapon;
 
 
         public override void _Ready()
@@ -168,10 +168,8 @@ namespace HeroesGuild.Combat
             CombatUtil.CombatAction action)
         {
             if (action == CombatUtil.CombatAction.Counter)
-            {
                 await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-            }
 
             var damageType = playerCombat.GetDamageType(action);
             var effectAnimation = _effectAnimations.GetAnimation(damageType);
@@ -182,11 +180,9 @@ namespace HeroesGuild.Combat
         public async Task AnimatePlayerHurt(int damage, bool enemyCountered = false)
         {
             if (enemyCountered)
-            {
                 await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
-            }
-            
+
             Shake(1, 20, 1);
             _playerHealthIcon.Blink(1, 6);
             await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
@@ -235,16 +231,15 @@ namespace HeroesGuild.Combat
             label.Text = $"{damage}";
         }
 
-        private bool HasParticle(string name) =>
-            _particlePos.GetChildren().Cast<Node>()
+        private bool HasParticle(string name)
+        {
+            return _particlePos.GetChildren().Cast<Node>()
                 .Any(partice => partice.Name == name);
+        }
 
         private void SpawnParticle(string name)
         {
-            if (HasParticle(name))
-            {
-                return;
-            }
+            if (HasParticle(name)) return;
 
             var particle =
                 GD.Load<PackedScene>(string.Format(ParticlePath, name.ToLower()))
@@ -256,13 +251,11 @@ namespace HeroesGuild.Combat
         private void RemoveParticle(string name)
         {
             foreach (Node particle in _particlePos.GetChildren())
-            {
                 if (particle.Name == name)
                 {
                     _particlePos.RemoveChild(particle);
                     particle.QueueFree();
                 }
-            }
         }
 
         private void RemoveAllParticles()
@@ -279,17 +272,11 @@ namespace HeroesGuild.Combat
             foreach (var particleName in enemyInstance.statusEffects.Keys
                 .Select(statusEffectsKey => statusEffectsKey.ToLower())
                 .Where(particleName => !HasParticle(particleName)))
-            {
                 SpawnParticle(particleName);
-            }
 
             foreach (Node particle in _particlePos.GetChildren())
-            {
                 if (!enemyInstance.statusEffects.ContainsKey(particle.Name))
-                {
                     RemoveParticle(particle.Name);
-                }
-            }
         }
 
         private void OpenMainMenu()
@@ -312,9 +299,7 @@ namespace HeroesGuild.Combat
         private void OnCombatMenu_GUIInput(InputEvent @event)
         {
             if (Input.IsActionJustPressed("ui_cancel") && currentMenu == Menu.Attack)
-            {
                 OpenMainMenu();
-            }
         }
 
         private void OnBack_Pressed()

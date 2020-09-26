@@ -1,29 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.Utility;
+using HeroesGuild.entities.player;
+using HeroesGuild.utility;
 
-namespace HeroesGuild.GuildHall.Chest
+namespace HeroesGuild.guild_hall.chest
 {
     public class ChestGUI : Node
     {
         private static readonly PackedScene ChestItemResource =
             ResourceLoader.Load<PackedScene>("res://guild_hall/chest/chest_item.tscn");
-
-        private Player _playerInstance;
+        private GridContainer _chestContents;
 
         private Chest _chestInstance;
-        private int _openedChestID = -1;
+        private TextureRect _draggableItem;
 
         private ChestItems _heldChestItemInstance;
         private ChestItems _heldInventoryItemInstance;
+        private GridContainer _inventoryContents;
+        private MarginContainer _margin;
+        private int _openedChestID = -1;
+
+        private Player _playerInstance;
 
         private SceneTree _tree;
-        private MarginContainer _margin;
-        private GridContainer _inventoryContents;
-        private GridContainer _chestContents;
-        private TextureRect _draggableItem;
 
         public override void _Ready()
         {
@@ -134,7 +134,7 @@ namespace HeroesGuild.GuildHall.Chest
         {
             _heldInventoryItemInstance = inventoryItemInstance;
             _heldInventoryItemInstance.itemCenter.Visible = false;
-            _draggableItem.Texture = Utility.Utility.GetInventoryItemResource
+            _draggableItem.Texture = Utility.GetInventoryItemResource
                 (_heldInventoryItemInstance.ItemName);
         }
 
@@ -142,7 +142,7 @@ namespace HeroesGuild.GuildHall.Chest
         {
             _heldChestItemInstance = chestItemInstance;
             _heldChestItemInstance.itemCenter.Visible = false;
-            _draggableItem.Texture = Utility.Utility.GetInventoryItemResource
+            _draggableItem.Texture = Utility.GetInventoryItemResource
                 (_heldChestItemInstance.ItemName);
         }
 
@@ -169,7 +169,8 @@ namespace HeroesGuild.GuildHall.Chest
                 .ButtonIndex == (int) ButtonList.Left && !mouseButton.IsPressed())
             {
                 var mousePosition = _draggableItem.GetGlobalMousePosition();
-                if (_heldChestItemInstance != null && _heldInventoryItemInstance != null)
+                if (_heldChestItemInstance != null &&
+                    _heldInventoryItemInstance != null)
                 {
                     GD.PushError(
                         "Found both held chest item instance and held inventory item instance");

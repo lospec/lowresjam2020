@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using HeroesGuild.Data;
-using HeroesGuild.Entities.Player;
-using HeroesGuild.UI.Inventory;
-using HeroesGuild.Utility;
+using HeroesGuild.data;
+using HeroesGuild.entities.player;
+using HeroesGuild.ui.inventory;
+using HeroesGuild.utility;
 using Array = Godot.Collections.Array;
 
-namespace HeroesGuild.GuildHall.GuildInterface
+namespace HeroesGuild.guild_hall.guild_interface
 {
     public class GuildInterface : CanvasLayer
     {
-        private static readonly PackedScene PopupItemScene = ResourceLoader
-            .Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
+        [Signal] public delegate void GuildHallLevelUp();
 
         public enum Menu
         {
@@ -21,6 +20,68 @@ namespace HeroesGuild.GuildHall.GuildInterface
             Sell,
             Market
         }
+
+        private const int MAX_MARKET_ITEMS = 12;
+        private const int MAX_MARKET_PRICE_LEVEL_MULTIPLIER = 25;
+        private static readonly PackedScene PopupItemScene = ResourceLoader
+            .Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
+
+        private static readonly Color LightOrange = new Color("C97F35");
+        private static readonly Color DarkOrange = new Color("661E25");
+        private static readonly Color LightCyan = new Color("35B78F");
+        private static readonly Color DarkCyan = new Color("1B6E83");
+        private static readonly Color LightPurple = new Color("7F35C9");
+        private static readonly Color DarkPurple = new Color("553361");
+
+        private static readonly int[] DepositAmounts =
+        {
+            1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000
+        };
+        private TextureRect _background;
+        private Node _buttons;
+        private TextureRect _coinsDecor;
+        private Label _coinsLabel;
+        private Node _coinsMargin;
+        private int _depositAmountIndex = 0;
+        private Button _depositButton;
+        private Node _depositButtonMargin;
+        private Node _depositButtonVbox;
+        private Node _depositHBox;
+        private MarginContainer _depositMargin;
+        private TextureProgress _depositProgressBar;
+        private Node _depositProgressVbox;
+        private BaseButton _depositTabButton;
+        private Node _depositVbox;
+        private TextureRect _headerDecor;
+        private Label _headerLabel;
+        private Node _headerMargin;
+        private Node _inventoryGrid;
+        private MarginContainer _inventoryMargin;
+        private Node _inventoryScroll;
+        private MarginContainer _itemPriceMargin;
+
+        private MarginContainer _margin;
+        private MarginContainer _marketItemPriceMargin;
+        private Node _marketItemsGrid;
+        private MarginContainer _marketMargin;
+        private Label _nextLevelLabel;
+        private Label _nextLevelProgressText;
+
+        private Player _playerInstance;
+        private Node _progressBarMargin;
+        private Node _secondRow;
+        private BaseButton _sellTabButton;
+        private BaseButton _shopTabButton;
+        private Node _top;
+
+        private SceneTree _tree;
+        private Node _vbox;
+        private Node _wholeProgressBarMargin;
+
+
+        public Menu currentMenu;
+        public InventoryItem selectedItem;
+        public InventoryItem selectedMarketItems;
 
         private static Texture GetMenuBackgrounds(Menu menu)
         {
@@ -35,99 +96,49 @@ namespace HeroesGuild.GuildHall.GuildInterface
             return ResourceLoader.Load<Texture>(path);
         }
 
-        private static readonly Color LightOrange = new Color("C97F35");
-        private static readonly Color DarkOrange = new Color("661E25");
-        private static readonly Color LightCyan = new Color("35B78F");
-        private static readonly Color DarkCyan = new Color("1B6E83");
-        private static readonly Color LightPurple = new Color("7F35C9");
-        private static readonly Color DarkPurple = new Color("553361");
-
-        private static Color GetMenuButtonNormalColor(Menu menu) => menu switch
+        private static Color GetMenuButtonNormalColor(Menu menu)
         {
-            Menu.Deposit => DarkOrange,
-            Menu.Sell => DarkCyan,
-            Menu.Market => DarkPurple,
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            return menu switch
+            {
+                Menu.Deposit => DarkOrange,
+                Menu.Sell => DarkCyan,
+                Menu.Market => DarkPurple,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
 
-        private static Color GetMenuButtonPressedColor(Menu menu) => menu switch
+        private static Color GetMenuButtonPressedColor(Menu menu)
         {
-            Menu.Deposit => LightOrange,
-            Menu.Sell => LightCyan,
-            Menu.Market => LightPurple,
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            return menu switch
+            {
+                Menu.Deposit => LightOrange,
+                Menu.Sell => LightCyan,
+                Menu.Market => LightPurple,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
 
-        private static Color GetMenuHeaderDecorColor(Menu menu) => menu switch
+        private static Color GetMenuHeaderDecorColor(Menu menu)
         {
-            Menu.Deposit => LightOrange,
-            Menu.Sell => LightCyan,
-            Menu.Market => LightPurple,
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            return menu switch
+            {
+                Menu.Deposit => LightOrange,
+                Menu.Sell => LightCyan,
+                Menu.Market => LightPurple,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
 
-        private static Color GetMenuCoinDecorColor(Menu menu) => menu switch
+        private static Color GetMenuCoinDecorColor(Menu menu)
         {
-            Menu.Deposit => LightOrange,
-            Menu.Sell => LightCyan,
-            Menu.Market => LightPurple,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        private static readonly int[] DepositAmounts =
-        {
-            1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000
-        };
-
-        private const int MAX_MARKET_ITEMS = 12;
-        private const int MAX_MARKET_PRICE_LEVEL_MULTIPLIER = 25;
-
-        [Signal] public delegate void GuildHallLevelUp();
-
-
-        public Menu currentMenu;
-        public InventoryItem selectedItem;
-        public InventoryItem selectedMarketItems;
-
-        private Player _playerInstance;
-        private int _depositAmountIndex = 0;
-
-        private SceneTree _tree;
-
-        private MarginContainer _margin;
-        private TextureRect _background;
-        private Node _vbox;
-        private Node _top;
-        private Node _buttons;
-        private BaseButton _depositTabButton;
-        private BaseButton _sellTabButton;
-        private BaseButton _shopTabButton;
-        private Node _headerMargin;
-        private TextureRect _headerDecor;
-        private Label _headerLabel;
-        private Node _secondRow;
-        private Node _coinsMargin;
-        private TextureRect _coinsDecor;
-        private Label _coinsLabel;
-        private MarginContainer _inventoryMargin;
-        private Node _inventoryScroll;
-        private Node _inventoryGrid;
-        private MarginContainer _itemPriceMargin;
-        private MarginContainer _marketItemPriceMargin;
-        private MarginContainer _depositMargin;
-        private Node _depositVbox;
-        private Node _depositHBox;
-        private Node _depositButtonMargin;
-        private Node _depositButtonVbox;
-        private Button _depositButton;
-        private Node _depositProgressVbox;
-        private Label _nextLevelLabel;
-        private Label _nextLevelProgressText;
-        private Node _wholeProgressBarMargin;
-        private Node _progressBarMargin;
-        private TextureProgress _depositProgressBar;
-        private MarginContainer _marketMargin;
-        private Node _marketItemsGrid;
+            return menu switch
+            {
+                Menu.Deposit => LightOrange,
+                Menu.Sell => LightCyan,
+                Menu.Market => LightPurple,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
 
         public override void _Ready()
         {
@@ -195,7 +206,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
                 var b when b == _shopTabButton => Menu.Market,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,  -15);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, -15);
             UpdateMenuState();
         }
 
@@ -241,11 +252,9 @@ namespace HeroesGuild.GuildHall.GuildInterface
 
             _background.Texture = GetMenuBackgrounds(currentMenu);
             foreach (BaseButton button in _buttons.GetChildren())
-            {
                 button.Modulate = button.Pressed
                     ? GetMenuButtonPressedColor(currentMenu)
                     : GetMenuButtonNormalColor(currentMenu);
-            }
 
             _headerDecor.Modulate = GetMenuHeaderDecorColor(currentMenu);
             _coinsDecor.Modulate = GetMenuCoinDecorColor(currentMenu);
@@ -273,10 +282,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
 
         private void UpdateInventory()
         {
-            foreach (Node child in _inventoryGrid.GetChildren())
-            {
-                child.QueueFree();
-            }
+            foreach (Node child in _inventoryGrid.GetChildren()) child.QueueFree();
 
             var sellableItems = new List<string>(_playerInstance.Inventory);
             sellableItems.Remove(_playerInstance.EquippedWeapon);
@@ -287,7 +293,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
                 var sellableItem = (InventoryItem) PopupItemScene.Instance();
                 _inventoryGrid.AddChild(sellableItem);
                 sellableItem.itemName = itemName;
-                sellableItem.itemTextureButton.TextureNormal = Utility.Utility
+                sellableItem.itemTextureButton.TextureNormal = Utility
                     .GetInventoryItemResource(itemName);
                 sellableItem.Connect("mouse_entered", this,
                     nameof(OnInventoryItem_MouseEntered), new Array {sellableItem});
@@ -317,7 +323,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
             }
 
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data>().itemData[itemName];
             var itemSellValue = itemRecord.sellValue;
             var itemPriceLabel =
                 _itemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
@@ -345,7 +351,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
         private void SellItem(InventoryItem item)
         {
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data>().itemData[itemName];
             var itemSellValue = itemRecord.sellValue;
             _playerInstance.Inventory.Remove(itemName);
             _playerInstance.Coins += itemSellValue;
@@ -375,10 +381,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
         private void OnDeposit_Pressed()
         {
             var depositAmount = DepositAmounts[_depositAmountIndex];
-            if (_playerInstance.Coins == 0)
-            {
-                return;
-            }
+            if (_playerInstance.Coins == 0) return;
 
             var newCoinsAmount = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
 
@@ -398,10 +401,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
                 totalCoinsForNextLevel = saveData.GuildLevel * 250;
             }
 
-            if (levelledUp)
-            {
-                EmitSignal(nameof(GuildHallLevelUp));
-            }
+            if (levelledUp) EmitSignal(nameof(GuildHallLevelUp));
 
             UpdateCoins();
             UpdateGuildLevel();
@@ -427,20 +427,15 @@ namespace HeroesGuild.GuildHall.GuildInterface
 
         private async void UpdateMarket()
         {
-            foreach (Node child in _marketItemsGrid.GetChildren())
-            {
-                child.QueueFree();
-            }
+            foreach (Node child in _marketItemsGrid.GetChildren()) child.QueueFree();
 
             var childCount = _marketItemsGrid.GetChildCount();
             if (childCount > 0)
-            {
                 await ToSignal(_marketItemsGrid.GetChild(childCount - 1),
                     "tree_exited");
-            }
 
             var saveData = Autoload.Get<SaveData>();
-            var buyableItems = (from pair in Autoload.Get<Data.Data>().itemData
+            var buyableItems = (from pair in Autoload.Get<Data>().itemData
                 let itemRecord = pair.Value
                 where itemRecord.buyValue > 0 && itemRecord.buyValue <=
                     saveData.GuildLevel * MAX_MARKET_PRICE_LEVEL_MULTIPLIER
@@ -452,7 +447,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
                 _marketItemsGrid.AddChild(marketItem);
                 var itemName = buyableItems.RandomElement();
                 marketItem.itemName = itemName;
-                marketItem.itemTextureButton.TextureNormal = Utility.Utility
+                marketItem.itemTextureButton.TextureNormal = Utility
                     .GetInventoryItemResource(itemName);
                 marketItem.Connect("mouse_entered", this,
                     nameof(OnMarketItem_MouseEntered), new Array {marketItem});
@@ -477,7 +472,7 @@ namespace HeroesGuild.GuildHall.GuildInterface
             }
 
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
+            var itemRecord = Autoload.Get<Data>().itemData[itemName];
             var itemPriceLabel =
                 _marketItemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
             itemPriceLabel.Text = $"{itemRecord.buyValue}:c";
@@ -502,11 +497,8 @@ namespace HeroesGuild.GuildHall.GuildInterface
         private bool BuyItem(InventoryItem item)
         {
             var itemName = item.itemName;
-            var itemRecord = Autoload.Get<Data.Data>().itemData[itemName];
-            if (_playerInstance.Coins < itemRecord.buyValue)
-            {
-                return false;
-            }
+            var itemRecord = Autoload.Get<Data>().itemData[itemName];
+            if (_playerInstance.Coins < itemRecord.buyValue) return false;
 
             _playerInstance.Inventory.Add(itemName);
             _playerInstance.Coins -= itemRecord.buyValue;

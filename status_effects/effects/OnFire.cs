@@ -1,20 +1,20 @@
 using Godot;
-using HeroesGuild.Combat;
+using HeroesGuild.combat;
 
-namespace HeroesGuild.StatusEffects.Effects
+namespace HeroesGuild.status_effects.effects
 {
     public class OnFire : StatusEffect
     {
-        public int Duration { get; private set; } = 4;
-        public int Delay { get; private set; } = 2;
-        public int Damage { get; private set; } = 4;
-
         private int _nextDamage = 0;
 
         public OnFire()
         {
             statusEffectName = "OnFire";
         }
+
+        public int Duration { get; private set; } = 4;
+        public int Delay { get; } = 2;
+        public int Damage { get; } = 4;
 
         public override void OnTurnEnd(CombatChar combatChar)
         {

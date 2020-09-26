@@ -1,11 +1,11 @@
 using Godot;
 
-namespace HeroesGuild.Utility
+namespace HeroesGuild.utility
 {
     public class PixelPerfectScaling : Node
     {
-        private Viewport _root;
         private Vector2 _baseSize;
+        private Viewport _root;
 
         public override void _Ready()
         {
@@ -13,10 +13,8 @@ namespace HeroesGuild.Utility
             _baseSize = _root.GetVisibleRect().Size;
             if (GetTree().Connect("screen_resized", this, nameof(OnScreen_Resized)) !=
                 Error.Ok)
-            {
                 GD.PushError(
                     "An error occurred while connecting screen_resized signal.");
-            }
 
             _root.SetAttachToScreenRect(_root.GetVisibleRect());
             OnScreen_Resized();

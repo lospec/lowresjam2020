@@ -1,6 +1,6 @@
 using Godot;
 
-namespace HeroesGuild.UI.Credits
+namespace HeroesGuild.ui.credits
 {
     public class Credits : Node
     {
@@ -44,19 +44,14 @@ namespace HeroesGuild.UI.Credits
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            if (Input.IsActionJustPressed("ui_cancel"))
-            {
-                ExitToMainMenu();
-            }
+            if (Input.IsActionJustPressed("ui_cancel")) ExitToMainMenu();
         }
 
         private void ExitToMainMenu()
         {
             if (GetTree().ChangeScene(MainMenuPath) != Error.Ok)
-            {
                 GD.PushError(
                     "An error occured while attempting to change to the main menu scene");
-            }
         }
     }
 }

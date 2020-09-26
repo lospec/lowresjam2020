@@ -1,13 +1,12 @@
 using Godot;
 
-namespace HeroesGuild.World.EnemySpawn
+namespace HeroesGuild.world.enemy_spawn
 {
     public class EnemySpawn : Area2D
     {
-        [Export] public int enemyNumber;
-        [Export] public string[] enemies;
-
         private CollisionShape2D _collisionShape;
+        [Export] public string[] enemies;
+        [Export] public int enemyNumber;
 
         public override void _Ready()
         {
