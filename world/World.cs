@@ -141,7 +141,7 @@ namespace HeroesGuild.World
 				var offset = new Vector2(0, 5);
 				Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
 
-				AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, null, -30);
+				AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen,  -30);
 				var transitionParams =
 					new Transitions.TransitionParams(
 						Transitions.TransitionType.ShrinkingCircle, 0.3f);

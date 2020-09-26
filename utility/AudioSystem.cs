@@ -97,9 +97,12 @@ namespace HeroesGuild.Utility
                 SFX.HeroesGuildNox1 => "res://sfx/heroes_guild_nox.wav",
                 SFX.HeroesGuildNox3 => "res://sfx/heroes_guild_nox-take3.wav",
                 SFX.HeroesGuildNox4 => "res://sfx/heroes_guild_nox-take4.wav",
-                SFX.HeroesGuildPureasbestos1 => "res://sfx/heroes_guild_pureasbestos_take1.wav",
-                SFX.HeroesGuildUnsettled1 => "res://sfx/heroes_guild_unsettled_take1.wav",
-                SFX.HeroesGuildWildleoknight2 => "res://sfx/heroes_guild_wildleoknight_take2.wav",
+                SFX.HeroesGuildPureasbestos1 =>
+                    "res://sfx/heroes_guild_pureasbestos_take1.wav",
+                SFX.HeroesGuildUnsettled1 =>
+                    "res://sfx/heroes_guild_unsettled_take1.wav",
+                SFX.HeroesGuildWildleoknight2 =>
+                    "res://sfx/heroes_guild_wildleoknight_take2.wav",
                 SFX.BattleIntro => "res://sfx/battle_intro.ogg",
                 SFX.VictoryJingle => "res://sfx/victory_jingle.wav",
                 SFX.BeastHurt => "res://sfx/beast_hit.wav",
@@ -149,7 +152,8 @@ namespace HeroesGuild.Utility
             set
             {
                 value = Mathf.Max(-80, value);
-                foreach (AudioStreamPlayer sfxPlayer in instance.GetTree().GetNodesInGroup("sfx_players"))
+                foreach (AudioStreamPlayer sfxPlayer in instance.GetTree()
+                    .GetNodesInGroup("sfx_players"))
                 {
                     sfxPlayer.VolumeDb += value - instance._sfxVolume;
                 }
@@ -171,7 +175,8 @@ namespace HeroesGuild.Utility
             instance.PlayMusic(music, volumeDb, 1f);
         }
 
-        public void PlayMusic(Music music, float volumeDb, float pitchScale, bool fadeIn = true)
+        public void PlayMusic(Music music, float volumeDb, float pitchScale,
+            bool fadeIn = true)
         {
             currentPlayingMusic = music;
             _musicPlayer.Stream = GetMusicResource(music);
@@ -179,7 +184,8 @@ namespace HeroesGuild.Utility
             if (fadeIn)
             {
                 _musicPlayer.VolumeDb = FADE_IN_START_VOLUME;
-                _tween.InterpolateProperty(_musicPlayer, "volume_db", FADE_IN_START_VOLUME, volumeDb, FADE_IN_DURATION);
+                _tween.InterpolateProperty(_musicPlayer, "volume_db",
+                    FADE_IN_START_VOLUME, volumeDb, FADE_IN_DURATION);
                 _tween.Start();
             }
             else
@@ -197,19 +203,36 @@ namespace HeroesGuild.Utility
             instance._musicPlayer.Stop();
         }
 
-        public static AudioStreamPlayer2D PlaySFX(SFX sfx, Vector2? audioPosition = null, float volumeDb = 0f,
+        public static AudioStreamPlayer2D PlaySFX(SFX sfx, Vector2 audioPosition,
+            float volumeDb = 0f,
             float pitchScale = 1f)
         {
-            var sfxPlayer = audioPosition.HasValue
-                ? new AudioStreamPlayer2D {Position = audioPosition.Value}
-                : new AudioStreamPlayer2D();
-            sfxPlayer.Stream = GetSFXResource(sfx);
+            var sfxPlayer = new AudioStreamPlayer2D
+            {
+                Position = audioPosition, Stream = GetSFXResource(sfx)
+            };
             volumeDb += instance._sfxVolume;
             sfxPlayer.VolumeDb = volumeDb;
             sfxPlayer.PitchScale = pitchScale;
             instance.AddChild(sfxPlayer);
             sfxPlayer.Play();
-            sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished), new Array {sfxPlayer});
+            sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished),
+                new Array {sfxPlayer});
+            sfxPlayer.AddToGroup("sfx_players");
+            return sfxPlayer;
+        }
+
+        public static AudioStreamPlayer2D PlaySFX(SFX sfx, float volumeDb = 0f,
+            float pitchScale = 1f)
+        {
+            var sfxPlayer = new AudioStreamPlayer2D {Stream = GetSFXResource(sfx)};
+            volumeDb += instance._sfxVolume;
+            sfxPlayer.VolumeDb = volumeDb;
+            sfxPlayer.PitchScale = pitchScale;
+            instance.AddChild(sfxPlayer);
+            sfxPlayer.Play();
+            sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished),
+                new Array {sfxPlayer});
             sfxPlayer.AddToGroup("sfx_players");
             return sfxPlayer;
         }

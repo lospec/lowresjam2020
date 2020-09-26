@@ -30,7 +30,7 @@ namespace HeroesGuild.UI.MainMenu
             };
             var sfx = heroesGuildSFX.Keys.RandomElement();
             var volume = heroesGuildSFX[sfx];
-            _sfxPlayer = AudioSystem.PlaySFX(sfx, null, volume);
+            _sfxPlayer = AudioSystem.PlaySFX(sfx,  volume);
             _sfxPlayer.Connect("finished", _startSignifierAnimationPlayer, "play", new Array{"flash"});
             _sfxPlayer.Connect("finished", AudioSystem.instance, nameof(AudioSystem.instance.PlayMusic), 
                 new Array {AudioSystem.Music.TitleScreen, -25f,});

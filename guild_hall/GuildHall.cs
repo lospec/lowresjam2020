@@ -63,7 +63,7 @@ namespace HeroesGuild.GuildHall
         {
             if (!body.IsInGroup("enemies"))
             {
-                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, null, -30);
+                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen,  -30);
                 await Autoload.Get<Transitions>().ChangeSceneDoubleTransition
                 (WorldScenePath,
                     new Transitions.TransitionParams(
@@ -78,7 +78,7 @@ namespace HeroesGuild.GuildHall
                 return;
             }
 
-            AudioSystem.PlaySFX(AudioSystem.SFX.ChestOpen, null, -25);
+            AudioSystem.PlaySFX(AudioSystem.SFX.ChestOpen,  -25);
             chest.animatedSprite.Play("open");
             await ToSignal(chest.animatedSprite, "animation_finished");
             chest.animatedSprite.Stop();

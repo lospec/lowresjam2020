@@ -111,7 +111,7 @@ namespace HeroesGuild.Combat
 
         private async void StartCombat()
         {
-            var sfxPlayer = AudioSystem.PlaySFX(AudioSystem.SFX.BattleIntro, null, -20);
+            var sfxPlayer = AudioSystem.PlaySFX(AudioSystem.SFX.BattleIntro, -20);
             sfxPlayer.Connect("finished", this, nameof(PlayBattleMusic));
             var combat = true;
             while (combat)

@@ -39,7 +39,7 @@ namespace HeroesGuild.Combat
             switch (CharacterInstance)
             {
                 case Player _:
-                    AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt, null, -30);
+                    AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt,  -30);
                     break;
                 case BaseEnemy enemy:
                 {
@@ -72,7 +72,7 @@ namespace HeroesGuild.Combat
                             return;
                     }
 
-                    AudioSystem.PlaySFX(sfx, null, -30f);
+                    AudioSystem.PlaySFX(sfx,  -30f);
                     break;
                 }
             }
@@ -114,7 +114,7 @@ namespace HeroesGuild.Combat
                     _ => throw new ArgumentOutOfRangeException()
                 };
 
-                AudioSystem.PlaySFX(sfx, null, -30);
+                AudioSystem.PlaySFX(sfx,  -30);
                 if (enemy != null)
                 {
                     GD.Print($"Applied {statusEffect} to {enemy.enemyName}");
