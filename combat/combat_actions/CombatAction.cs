@@ -30,7 +30,7 @@ namespace HeroesGuild.combat.combat_actions
         };
 
         public static CombatAction GetRandom(BaseEntity characterInstance) =>
-            Actions[GD.Randi() % Actions.Length + 1].Invoke(characterInstance);
+            Actions.RandomElement().Invoke(characterInstance);
 
         public abstract int BaseDamage { get; }
         public abstract float EffectChance { get; }
