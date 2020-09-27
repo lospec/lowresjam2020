@@ -28,15 +28,17 @@ namespace HeroesGuild.combat
         };
 
         private CombatMenu _combatMenu;
-        private EnemyCombat _enemyCombat;
+
         private BaseEnemy _enemyInstance;
+        private Player _playerInstance;
+
+        private EnemyCombat _enemyCombat;
         private PlayerCombat _playerCombat;
 
 
-        private Player _playerInstance;
-
         public override void _Ready()
         {
+            base._Ready();
             _combatMenu = GetNode<CombatMenu>("CombatMenu");
             _playerCombat = GetNode<PlayerCombat>("PlayerCombat");
             _enemyCombat = GetNode<EnemyCombat>("EnemyCombat");
@@ -55,28 +57,19 @@ namespace HeroesGuild.combat
             _playerInstance = player;
             _enemyInstance = enemy;
 
-            if (!_playerInstance.IsConnected(nameof(BaseEntity.HealthChanged),
-                _combatMenu,
-                nameof(_combatMenu.UpdatePlayerHealthValue)))
-                _playerInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
-                    nameof(_combatMenu.UpdatePlayerHealthValue));
-
-            if (!_enemyInstance.IsConnected(nameof(BaseEntity.HealthChanged),
-                _combatMenu,
-                nameof(_combatMenu.UpdateEnemyHealthValue)))
-                _enemyInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
-                    nameof(_combatMenu.UpdateEnemyHealthValue));
-
-            if (!_enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
-                nameof(OnEnemy_TakeDamage)))
-                _enemyCombat.Connect(nameof(CombatChar.DamageTaken), this,
-                    nameof(OnEnemy_TakeDamage));
+            ConnectCombatSignals();
 
             _combatMenu.SetPlayerHealthValue(_playerInstance.maxHealth,
                 _playerInstance.Health);
             _combatMenu.SetEnemyHealthValue(_enemyInstance.maxHealth,
                 _enemyInstance.Health);
 
+            LoadTextureResources();
+            StartCombat();
+        }
+
+        private void LoadTextureResources()
+        {
             var weaponName = _playerInstance.EquippedWeapon;
             var weaponTexture =
                 GD.Load<Texture>(string.Format(WeaponTexturePath,
@@ -93,7 +86,26 @@ namespace HeroesGuild.combat
                 CombatAnimationUtil.BattleTexturePosY,
                 CombatAnimationUtil.BattleTextureWidth,
                 CombatAnimationUtil.BattleTextureHeight);
-            StartCombat();
+        }
+
+        private void ConnectCombatSignals()
+        {
+            if (!_playerInstance.IsConnected(nameof(BaseEntity.HealthChanged),
+                _combatMenu,
+                nameof(_combatMenu.UpdatePlayerHealthValue)))
+                _playerInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
+                    nameof(_combatMenu.UpdatePlayerHealthValue));
+
+            if (!_enemyInstance.IsConnected(nameof(BaseEntity.HealthChanged),
+                _combatMenu,
+                nameof(_combatMenu.UpdateEnemyHealthValue)))
+                _enemyInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
+                    nameof(_combatMenu.UpdateEnemyHealthValue));
+
+            if (!_enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
+                nameof(OnEnemy_TakeDamage)))
+                _enemyCombat.Connect(nameof(CombatChar.DamageTaken), this,
+                    nameof(OnEnemy_TakeDamage));
         }
 
         private async void StartCombat()
@@ -107,41 +119,11 @@ namespace HeroesGuild.combat
                 combat = await TakeTurn();
                 if (combat)
                 {
-                    foreach (var statusEffectsKey in _playerInstance.statusEffects.Keys)
-                    {
-                        var statusEffect =
-                            _playerInstance.statusEffects[statusEffectsKey];
-                        statusEffect.OnTurnEnd(_playerCombat);
-                        if (statusEffect.expired)
-                            _playerInstance.statusEffects.Remove(statusEffectsKey);
-                    }
-
-                    foreach (var statusEffectsKey in _enemyInstance.statusEffects.Keys)
-                    {
-                        var statusEffect =
-                            _enemyInstance.statusEffects[statusEffectsKey];
-                        statusEffect.OnTurnEnd(_enemyCombat);
-                        if (statusEffect.expired)
-                            _enemyInstance.statusEffects.Remove(statusEffectsKey);
-                    }
+                    ApplyStatusEffects();
 
                     if (CheckCombatEnd())
                     {
-                        if (_playerInstance.Health <= 0)
-                        {
-                            await _combatMenu.ShowCombatLabel("YOU DIED", 2);
-                            await _combatMenu.ShowCombatLabel("GAME OVER", 2);
-                            _combatMenu.combatLabel.Visible = true;
-                            EndCombat(CombatUtil.CombatOutcome.CombatLose);
-                        }
-                        else if (_enemyInstance.Health <= 0)
-                        {
-                            await _combatMenu.ShowCombatLabel("YOU WON", 2);
-                            await _combatMenu.ShowCombatLabel("CONGRATULATION", 2);
-                            _combatMenu.combatLabel.Visible = true;
-                            EndCombat(CombatUtil.CombatOutcome.CombatWin);
-                        }
-
+                        await CheckCombatOutcome();
                         combat = false;
                     }
                 }
@@ -150,14 +132,58 @@ namespace HeroesGuild.combat
             }
         }
 
+        private async Task CheckCombatOutcome()
+        {
+            if (_playerInstance.Health <= 0)
+            {
+                await _combatMenu.ShowCombatLabel("YOU DIED", 2);
+                await _combatMenu.ShowCombatLabel("GAME OVER", 2);
+                _combatMenu.combatLabel.Visible = true;
+                EndCombat(CombatUtil.CombatOutcome.CombatLose);
+            }
+            else if (_enemyInstance.Health <= 0)
+            {
+                await _combatMenu.ShowCombatLabel("YOU WON", 2);
+                await _combatMenu.ShowCombatLabel("CONGRATULATION", 2);
+                _combatMenu.combatLabel.Visible = true;
+                EndCombat(CombatUtil.CombatOutcome.CombatWin);
+            }
+        }
+
+        private void ApplyStatusEffects()
+        {
+            foreach (var statusEffectsKey in _playerInstance.statusEffects.Keys)
+            {
+                var statusEffect =
+                    _playerInstance.statusEffects[statusEffectsKey];
+                statusEffect.OnTurnEnd(_playerCombat);
+                if (statusEffect.expired)
+                    _playerInstance.statusEffects.Remove(statusEffectsKey);
+            }
+
+            foreach (var statusEffectsKey in _enemyInstance.statusEffects.Keys)
+            {
+                var statusEffect =
+                    _enemyInstance.statusEffects[statusEffectsKey];
+                statusEffect.OnTurnEnd(_enemyCombat);
+                if (statusEffect.expired)
+                    _enemyInstance.statusEffects.Remove(statusEffectsKey);
+            }
+        }
+
         private void EndCombat(CombatUtil.CombatOutcome outcome)
         {
             AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
+            DisconnectCombatSignals();
+            EmitSignal(nameof(CombatDone), outcome, _enemyInstance);
+        }
+
+        private void DisconnectCombatSignals()
+        {
             _playerInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
                 nameof(_combatMenu.UpdatePlayerHealthValue));
             _enemyInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
                 nameof(_combatMenu.UpdateEnemyHealthValue));
-            EmitSignal(nameof(CombatDone), outcome, _enemyInstance);
         }
 
 
@@ -209,21 +235,7 @@ namespace HeroesGuild.combat
             _combatMenu.HideTurnResult();
             if (CheckCombatEnd())
             {
-                if (_playerInstance.Health <= 0)
-                {
-                    await _combatMenu.ShowCombatLabel("YOU DIED", 2);
-                    await _combatMenu.ShowCombatLabel("GAME OVER", 2);
-                    _combatMenu.combatLabel.Visible = true;
-                    EndCombat(CombatUtil.CombatOutcome.CombatLose);
-                }
-                else if (_enemyInstance.Health <= 0)
-                {
-                    await _combatMenu.ShowCombatLabel("YOU WON", 2);
-                    await _combatMenu.ShowCombatLabel("CONGRATULATION", 2);
-                    _combatMenu.Visible = true;
-                    EndCombat(CombatUtil.CombatOutcome.CombatWin);
-                }
-
+                await CheckCombatOutcome();
                 return false;
             }
 
@@ -407,6 +419,7 @@ namespace HeroesGuild.combat
 
         public override void _Process(float delta)
         {
+            base._Process(delta);
             GetNode<CanvasItem>("Background").Visible = _combatMenu.Visible;
         }
 
