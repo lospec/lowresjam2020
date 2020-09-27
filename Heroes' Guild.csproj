@@ -39,8 +39,14 @@
     <Compile Include="combat\CombatChar.cs" />
     <Compile Include="combat\CombatEnemyTexture.cs" />
     <Compile Include="combat\CombatMenu.cs" />
-    <Compile Include="combat\CombatUtil.cs" />
+    <Compile Include="combat\CombatOutcome.cs" />
     <Compile Include="combat\CombatTurnResultUI.cs" />
+    <Compile Include="combat\combat_actions\BaseCombatAction.cs" />
+    <Compile Include="combat\combat_actions\CombatAction.cs" />
+    <Compile Include="combat\combat_actions\CounterAction.cs" />
+    <Compile Include="combat\combat_actions\FleeAction.cs" />
+    <Compile Include="combat\combat_actions\HeavyAction.cs" />
+    <Compile Include="combat\combat_actions\QuickAction.cs" />
     <Compile Include="combat\DamageLabel.cs" />
     <Compile Include="combat\Effects\animations\AnimationList.cs" />
     <Compile Include="combat\Effects\IShakable.cs" />
@@ -49,9 +55,11 @@
     <Compile Include="combat\HealthIcon.cs" />
     <Compile Include="combat\PlayerCombat.cs" />
     <Compile Include="combat\ShakableControl.cs" />
+    <Compile Include="combat\TurnOutcome.cs" />
     <Compile Include="data\CharacterRecord.cs" />
     <Compile Include="data\Data.cs" />
     <Compile Include="data\EnemyRecord.cs" />
+    <Compile Include="data\ICombatStat.cs" />
     <Compile Include="data\IDataRecord.cs" />
     <Compile Include="data\ItemRecord.cs" />
     <Compile Include="entities\base_entity\BaseEntity.cs" />

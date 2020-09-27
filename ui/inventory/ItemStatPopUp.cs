@@ -74,7 +74,7 @@ namespace HeroesGuild.ui.inventory
             }
 
             var itemRecord = data.itemData[itemName];
-            var itemType = itemRecord.type;
+            var itemType = itemRecord.Type;
             _itemNameLabel.Text = itemName;
             _background.Texture = GetItemTypeBackground(itemType);
             switch (itemType)
@@ -86,19 +86,19 @@ namespace HeroesGuild.ui.inventory
                 case "weapon":
                     _damageMargin.Visible = true;
                     _healthGainedMargin.Visible = false;
-                    _quickDamageLabel.Text = $"{itemRecord.quickDamage}";
-                    _heavyDamageLabel.Text = $"{itemRecord.heavyDamage}";
-                    _counterDamageLabel.Text = $"{itemRecord.counterDamage}";
+                    _quickDamageLabel.Text = $"{itemRecord.QuickDamage}";
+                    _heavyDamageLabel.Text = $"{itemRecord.HeavyDamage}";
+                    _counterDamageLabel.Text = $"{itemRecord.CounterDamage}";
                     break;
                 case "usable":
                     _damageMargin.Visible = false;
                     _healthGainedMargin.Visible = true;
-                    _healthGainedLabel.Text = $"{itemRecord.healthGained}";
+                    _healthGainedLabel.Text = $"{itemRecord.HealthGained}";
                     break;
                 case "armor":
                     _damageMargin.Visible = false;
                     _healthGainedMargin.Visible = true;
-                    _healthGainedLabel.Text = $"{itemRecord.healthAdded}";
+                    _healthGainedLabel.Text = $"{itemRecord.HealthAdded}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

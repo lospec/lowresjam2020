@@ -91,11 +91,11 @@ namespace HeroesGuild.world
                     return;
                 }
 
-                enemy.OnDependency = (ref BaseEnemy.EnemyDependencies dependency) =>
+                enemy.OnDependency(new BaseEnemy.EnemyDependencies
                 {
-                    dependency.EnemyName = enemyName;
-                    dependency.PlayerInstance = _player;
-                };
+                    EnemyName = enemyName,
+                    PlayerInstance = _player
+                });
 
                 while (!safe)
                 {
@@ -146,24 +146,24 @@ namespace HeroesGuild.world
             }
         }
 
-        private void OnCombat_CombatDone(CombatUtil.CombatOutcome outcome,
+        private void OnCombat_CombatDone(CombatOutcome outcome,
             BaseEnemy enemyInstance)
         {
             switch (outcome)
             {
-                case CombatUtil.CombatOutcome.CombatWin:
+                case CombatOutcome.CombatWin:
                     enemyInstance.Die();
                     _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
                     GetTree().Paused = false;
                     _player.hudMargin.Visible = true;
                     break;
-                case CombatUtil.CombatOutcome.CombatLose:
+                case CombatOutcome.CombatLose:
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     GameOver();
                     break;
-                case CombatUtil.CombatOutcome.CombatFlee:
+                case CombatOutcome.CombatFlee:
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     if (_player.Health <= 0)

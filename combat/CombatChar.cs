@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using HeroesGuild.combat.combat_actions;
 using HeroesGuild.data;
 using HeroesGuild.entities.base_entity;
 using HeroesGuild.entities.enemies.base_enemy;
@@ -11,6 +12,7 @@ namespace HeroesGuild.combat
 {
     public abstract class CombatChar : Node
     {
+        protected const int MULTIPLIER_PER_COMBO = 1;
         [Signal] public delegate void DamageTaken(int damage, string damageType);
 
         public int hitCombo = 0;
@@ -36,6 +38,11 @@ namespace HeroesGuild.combat
 
             hitCombo = 0;
 
+            PlayHurtSFX();
+        }
+
+        private void PlayHurtSFX()
+        {
             switch (CharacterInstance)
             {
                 case Player _:
@@ -78,9 +85,8 @@ namespace HeroesGuild.combat
             }
         }
 
-        public void Attack(CombatChar target, CombatUtil.CombatAction action,
-            int damage, BaseEntity instance,
-            BaseEntity targetInstance)
+        public void Attack(CombatChar target, CombatAction action,
+            int damage, BaseEntity instance, BaseEntity targetInstance)
         {
             if (CharacterInstance.statusEffects.ContainsKey("Weak"))
             {
@@ -88,11 +94,11 @@ namespace HeroesGuild.combat
             }
 
             damage = Mathf.Max(damage, 1);
-            var damageType = GetDamageType(action);
+            var damageType = action.DamageType;
             target.TakeDamage(damage, damageType);
 
-            var statusEffect = GetStatusEffect(action);
-            var statusEffectChance = GetEffectChance(action);
+            var statusEffect = action.StatusEffect;
+            var statusEffectChance = action.EffectChance;
 
             var enemy = target.CharacterInstance as BaseEnemy;
             if (enemy?.Stat.Resistance == "Fire" && statusEffect == "OnFire")
@@ -122,13 +128,7 @@ namespace HeroesGuild.combat
             }
         }
 
-        protected abstract float GetEffectChance(CombatUtil.CombatAction action);
-
-        protected abstract string GetStatusEffect(CombatUtil.CombatAction action);
-
-        public abstract string GetDamageType(CombatUtil.CombatAction action);
-
-        public abstract Task<CombatUtil.CombatAction> GetAction();
-        public abstract int GetBaseDamage(CombatUtil.CombatAction action);
+        public abstract Task<BaseCombatAction> GetAction();
+        public abstract int GetBaseDamage(CombatAction action);
     }
 }

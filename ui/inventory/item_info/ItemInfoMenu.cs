@@ -177,7 +177,7 @@ namespace HeroesGuild.ui.inventory.item_info
             if (!data.itemData.ContainsKey(itemName)) return;
 
             var itemRecord = data.itemData[itemName];
-            var itemType = itemRecord.type;
+            var itemType = itemRecord.Type;
             switch (itemType)
             {
                 case "item":
@@ -191,50 +191,50 @@ namespace HeroesGuild.ui.inventory.item_info
                     _equipButton.Visible = playerInstance.EquippedWeapon != itemName;
                     _useButton.Visible = false;
                     _healthGainedHBox.Visible = false;
-                    _quickDamageLabel.Text = $"{itemRecord.quickDamage}";
-                    _heavyDamageLabel.Text = $"{itemRecord.heavyDamage}";
-                    _counterDamageLabel.Text = $"{itemRecord.counterDamage}";
+                    _quickDamageLabel.Text = $"{itemRecord.QuickDamage}";
+                    _heavyDamageLabel.Text = $"{itemRecord.HeavyDamage}";
+                    _counterDamageLabel.Text = $"{itemRecord.CounterDamage}";
                     _quickTypeIcon.Texture =
-                        GetDamageTypeIcon(itemRecord.quickDamageType);
+                        GetDamageTypeIcon(itemRecord.QuickDamageType);
                     _heavyTypeIcon.Texture =
-                        GetDamageTypeIcon(itemRecord.heavyDamageType);
+                        GetDamageTypeIcon(itemRecord.HeavyDamageType);
                     _counterTypeIcon.Texture =
-                        GetDamageTypeIcon(itemRecord.counterDamageType);
+                        GetDamageTypeIcon(itemRecord.CounterDamageType);
 
                     _quickStatusIcon.Texture =
-                        GetDamageTypeStatusIcon(itemRecord.quickStatusEffect);
+                        GetDamageTypeStatusIcon(itemRecord.QuickStatusEffect);
                     _quickStatusEffectChanceLabel.Text =
-                        itemRecord.quickStatusEffect == "none"
+                        itemRecord.QuickStatusEffect == "none"
                             ? string.Empty
-                            : $"{itemRecord.quickEffectChance}";
+                            : $"{itemRecord.QuickEffectChance}";
 
                     _heavyStatusIcon.Texture =
-                        GetDamageTypeStatusIcon(itemRecord.heavyStatusEffect);
+                        GetDamageTypeStatusIcon(itemRecord.HeavyStatusEffect);
                     _heavyStatusEffectChanceLabel.Text =
-                        itemRecord.heavyStatusEffect == "none"
+                        itemRecord.HeavyStatusEffect == "none"
                             ? string.Empty
-                            : $"{itemRecord.heavyEffectChance}";
+                            : $"{itemRecord.HeavyEffectChance}";
 
                     _counterStatusIcon.Texture =
-                        GetDamageTypeStatusIcon(itemRecord.counterStatusEffect);
+                        GetDamageTypeStatusIcon(itemRecord.CounterStatusEffect);
                     _counterStatusEffectChanceLabel.Text =
-                        itemRecord.counterStatusEffect == "none"
+                        itemRecord.CounterStatusEffect == "none"
                             ? string.Empty
-                            : $"{itemRecord.counterEffectChance}";
+                            : $"{itemRecord.CounterEffectChance}";
                     break;
                 case "usable":
                     _damageValues.Visible = false;
                     _equipButton.Visible = false;
                     _useButton.Visible = true;
                     _healthGainedHBox.Visible = true;
-                    _healthGainedValueLabel.Text = $"{itemRecord.healthGained}";
+                    _healthGainedValueLabel.Text = $"{itemRecord.HealthGained}";
                     break;
                 case "armor":
                     _damageValues.Visible = false;
                     _equipButton.Visible = playerInstance.EquippedArmor != itemName;
                     _useButton.Visible = false;
                     _healthGainedHBox.Visible = true;
-                    _healthGainedValueLabel.Text = $"{itemRecord.healthAdded}";
+                    _healthGainedValueLabel.Text = $"{itemRecord.HealthAdded}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -257,7 +257,7 @@ namespace HeroesGuild.ui.inventory.item_info
             if (!data.ContainsKey(selectedItem)) return;
 
             var itemRecord = data[selectedItem];
-            var selectedItemType = itemRecord.type;
+            var selectedItemType = itemRecord.Type;
             switch (selectedItemType)
             {
                 case "weapon":
@@ -269,13 +269,13 @@ namespace HeroesGuild.ui.inventory.item_info
                     if (!string.IsNullOrWhiteSpace(playerInstance.EquippedArmor))
                     {
                         var oldArmorData = data[playerInstance.EquippedArmor];
-                        playerInstance.Health -= oldArmorData.healthAdded;
+                        playerInstance.Health -= oldArmorData.HealthAdded;
                     }
 
                     playerInstance.EquippedArmor = selectedItem;
                     playerInstance.maxHealth =
-                        SaveData.DEFAULT_HEALTH + itemRecord.healthAdded;
-                    playerInstance.Health += itemRecord.healthAdded;
+                        SaveData.DEFAULT_HEALTH + itemRecord.HealthAdded;
+                    playerInstance.Health += itemRecord.HealthAdded;
                     EmitSignal(nameof(EquippedArmorChanged));
                     _equipButton.Visible = false;
                     break;
@@ -294,7 +294,7 @@ namespace HeroesGuild.ui.inventory.item_info
             if (!data.ContainsKey(selectedItem)) return;
 
             var itemRecord = data[selectedItem];
-            var selectedItemType = itemRecord.type;
+            var selectedItemType = itemRecord.Type;
             if (selectedItemType == "usable")
             {
                 if (playerInstance.Health >= playerInstance.maxHealth)
@@ -308,7 +308,7 @@ namespace HeroesGuild.ui.inventory.item_info
                 else
                 {
                     playerInstance.Health = Mathf.Min(
-                        playerInstance.Health + itemRecord.healthGained,
+                        playerInstance.Health + itemRecord.HealthGained,
                         playerInstance.maxHealth);
                 }
 

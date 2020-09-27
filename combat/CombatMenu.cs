@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using HeroesGuild.combat.combat_actions;
 using HeroesGuild.combat.Effects.animations;
 using HeroesGuild.entities.base_entity;
 using HeroesGuild.entities.enemies.base_enemy;
@@ -10,7 +11,10 @@ namespace HeroesGuild.combat
 {
     public class CombatMenu : ShakableControl
     {
-        [Signal] public delegate void ActionSelected(CombatUtil.CombatAction action);
+        public delegate void ActionSelected(
+            Func<BaseEntity, BaseCombatAction> action);
+
+        public event ActionSelected OnActionSelected;
 
         [Signal] public delegate void BagOpened();
 
@@ -144,8 +148,8 @@ namespace HeroesGuild.combat
             _buttons.Visible = visible;
         }
 
-        public async Task ShowTurnResult(CombatUtil.CombatAction playerAction,
-            CombatUtil.CombatAction enemyAction)
+        public async Task ShowTurnResult(BaseCombatAction playerAction,
+            BaseCombatAction enemyAction)
         {
             _combatTurnResult.Visible = true;
             await _combatTurnResult.ShowTurnCompare(playerAction, enemyAction);
@@ -164,24 +168,22 @@ namespace HeroesGuild.combat
             }
         }
 
-        public async Task AnimatePlayerAttack(PlayerCombat playerCombat,
-            CombatUtil.CombatAction action)
+        public async Task AnimatePlayerAttack(CombatAction playerAction)
         {
-            if (action == CombatUtil.CombatAction.Counter)
+            if (playerAction is CounterAction)
                 await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
-                    CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
+                    playerAction.SecondaryColor);
 
-            var damageType = playerCombat.GetDamageType(action);
+            var damageType = playerAction.DamageType;
             var effectAnimation = _effectAnimations.GetAnimation(damageType);
-            await _attackEffect.Play(effectAnimation,
-                CombatUtil.GetActionColor(action));
+            await _attackEffect.Play(effectAnimation, playerAction.ActionColor);
         }
 
-        public async Task AnimatePlayerHurt(int damage, bool enemyCountered = false)
+        public async Task AnimatePlayerHurt(CombatAction enemyAction)
         {
-            if (enemyCountered)
+            if (enemyAction is CounterAction)
                 await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
-                    CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
+                    enemyAction.SecondaryColor);
 
             Shake(1, 20, 1);
             _playerHealthIcon.Blink(1, 6);
@@ -314,22 +316,22 @@ namespace HeroesGuild.combat
 
         private void OnCounter_Pressed()
         {
-            EmitSignal(nameof(ActionSelected), CombatUtil.CombatAction.Counter);
+            OnActionSelected?.Invoke(entity => new CounterAction(entity));
         }
 
         private void OnQuick_Pressed()
         {
-            EmitSignal(nameof(ActionSelected), CombatUtil.CombatAction.Quick);
+            OnActionSelected?.Invoke(entity => new QuickAction(entity));
         }
 
         private void OnHeavy_Pressed()
         {
-            EmitSignal(nameof(ActionSelected), CombatUtil.CombatAction.Heavy);
+            OnActionSelected?.Invoke(entity => new HeavyAction(entity));
         }
 
         private void OnFlee_Pressed()
         {
-            EmitSignal(nameof(ActionSelected), CombatUtil.CombatAction.Flee);
+            OnActionSelected?.Invoke(entity => new FleeAction(entity));
         }
     }
 }

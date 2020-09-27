@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace HeroesGuild.data
 {
-    public struct EnemyRecord : IDataRecord
+    public struct EnemyRecord : IDataRecord, ICombatStat
     {
         [JsonProperty("race")]
         public string Race { get; set; }
