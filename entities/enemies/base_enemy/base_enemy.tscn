@@ -11,10 +11,8 @@ radius = 12.1515
 "enemies",
 ] instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-EnemyName = ""
 
 [node name="StateMachine" parent="." index="2" instance=ExtResource( 3 )]
-Active = true
 
 [node name="IsSpawnSafeArea2D" type="Area2D" parent="." index="3"]
 

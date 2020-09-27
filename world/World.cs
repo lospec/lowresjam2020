@@ -91,7 +91,12 @@ namespace HeroesGuild.world
                     return;
                 }
 
-                enemy.LoadEnemy(enemyName);
+                enemy.OnDependency = (ref BaseEnemy.EnemyDependencies dependency) =>
+                {
+                    dependency.EnemyName = enemyName;
+                    dependency.PlayerInstance = _player;
+                };
+
                 while (!safe)
                 {
                     enemy.Position = enemySpawn.GetRandomGlobalPosition();
