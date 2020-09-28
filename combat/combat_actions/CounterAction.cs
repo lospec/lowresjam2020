@@ -25,7 +25,7 @@ namespace HeroesGuild.combat.combat_actions
         public override string ActionName => Name;
         public override Color ActionColor => ColorValues.AttackCounter;
         public override Color SecondaryColor => ColorValues.AttackHeavy;
-        public override AnimatedTexture Animation =>
+        protected override AnimatedTexture Animation =>
             AnimationProvider.GetCounterAnimation();
 
         public override Task QueuedAnimation(CombatAttackAnim.OnPlay play)

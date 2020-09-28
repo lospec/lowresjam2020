@@ -44,7 +44,7 @@ namespace HeroesGuild.combat.combat_actions
 
         public virtual Color SecondaryColor => ActionColor;
 
-        public virtual AnimatedTexture Animation =>
+        protected virtual AnimatedTexture Animation =>
             AnimationProvider.GetAnimation(DamageType);
 
         public virtual async Task QueuedAnimation(
