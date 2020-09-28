@@ -3,21 +3,21 @@ using static HeroesGuild.utility.AudioSystem;
 
 namespace HeroesGuild.data
 {
-	public struct SFXRecord : IDataRecord
-	{
-		[JsonProperty("sfx_clip")]
-		public SFX sfxClip;
+    public struct SFXRecord : IDataRecord
+    {
+        [JsonProperty("sfx_clip")]
+        public SFX sfxClip;
 
-		[JsonProperty("min_volume_db")]
-		public float minVolumeDb;
+        [JsonProperty("min_volume_db")]
+        public float minVolumeDb;
 
-		[JsonProperty("max_volume_db")]
-		public float maxVolumeDb;
+        [JsonProperty("max_volume_db")]
+        public float maxVolumeDb;
 
-		[JsonProperty("min_pitch")]
-		public float minPitch;
+        [JsonProperty("min_pitch")]
+        public float minPitch;
 
-		[JsonProperty("max_pitch")]
-		public float maxPitch;
-	}
+        [JsonProperty("max_pitch")]
+        public float maxPitch;
+    }
 }
