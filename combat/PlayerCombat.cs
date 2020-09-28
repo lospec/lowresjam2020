@@ -8,7 +8,7 @@ using HeroesGuild.utility;
 
 namespace HeroesGuild.combat
 {
-    public class PlayerCombat : CombatChar, IDependency<CombatMenu>
+    public class PlayerCombat : CombatController, IDependency<CombatMenu>
     {
         private new Player CharacterInstance => (Player) base.CharacterInstance;
 

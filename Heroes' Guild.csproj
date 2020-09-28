@@ -36,7 +36,7 @@
     <Compile Include="combat\Combat.cs" />
     <Compile Include="combat\CombatAnimationUtil.cs" />
     <Compile Include="combat\CombatAttackAnim.cs" />
-    <Compile Include="combat\CombatChar.cs" />
+    <Compile Include="combat\CombatController.cs" />
     <Compile Include="combat\CombatEnemyTexture.cs" />
     <Compile Include="combat\CombatMenu.cs" />
     <Compile Include="combat\CombatOutcome.cs" />

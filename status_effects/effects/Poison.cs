@@ -13,9 +13,9 @@ namespace HeroesGuild.status_effects.effects
         public int Duration { get; private set; } = 3;
         public int Damage { get; } = 1;
 
-        public override void OnTurnEnd(CombatChar combatChar)
+        public override void OnTurnEnd(CombatController combatController)
         {
-            combatChar.TakeDamage(Damage, DamageType.None);
+            combatController.TakeDamage(Damage, DamageType.None);
             Duration -= 1;
             if (Duration <= 0) expired = true;
         }

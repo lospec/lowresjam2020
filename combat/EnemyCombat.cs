@@ -6,7 +6,7 @@ using HeroesGuild.entities.enemies.base_enemy;
 
 namespace HeroesGuild.combat
 {
-    public class EnemyCombat : CombatChar
+    public class EnemyCombat : CombatController
     {
         private int _poolIndex = 0;
         private new BaseEnemy CharacterInstance => (BaseEnemy) base.CharacterInstance;

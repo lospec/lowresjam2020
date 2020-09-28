@@ -10,7 +10,7 @@ using HeroesGuild.utility;
 
 namespace HeroesGuild.combat
 {
-    public abstract class CombatChar : Node
+    public abstract class CombatController : Node
     {
         protected const int MULTIPLIER_PER_COMBO = 1;
         [Signal] public delegate void DamageTaken(int damage, string damageType);
@@ -85,8 +85,8 @@ namespace HeroesGuild.combat
             }
         }
 
-        public void Attack(CombatChar target, CombatAction action,
-            int damage, BaseEntity instance, BaseEntity targetInstance)
+        public void Attack(CombatController target, CombatAction action,
+            int damage)
         {
             if (CharacterInstance.statusEffects.ContainsKey("Weak"))
             {

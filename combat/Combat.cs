@@ -104,9 +104,9 @@ namespace HeroesGuild.combat
                 _enemyInstance.Connect(nameof(BaseEntity.HealthChanged), _combatMenu,
                     nameof(_combatMenu.UpdateEnemyHealthValue));
 
-            if (!_enemyCombat.IsConnected(nameof(CombatChar.DamageTaken), this,
+            if (!_enemyCombat.IsConnected(nameof(CombatController.DamageTaken), this,
                 nameof(OnEnemy_TakeDamage)))
-                _enemyCombat.Connect(nameof(CombatChar.DamageTaken), this,
+                _enemyCombat.Connect(nameof(CombatController.DamageTaken), this,
                     nameof(OnEnemy_TakeDamage));
         }
 
@@ -262,8 +262,7 @@ namespace HeroesGuild.combat
         {
             var enemyDamage = _enemyCombat.GetBaseDamage(enemyAction);
             ApplyDamageModifier(damageModifier, ref enemyDamage);
-            _enemyCombat.Attack(_playerCombat, enemyAction, enemyDamage,
-                _enemyInstance, _playerInstance);
+            _enemyCombat.Attack(_playerCombat, enemyAction, enemyDamage);
             await _combatMenu.AnimatePlayerHurt(enemyAction);
         }
 
@@ -274,8 +273,7 @@ namespace HeroesGuild.combat
             var playerDamage = _playerCombat.GetBaseDamage(playerAction);
             ApplyDamageModifier(damageModifier, ref playerDamage);
             await _combatMenu.AnimatePlayerAttack(playerAction);
-            _playerCombat.Attack(_enemyCombat, playerAction, playerDamage,
-                _playerInstance, _enemyInstance);
+            _playerCombat.Attack(_enemyCombat, playerAction, playerDamage);
         }
 
         private async Task EvaluateTie(CombatAction playerAction,
