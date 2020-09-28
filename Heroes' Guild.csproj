@@ -101,7 +101,6 @@
     <Compile Include="utility\Autoload.cs" />
     <Compile Include="utility\Transitions.cs" />
     <Compile Include="utility\Utility.cs" />
-    <Compile Include="utility\WeaponUtil.cs" />
     <Compile Include="world\enemy_spawn\EnemySpawn.cs" />
     <Compile Include="world\World.cs" />
   </ItemGroup>

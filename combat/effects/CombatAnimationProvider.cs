@@ -25,7 +25,7 @@ namespace HeroesGuild.combat.Effects
             foreach (DamageType type in Enum.GetValues(
                 typeof(DamageType)))
             {
-                var name = WeaponUtil.GetDamageTypeName(type).ToLower();
+                var name = Enum.GetName(typeof(DamageType), type)?.ToLower();
                 var path = string.Format(AttackAnimationPath, name);
                 if (file.FileExists(path))
                     _attackAnimations.Add(type, GD.Load<AnimatedTexture>(path));
