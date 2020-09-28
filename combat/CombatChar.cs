@@ -18,13 +18,13 @@ namespace HeroesGuild.combat
         public int hitCombo = 0;
         public BaseEntity CharacterInstance { get; set; }
 
-        public void TakeDamage(int damage, string damageType)
+        public void TakeDamage(int damage, DamageType damageType)
         {
             GD.Print($"TAKE DAMAGE: {damage} type {damageType}");
             EmitSignal(nameof(DamageTaken), damage, damageType);
 
             if (CharacterInstance.statusEffects.ContainsKey("Frozen") &&
-                damageType == "Fire")
+                damageType == DamageType.Fire)
             {
                 CharacterInstance.statusEffects.Remove("Frozen");
             }

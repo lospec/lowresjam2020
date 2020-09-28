@@ -35,7 +35,7 @@ namespace HeroesGuild.combat.combat_actions
         public abstract int BaseDamage { get; }
         public abstract float EffectChance { get; }
         public abstract string StatusEffect { get; }
-        public abstract string DamageType { get; }
+        public abstract DamageType DamageType { get; }
 
         public virtual Color SecondaryColor => ActionColor;
         protected abstract bool IsWeakness(CombatAction action);

@@ -92,6 +92,7 @@
     <Compile Include="ui\settings\audio_settings\VolumeControl.cs" />
     <Compile Include="ui\splash_screen\SplashScreen.cs" />
     <Compile Include="utility\AudioSystem.cs" />
+    <Compile Include="utility\DamageType.cs" />
     <Compile Include="utility\DependencyRequester.cs" />
     <Compile Include="utility\IDependency.cs" />
     <Compile Include="utility\PaletteSwap.cs" />

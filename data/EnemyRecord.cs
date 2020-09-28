@@ -1,4 +1,6 @@
+using HeroesGuild.utility;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HeroesGuild.data
 {
@@ -47,7 +49,8 @@ namespace HeroesGuild.data
         public int QuickDamage { get; set; }
 
         [JsonProperty("quick_damage_type")]
-        public string QuickDamageType { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public DamageType QuickDamageType { get; set; }
 
         [JsonProperty("quick_status_effect")]
         public string QuickStatusEffect { get; set; }
@@ -59,7 +62,8 @@ namespace HeroesGuild.data
         public int HeavyDamage { get; set; }
 
         [JsonProperty("heavy_damage_type")]
-        public string HeavyDamageType { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public DamageType HeavyDamageType { get; set; }
 
         [JsonProperty("heavy_status_effect")]
         public string HeavyStatusEffect { get; set; }
@@ -71,7 +75,8 @@ namespace HeroesGuild.data
         public int CounterDamage { get; set; }
 
         [JsonProperty("counter_damage_type")]
-        public string CounterDamageType { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public DamageType CounterDamageType { get; set; }
 
         [JsonProperty("counter_status_effect")]
         public string CounterStatusEffect { get; set; }

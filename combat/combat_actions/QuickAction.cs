@@ -1,5 +1,6 @@
 using Godot;
 using HeroesGuild.entities.base_entity;
+using HeroesGuild.utility;
 
 namespace HeroesGuild.combat.combat_actions
 {
@@ -17,7 +18,7 @@ namespace HeroesGuild.combat.combat_actions
 
         public override string StatusEffect => InstanceStat.QuickStatusEffect;
 
-        public override string DamageType => InstanceStat.QuickDamageType;
+        public override DamageType DamageType => InstanceStat.QuickDamageType;
         public override string ActionName => Name;
         public override Color ActionColor => ColorValues.AttackQuick;
 

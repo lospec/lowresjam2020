@@ -12,38 +12,40 @@ namespace HeroesGuild.combat.Effects.animations
         private const string CounterAnimationPath =
             "res://combat/effects/animations/counter_animation.tres";
 
-        private readonly Dictionary<string, AnimatedTexture> _attackAnimations =
-            new Dictionary<string, AnimatedTexture>();
+        private readonly Dictionary<DamageType, AnimatedTexture> _attackAnimations =
+            new Dictionary<DamageType, AnimatedTexture>();
+
+        private AnimatedTexture _counterAnimation;
 
         public override void _Ready()
         {
             var file = new File();
 
-            foreach (WeaponUtil.DamageType type in Enum.GetValues(
-                typeof(WeaponUtil.DamageType)))
+            foreach (DamageType type in Enum.GetValues(
+                typeof(DamageType)))
             {
                 var name = WeaponUtil.GetDamageTypeName(type).ToLower();
                 var path = string.Format(AttackAnimationPath, name);
                 if (file.FileExists(path))
-                    _attackAnimations.Add(name, GD.Load<AnimatedTexture>(path));
+                    _attackAnimations.Add(type, GD.Load<AnimatedTexture>(path));
             }
 
-            _attackAnimations.Add("counter",
-                GD.Load<AnimatedTexture>(CounterAnimationPath));
+            _counterAnimation = GD.Load<AnimatedTexture>(CounterAnimationPath);
         }
 
-        public AnimatedTexture GetAnimation(WeaponUtil.DamageType type)
+        public AnimatedTexture GetAnimation(DamageType type)
         {
-            var key = WeaponUtil.GetDamageTypeName(type).ToLower();
-            return GetAnimation(key);
+            if (_attackAnimations.ContainsKey(type))
+            {
+                return _attackAnimations[type];
+            }
+
+            throw new ArgumentOutOfRangeException($"{type}");
         }
 
-        public AnimatedTexture GetAnimation(string key)
+        public AnimatedTexture GetCounterAnimation()
         {
-            key = key.ToLower();
-            if (_attackAnimations.ContainsKey(key)) return _attackAnimations[key];
-
-            throw new ArgumentOutOfRangeException($"{key} not found");
+            return _counterAnimation;
         }
     }
 }

@@ -171,7 +171,7 @@ namespace HeroesGuild.combat
         public async Task AnimatePlayerAttack(CombatAction playerAction)
         {
             if (playerAction is CounterAction)
-                await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
+                await _attackEffect.Play(_effectAnimations.GetCounterAnimation(),
                     playerAction.SecondaryColor);
 
             var damageType = playerAction.DamageType;
@@ -182,7 +182,7 @@ namespace HeroesGuild.combat
         public async Task AnimatePlayerHurt(CombatAction enemyAction)
         {
             if (enemyAction is CounterAction)
-                await _attackEffect.Play(_effectAnimations.GetAnimation("counter"),
+                await _attackEffect.Play(_effectAnimations.GetCounterAnimation(),
                     enemyAction.SecondaryColor);
 
             Shake(1, 20, 1);

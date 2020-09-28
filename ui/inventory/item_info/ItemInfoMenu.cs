@@ -64,19 +64,19 @@ namespace HeroesGuild.ui.inventory.item_info
 
         public string selectedItem;
 
-        private static Texture GetDamageTypeIcon(string damageType)
+        private static Texture GetDamageTypeIcon(DamageType damageType)
         {
             var path = damageType switch
             {
-                "none" => "res://ui/inventory/item_info/type_icons/none_type_icon.png",
-                "Pierce" =>
+                DamageType.None => "res://ui/inventory/item_info/type_icons/none_type_icon.png",
+                DamageType.Pierce =>
                     "res://ui/inventory/item_info/type_icons/pierce_type_icon.png",
-                "Blunt" =>
+                DamageType.Blunt =>
                     "res://ui/inventory/item_info/type_icons/blunt_type_icon.png",
-                "Fire" => "res://ui/inventory/item_info/type_icons/fire_type_icon.png",
-                "Water" =>
+                DamageType.Fire => "res://ui/inventory/item_info/type_icons/fire_type_icon.png",
+                DamageType.Water =>
                     "res://ui/inventory/item_info/type_icons/water_type_icon.png",
-                "Electricity" =>
+                DamageType.Electricity =>
                     "res://ui/inventory/item_info/type_icons/electricity_type_icon.png",
                 _ => throw new ArgumentOutOfRangeException()
             };

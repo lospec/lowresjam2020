@@ -1,5 +1,6 @@
 using Godot;
 using HeroesGuild.combat;
+using HeroesGuild.utility;
 
 namespace HeroesGuild.status_effects.effects
 {
@@ -24,7 +25,7 @@ namespace HeroesGuild.status_effects.effects
             if (_nextDamage <= 0)
             {
                 GD.Print($"APPLY FIRE DAMAGE TO: {combatChar.Name}");
-                combatChar.TakeDamage(Damage, "Fire");
+                combatChar.TakeDamage(Damage, DamageType.Fire);
                 _nextDamage = Delay + 1;
             }
 

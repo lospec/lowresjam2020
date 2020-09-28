@@ -1,4 +1,5 @@
 using HeroesGuild.combat;
+using HeroesGuild.utility;
 
 namespace HeroesGuild.status_effects.effects
 {
@@ -14,7 +15,7 @@ namespace HeroesGuild.status_effects.effects
 
         public override void OnTurnEnd(CombatChar combatChar)
         {
-            combatChar.TakeDamage(Damage, "None");
+            combatChar.TakeDamage(Damage, DamageType.None);
             Duration -= 1;
             if (Duration <= 0) expired = true;
         }
