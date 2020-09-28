@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.combat.combat_actions;
-using HeroesGuild.combat.Effects.animations;
 using HeroesGuild.entities.base_entity;
 using HeroesGuild.entities.enemies.base_enemy;
 
@@ -34,7 +33,6 @@ namespace HeroesGuild.combat
         private MarginContainer _buttons;
         private CombatTurnResultUI _combatTurnResult;
         private Control _damageSpawnArea;
-        private AnimationList _effectAnimations;
         private TextureProgress _enemyHealthBar;
         private Tween _enemyHealthBarTween;
         private MarginContainer _mainButtonsMenu;
@@ -83,7 +81,6 @@ namespace HeroesGuild.combat
                     "VBoxContainer/EnemyHUD/VBoxContainer/Enemy");
             _attackEffect = GetNode<CombatAttackAnim>("EffectsContainer/EffectTexture");
             _damageSpawnArea = GetNode<Control>("EffectsContainer/DamageSpawnArea");
-            _effectAnimations = GetNode<AnimationList>("EffectAnimationList");
             _particlePos =
                 GetNode<Control>(
                     "VBoxContainer/EnemyHUD/VBoxContainer/Enemy/ParticlePos");
@@ -170,21 +167,12 @@ namespace HeroesGuild.combat
 
         public async Task AnimatePlayerAttack(CombatAction playerAction)
         {
-            if (playerAction is CounterAction)
-                await _attackEffect.Play(_effectAnimations.GetCounterAnimation(),
-                    playerAction.SecondaryColor);
-
-            var damageType = playerAction.DamageType;
-            var effectAnimation = _effectAnimations.GetAnimation(damageType);
-            await _attackEffect.Play(effectAnimation, playerAction.ActionColor);
+            await playerAction.QueuedAnimation(_attackEffect.Play);
         }
 
         public async Task AnimatePlayerHurt(CombatAction enemyAction)
         {
-            if (enemyAction is CounterAction)
-                await _attackEffect.Play(_effectAnimations.GetCounterAnimation(),
-                    enemyAction.SecondaryColor);
-
+            await enemyAction.QueuedAnimation(_attackEffect.Play);
             Shake(1, 20, 1);
             _playerHealthIcon.Blink(1, 6);
             await ToSignal(GetTree().CreateTimer(1.5f), "timeout");

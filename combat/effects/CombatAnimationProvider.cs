@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Godot;
 using HeroesGuild.utility;
 
-namespace HeroesGuild.combat.Effects.animations
+namespace HeroesGuild.combat.Effects
 {
-    public class AnimationList : Node
+    public class CombatAnimationProvider
     {
         private const string AttackAnimationPath =
             "res://combat/effects/animations/attack_animation_{0}.tres";
@@ -15,9 +15,10 @@ namespace HeroesGuild.combat.Effects.animations
         private readonly Dictionary<DamageType, AnimatedTexture> _attackAnimations =
             new Dictionary<DamageType, AnimatedTexture>();
 
-        private AnimatedTexture _counterAnimation;
+        private readonly AnimatedTexture _counterAnimation;
 
-        public override void _Ready()
+
+        public CombatAnimationProvider()
         {
             var file = new File();
 

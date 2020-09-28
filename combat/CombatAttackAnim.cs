@@ -7,6 +7,9 @@ namespace HeroesGuild.combat
     {
         public bool playing = false;
 
+        public delegate Task OnPlay(AnimatedTexture animation, Color color,
+            float minDuration = 0f);
+
         public async Task Play(AnimatedTexture texture, Color color,
             float minDuration = 0f)
         {

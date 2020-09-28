@@ -48,7 +48,7 @@
     <Compile Include="combat\combat_actions\HeavyAction.cs" />
     <Compile Include="combat\combat_actions\QuickAction.cs" />
     <Compile Include="combat\DamageLabel.cs" />
-    <Compile Include="combat\Effects\animations\AnimationList.cs" />
+    <Compile Include="combat\Effects\CombatAnimationProvider.cs" />
     <Compile Include="combat\Effects\IShakable.cs" />
     <Compile Include="combat\Effects\ShakeEffect.cs" />
     <Compile Include="combat\EnemyCombat.cs" />
@@ -107,5 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="combat\Effects\animations" />
   </ItemGroup>
 </Project>
