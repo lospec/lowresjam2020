@@ -94,13 +94,7 @@ namespace HeroesGuild.utility
             }
         }
 
-        public static bool IsMusicPlaying
-        {
-            get
-            {
-                return GetMusicPlayers().Count > 0;
-            }
-        }
+        public static bool IsMusicPlaying => GetMusicPlayers().Count > 0;
 
         public override void _Ready()
         {
@@ -108,7 +102,7 @@ namespace HeroesGuild.utility
             instance = this;
         }
 
-        public static AudioStream GetMusicResource(Music music)
+        private static AudioStream GetMusicResource(Music music)
         {
             var path = music switch
             {
@@ -129,7 +123,7 @@ namespace HeroesGuild.utility
             return ResourceLoader.Load<AudioStream>(path);
         }
 
-        public static AudioStream GetSFXResource(SFX sfx)
+        private static AudioStream GetSFXResource(SFX sfx)
         {
             var path = sfx switch
             {
@@ -174,10 +168,10 @@ namespace HeroesGuild.utility
             return ResourceLoader.Load<AudioStream>(path);
         }
 
-        public static MusicRecord? GetMusicRecord(string musicName)
+        private static MusicRecord? GetMusicRecord(string musicName)
         {
             var data = Autoload.Get<Data>();
-            if (!data.musicData.TryGetValue(musicName, out MusicRecord musicRecord))
+            if (!data.musicData.TryGetValue(musicName, out var musicRecord))
             {
                 GD.PushError($"Music record not found with key \"{musicName}\"");
                 return null;
@@ -186,79 +180,90 @@ namespace HeroesGuild.utility
             return musicRecord;
         }
 
-        public static SFXRecord? GetSFXRecord(string sfxName)
+        private static SFXRecord? GetSFXRecord(string sfxName)
         {
             var data = Autoload.Get<Data>();
-            if (!data.sfxData.TryGetValue(sfxName, out SFXRecord sfxRecord))
+            if (!data.sfxData.TryGetValue(sfxName, out var sfxRecord))
             {
                 GD.PushError($"SFX record not found with key \"{sfxName}\"");
                 return null;
-
             }
 
             return sfxRecord;
         }
 
+
         public static AudioStreamPlayer PlayMusic(string musicName)
         {
-            return PlayMusic(GetMusicRecord(musicName).Value);
-        }
-
-        public static AudioStreamPlayer PlayMusic(MusicRecord musicRecord)
-        {
-            AudioStream audioStream = GetMusicResource(musicRecord.musicClip);
-            AudioStreamPlayer musicPlayer = instance.PlayAudio(audioStream, musicRecord.volumeDb, 1f, musicRecord.fadeIn, musicRecord.playbackPosition);
-            musicPlayer.AddToGroup(MUSIC_PLAYERS_GROUP_NAME);
-            return musicPlayer;
+            return PlayMusic(GetMusicRecord(musicName));
         }
 
         public static AudioStreamPlayer PlaySFX(string sfxName)
         {
-            return PlaySFX(GetSFXRecord(sfxName).Value);
+            return PlaySFX(GetSFXRecord(sfxName));
         }
+
 
         public static AudioStreamPlayer2D PlaySFX(string sfxName, Vector2 audioPosition)
         {
-            return PlaySFX(GetSFXRecord(sfxName).Value, audioPosition);
+            return PlaySFX(GetSFXRecord(sfxName), audioPosition);
         }
 
-        public static AudioStreamPlayer PlaySFX(SFXRecord sfxRecord)
+        public static AudioStreamPlayer PlayMusic(MusicRecord? record)
         {
-            AudioStream audioStream = GetSFXResource(sfxRecord.sfxClip);
+            var musicRecord = record.GetValueOrDefault();
 
-            float volumeDb = sfxRecord.minVolumeDb == sfxRecord.maxVolumeDb ?
-                sfxRecord.minVolumeDb :
-                (float)GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+            var audioStream = GetMusicResource(musicRecord.musicClip);
+            var musicPlayer = instance.PlayAudio(audioStream, musicRecord.volumeDb, 1f,
+                musicRecord.fadeIn, musicRecord.playbackPosition);
+            musicPlayer.AddToGroup(MUSIC_PLAYERS_GROUP_NAME);
 
-            float pitchScale = sfxRecord.minPitch == sfxRecord.maxPitch ?
-                sfxRecord.minPitch :
-                (float)GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
+            return musicPlayer;
+        }
 
-            AudioStreamPlayer sfxPlayer = instance.PlayAudio(audioStream, volumeDb, pitchScale, false, 0f);
+        private static AudioStreamPlayer PlaySFX(SFXRecord? record)
+        {
+            var sfxRecord = record.GetValueOrDefault();
+            var audioStream = GetSFXResource(sfxRecord.sfxClip);
+
+            var volumeDb = sfxRecord.minVolumeDb == sfxRecord.maxVolumeDb
+                ? sfxRecord.minVolumeDb
+                : (float) GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+
+            var pitchScale = sfxRecord.minPitch == sfxRecord.maxPitch
+                ? sfxRecord.minPitch
+                : (float) GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
+
+            var sfxPlayer =
+                instance.PlayAudio(audioStream, volumeDb, pitchScale, false, 0f);
             sfxPlayer.AddToGroup(SFX_PLAYERS_GROUP_NAME);
             return sfxPlayer;
         }
 
-        public static AudioStreamPlayer2D PlaySFX(SFXRecord sfxRecord, Vector2 audioPosition)
+        private static AudioStreamPlayer2D PlaySFX(SFXRecord? record,
+            Vector2 audioPosition)
         {
-            AudioStream audioStream = GetSFXResource(sfxRecord.sfxClip);
+            var sfxRecord = record.GetValueOrDefault();
+            var audioStream = GetSFXResource(sfxRecord.sfxClip);
 
-            float volumeDb = sfxRecord.minVolumeDb == sfxRecord.maxVolumeDb ?
-                sfxRecord.minVolumeDb :
-                (float)GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+            var volumeDb = Math.Abs(sfxRecord.minVolumeDb - sfxRecord.maxVolumeDb) < 0.01
+                ? sfxRecord.minVolumeDb
+                : (float) GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
 
-            float pitchScale = sfxRecord.minPitch == sfxRecord.maxPitch ?
-                sfxRecord.minPitch :
-                (float)GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
+            var pitchScale = Math.Abs(sfxRecord.minPitch - sfxRecord.maxPitch) < 0.01
+                ? sfxRecord.minPitch
+                : (float) GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
 
-            AudioStreamPlayer2D sfxPlayer = instance.PlayAudio(audioStream, audioPosition, volumeDb, pitchScale, false, 0f);
+            var sfxPlayer = instance.PlayAudio(audioStream, audioPosition, volumeDb,
+                pitchScale, false, 0f);
             sfxPlayer.AddToGroup(SFX_PLAYERS_GROUP_NAME);
             return sfxPlayer;
         }
 
-        public AudioStreamPlayer PlayAudio(AudioStream audioStream, float volumeDb, float pitchScale, bool fadeIn, float fromPosition)
+        private AudioStreamPlayer PlayAudio(AudioStream audioStream, float volumeDb,
+            float pitchScale, bool fadeIn, float fromPosition)
         {
-            var audioPlayer = new AudioStreamPlayer()
+            var audioPlayer = new AudioStreamPlayer
             {
                 Stream = audioStream,
                 VolumeDb = volumeDb,
@@ -280,9 +285,11 @@ namespace HeroesGuild.utility
             return audioPlayer;
         }
 
-        public AudioStreamPlayer2D PlayAudio(AudioStream audioStream, Vector2 audioPosition, float volumeDb, float pitchScale, bool fadeIn, float fromPosition)
+        private AudioStreamPlayer2D PlayAudio(AudioStream audioStream,
+            Vector2 audioPosition, float volumeDb, float pitchScale, bool fadeIn,
+            float fromPosition)
         {
-            var audioPlayer = new AudioStreamPlayer2D()
+            var audioPlayer = new AudioStreamPlayer2D
             {
                 Position = audioPosition,
                 Stream = audioStream,
@@ -305,12 +312,12 @@ namespace HeroesGuild.utility
             return audioPlayer;
         }
 
-        public static Array GetMusicPlayers()
+        private static Array GetMusicPlayers()
         {
             return instance.GetTree().GetNodesInGroup(MUSIC_PLAYERS_GROUP_NAME);
         }
 
-        public static Array GetSFXPlayers()
+        private static Array GetSFXPlayers()
         {
             return instance.GetTree().GetNodesInGroup(SFX_PLAYERS_GROUP_NAME);
         }
@@ -325,7 +332,7 @@ namespace HeroesGuild.utility
             }
         }
 
-        public static void StopAllSFX()
+        private static void StopAllSFX()
         {
             foreach (Node sfxPlayer in GetSFXPlayers())
             {
