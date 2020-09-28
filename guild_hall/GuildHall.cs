@@ -1,5 +1,6 @@
 using System.Linq;
 using Godot;
+using HeroesGuild.data;
 using HeroesGuild.entities.player;
 using HeroesGuild.guild_hall.chest;
 using HeroesGuild.guild_hall.guild_interface;
@@ -60,9 +61,9 @@ namespace HeroesGuild.guild_hall
 
         private async void OnDoorDetection_BodyEntered(KinematicBody2D body)
         {
-            if (!body.IsInGroup("enemies"))
+            if (body.IsInGroup("player"))
             {
-                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, -30);
+				AudioSystem.PlaySFX("GuildHallEnter");
                 await Autoload.Get<Transitions>().ChangeSceneDoubleTransition
                 (WorldScenePath,
                     new Transitions.TransitionParams(
@@ -74,7 +75,7 @@ namespace HeroesGuild.guild_hall
         {
             if (currentOpenedChest != null || chest.animatedSprite.Playing) return;
 
-            AudioSystem.PlaySFX(AudioSystem.SFX.ChestOpen, -25);
+            AudioSystem.PlaySFX("GuildHallChestOpen");
             chest.animatedSprite.Play("open");
             await ToSignal(chest.animatedSprite, "animation_finished");
             chest.animatedSprite.Stop();

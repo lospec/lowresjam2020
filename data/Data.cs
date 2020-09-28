@@ -10,7 +10,9 @@ namespace HeroesGuild.data
         private const string ITEM_DATA_PATH = "res://data/item_data.json";
         private const string ENEMY_DATA_PATH = "res://data/enemy_data.json";
         private const string CHARACTER_DATA_PATH = "res://data/character_data.json";
-        private int _maxSpeedStat = int.MinValue;
+		private const string MUSIC_DATA_PATH = "res://data/music_data.json";
+		private const string SFX_DATA_PATH = "res://data/sfx_data.json";
+		private int _maxSpeedStat = int.MinValue;
 
         private int _minSpeedStat = int.MaxValue;
         private bool _speedStatRead = false;
@@ -22,12 +24,20 @@ namespace HeroesGuild.data
         public Dictionary<string, ItemRecord> itemData =
             new Dictionary<string, ItemRecord>();
 
+		public Dictionary<string, MusicRecord> musicData =
+			new Dictionary<string, MusicRecord>();
+
+		public Dictionary<string, SFXRecord> sfxData =
+			new Dictionary<string, SFXRecord>();
+
         public override void _Ready()
         {
             itemData = ParseData<ItemRecord>(ITEM_DATA_PATH);
             enemyData = ParseData<EnemyRecord>(ENEMY_DATA_PATH);
             characterData = ParseData<CharacterRecord>(CHARACTER_DATA_PATH);
-            SetMinMaxSpeedStat();
+			musicData = ParseData<MusicRecord>(MUSIC_DATA_PATH);
+			sfxData = ParseData<SFXRecord>(SFX_DATA_PATH);
+			SetMinMaxSpeedStat();
         }
 
         public float GetLerpedSpeedStat(int speedStat, float minSpeed, float maxSpeed)

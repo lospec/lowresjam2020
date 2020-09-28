@@ -51,7 +51,7 @@ namespace HeroesGuild.ui.character_selection
             {
                 button.Connect("mouse_entered", this, nameof(OnButton_MouseEntered),
                     new Array {button});
-                button.Connect("mouse_entered", this, nameof(OnButton_Pressed),
+                button.Connect("pressed", this, nameof(OnButton_Pressed),
                     new Array {button});
             }
         }
@@ -112,12 +112,14 @@ namespace HeroesGuild.ui.character_selection
             _selectVBox.Visible = true;
             selectedCharacterName = character.characterName;
             _nameLabel.Text = character.characterName;
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
-                character.RectGlobalPosition, -15);
+
+			AudioSystem.PlaySFX("CharacterSelectorCharacterPressed");
         }
 
         private async void OnSelect_Pressed()
         {
+			AudioSystem.StopAllMusic();
+
             Autoload.Get<SaveData>().CharacterName = selectedCharacterName;
             var transitionParams =
                 new Transitions.TransitionParams(
@@ -128,14 +130,12 @@ namespace HeroesGuild.ui.character_selection
 
         private void OnButton_Pressed(Control button)
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, button.RectGlobalPosition,
-                -15);
+            AudioSystem.PlaySFX("CharacterSelectorButtonPressed");
         }
 
         private void OnButton_MouseEntered(Control button)
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonHover, button.RectGlobalPosition,
-                -20);
+            AudioSystem.PlaySFX("CharacterSelectorButtonHover");
         }
     }
 }

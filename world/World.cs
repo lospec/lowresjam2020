@@ -43,8 +43,7 @@ namespace HeroesGuild.world
 
             _player.Position = Autoload.Get<SaveData>().WorldPosition;
 
-            if (AudioSystem.currentPlayingMusic != AudioSystem.Music.Overworld)
-                AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
+			AudioSystem.PlayMusic("Overworld");
 
             SpawnEnemies();
         }
@@ -131,12 +130,12 @@ namespace HeroesGuild.world
 
         private async void OnDoorDetection_BodyEntered(KinematicBody2D body)
         {
-            if (!body.IsInGroup("enemies"))
+            if (body.IsInGroup("player"))
             {
                 var offset = new Vector2(0, 5);
                 Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
 
-                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, -30);
+                AudioSystem.PlaySFX("GuildHallEnter");
                 var transitionParams =
                     new Transitions.TransitionParams(
                         Transitions.TransitionType.ShrinkingCircle, 0.3f);
@@ -190,7 +189,7 @@ namespace HeroesGuild.world
             saveData.Health = SaveData.DEFAULT_HEALTH;
             _player.Health = SaveData.DEFAULT_HEALTH;
 
-            AudioSystem.StopMusic();
+			AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
                 MainMenuScenePath,
                 new Transitions.TransitionParams(
