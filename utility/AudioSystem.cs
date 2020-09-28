@@ -158,6 +158,7 @@ namespace HeroesGuild.utility
 				SFX.HumanHurt => "res://sfx/human_hit.wav",
 				SFX.RobotHurt => "res://sfx/robot_hit.wav",
 				SFX.SlimeHurt => "res://sfx/slime_hit.wav",
+				SFX.GnomeHurt => "res://sfx/gnome_hit.wav",
 				SFX.PlayerHurt => "res://sfx/player_hit.wav",
 				SFX.QuickAttack => "res://sfx/quick.wav",
 				SFX.HeavyAttack => "res://sfx/heavy.wav",
