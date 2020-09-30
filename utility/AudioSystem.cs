@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using HeroesGuild.data;
 using Array = Godot.Collections.Array;
 
 namespace HeroesGuild.utility
@@ -8,10 +9,10 @@ namespace HeroesGuild.utility
     {
         public enum Music
         {
-            None = -1,
             TitleScreen,
             Overworld,
             Guild,
+            BattleIntro,
             BattleBeast,
             BattleDemon,
             BattleFlora,
@@ -28,18 +29,17 @@ namespace HeroesGuild.utility
             ButtonClickShort,
             ButtonHover,
             Deny,
-            Token3,
+            Token,
             Footstep1,
             Footstep2,
             DoorOpen,
             ChestOpen,
             HeroesGuildNox1,
+            HeroesGuildNox2,
             HeroesGuildNox3,
-            HeroesGuildNox4,
-            HeroesGuildPureasbestos1,
-            HeroesGuildUnsettled1,
-            HeroesGuildWildleoknight2,
-            BattleIntro,
+            HeroesGuildPureAsbestos,
+            HeroesGuildUnsettled,
+            HeroesGuildWildleoknight,
             VictoryJingle,
             BeastHurt,
             DemonHurt,
@@ -48,12 +48,13 @@ namespace HeroesGuild.utility
             RobotHurt,
             SlimeHurt,
             PlayerHurt,
+            GnomeHurt,
             QuickAttack,
             HeavyAttack,
             CounterAttack,
             ChargedStatus,
             ConfusionStatus,
-            OnfireStatus,
+            OnFireStatus,
             FrozenStatus,
             PoisonedStatus,
             WeakStatus
@@ -61,10 +62,10 @@ namespace HeroesGuild.utility
 
         private const float FADE_IN_START_VOLUME = -80f;
         private const float FADE_IN_DURATION = 0.5f;
-        public static AudioSystem instance;
+        private const string MUSIC_PLAYERS_GROUP_NAME = "music_players";
+        private const string SFX_PLAYERS_GROUP_NAME = "sfx_players";
 
-        public static Music currentPlayingMusic = Music.None;
-        private AudioStreamPlayer _musicPlayer;
+        public static AudioSystem instance;
 
         private float _musicVolume;
         private float _sfxVolume;
@@ -76,7 +77,8 @@ namespace HeroesGuild.utility
             set
             {
                 value = Mathf.Max(-80, value);
-                instance._musicPlayer.VolumeDb += value - instance._musicVolume;
+                foreach (AudioStreamPlayer sfxPlayer in GetMusicPlayers())
+                    sfxPlayer.VolumeDb += value - instance._sfxVolume;
                 instance._musicVolume = value;
             }
         }
@@ -86,21 +88,28 @@ namespace HeroesGuild.utility
             set
             {
                 value = Mathf.Max(-80, value);
-                foreach (AudioStreamPlayer sfxPlayer in instance.GetTree()
-                    .GetNodesInGroup("sfx_players"))
+                foreach (AudioStreamPlayer sfxPlayer in GetSFXPlayers())
                     sfxPlayer.VolumeDb += value - instance._sfxVolume;
-
                 instance._sfxVolume = value;
             }
         }
 
-        public static AudioStream GetMusicResource(Music music)
+        public static bool IsMusicPlaying => GetMusicPlayers().Count > 0;
+
+        public override void _Ready()
+        {
+            _tween = GetNode<Tween>("Tween");
+            instance = this;
+        }
+
+        private static AudioStream GetMusicResource(Music music)
         {
             var path = music switch
             {
                 Music.TitleScreen => "res://music/title_chiptune.ogg",
                 Music.Overworld => "res://music/overworld.ogg",
                 Music.Guild => "res://music/guild.ogg",
+                Music.BattleIntro => "res://music/battle_intro.ogg",
                 Music.BattleBeast => "res://music/battle_beast.ogg",
                 Music.BattleDemon => "res://music/battle_demon.ogg",
                 Music.BattleFlora => "res://music/battle_flora.ogg",
@@ -114,7 +123,7 @@ namespace HeroesGuild.utility
             return ResourceLoader.Load<AudioStream>(path);
         }
 
-        public static AudioStream GetSFXResource(SFX sfx)
+        private static AudioStream GetSFXResource(SFX sfx)
         {
             var path = sfx switch
             {
@@ -122,21 +131,20 @@ namespace HeroesGuild.utility
                 SFX.ButtonClickShort => "res://sfx/click_short.wav",
                 SFX.ButtonHover => "res://sfx/ui_hover.wav",
                 SFX.Deny => "res://sfx/ui_deny.wav",
-                SFX.Token3 => "res://sfx/token_3.wav",
+                SFX.Token => "res://sfx/token_3.wav",
                 SFX.Footstep1 => "res://sfx/footstep_1.wav",
                 SFX.Footstep2 => "res://sfx/footstep_2.wav",
                 SFX.DoorOpen => "res://sfx/door_open.wav",
                 SFX.ChestOpen => "res://sfx/chest_open.wav",
                 SFX.HeroesGuildNox1 => "res://sfx/heroes_guild_nox.wav",
-                SFX.HeroesGuildNox3 => "res://sfx/heroes_guild_nox-take3.wav",
-                SFX.HeroesGuildNox4 => "res://sfx/heroes_guild_nox-take4.wav",
-                SFX.HeroesGuildPureasbestos1 =>
-                    "res://sfx/heroes_guild_pureasbestos_take1.wav",
-                SFX.HeroesGuildUnsettled1 =>
-                    "res://sfx/heroes_guild_unsettled_take1.wav",
-                SFX.HeroesGuildWildleoknight2 =>
-                    "res://sfx/heroes_guild_wildleoknight_take2.wav",
-                SFX.BattleIntro => "res://sfx/battle_intro.ogg",
+                SFX.HeroesGuildNox2 => "res://sfx/heroes_guild_nox2.wav",
+                SFX.HeroesGuildNox3 => "res://sfx/heroes_guild_nox3.wav",
+                SFX.HeroesGuildPureAsbestos =>
+                    "res://sfx/heroes_guild_pureasbestos.wav",
+                SFX.HeroesGuildUnsettled =>
+                    "res://sfx/heroes_guild_unsettled.wav",
+                SFX.HeroesGuildWildleoknight =>
+                    "res://sfx/heroes_guild_wildleoknight.wav",
                 SFX.VictoryJingle => "res://sfx/victory_jingle.wav",
                 SFX.BeastHurt => "res://sfx/beast_hit.wav",
                 SFX.DemonHurt => "res://sfx/demon_hit.wav",
@@ -144,13 +152,14 @@ namespace HeroesGuild.utility
                 SFX.HumanHurt => "res://sfx/human_hit.wav",
                 SFX.RobotHurt => "res://sfx/robot_hit.wav",
                 SFX.SlimeHurt => "res://sfx/slime_hit.wav",
+                SFX.GnomeHurt => "res://sfx/gnome_hit.wav",
                 SFX.PlayerHurt => "res://sfx/player_hit.wav",
                 SFX.QuickAttack => "res://sfx/quick.wav",
                 SFX.HeavyAttack => "res://sfx/heavy.wav",
                 SFX.CounterAttack => "res://sfx/counter.wav",
                 SFX.ChargedStatus => "res://sfx/charged.wav",
                 SFX.ConfusionStatus => "res://sfx/confusion.wav",
-                SFX.OnfireStatus => "res://sfx/fire3.wav",
+                SFX.OnFireStatus => "res://sfx/fire3.wav",
                 SFX.FrozenStatus => "res://sfx/ice.wav",
                 SFX.PoisonedStatus => "res://sfx/poison.wav",
                 SFX.WeakStatus => "res://sfx/weak.wav",
@@ -159,91 +168,184 @@ namespace HeroesGuild.utility
             return ResourceLoader.Load<AudioStream>(path);
         }
 
-        public override void _Ready()
+        private static MusicRecord? GetMusicRecord(string musicName)
         {
-            _musicPlayer = GetNode<AudioStreamPlayer>("Music");
-            _tween = GetNode<Tween>("Tween");
-            instance = this;
+            var data = Autoload.Get<Data>();
+            if (!data.musicData.TryGetValue(musicName, out var musicRecord))
+            {
+                GD.PushError($"Music record not found with key \"{musicName}\"");
+                return null;
+            }
+
+            return musicRecord;
         }
 
-        // Godot signals doesnt work when optional parameters are not provided, hence this overload method 
-        public static void PlayMusic(Music music, float volumeDb = 0f)
+        private static SFXRecord? GetSFXRecord(string sfxName)
         {
-            instance.PlayMusic(music, volumeDb, 1f);
+            var data = Autoload.Get<Data>();
+            if (!data.sfxData.TryGetValue(sfxName, out var sfxRecord))
+            {
+                GD.PushError($"SFX record not found with key \"{sfxName}\"");
+                return null;
+            }
+
+            return sfxRecord;
         }
 
-        public void PlayMusic(Music music, float volumeDb, float pitchScale,
-            bool fadeIn = true)
+
+        public static AudioStreamPlayer PlayMusic(string musicName)
         {
-            currentPlayingMusic = music;
-            _musicPlayer.Stream = GetMusicResource(music);
-            volumeDb += _musicVolume;
+            return PlayMusic(GetMusicRecord(musicName));
+        }
+
+        public static AudioStreamPlayer PlaySFX(string sfxName)
+        {
+            return PlaySFX(GetSFXRecord(sfxName));
+        }
+
+
+        public static AudioStreamPlayer2D PlaySFX(string sfxName, Vector2 audioPosition)
+        {
+            return PlaySFX(GetSFXRecord(sfxName), audioPosition);
+        }
+
+        public static AudioStreamPlayer PlayMusic(MusicRecord? record)
+        {
+            var musicRecord = record.GetValueOrDefault();
+
+            var audioStream = GetMusicResource(musicRecord.musicClip);
+            var musicPlayer = instance.PlayAudio(audioStream, musicRecord.volumeDb, 1f,
+                musicRecord.fadeIn, musicRecord.playbackPosition);
+            musicPlayer.AddToGroup(MUSIC_PLAYERS_GROUP_NAME);
+
+            return musicPlayer;
+        }
+
+        private static AudioStreamPlayer PlaySFX(SFXRecord? record)
+        {
+            var sfxRecord = record.GetValueOrDefault();
+            var audioStream = GetSFXResource(sfxRecord.sfxClip);
+
+            var volumeDb = sfxRecord.minVolumeDb == sfxRecord.maxVolumeDb
+                ? sfxRecord.minVolumeDb
+                : (float) GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+
+            var pitchScale = sfxRecord.minPitch == sfxRecord.maxPitch
+                ? sfxRecord.minPitch
+                : (float) GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
+
+            var sfxPlayer =
+                instance.PlayAudio(audioStream, volumeDb, pitchScale, false, 0f);
+            sfxPlayer.AddToGroup(SFX_PLAYERS_GROUP_NAME);
+            return sfxPlayer;
+        }
+
+        private static AudioStreamPlayer2D PlaySFX(SFXRecord? record,
+            Vector2 audioPosition)
+        {
+            var sfxRecord = record.GetValueOrDefault();
+            var audioStream = GetSFXResource(sfxRecord.sfxClip);
+
+            var volumeDb = Math.Abs(sfxRecord.minVolumeDb - sfxRecord.maxVolumeDb) < 0.01
+                ? sfxRecord.minVolumeDb
+                : (float) GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+
+            var pitchScale = Math.Abs(sfxRecord.minPitch - sfxRecord.maxPitch) < 0.01
+                ? sfxRecord.minPitch
+                : (float) GD.RandRange(sfxRecord.minPitch, sfxRecord.maxPitch);
+
+            var sfxPlayer = instance.PlayAudio(audioStream, audioPosition, volumeDb,
+                pitchScale, false, 0f);
+            sfxPlayer.AddToGroup(SFX_PLAYERS_GROUP_NAME);
+            return sfxPlayer;
+        }
+
+        private AudioStreamPlayer PlayAudio(AudioStream audioStream, float volumeDb,
+            float pitchScale, bool fadeIn, float fromPosition)
+        {
+            var audioPlayer = new AudioStreamPlayer
+            {
+                Stream = audioStream,
+                VolumeDb = volumeDb,
+                PitchScale = pitchScale
+            };
+
+            AddChild(audioPlayer);
+            audioPlayer.Connect("finished", audioPlayer, "queue_free");
+
             if (fadeIn)
             {
-                _musicPlayer.VolumeDb = FADE_IN_START_VOLUME;
-                _tween.InterpolateProperty(_musicPlayer, "volume_db",
+                _tween.InterpolateProperty(audioPlayer, "volume_db",
                     FADE_IN_START_VOLUME, volumeDb, FADE_IN_DURATION);
                 _tween.Start();
             }
-            else
-            {
-                _musicPlayer.VolumeDb = volumeDb;
-            }
 
-            _musicPlayer.PitchScale = pitchScale;
-            _musicPlayer.Play();
+            audioPlayer.Play(fromPosition);
+
+            return audioPlayer;
         }
 
-        public static void StopMusic()
+        private AudioStreamPlayer2D PlayAudio(AudioStream audioStream,
+            Vector2 audioPosition, float volumeDb, float pitchScale, bool fadeIn,
+            float fromPosition)
         {
-            currentPlayingMusic = Music.None;
-            instance._musicPlayer.Stop();
-        }
-
-        public static AudioStreamPlayer2D PlaySFX(SFX sfx, Vector2 audioPosition,
-            float volumeDb = 0f,
-            float pitchScale = 1f)
-        {
-            volumeDb += instance._sfxVolume;
-            var sfxPlayer = new AudioStreamPlayer2D
+            var audioPlayer = new AudioStreamPlayer2D
             {
                 Position = audioPosition,
-                Stream = GetSFXResource(sfx),
+                Stream = audioStream,
                 VolumeDb = volumeDb,
                 PitchScale = pitchScale
             };
-            sfxPlayer.Play();
-            ConfigureSfxPlayer(sfxPlayer);
-            return sfxPlayer;
-        }
 
-        public static AudioStreamPlayer PlaySFX(SFX sfx, float volumeDb = 0f,
-            float pitchScale = 1f)
-        {
-            volumeDb += instance._sfxVolume;
-            var sfxPlayer = new AudioStreamPlayer
+            AddChild(audioPlayer);
+            audioPlayer.Connect("finished", audioPlayer, "queue_free");
+
+            if (fadeIn)
             {
-                Stream = GetSFXResource(sfx),
-                VolumeDb = volumeDb,
-                PitchScale = pitchScale
-            };
-            sfxPlayer.Play();
-            ConfigureSfxPlayer(sfxPlayer);
-            return sfxPlayer;
+                _tween.InterpolateProperty(audioPlayer, "volume_db",
+                    FADE_IN_START_VOLUME, volumeDb, FADE_IN_DURATION);
+                _tween.Start();
+            }
+
+            audioPlayer.Play(fromPosition);
+
+            return audioPlayer;
         }
 
-        private static void ConfigureSfxPlayer(Node sfxPlayer)
+        private static Array GetMusicPlayers()
         {
-            instance.AddChild(sfxPlayer);
-            sfxPlayer.Connect("finished", instance, nameof(OnSFXPlayer_Finished),
-                new Array {sfxPlayer});
-            sfxPlayer.AddToGroup("sfx_players");
+            return instance.GetTree().GetNodesInGroup(MUSIC_PLAYERS_GROUP_NAME);
         }
 
-
-        private void OnSFXPlayer_Finished(Node sfxPlayer)
+        private static Array GetSFXPlayers()
         {
-            sfxPlayer.QueueFree();
+            return instance.GetTree().GetNodesInGroup(SFX_PLAYERS_GROUP_NAME);
+        }
+
+        public static void StopAllMusic()
+        {
+            foreach (Node musicPlayer in GetMusicPlayers())
+            {
+                (musicPlayer as AudioStreamPlayer)?.Stop();
+                (musicPlayer as AudioStreamPlayer2D)?.Stop();
+                musicPlayer.QueueFree();
+            }
+        }
+
+        private static void StopAllSFX()
+        {
+            foreach (Node sfxPlayer in GetSFXPlayers())
+            {
+                (sfxPlayer as AudioStreamPlayer)?.Stop();
+                (sfxPlayer as AudioStreamPlayer2D)?.Stop();
+                sfxPlayer.QueueFree();
+            }
+        }
+
+        public static void StopAllAudio()
+        {
+            StopAllMusic();
+            StopAllSFX();
         }
     }
 }

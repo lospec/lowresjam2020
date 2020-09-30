@@ -1,0 +1,68 @@
+{
+  "BattleBeast": {
+    "music_clip": "BattleBeast",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleDemon": {
+    "music_clip": "BattleDemon",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleFlora": {
+    "music_clip": "BattleFlora",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleGameOver": {
+    "music_clip": "GameOver",
+    "volume_db": 0,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleGnome": {
+    "music_clip": "BattleGnome",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleHuman": {
+    "music_clip": "BattleHuman",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleIntro": {
+    "music_clip": "BattleIntro",
+    "volume_db": -10,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleRobot": {
+    "music_clip": "BattleRobot",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "BattleSlime": {
+    "music_clip": "BattleSlime",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "Overworld": {
+    "music_clip": "Overworld",
+    "volume_db": -20,
+    "fade_in": true,
+    "playback_position": 0
+  },
+  "TitleScreen": {
+    "music_clip": "TitleScreen",
+    "volume_db": -15,
+    "fade_in": true,
+    "playback_position": 0
+  }
+}

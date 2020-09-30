@@ -1,0 +1,273 @@
+{
+  "BattleAttackCounter": {
+    "sfx_clip": "CounterAttack"
+  },
+  "BattleAttackHeavy": {
+    "sfx_clip": "HeavyAttack"
+  },
+  "BattleAttackQuick": {
+    "sfx_clip": "QuickAttack"
+  },
+  "BattleHurtBeast": {
+    "sfx_clip": "BeastHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtDemon": {
+    "sfx_clip": "DemonHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtFlora": {
+    "sfx_clip": "FloraHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtGnome": {
+    "sfx_clip": "GnomeHurt",
+    "min_volume_db": -20,
+    "max_volume_db": -20,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtHuman": {
+    "sfx_clip": "HumanHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtPlayer": {
+    "sfx_clip": "PlayerHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtRobot": {
+    "sfx_clip": "RobotHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleHurtSlime": {
+    "sfx_clip": "SlimeHurt",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusCharged": {
+    "sfx_clip": "ChargedStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusConfusion": {
+    "sfx_clip": "ConfusionStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusFrozen": {
+    "sfx_clip": "FrozenStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusOnFire": {
+    "sfx_clip": "OnFireStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusPoisoned": {
+    "sfx_clip": "PoisonedStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleStatusWeak": {
+    "sfx_clip": "WeakStatus",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "BattleVictoryJingle": {
+    "sfx_clip": "VictoryJingle"
+  },
+  "CharacterSelectorButtonHover": {
+    "sfx_clip": "ButtonHover",
+    "min_volume_db": -15,
+    "max_volume_db": -15,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "CharacterSelectorButtonPressed": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "CharacterSelectorCharacterPressed": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "GuildHallChestOpen": {
+    "sfx_clip": "ChestOpen",
+    "min_volume_db": -20,
+    "max_volume_db": -20,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "GuildHallEnter": {
+    "sfx_clip": "DoorOpen",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "GuildHallExit": {
+    "sfx_clip": "DoorOpen",
+    "min_volume_db": -25,
+    "max_volume_db": -25,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "GuildInterfaceTabChanged": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "InventoryItemEquipped": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "InventoryItemUsed": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "InventoryItemUsedConfirmNo": {
+    "sfx_clip": "Deny",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "InventoryItemUsedConfirmYes": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "PauseMenuInventoryExpandedItemInfoBackPressed": {
+    "sfx_clip": "Deny",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "PauseMenuItemPressed": {
+    "sfx_clip": "ButtonHover",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "PauseMenuTabChanged": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "PlayerFootstep": {
+    "sfx_clip": "Footstep1",
+    "min_volume_db": -30,
+    "max_volume_db": -30,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "PlayerFootstepAlt": {
+    "sfx_clip": "Footstep2",
+    "min_volume_db": -30,
+    "max_volume_db": -30,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroNox1": {
+    "sfx_clip": "HeroesGuildNox1",
+    "min_volume_db": -15,
+    "max_volume_db": -15,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroNox2": {
+    "sfx_clip": "HeroesGuildNox2",
+    "min_volume_db": -15,
+    "max_volume_db": -15,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroNox3": {
+    "sfx_clip": "HeroesGuildNox3",
+    "min_volume_db": -15,
+    "max_volume_db": -15,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroPureAsbestos": {
+    "sfx_clip": "HeroesGuildPureAsbestos",
+    "min_volume_db": -15,
+    "max_volume_db": -15,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroUnsettled": {
+    "sfx_clip": "HeroesGuildUnsettled",
+    "min_volume_db": -17,
+    "max_volume_db": -17,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenIntroWildleoknight": {
+    "sfx_clip": "HeroesGuildWildleoknight",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  },
+  "TitleScreenKeyPressed": {
+    "sfx_clip": "ButtonClick",
+    "min_volume_db": -10,
+    "max_volume_db": -10,
+    "min_pitch": 1,
+    "max_pitch": 1
+  }
+}

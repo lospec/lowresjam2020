@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using HeroesGuild.data;
 using HeroesGuild.status_effects;
 using HeroesGuild.status_effects.effects;
 using HeroesGuild.utility;
@@ -197,9 +198,17 @@ namespace HeroesGuild.entities.base_entity
 
         private void AnimationPlayFootstep(int sfxOffset)
         {
-            if (IsInGroup("PlayerGroup"))
-                AudioSystem.PlaySFX(AudioSystem.SFX.Footstep1 + sfxOffset, Position,
-                    -35);
+            if (IsInGroup("player"))
+			{
+				if (sfxOffset == 0)
+				{
+					AudioSystem.PlaySFX("PlayerFootstep", Position);
+				}
+				else
+				{
+					AudioSystem.PlaySFX("PlayerFootstepAlt", Position);
+				}
+			}
         }
 
 

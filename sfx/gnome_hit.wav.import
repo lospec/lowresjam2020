@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gnome_hit.wav-0d5eea72515df044d154a7f944dd9a4a.sample"
+
+[deps]
+
+source_file="res://sfx/gnome_hit.wav"
+dest_files=[ "res://.import/gnome_hit.wav-0d5eea72515df044d154a7f944dd9a4a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.data;
@@ -39,42 +40,26 @@ namespace HeroesGuild.combat
             switch (CharacterInstance)
             {
                 case Player _:
-                    AudioSystem.PlaySFX(AudioSystem.SFX.PlayerHurt, -30);
+                    AudioSystem.PlaySFX("BattleHurtPlayer");
                     break;
                 case BaseEnemy enemy:
-                {
-                    var enemyRecord =
-                        Autoload.Get<Data>().enemyData[enemy.enemyName];
-
-                    AudioSystem.SFX sfx;
-                    switch (enemyRecord.Race)
                     {
-                        case "Beast":
-                            sfx = AudioSystem.SFX.BeastHurt;
-                            break;
-                        case "Demon":
-                            sfx = AudioSystem.SFX.DemonHurt;
-                            break;
-                        case "Flora":
-                            sfx = AudioSystem.SFX.FloraHurt;
-                            break;
-                        case "Human":
-                            sfx = AudioSystem.SFX.HumanHurt;
-                            break;
-                        case "Robot":
-                            sfx = AudioSystem.SFX.RobotHurt;
-                            break;
-                        case "Slime":
-                            sfx = AudioSystem.SFX.SlimeHurt;
-                            break;
-                        default:
-                            GD.PrintErr($"No SFX found for {enemyRecord.Race} race");
-                            return;
-                    }
+                        var enemyRecord =
+                            Autoload.Get<Data>().enemyData[enemy.enemyName];
 
-                    AudioSystem.PlaySFX(sfx, -30f);
-                    break;
-                }
+                        string sfx = $"BattleHurt{enemyRecord.Race}";
+
+                        try
+                        {
+                            AudioSystem.PlaySFX(sfx);
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            GD.PrintErr($"No SFX found for {enemyRecord.Race} race");
+                        }
+
+                        break;
+                    }
             }
         }
 
@@ -103,18 +88,18 @@ namespace HeroesGuild.combat
             if (GD.Randf() < statusEffectChance)
             {
                 target.CharacterInstance.AddStatusEffect(statusEffect);
-                var sfx = statusEffect switch
-                {
-                    "Charged" => AudioSystem.SFX.ChargedStatus,
-                    "Confusion" => AudioSystem.SFX.ConfusionStatus,
-                    "Frozen" => AudioSystem.SFX.FrozenStatus,
-                    "Poisoned" => AudioSystem.SFX.PoisonedStatus,
-                    "OnFire" => AudioSystem.SFX.OnfireStatus,
-                    "Weak" => AudioSystem.SFX.WeakStatus,
-                    _ => throw new ArgumentOutOfRangeException()
-                };
 
-                AudioSystem.PlaySFX(sfx, -30);
+                var sfx = $"BattleStatus{statusEffect}";
+
+                try
+                {
+                    AudioSystem.PlaySFX(sfx);
+                }
+                catch (KeyNotFoundException)
+                {
+                    GD.PrintErr($"No SFX found for {statusEffect} status");
+                }
+
                 if (enemy != null)
                 {
                     GD.Print($"Applied {statusEffect} to {enemy.enemyName}");
