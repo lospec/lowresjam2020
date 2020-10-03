@@ -28,6 +28,8 @@ namespace HeroesGuild.ui.character_selection
 
         public override void _Ready()
         {
+            if (!AudioSystem.IsMusicPlaying) AudioSystem.PlayMusic("TitleScreen");
+
             _characterScroll = GetNode<ScrollContainer>(
                 "MarginContainer/VBoxContainer/CenterContainer/CharactersScroll");
             _characters = _characterScroll.GetNode<BoxContainer>("Characters");
