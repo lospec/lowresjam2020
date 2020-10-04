@@ -28,7 +28,7 @@ namespace HeroesGuild.ui.character_selection
 
         public override void _Ready()
         {
-            if (!AudioSystem.IsMusicPlaying) AudioSystem.PlayMusic("TitleScreen");
+            if (!AudioSystem.IsMusicPlaying) AudioSystem.PlayMusic(AudioSystem.MusicCollection.TitleScreen);
 
             _characterScroll = GetNode<ScrollContainer>(
                 "MarginContainer/VBoxContainer/CenterContainer/CharactersScroll");
@@ -115,7 +115,7 @@ namespace HeroesGuild.ui.character_selection
             selectedCharacterName = character.characterName;
             _nameLabel.Text = character.characterName;
 
-            AudioSystem.PlaySFX("CharacterSelectorCharacterPressed");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.CharacterSelectorCharacterPressed);
         }
 
         private async void OnSelect_Pressed()
@@ -132,12 +132,12 @@ namespace HeroesGuild.ui.character_selection
 
         private void OnButton_Pressed(Control button)
         {
-            AudioSystem.PlaySFX("CharacterSelectorButtonPressed");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.CharacterSelectorButtonPressed);
         }
 
         private void OnButton_MouseEntered(Control button)
         {
-            AudioSystem.PlaySFX("CharacterSelectorButtonHover");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.CharacterSelectorButtonHover);
         }
     }
 }

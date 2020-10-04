@@ -207,7 +207,7 @@ namespace HeroesGuild.guild_hall.guild_interface
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-			AudioSystem.PlaySFX("GuildInterfaceTabChanged");
+			AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildInterfaceTabChanged);
 
             UpdateMenuState();
         }

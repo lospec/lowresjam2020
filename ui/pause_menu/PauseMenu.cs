@@ -318,7 +318,7 @@ namespace HeroesGuild.ui.pause_menu
                 var b when b == _inventoryButton => Menu.Inventory,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            AudioSystem.PlaySFX("PauseMenuTabChanged");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.PauseMenuTabChanged);
             UpdateMenuState();
         }
 
