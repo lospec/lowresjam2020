@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://combat/scenic_backgrounds/forest.png" type="Texture" id=1]
 [ext_resource path="res://combat/ui/backgrounds/choice_background.png" type="Texture" id=2]
@@ -33,7 +33,6 @@
 [ext_resource path="res://combat/CombatAttackAnim.cs" type="Script" id=31]
 [ext_resource path="res://combat/effects/blunt/blunt_attack_animation_blunt_0.png" type="Texture" id=32]
 [ext_resource path="res://combat/CombatMenu.cs" type="Script" id=33]
-[ext_resource path="res://combat/effects/animations/AnimationList.cs" type="Script" id=34]
 [ext_resource path="res://combat/CombatEnemyTexture.cs" type="Script" id=35]
 [ext_resource path="res://combat/effects/blunt/blunt_attack_animation_blunt_1.png" type="Texture" id=36]
 [ext_resource path="res://combat/effects/blunt/blunt_attack_animation_blunt_2.png" type="Texture" id=37]
@@ -521,9 +520,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EffectAnimationList" type="Node" parent="CombatMenu"]
-script = ExtResource( 34 )
-
 [node name="WeaponContainer" type="MarginContainer" parent="CombatMenu"]
 margin_right = 64.0
 margin_bottom = 64.0
@@ -545,17 +541,16 @@ script = ExtResource( 22 )
 
 [node name="EnemyCombat" type="Node" parent="."]
 script = ExtResource( 23 )
-[connection signal="ActionSelected" from="CombatMenu" to="PlayerCombat" method="OnCombatMenu_ActionSelected"]
 [connection signal="BagOpened" from="CombatMenu" to="." method="OnCombatMenu_BagOpened"]
 [connection signal="gui_input" from="CombatMenu" to="CombatMenu" method="OnCombatMenu_GUIInput"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer/Attack" to="CombatMenu" method="OnAttack_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Bag" to="CombatMenu" method="OnBag_Pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="OnFlee_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="CombatMenu" method="OnFlee_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/MainButtonsMenu/VBoxContainer/CenterContainer2/HBoxContainer/Flee" to="." method="OnFlee_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer/Back" to="CombatMenu" method="OnBack_Pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="OnCounter_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="CombatMenu" method="OnCounter_Pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="OnQuick_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Counter" to="." method="OnCounter_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="CombatMenu" method="OnQuick_Pressed"]
-[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="OnHeavy_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Quick" to="." method="OnQuick_Pressed"]
 [connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="CombatMenu" method="OnHeavy_Pressed"]
+[connection signal="pressed" from="CombatMenu/VBoxContainer/PlayerHUD/ChoiceHUD/Buttons/AttackButtonsMenu/CenterContainer2/AttackButtons/Heavy" to="." method="OnHeavy_Pressed"]

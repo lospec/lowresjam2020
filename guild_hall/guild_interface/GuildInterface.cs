@@ -326,7 +326,7 @@ namespace HeroesGuild.guild_hall.guild_interface
 
             var itemName = item.itemName;
             var itemRecord = Autoload.Get<Data>().itemData[itemName];
-            var itemSellValue = itemRecord.sellValue;
+            var itemSellValue = itemRecord.SellValue;
             var itemPriceLabel =
                 _itemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
             itemPriceLabel.Text = $"{itemSellValue}:c";
@@ -354,7 +354,7 @@ namespace HeroesGuild.guild_hall.guild_interface
         {
             var itemName = item.itemName;
             var itemRecord = Autoload.Get<Data>().itemData[itemName];
-            var itemSellValue = itemRecord.sellValue;
+            var itemSellValue = itemRecord.SellValue;
             _playerInstance.Inventory.Remove(itemName);
             _playerInstance.Coins += itemSellValue;
 
@@ -439,7 +439,7 @@ namespace HeroesGuild.guild_hall.guild_interface
             var saveData = Autoload.Get<SaveData>();
             var buyableItems = (from pair in Autoload.Get<Data>().itemData
                 let itemRecord = pair.Value
-                where itemRecord.buyValue > 0 && itemRecord.buyValue <=
+                where itemRecord.BuyValue > 0 && itemRecord.BuyValue <=
                     saveData.GuildLevel * MAX_MARKET_PRICE_LEVEL_MULTIPLIER
                 select pair.Key).ToList();
 
@@ -477,7 +477,7 @@ namespace HeroesGuild.guild_hall.guild_interface
             var itemRecord = Autoload.Get<Data>().itemData[itemName];
             var itemPriceLabel =
                 _marketItemPriceMargin.GetNode<Label>("ItemPriceTextMargin/ItemPrice");
-            itemPriceLabel.Text = $"{itemRecord.buyValue}:c";
+            itemPriceLabel.Text = $"{itemRecord.BuyValue}:c";
             _marketItemPriceMargin.Visible = true;
         }
 
@@ -500,10 +500,10 @@ namespace HeroesGuild.guild_hall.guild_interface
         {
             var itemName = item.itemName;
             var itemRecord = Autoload.Get<Data>().itemData[itemName];
-            if (_playerInstance.Coins < itemRecord.buyValue) return false;
+            if (_playerInstance.Coins < itemRecord.BuyValue) return false;
 
             _playerInstance.Inventory.Add(itemName);
-            _playerInstance.Coins -= itemRecord.buyValue;
+            _playerInstance.Coins -= itemRecord.BuyValue;
             UpdateInventory();
             UpdateCoins();
             return true;

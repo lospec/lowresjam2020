@@ -31,9 +31,7 @@ namespace HeroesGuild.entities.enemies.base_enemy
 
         [Export] public string enemyName;
         public StateMachine stateMachine;
-        private readonly DependencyRequester<EnemyDependencies>
-            _dependencyImplementation =
-                new DependencyRequester<EnemyDependencies>();
+
 
         public EnemyRecord Stat { get; set; }
 
@@ -41,8 +39,10 @@ namespace HeroesGuild.entities.enemies.base_enemy
         {
             base._Ready();
             stateMachine = GetNode<StateMachine>("StateMachine");
+        }
 
-            var dependency = _dependencyImplementation.Dependency;
+        public void OnDependency(EnemyDependencies dependency)
+        {
             LoadEnemy(dependency.EnemyName);
             ((Player) dependency.PlayerInstance).ToggleEnemyActive += (entity, b) =>
             {
@@ -98,12 +98,6 @@ namespace HeroesGuild.entities.enemies.base_enemy
         {
             EmitSignal(nameof(Died), this);
             QueueFree();
-        }
-
-        public IDependency<EnemyDependencies>.Dependency OnDependency
-        {
-            get => _dependencyImplementation.OnDependency;
-            set => _dependencyImplementation.OnDependency = value;
         }
     }
 }

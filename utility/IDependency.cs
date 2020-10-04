@@ -1,9 +1,7 @@
 namespace HeroesGuild.utility
 {
-    public interface IDependency<T>
+    public interface IDependency<in T>
     {
-        delegate void Dependency(ref T dependency);
-
-        Dependency OnDependency { get; set; }
+        void OnDependency(T dependency);
     }
 }

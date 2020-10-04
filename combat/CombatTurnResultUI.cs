@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using HeroesGuild.combat.combat_actions;
 
 namespace HeroesGuild.combat
 {
@@ -32,14 +33,14 @@ namespace HeroesGuild.combat
             _winActionLabel = GetNode<Label>("WinResultContainer/ActionLabel");
         }
 
-        public async Task ShowTurnCompare(CombatUtil.CombatAction playerAction,
-            CombatUtil.CombatAction enemyAction,
+        public async Task ShowTurnCompare(BaseCombatAction playerAction,
+            BaseCombatAction enemyAction,
             float duration = 1.5f)
         {
-            _playerActionLabel.Text = CombatUtil.GetActionName(playerAction);
-            _playerActionLabel.Modulate = CombatUtil.GetActionColor(playerAction);
-            _enemyActionLabel.Text = CombatUtil.GetActionName(enemyAction);
-            _enemyActionLabel.Modulate = CombatUtil.GetActionColor(enemyAction);
+            _playerActionLabel.Text = playerAction.ActionName;
+            _playerActionLabel.Modulate = playerAction.ActionColor;
+            _enemyActionLabel.Text = enemyAction.ActionName;
+            _enemyActionLabel.Modulate = enemyAction.ActionColor;
             _lineLabel.Visible = true;
             compareContainer.Visible = true;
 
@@ -69,38 +70,44 @@ namespace HeroesGuild.combat
         }
 
 
-        private void SetWinLabel(string actor, CombatUtil.CombatAction action)
+        private void SetWinLabel(string actor, CombatAction action)
         {
             _winActorLabel.Text = actor;
-            _winActionLabel.Text = CombatUtil.GetActionName(action);
-            _winActionLabel.Modulate = CombatUtil.GetActionColor(action);
+            _winActionLabel.Text = action.ActionName;
+            _winActionLabel.Modulate = action.ActionColor;
         }
 
-        public async void ShowWinResult(CombatUtil.CombatAction playerAction,
-            CombatUtil.CombatAction enemyAction,
-            float duration = 0)
+        public async void ShowWinResult(BaseCombatAction playerAction,
+            BaseCombatAction enemyAction, float duration = 0)
         {
-            if (playerAction == CombatUtil.CombatAction.Flee ||
-                enemyAction == CombatUtil.CombatAction.Flee)
+            if (playerAction is FleeAction || enemyAction is FleeAction)
             {
                 await ToSignal(GetTree(), "idle_frame");
-                return;
             }
-
-            var win = CombatUtil.ActionCompare(playerAction, enemyAction);
-            switch (win)
+            else
             {
-                case CombatUtil.TurnOutcome.Tie:
+                ShowWinResult((CombatAction) playerAction, (CombatAction) enemyAction,
+                    duration);
+            }
+        }
+
+        private async void ShowWinResult(CombatAction playerAction,
+            CombatAction enemyAction, float duration)
+        {
+            var turnOutcome = CombatAction.CompareActions(playerAction, enemyAction);
+            switch (turnOutcome)
+            {
+                case TurnOutcome.Tie:
                     SetWinLabel("TIE", playerAction);
                     break;
-                case CombatUtil.TurnOutcome.PlayerWin:
+                case TurnOutcome.PlayerWin:
                     SetWinLabel("Player Win", playerAction);
                     break;
-                case CombatUtil.TurnOutcome.EnemyWin:
+                case TurnOutcome.EnemyWin:
                     SetWinLabel("Enemy Win", enemyAction);
                     break;
                 default:
-                    SetWinLabel("Error", CombatUtil.CombatAction.Invalid);
+                    SetWinLabel("Error", null);
                     throw new ArgumentOutOfRangeException();
             }
 

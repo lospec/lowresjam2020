@@ -90,11 +90,11 @@ namespace HeroesGuild.world
                     return;
                 }
 
-                enemy.OnDependency = (ref BaseEnemy.EnemyDependencies dependency) =>
+                enemy.OnDependency(new BaseEnemy.EnemyDependencies
                 {
-                    dependency.EnemyName = enemyName;
-                    dependency.PlayerInstance = _player;
-                };
+                    EnemyName = enemyName,
+                    PlayerInstance = _player
+                });
 
                 while (!safe)
                 {
@@ -145,26 +145,27 @@ namespace HeroesGuild.world
             }
         }
 
-        private void OnCombat_CombatDone(CombatUtil.CombatOutcome outcome,
+        private void OnCombat_CombatDone(CombatOutcome outcome,
             BaseEnemy enemyInstance)
         {
+            AudioSystem.StopAllMusic();
+
             switch (outcome)
             {
-                case CombatUtil.CombatOutcome.CombatWin:
+                case CombatOutcome.CombatWin:
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
-
                     enemyInstance.Die();
                     _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
                     GetTree().Paused = false;
                     _player.hudMargin.Visible = true;
                     break;
-                case CombatUtil.CombatOutcome.CombatLose:
+                case CombatOutcome.CombatLose:
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     GameOver();
                     break;
-                case CombatUtil.CombatOutcome.CombatFlee:
+                case CombatOutcome.CombatFlee:
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     GetTree().Paused = false;
@@ -194,7 +195,6 @@ namespace HeroesGuild.world
             saveData.Health = SaveData.DEFAULT_HEALTH;
             _player.Health = SaveData.DEFAULT_HEALTH;
 
-            AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
                 GameOverScenePath,
                 new Transitions.TransitionParams(

@@ -1,84 +1,46 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
-using HeroesGuild.data;
+using HeroesGuild.combat.combat_actions;
+using HeroesGuild.entities.base_entity;
 using HeroesGuild.entities.player;
 using HeroesGuild.utility;
 
 namespace HeroesGuild.combat
 {
-    public class PlayerCombat : CombatChar
+    public class PlayerCombat : CombatController, IDependency<CombatMenu>
     {
         private new Player CharacterInstance => (Player) base.CharacterInstance;
-        private ItemRecord PlayerWeaponRecord => Autoload.Get<Data>()
-            .itemData[CharacterInstance.EquippedWeapon];
 
-        public override int GetBaseDamage(CombatUtil.CombatAction action)
+        public void OnDependency(CombatMenu dependency)
         {
-            var weapon = PlayerWeaponRecord;
-            var damage = action switch
-            {
-                CombatUtil.CombatAction.Quick => weapon.quickDamage,
-                CombatUtil.CombatAction.Counter => weapon.counterDamage,
-                CombatUtil.CombatAction.Heavy => weapon.heavyDamage,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-            damage *= 1 + CombatUtil.MULTIPLIER_PER_COMBO * hitCombo;
+            dependency.OnActionSelected += OnCombatMenu_ActionSelected;
+        }
+
+        public override int GetBaseDamage(CombatAction action)
+        {
+            var damage = action.BaseDamage;
+            damage *= 1 + MULTIPLIER_PER_COMBO * hitCombo;
             return damage / 2;
         }
 
-        protected override float GetEffectChance(CombatUtil.CombatAction action)
-        {
-            var weapon = PlayerWeaponRecord;
-            return action switch
-            {
-                CombatUtil.CombatAction.Quick => weapon.quickEffectChance,
-                CombatUtil.CombatAction.Counter => weapon.counterEffectChance,
-                CombatUtil.CombatAction.Heavy => weapon.heavyEffectChance,
-                _ => 0f
-            };
-        }
+        private TaskCompletionSource<BaseCombatAction> CompletionSource { get; set; }
 
-        protected override string GetStatusEffect(CombatUtil.CombatAction action)
-        {
-            var weapon = PlayerWeaponRecord;
-            return action switch
-            {
-                CombatUtil.CombatAction.Quick => weapon.quickStatusEffect,
-                CombatUtil.CombatAction.Counter => weapon.counterStatusEffect,
-                CombatUtil.CombatAction.Heavy => weapon.heavyStatusEffect,
-                _ => "None"
-            };
-        }
-
-        public override string GetDamageType(CombatUtil.CombatAction action)
-        {
-            var weapon = PlayerWeaponRecord;
-            return action switch
-            {
-                CombatUtil.CombatAction.Quick => weapon.quickDamageType,
-                CombatUtil.CombatAction.Counter => weapon.counterDamageType,
-                CombatUtil.CombatAction.Heavy => weapon.heavyDamageType,
-                _ => "None"
-            };
-        }
-
-        public override async Task<CombatUtil.CombatAction> GetAction()
+        public override async Task<BaseCombatAction> GetAction()
         {
             if (new[] {"Confused", "Asleep", "Frozen"}
                 .Any(key => CharacterInstance.statusEffects.ContainsKey(key)))
-                return CombatUtil.CombatAction.None;
-
-            var action = await ToSignal(this, nameof(ActionChosen));
-            return (CombatUtil.CombatAction) action.Single();
+                return null;
+            CompletionSource = new TaskCompletionSource<BaseCombatAction>();
+            var action = await CompletionSource.Task;
+            CompletionSource = null;
+            return action;
         }
 
-        private void OnCombatMenu_ActionSelected(CombatUtil.CombatAction action)
+
+        private void OnCombatMenu_ActionSelected(Func<BaseEntity, BaseCombatAction> action)
         {
-            EmitSignal(nameof(ActionChosen), action);
+            CompletionSource?.SetResult(action(CharacterInstance));
         }
-
-        [Signal] private delegate void ActionChosen(CombatUtil.CombatAction action);
     }
 }

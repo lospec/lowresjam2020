@@ -9,6 +9,6 @@ namespace HeroesGuild.status_effects
         public bool initialized = false;
         public string statusEffectName = "none";
 
-        public abstract void OnTurnEnd(CombatChar combatChar);
+        public abstract void OnTurnEnd(CombatController combatController);
     }
 }
