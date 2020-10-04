@@ -154,6 +154,10 @@ guild_hall_desk_interact={
 
 file_logging/enable_file_logging=true
 
+[mono]
+
+unhandled_exception_policy=1
+
 [network]
 
 limits/debugger_stdout/max_chars_per_second=8192

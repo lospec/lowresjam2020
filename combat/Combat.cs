@@ -8,7 +8,7 @@ using HeroesGuild.utility;
 
 namespace HeroesGuild.combat
 {
-	public class Combat : CanvasLayer
+    public class Combat : CanvasLayer
     {
         private const string WeaponTexturePath = "res://combat/weapon_sprites/{0}.png";
 
@@ -44,7 +44,7 @@ namespace HeroesGuild.combat
         private void SetupCombat(Player player, BaseEnemy enemy)
         {
             GetNode<TextureRect>("Background").Texture = Backgrounds.RandomElement();
-			AudioSystem.StopAllMusic();
+            AudioSystem.StopAllMusic();
             _playerCombat.CharacterInstance = player;
             _enemyCombat.CharacterInstance = enemy;
 
@@ -97,8 +97,9 @@ namespace HeroesGuild.combat
 
         private async void StartCombat()
         {
-			var introPlayer = AudioSystem.PlayMusic("BattleIntro");
-			introPlayer.Connect("finished", this, nameof(PlayBattleMusic));
+            var introPlayer =
+                AudioSystem.PlayMusic(AudioSystem.MusicCollection.BattleIntro);
+            introPlayer.Connect("finished", this, nameof(PlayBattleMusic));
             var combat = true;
             while (combat)
             {
@@ -355,8 +356,15 @@ namespace HeroesGuild.combat
         private void PlayBattleMusic()
         {
             var enemyRace = _enemyInstance.Stat.Race;
-			var music = "Battle" + enemyRace;
-            AudioSystem.PlayMusic(music);
+            if (AudioSystem.MusicCollection.TryGetValue($"Battle{enemyRace}",
+                out var music))
+            {
+                AudioSystem.PlayMusic(music);
+            }
+            else
+            {
+                GD.PrintErr($"Music not found for {enemyRace}");
+            }
         }
 
         private void OnEnemy_TakeDamage(int damage, string damageType)

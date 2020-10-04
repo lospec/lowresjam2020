@@ -12,7 +12,7 @@ namespace HeroesGuild.ui.game_over
 
         public override void _Ready()
         {
-            AudioSystem.PlayMusic("BattleGameOver");
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.BattleGameOver);
         }
 
         public override void _Input(InputEvent @event)

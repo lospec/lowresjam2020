@@ -1,6 +1,5 @@
 using System.Linq;
 using Godot;
-using HeroesGuild.data;
 using HeroesGuild.entities.player;
 using HeroesGuild.guild_hall.chest;
 using HeroesGuild.guild_hall.guild_interface;
@@ -63,7 +62,7 @@ namespace HeroesGuild.guild_hall
         {
             if (body.IsInGroup("player"))
             {
-				AudioSystem.PlaySFX("GuildHallEnter");
+				AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildHallEnter);
                 await Autoload.Get<Transitions>().ChangeSceneDoubleTransition
                 (WorldScenePath,
                     new Transitions.TransitionParams(
@@ -75,7 +74,7 @@ namespace HeroesGuild.guild_hall
         {
             if (currentOpenedChest != null || chest.animatedSprite.Playing) return;
 
-            AudioSystem.PlaySFX("GuildHallChestOpen");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildHallChestOpen);
             chest.animatedSprite.Play("open");
             await ToSignal(chest.animatedSprite, "animation_finished");
             chest.animatedSprite.Stop();
