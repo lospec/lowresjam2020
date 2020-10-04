@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.combat.combat_actions;
+using HeroesGuild.data;
 using HeroesGuild.entities.base_entity;
 using HeroesGuild.entities.enemies.base_enemy;
 using HeroesGuild.entities.player;
@@ -49,7 +49,7 @@ namespace HeroesGuild.combat
         private void SetupCombat(Player player, BaseEnemy enemy)
         {
             GetNode<TextureRect>("Background").Texture = Backgrounds.RandomElement();
-            AudioSystem.StopMusic();
+            AudioSystem.StopAllMusic();
             _playerCombat.CharacterInstance = player;
             _enemyCombat.CharacterInstance = enemy;
 
@@ -112,8 +112,9 @@ namespace HeroesGuild.combat
 
         private async void StartCombatLoop()
         {
-            var sfxPlayer = AudioSystem.PlaySFX(AudioSystem.SFX.BattleIntro, -20);
-            sfxPlayer.Connect("finished", this, nameof(PlayBattleMusic));
+            var introPlayer =
+                AudioSystem.PlayMusic(AudioSystem.MusicCollection.BattleIntro);
+            introPlayer.Connect("finished", this, nameof(PlayBattleMusic));
             var combat = true;
             while (combat)
             {
@@ -175,7 +176,7 @@ namespace HeroesGuild.combat
 
         private void EndCombat(CombatOutcome outcome)
         {
-            AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
             DisconnectCombatSignals();
             EmitSignal(nameof(CombatDone), outcome, _enemyInstance);
         }
@@ -335,17 +336,15 @@ namespace HeroesGuild.combat
         private void PlayBattleMusic()
         {
             var enemyRace = _enemyInstance.Stat.Race;
-            var enemyRaceMusic = new Dictionary<string, AudioSystem.Music>
+            if (AudioSystem.MusicCollection.TryGetValue($"Battle{enemyRace}",
+                out var music))
             {
-                {"Robot", AudioSystem.Music.BattleRobot},
-                {"Beast", AudioSystem.Music.BattleBeast},
-                {"Demon", AudioSystem.Music.BattleDemon},
-                {"Human", AudioSystem.Music.BattleHuman},
-                {"Gnome", AudioSystem.Music.BattleGnome},
-                {"Flora", AudioSystem.Music.BattleFlora},
-                {"Slime", AudioSystem.Music.BattleSlime}
-            };
-            AudioSystem.PlayMusic(enemyRaceMusic[enemyRace], -25);
+                AudioSystem.PlayMusic(music);
+            }
+            else
+            {
+                GD.PrintErr($"Music not found for {enemyRace}");
+            }
         }
 
         private void OnEnemy_TakeDamage(int damage, string damageType)

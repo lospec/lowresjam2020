@@ -206,7 +206,9 @@ namespace HeroesGuild.guild_hall.guild_interface
                 var b when b == _shopTabButton => Menu.Market,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick, -15);
+
+			AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildInterfaceTabChanged);
+
             UpdateMenuState();
         }
 

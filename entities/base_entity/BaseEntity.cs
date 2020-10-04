@@ -197,9 +197,14 @@ namespace HeroesGuild.entities.base_entity
 
         private void AnimationPlayFootstep(int sfxOffset)
         {
-            if (IsInGroup("PlayerGroup"))
-                AudioSystem.PlaySFX(AudioSystem.SFX.Footstep1 + sfxOffset, Position,
-                    -35);
+            if (IsInGroup("player"))
+            {
+                AudioSystem.PlaySFX(
+                    sfxOffset == 0
+                        ? AudioSystem.SFXCollection.PlayerFootstep
+                        : AudioSystem.SFXCollection.PlayerFootstepAlt,
+                    Position);
+            }
         }
 
 

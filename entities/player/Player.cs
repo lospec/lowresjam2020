@@ -34,6 +34,8 @@ namespace HeroesGuild.entities.player
 
         public MarginContainer hudMargin;
 
+        public bool isDead;
+
         public int Coins { get; set; }
         public List<string> Inventory { get; set; } = new List<string>();
         public string EquippedWeapon { get; set; }
@@ -101,7 +103,7 @@ namespace HeroesGuild.entities.player
 
         private void OnEntityDetector_BodyEntered(Node body)
         {
-            if (body.IsInGroup("enemies"))
+            if (body.IsInGroup("enemies") && !isDead)
                 EmitSignal(nameof(EnemyDetected), this, body);
         }
 

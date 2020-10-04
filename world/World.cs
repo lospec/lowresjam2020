@@ -14,7 +14,7 @@ namespace HeroesGuild.world
 {
     public class World : Node
     {
-        private const string MainMenuScenePath = "res://ui/main_menu/main_menu.tscn";
+        private const string GameOverScenePath = "res://ui/game_over/game_over.tscn";
         private const string GuildHallScenePath = "res://guild_hall/guild_hall.tscn";
         private readonly PackedScene _baseEnemyScene =
             ResourceLoader.Load<PackedScene>(
@@ -43,8 +43,7 @@ namespace HeroesGuild.world
 
             _player.Position = Autoload.Get<SaveData>().WorldPosition;
 
-            if (AudioSystem.currentPlayingMusic != AudioSystem.Music.Overworld)
-                AudioSystem.PlayMusic(AudioSystem.Music.Overworld, -30);
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
 
             SpawnEnemies();
         }
@@ -131,12 +130,12 @@ namespace HeroesGuild.world
 
         private async void OnDoorDetection_BodyEntered(KinematicBody2D body)
         {
-            if (!body.IsInGroup("enemies"))
+            if (body.IsInGroup("player"))
             {
                 var offset = new Vector2(0, 5);
                 Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
 
-                AudioSystem.PlaySFX(AudioSystem.SFX.DoorOpen, -30);
+                AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildHallEnter);
                 var transitionParams =
                     new Transitions.TransitionParams(
                         Transitions.TransitionType.ShrinkingCircle, 0.3f);
@@ -149,9 +148,12 @@ namespace HeroesGuild.world
         private void OnCombat_CombatDone(CombatOutcome outcome,
             BaseEnemy enemyInstance)
         {
+            AudioSystem.StopAllMusic();
+
             switch (outcome)
             {
                 case CombatOutcome.CombatWin:
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
@@ -164,6 +166,7 @@ namespace HeroesGuild.world
                     GameOver();
                     break;
                 case CombatOutcome.CombatFlee:
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     if (_player.Health <= 0)
@@ -180,6 +183,8 @@ namespace HeroesGuild.world
 
         private async void GameOver()
         {
+            _player.isDead = true;
+
             var saveData = Autoload.Get<SaveData>();
             saveData.WorldPosition = SaveData.DefaultWorldPosition;
             saveData.Coins = SaveData.DEFAULT_COINS;
@@ -190,9 +195,8 @@ namespace HeroesGuild.world
             saveData.Health = SaveData.DEFAULT_HEALTH;
             _player.Health = SaveData.DEFAULT_HEALTH;
 
-            AudioSystem.StopMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
-                MainMenuScenePath,
+                GameOverScenePath,
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f));
         }

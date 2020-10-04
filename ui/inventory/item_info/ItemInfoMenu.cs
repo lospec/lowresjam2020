@@ -163,8 +163,9 @@ namespace HeroesGuild.ui.inventory.item_info
             selectedItem = itemName;
             playerInstance = player;
             Visible = true;
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonHover, item.RectGlobalPosition,
-                -15);
+
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.PauseMenuItemPressed);
+
             EmitSignal(nameof(DetailedItemInfoMenuAppeared));
             _nameLabel.Text = itemName;
 
@@ -244,15 +245,14 @@ namespace HeroesGuild.ui.inventory.item_info
         private void OnBack_Pressed()
         {
             Visible = false;
-            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _backButton.RectGlobalPosition,
-                -15);
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection
+                .PauseMenuInventoryExpandedItemInfoBackPressed);
             EmitSignal(nameof(DetailedItemInfoMenuDisappeared));
         }
 
         private void OnEquip_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
-                _equipButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.InventoryItemEquipped);
             var data = Autoload.Get<Data>().itemData;
             if (!data.ContainsKey(selectedItem)) return;
 
@@ -288,8 +288,7 @@ namespace HeroesGuild.ui.inventory.item_info
 
         private async void OnUse_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
-                _useButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.InventoryItemUsed);
             var data = Autoload.Get<Data>().itemData;
             if (!data.ContainsKey(selectedItem)) return;
 
@@ -324,15 +323,13 @@ namespace HeroesGuild.ui.inventory.item_info
 
         private void OnYes_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.ButtonClick,
-                _yesButton.RectGlobalPosition, -15);
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.InventoryItemUsedConfirmYes);
             EmitSignal(nameof(YesOrNoPressed), true);
         }
 
         private void OnNo_Pressed()
         {
-            AudioSystem.PlaySFX(AudioSystem.SFX.Deny, _noButton.RectGlobalPosition,
-                -15);
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.InventoryItemUsedConfirmNo);
             EmitSignal(nameof(YesOrNoPressed), false);
         }
     }

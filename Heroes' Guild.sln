@@ -9,7 +9,6 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		ExportDebug|Any CPU = ExportDebug|Any CPU
 		ExportExportDebug|Any CPU = ExportExportDebug|Any CPU
-		ExportExportDebug|Any CPU = ExportExportDebug|Any CPU
 		ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -19,6 +18,8 @@ Global
 		{BEFA83C4-AE30-482F-8AD0-98C91178F72E}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{BEFA83C4-AE30-482F-8AD0-98C91178F72E}.ExportExportDebug|Any CPU.ActiveCfg = ExportExportDebug|Any CPU
 		{BEFA83C4-AE30-482F-8AD0-98C91178F72E}.ExportExportDebug|Any CPU.Build.0 = ExportExportDebug|Any CPU
+		{BEFA83C4-AE30-482F-8AD0-98C91178F72E}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{BEFA83C4-AE30-482F-8AD0-98C91178F72E}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
