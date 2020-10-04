@@ -25,12 +25,9 @@ namespace HeroesGuild.ui.main_menu
 
         private AudioStreamPlayer _introSFXPlayer;
         private AnimationPlayer _startSignifierAnimationPlayer;
-        private TextureRect _startSignifierLabel;
 
         public override void _Ready()
         {
-            _startSignifierLabel =
-                GetNode<TextureRect>("StartSignifierMargin/StartSignifier");
             _startSignifierAnimationPlayer =
                 GetNode<AnimationPlayer>("StartSignifierMargin/AnimationPlayer");
 
