@@ -24,7 +24,7 @@ namespace HeroesGuild.guild_hall.guild_interface
         private const int MAX_MARKET_ITEMS = 12;
         private const int MAX_MARKET_PRICE_LEVEL_MULTIPLIER = 25;
         private static readonly PackedScene PopupItemScene = ResourceLoader
-            .Load<PackedScene>("res://UI/inventory/InventoryItem.tscn");
+            .Load<PackedScene>("res://ui/inventory/inventory_item.tscn");
 
         private static readonly Color LightOrange = new Color("C97F35");
         private static readonly Color DarkOrange = new Color("661E25");

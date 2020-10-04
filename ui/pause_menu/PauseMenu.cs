@@ -47,7 +47,7 @@ namespace HeroesGuild.ui.pause_menu
         private MarginContainer _headerMargin;
         private TextureButton _infoButton;
         private TextureButton _inventoryButton;
-        private ScrollContainer _inventoryItemsGrid;
+        private GridContainer _inventoryItemsGrid;
         private MarginContainer _inventoryItemsMargin;
         private ItemInfoMenu _itemInfoMenu;
         private ItemStatPopUp _itemStatsPopup;
@@ -120,8 +120,8 @@ namespace HeroesGuild.ui.pause_menu
             _inventoryItemsMargin =
                 _pauseMenuVBox.GetNode<MarginContainer>("InventoryItemsMargin");
             _inventoryItemsGrid =
-                _inventoryItemsMargin.GetNode<ScrollContainer>(
-                    "InventoryItemsScrollContainer");
+                _inventoryItemsMargin.GetNode<GridContainer>(
+                    "InventoryItemsScrollContainer/InventoryItems");
             _topHBox = _pauseMenuVBox.GetNode<BoxContainer>("Top");
             _buttons = _topHBox.GetNode<BoxContainer>("Buttons");
             _settingsButton = _buttons.GetNode<TextureButton>("Settings");
@@ -353,6 +353,11 @@ namespace HeroesGuild.ui.pause_menu
             UpdateEquippedItem();
             UpdateMenuState();
             _coinsLabel.Text = $"{playerInstance.Coins}:COIN";
+        }
+
+        private void _on_ItemInfoMenu_ItemUsed(string item)
+        {
+            UpdateInventory();
         }
     }
 }

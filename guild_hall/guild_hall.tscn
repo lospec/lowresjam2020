@@ -2,10 +2,10 @@
 
 [ext_resource path="res://guild_hall/guild_hall_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://guild_hall/GuildHall.cs" type="Script" id=2]
-[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://guild_hall/chest/chest_gui.tscn" type="PackedScene" id=6]
-[ext_resource path="res://UI/pause_menu/pause_menu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://guild_hall/desk/Desk.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ui/pause_menu/pause_menu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://guild_hall/desk/desk.tscn" type="PackedScene" id=8]
 [ext_resource path="res://guild_hall/guild_interface/guild_interface.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]

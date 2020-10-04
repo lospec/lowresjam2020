@@ -11,37 +11,34 @@ namespace HeroesGuild.ui.main_menu
         private const string CharacterSelectionScenePath =
             "res://ui/character_selection/character_selector.tscn";
 
-        private readonly List<SFXRecord> _introSFX = new List<SFXRecord>
-        {
-            AudioSystem.SFXCollection.TitleScreenIntroNox1,
-            AudioSystem.SFXCollection.TitleScreenIntroNox2,
-            AudioSystem.SFXCollection.TitleScreenIntroNox3,
-            AudioSystem.SFXCollection.TitleScreenIntroPureAsbestos,
-            AudioSystem.SFXCollection.TitleScreenIntroWildleoknight
-        };
+        private List<SFXRecord> _introSFX;
 
         private bool _changingScene = false;
         private bool _introSFXPlayed = false;
 
         private AudioStreamPlayer _introSFXPlayer;
         private AnimationPlayer _startSignifierAnimationPlayer;
-        private TextureRect _startSignifierLabel;
 
         public override void _Ready()
         {
-            _startSignifierLabel =
-                GetNode<TextureRect>("StartSigniferMargin/StartSignifier");
+            _introSFX = new List<SFXRecord>
+            {
+                AudioSystem.SFXCollection.TitleScreenIntroNox1,
+                AudioSystem.SFXCollection.TitleScreenIntroNox2,
+                AudioSystem.SFXCollection.TitleScreenIntroNox3,
+                AudioSystem.SFXCollection.TitleScreenIntroPureAsbestos,
+                AudioSystem.SFXCollection.TitleScreenIntroWildleoknight
+            };
+
             _startSignifierAnimationPlayer =
-                GetNode<AnimationPlayer>("StartSigniferMargin/AnimationPlayer");
+                GetNode<AnimationPlayer>("StartSignifierMargin/AnimationPlayer");
 
             var sfx = _introSFX.RandomElement();
             _introSFXPlayer = AudioSystem.PlaySFX(sfx);
 
             _introSFXPlayer.Connect("finished", _startSignifierAnimationPlayer, "play",
                 new Array {"flash"});
-            _introSFXPlayer.Connect("finished", AudioSystem.instance,
-                nameof(AudioSystem.PlayMusic),
-                new Array {"TitleScreen"});
+            _introSFXPlayer.Connect("finished", this, nameof(PlayTitleScreenMusic));
             _introSFXPlayer.Connect("tree_exited", this, nameof(SetIntroSFXPlayed));
         }
 
@@ -78,7 +75,7 @@ namespace HeroesGuild.ui.main_menu
                 _introSFXPlayer.Stop();
                 _introSFXPlayer.QueueFree();
 
-                AudioSystem.PlayMusic(AudioSystem.MusicCollection.TitleScreen);
+                PlayTitleScreenMusic();
             }
 
             AudioSystem.PlaySFX(AudioSystem.SFXCollection.TitleScreenKeyPressed);
@@ -95,6 +92,11 @@ namespace HeroesGuild.ui.main_menu
         private void SetIntroSFXPlayed()
         {
             _introSFXPlayed = true;
+        }
+
+        private void PlayTitleScreenMusic()
+        {
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.TitleScreen);
         }
     }
 }

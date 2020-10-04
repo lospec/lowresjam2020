@@ -43,7 +43,10 @@ namespace HeroesGuild.world
 
             _player.Position = Autoload.Get<SaveData>().WorldPosition;
 
-            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+            if (!AudioSystem.IsMusicPlaying)
+            {
+                AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+            }
 
             SpawnEnemies();
         }
