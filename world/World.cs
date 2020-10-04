@@ -14,7 +14,7 @@ namespace HeroesGuild.world
 {
     public class World : Node
     {
-        private const string MainMenuScenePath = "res://ui/main_menu/main_menu.tscn";
+        private const string GameOverScenePath = "res://ui/game_over/game_over.tscn";
         private const string GuildHallScenePath = "res://guild_hall/guild_hall.tscn";
         private readonly PackedScene _baseEnemyScene =
             ResourceLoader.Load<PackedScene>(
@@ -151,6 +151,8 @@ namespace HeroesGuild.world
             switch (outcome)
             {
                 case CombatUtil.CombatOutcome.CombatWin:
+                    AudioSystem.PlayMusic("Overworld");
+
                     enemyInstance.Die();
                     _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
@@ -163,6 +165,8 @@ namespace HeroesGuild.world
                     GameOver();
                     break;
                 case CombatUtil.CombatOutcome.CombatFlee:
+                    AudioSystem.PlayMusic("Overworld");
+
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     if (_player.Health <= 0)
@@ -179,6 +183,8 @@ namespace HeroesGuild.world
 
         private async void GameOver()
         {
+            _player.isDead = true;
+
             var saveData = Autoload.Get<SaveData>();
             saveData.WorldPosition = SaveData.DefaultWorldPosition;
             saveData.Coins = SaveData.DEFAULT_COINS;
@@ -191,7 +197,7 @@ namespace HeroesGuild.world
 
 			AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
-                MainMenuScenePath,
+                GameOverScenePath,
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f));
         }

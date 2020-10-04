@@ -52,7 +52,7 @@ namespace HeroesGuild.utility
             if (error != Error.Ok)
             {
                 GD.PrintErr(
-                    $"Error {error} occured while attempting to change to the {scenePath} scene.");
+                    $"Error {error} occurred while attempting to change to the {scenePath} scene.");
             }
 
             StartTransition(@params);
