@@ -30,9 +30,9 @@ namespace HeroesGuild.ui.main_menu
         public override void _Ready()
         {
             _startSignifierLabel =
-                GetNode<TextureRect>("StartSigniferMargin/StartSignifier");
+                GetNode<TextureRect>("StartSignifierMargin/StartSignifier");
             _startSignifierAnimationPlayer =
-                GetNode<AnimationPlayer>("StartSigniferMargin/AnimationPlayer");
+                GetNode<AnimationPlayer>("StartSignifierMargin/AnimationPlayer");
 
             var sfx = _introSFX.RandomElement();
             _introSFXPlayer = AudioSystem.PlaySFX(sfx);
