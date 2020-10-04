@@ -26,9 +26,6 @@ namespace HeroesGuild.data
         public Dictionary<string, ItemRecord> itemData =
             new Dictionary<string, ItemRecord>();
 
-        public Dictionary<string, MusicRecord> musicData =
-            new Dictionary<string, MusicRecord>();
-
         public SFXCollection sfxCollection;
         public MusicCollection musicCollection;
 
@@ -37,7 +34,6 @@ namespace HeroesGuild.data
             itemData = ParseData<ItemRecord>(ITEM_DATA_PATH);
             enemyData = ParseData<EnemyRecord>(ENEMY_DATA_PATH);
             characterData = ParseData<CharacterRecord>(CHARACTER_DATA_PATH);
-            musicData = ParseData<MusicRecord>(MUSIC_DATA_PATH);
             sfxCollection = ParseCollection<SFXCollection, SFXRecord>(SFX_DATA_PATH);
             musicCollection =
                 ParseCollection<MusicCollection, MusicRecord>(MUSIC_DATA_PATH);
