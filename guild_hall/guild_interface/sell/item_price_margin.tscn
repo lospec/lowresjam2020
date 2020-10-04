@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://UI/Font Resources/Wendy-10.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/font_resources/wendy-10.tres" type="DynamicFont" id=1]
 [ext_resource path="res://guild_hall/guild_interface/sell/sellable_item_price_decor.png" type="Texture" id=2]
 
 [node name="ItemPriceMargin" type="MarginContainer"]
