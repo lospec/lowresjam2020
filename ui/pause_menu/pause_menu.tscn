@@ -260,3 +260,4 @@ margin_bottom = 64.0
 [connection signal="DetailedItemInfoMenuDisappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuDisappeared"]
 [connection signal="EquippedArmorChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedArmorChanged"]
 [connection signal="EquippedWeaponChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedWeaponChanged"]
+[connection signal="ItemUsed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_ItemUsed"]

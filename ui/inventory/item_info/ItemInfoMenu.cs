@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using Godot;
 using HeroesGuild.data;
 using HeroesGuild.entities.player;
@@ -18,6 +19,8 @@ namespace HeroesGuild.ui.inventory.item_info
         [Signal] public delegate void EquippedWeaponChanged();
 
         [Signal] public delegate void YesOrNoPressed(bool yesPressed);
+
+        [Signal] public delegate void ItemUsed(string item);
 
         private const string InventorySprite = "res://items/inventory_sprites/{0}.png";
 
@@ -312,7 +315,7 @@ namespace HeroesGuild.ui.inventory.item_info
                 }
 
                 playerInstance.Inventory.Remove(selectedItem);
-                GetParent().GetParent().GetParent<PauseMenu>().UpdateInventory();
+                EmitSignal(nameof(ItemUsed), selectedItem);
                 Visible = false;
             }
             else
