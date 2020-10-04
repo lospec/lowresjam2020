@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.data;
@@ -40,26 +38,26 @@ namespace HeroesGuild.combat
             switch (CharacterInstance)
             {
                 case Player _:
-                    AudioSystem.PlaySFX("BattleHurtPlayer");
+                    AudioSystem.PlaySFX(AudioSystem.SFXCollection.BattleHurtPlayer);
                     break;
                 case BaseEnemy enemy:
+                {
+                    var enemyRecord =
+                        Autoload.Get<Data>().enemyData[enemy.enemyName];
+
+
+                    if (AudioSystem.SFXCollection.TryGetValue(
+                        $"BattleHurt{enemyRecord.Race}", out var sfx))
                     {
-                        var enemyRecord =
-                            Autoload.Get<Data>().enemyData[enemy.enemyName];
-
-                        string sfx = $"BattleHurt{enemyRecord.Race}";
-
-                        try
-                        {
-                            AudioSystem.PlaySFX(sfx);
-                        }
-                        catch (KeyNotFoundException)
-                        {
-                            GD.PrintErr($"No SFX found for {enemyRecord.Race} race");
-                        }
-
-                        break;
+                        AudioSystem.PlaySFX(sfx);
                     }
+                    else
+                    {
+                        GD.PrintErr($"No SFX found for {enemyRecord.Race} race");
+                    }
+
+                    break;
+                }
             }
         }
 
@@ -89,16 +87,16 @@ namespace HeroesGuild.combat
             {
                 target.CharacterInstance.AddStatusEffect(statusEffect);
 
-                var sfx = $"BattleStatus{statusEffect}";
-
-                try
+                if (AudioSystem.SFXCollection.TryGetValue($"BattleStatus{statusEffect}",
+                    out var sfx))
                 {
                     AudioSystem.PlaySFX(sfx);
                 }
-                catch (KeyNotFoundException)
+                else
                 {
                     GD.PrintErr($"No SFX found for {statusEffect} status");
                 }
+
 
                 if (enemy != null)
                 {

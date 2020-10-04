@@ -60,6 +60,11 @@ namespace HeroesGuild.utility
             WeakStatus
         }
 
+        public static ref SFXCollection SFXCollection =>
+            ref Autoload.Get<Data>().sfxCollection;
+        public static ref MusicCollection MusicCollection =>
+            ref Autoload.Get<Data>().musicCollection;
+
         private const float FADE_IN_START_VOLUME = -80f;
         private const float FADE_IN_DURATION = 0.5f;
         private const string MUSIC_PLAYERS_GROUP_NAME = "music_players";
@@ -168,46 +173,8 @@ namespace HeroesGuild.utility
             return ResourceLoader.Load<AudioStream>(path);
         }
 
-        private static MusicRecord? GetMusicRecord(string musicName)
-        {
-            var data = Autoload.Get<Data>();
-            if (!data.musicData.TryGetValue(musicName, out var musicRecord))
-            {
-                GD.PushError($"Music record not found with key \"{musicName}\"");
-                return null;
-            }
 
-            return musicRecord;
-        }
-
-        private static SFXRecord? GetSFXRecord(string sfxName)
-        {
-            var data = Autoload.Get<Data>();
-            if (!data.sfxData.TryGetValue(sfxName, out var sfxRecord))
-            {
-                GD.PushError($"SFX record not found with key \"{sfxName}\"");
-                return null;
-            }
-
-            return sfxRecord;
-        }
-
-
-        public static AudioStreamPlayer PlayMusic(string musicName)
-        {
-            return PlayMusic(GetMusicRecord(musicName));
-        }
-
-        public static AudioStreamPlayer PlaySFX(string sfxName)
-        {
-            return PlaySFX(GetSFXRecord(sfxName));
-        }
-
-
-        public static AudioStreamPlayer2D PlaySFX(string sfxName, Vector2 audioPosition)
-        {
-            return PlaySFX(GetSFXRecord(sfxName), audioPosition);
-        }
+        
 
         public static AudioStreamPlayer PlayMusic(MusicRecord? record)
         {
@@ -221,7 +188,7 @@ namespace HeroesGuild.utility
             return musicPlayer;
         }
 
-        private static AudioStreamPlayer PlaySFX(SFXRecord? record)
+        public static AudioStreamPlayer PlaySFX(SFXRecord? record)
         {
             var sfxRecord = record.GetValueOrDefault();
             var audioStream = GetSFXResource(sfxRecord.sfxClip);
@@ -240,15 +207,17 @@ namespace HeroesGuild.utility
             return sfxPlayer;
         }
 
-        private static AudioStreamPlayer2D PlaySFX(SFXRecord? record,
+        public static AudioStreamPlayer2D PlaySFX(SFXRecord? record,
             Vector2 audioPosition)
         {
             var sfxRecord = record.GetValueOrDefault();
             var audioStream = GetSFXResource(sfxRecord.sfxClip);
 
-            var volumeDb = Math.Abs(sfxRecord.minVolumeDb - sfxRecord.maxVolumeDb) < 0.01
-                ? sfxRecord.minVolumeDb
-                : (float) GD.RandRange(sfxRecord.minVolumeDb, sfxRecord.maxVolumeDb);
+            var volumeDb =
+                Math.Abs(sfxRecord.minVolumeDb - sfxRecord.maxVolumeDb) < 0.01
+                    ? sfxRecord.minVolumeDb
+                    : (float) GD.RandRange(sfxRecord.minVolumeDb,
+                        sfxRecord.maxVolumeDb);
 
             var pitchScale = Math.Abs(sfxRecord.minPitch - sfxRecord.maxPitch) < 0.01
                 ? sfxRecord.minPitch

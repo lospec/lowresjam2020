@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
+using HeroesGuild.data;
 using HeroesGuild.utility;
-using System.Collections.Generic;
 
 namespace HeroesGuild.ui.main_menu
 {
@@ -10,13 +11,13 @@ namespace HeroesGuild.ui.main_menu
         private const string CharacterSelectionScenePath =
             "res://ui/character_selection/character_selector.tscn";
 
-        private readonly List<string> _introSFX = new List<string>()
+        private readonly List<SFXRecord> _introSFX = new List<SFXRecord>
         {
-            "TitleScreenIntroNox1",
-            "TitleScreenIntroNox2",
-            "TitleScreenIntroNox3",
-            "TitleScreenIntroPureAsbestos",
-            "TitleScreenIntroWildleoknight"
+            AudioSystem.SFXCollection.TitleScreenIntroNox1,
+            AudioSystem.SFXCollection.TitleScreenIntroNox2,
+            AudioSystem.SFXCollection.TitleScreenIntroNox3,
+            AudioSystem.SFXCollection.TitleScreenIntroPureAsbestos,
+            AudioSystem.SFXCollection.TitleScreenIntroWildleoknight
         };
 
         private bool _changingScene = false;
@@ -37,10 +38,10 @@ namespace HeroesGuild.ui.main_menu
             _introSFXPlayer = AudioSystem.PlaySFX(sfx);
 
             _introSFXPlayer.Connect("finished", _startSignifierAnimationPlayer, "play",
-                new Array { "flash" });
+                new Array {"flash"});
             _introSFXPlayer.Connect("finished", AudioSystem.instance,
                 nameof(AudioSystem.PlayMusic),
-                new Array { "TitleScreen" });
+                new Array {"TitleScreen"});
             _introSFXPlayer.Connect("tree_exited", this, nameof(SetIntroSFXPlayed));
         }
 
@@ -49,22 +50,22 @@ namespace HeroesGuild.ui.main_menu
             switch (@event)
             {
                 case InputEventKey eventKey when eventKey.Pressed && !_changingScene:
+                {
+                    if (OS.IsDebugBuild() && eventKey.Scancode == (int) KeyList.F9 &&
+                        eventKey.Shift)
                     {
-                        if (OS.IsDebugBuild() && eventKey.Scancode == (int)KeyList.F9 &&
-                            eventKey.Shift)
-                        {
-                            //TODO: AI-Editor
-                        }
-                        else
-                        {
-                            GoToCharacterSelector();
-                        }
-
-                        break;
+                        //TODO: AI-Editor
                     }
+                    else
+                    {
+                        GoToCharacterSelector();
+                    }
+
+                    break;
+                }
                 case InputEventMouseButton eventMouseButton
                     when eventMouseButton.Pressed && eventMouseButton
-                        .ButtonIndex == (int)ButtonList.Left && !_changingScene:
+                        .ButtonIndex == (int) ButtonList.Left && !_changingScene:
                     GoToCharacterSelector();
                     break;
             }
@@ -77,10 +78,10 @@ namespace HeroesGuild.ui.main_menu
                 _introSFXPlayer.Stop();
                 _introSFXPlayer.QueueFree();
 
-                AudioSystem.PlayMusic("TitleScreen");
+                AudioSystem.PlayMusic(AudioSystem.MusicCollection.TitleScreen);
             }
 
-            AudioSystem.PlaySFX("TitleScreenKeyPressed");
+            AudioSystem.PlaySFX(AudioSystem.SFXCollection.TitleScreenKeyPressed);
 
             _changingScene = true;
             var transitionParams =

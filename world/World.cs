@@ -43,7 +43,7 @@ namespace HeroesGuild.world
 
             _player.Position = Autoload.Get<SaveData>().WorldPosition;
 
-			AudioSystem.PlayMusic("Overworld");
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
 
             SpawnEnemies();
         }
@@ -135,7 +135,7 @@ namespace HeroesGuild.world
                 var offset = new Vector2(0, 5);
                 Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
 
-                AudioSystem.PlaySFX("GuildHallEnter");
+                AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildHallEnter);
                 var transitionParams =
                     new Transitions.TransitionParams(
                         Transitions.TransitionType.ShrinkingCircle, 0.3f);
@@ -151,7 +151,7 @@ namespace HeroesGuild.world
             switch (outcome)
             {
                 case CombatUtil.CombatOutcome.CombatWin:
-                    AudioSystem.PlayMusic("Overworld");
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
 
                     enemyInstance.Die();
                     _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
@@ -165,8 +165,7 @@ namespace HeroesGuild.world
                     GameOver();
                     break;
                 case CombatUtil.CombatOutcome.CombatFlee:
-                    AudioSystem.PlayMusic("Overworld");
-
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     GetTree().Paused = false;
                     if (_player.Health <= 0)
@@ -195,7 +194,7 @@ namespace HeroesGuild.world
             saveData.Health = SaveData.DEFAULT_HEALTH;
             _player.Health = SaveData.DEFAULT_HEALTH;
 
-			AudioSystem.StopAllMusic();
+            AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
                 GameOverScenePath,
                 new Transitions.TransitionParams(
