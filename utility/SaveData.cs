@@ -45,7 +45,6 @@ namespace HeroesGuild.utility
         [JsonProperty]
         public int Coins { get; set; } = DEFAULT_COINS;
 
-        //[JsonProperty]
         public List<string> Inventory { get; set; } = DefaultInventory;
         [JsonProperty]
         private object InventoryItems
