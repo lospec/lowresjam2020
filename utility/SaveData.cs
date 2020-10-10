@@ -20,8 +20,8 @@ namespace HeroesGuild.utility
         public static readonly List<string> DefaultInventory = new List<string>
             {"Stick", "Hotdog"};
 
-        public static readonly List<Dictionary<int, string>> DefaultChestContent =
-            new List<Dictionary<int, string>>();
+        public static readonly List<List<string>> DefaultChestContent =
+            new List<List<string>>();
         
 
         public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
@@ -76,7 +76,7 @@ namespace HeroesGuild.utility
         [JsonProperty]
         public int Health { get; set; } = DEFAULT_HEALTH;
         [JsonProperty]
-        public List<Dictionary<int, string>> ChestContent { get; set; } =
+        public List<List<string>> ChestContent { get; set; } =
             DefaultChestContent;
         /*[JsonProperty]
         private object ChestItems
@@ -148,7 +148,7 @@ namespace HeroesGuild.utility
                         continue;
                     case nameof(ChestContent):
                         var jArray = (JArray) data.Value;
-                        ChestContent = jArray.ToObject<List<Dictionary<int, string>>>();
+                        ChestContent = jArray.ToObject<List<List<string>>>();
                         continue;
                 }
 
