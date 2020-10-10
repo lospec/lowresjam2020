@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using HeroesGuild.guild_hall.chest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,19 +21,8 @@ namespace HeroesGuild.utility
             {"Stick", "Hotdog"};
 
         public static readonly List<Dictionary<int, string>> DefaultChestContent =
-            new List<Dictionary<int, string>>
-            {
-
-            };
-        /*public static readonly List<Dictionary<int, string>> DefaultChestContent =
-            new List<Dictionary<int, string>>
-            {
-                new Dictionary<int, string>
-                {
-                    { 0, "Stick" },
-                    { 4, "Hotdog" }
-                }
-            };*/
+            new List<Dictionary<int, string>>();
+        
 
         public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
         [JsonProperty]
@@ -85,7 +75,7 @@ namespace HeroesGuild.utility
         public int MaxHealth { get; set; } = DEFAULT_HEALTH;
         [JsonProperty]
         public int Health { get; set; } = DEFAULT_HEALTH;
-
+        [JsonProperty]
         public List<Dictionary<int, string>> ChestContent { get; set; } =
             DefaultChestContent;
         /*[JsonProperty]
@@ -120,7 +110,6 @@ namespace HeroesGuild.utility
 
         public override void _Ready()
         {
-            //SaveGame();
             var file = new File();
             if (file.FileExists(SAVE_DATA_PATH))
             {
@@ -151,17 +140,16 @@ namespace HeroesGuild.utility
             var saveDataParsed = JsonConvert.DeserializeObject<Dictionary<string, object>>(saveData);
             foreach (KeyValuePair<string, object> data in saveDataParsed)
             {
-                //GD.Print(data.Key, " - ", data.Value, " - ", data.Value.GetType());
-
                 // I don't know why but when Set is used with a JArray it sets it to null
                 switch (data.Key)
                 {
                     case nameof(InventoryItems):
                         InventoryItems = data.Value;
                         continue;
-                    /*case nameof(ChestItems):
-                        ChestItems = data.Value;
-                        continue;*/
+                    case nameof(ChestContent):
+                        var jArray = (JArray) data.Value;
+                        ChestContent = jArray.ToObject<List<Dictionary<int, string>>>();
+                        continue;
                 }
 
                 Set(data.Key, data.Value);
