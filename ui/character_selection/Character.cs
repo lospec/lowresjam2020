@@ -5,7 +5,7 @@ namespace HeroesGuild.ui.character_selection
     public class Character : MarginContainer
     {
         private const string OverworldSpriteSheetPath =
-            "res://Entities/Player/spritesheets/{0}_overworld.png";
+            "res://entities/player/spritesheets/{0}_overworld.png";
         private TextureRect _hoverTextureRect;
 
         public TextureButton characterButton;
