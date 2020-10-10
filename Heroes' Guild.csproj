@@ -1,0 +1,25 @@
+﻿  <Project Sdk="Godot.NET.Sdk/3.2.3">
+  <PropertyGroup>
+    <ProjectGuid>{BEFA83C4-AE30-482F-8AD0-98C91178F72E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>HeroesGuild</RootNamespace>
+    <AssemblyName>Heroes' Guild</AssemblyName>
+    <GodotProjectGeneratorVersion>1.0.0.0</GodotProjectGeneratorVersion>
+    <LangVersion>8</LangVersion>
+    <TargetFramework>net472</TargetFramework>
+    <!--The following properties were overriden during migration to prevent errors.
+    Enabling them may require other manual changes to the project and its files.-->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+	<Compile Include="**\*.cs" />
+	<Compile Remove=".mono\**" />
+	<EmbeddedResource Remove=".mono\**" />
+	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+</Project>

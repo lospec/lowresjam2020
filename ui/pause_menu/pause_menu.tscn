@@ -1,0 +1,318 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://ui/inventory/background.png" type="Texture" id=1]
+[ext_resource path="res://ui/pause_menu/PauseMenu.cs" type="Script" id=2]
+[ext_resource path="res://ui/inventory/inventory_scroll_theme.tres" type="Theme" id=3]
+[ext_resource path="res://ui/pause_menu/inventory_button_normal.png" type="Texture" id=4]
+[ext_resource path="res://ui/pause_menu/inventory_button_pressed.png" type="Texture" id=5]
+[ext_resource path="res://ui/pause_menu/info_button_normal.png" type="Texture" id=6]
+[ext_resource path="res://ui/pause_menu/settings_button_normal.png" type="Texture" id=7]
+[ext_resource path="res://ui/pause_menu/settings_button_pressed.png" type="Texture" id=8]
+[ext_resource path="res://ui/pause_menu/info_button_pressed.png" type="Texture" id=9]
+[ext_resource path="res://ui/font_resources/wendy-10_pause_menu_header.tres" type="DynamicFont" id=10]
+[ext_resource path="res://ui/pause_menu/header_decor.png" type="Texture" id=11]
+[ext_resource path="res://ui/pause_menu/coin_decor.png" type="Texture" id=12]
+[ext_resource path="res://ui/fonts/mini3x4.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://ui/inventory/inventory_item.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ui/inventory/item_stats_popup.tscn" type="PackedScene" id=15]
+[ext_resource path="res://ui/inventory/item_info/item_info_menu.tscn" type="PackedScene" id=16]
+[ext_resource path="res://ui/font_resources/wendy-10.tres" type="DynamicFont" id=17]
+[ext_resource path="res://ui/settings/audio_settings/volume_control.tscn" type="PackedScene" id=18]
+[ext_resource path="res://ui/pause_menu/SettingsMargin.cs" type="Script" id=19]
+[ext_resource path="res://ui/font_resources/wendy-10_confirm_use.tres" type="DynamicFont" id=20]
+
+[sub_resource type="DynamicFont" id=1]
+size = 4
+extra_spacing_top = -1
+font_data = ExtResource( 13 )
+
+[node name="PauseMenu" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="PauseMenuControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenuMargin" type="MarginContainer" parent="PauseMenuControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="PauseMenuControl/PauseMenuMargin"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 1 )
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin"]
+margin_right = 64.0
+margin_bottom = 64.0
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_constants/separation = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top"]
+margin_right = 23.0
+margin_bottom = 8.0
+custom_constants/separation = 1
+
+[node name="Settings" type="TextureButton" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top/Buttons"]
+margin_right = 7.0
+margin_bottom = 8.0
+toggle_mode = true
+action_mode = 0
+keep_pressed_outside = true
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Info" type="TextureButton" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top/Buttons"]
+margin_left = 8.0
+margin_right = 15.0
+margin_bottom = 8.0
+toggle_mode = true
+action_mode = 0
+keep_pressed_outside = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 9 )
+
+[node name="Inventory" type="TextureButton" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top/Buttons"]
+margin_left = 16.0
+margin_right = 23.0
+margin_bottom = 8.0
+toggle_mode = true
+action_mode = 0
+keep_pressed_outside = true
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top"]
+margin_left = 25.0
+margin_right = 63.0
+margin_bottom = 8.0
+
+[node name="HeaderDecor" type="TextureRect" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top/MarginContainer"]
+margin_right = 38.0
+margin_bottom = 8.0
+texture = ExtResource( 11 )
+
+[node name="Header" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/Top/MarginContainer"]
+margin_right = 38.0
+margin_bottom = 7.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+text = "Header"
+align = 1
+
+[node name="SecondRow" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+visible = false
+margin_top = 9.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_constants/separation = 0
+alignment = 2
+
+[node name="EquippedMargin" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow"]
+margin_right = 24.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+
+[node name="Equipped" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/EquippedMargin"]
+margin_right = 22.0
+margin_bottom = 11.0
+size_flags_horizontal = 0
+custom_constants/separation = 0
+
+[node name="EquippedWeapon" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/EquippedMargin/Equipped" instance=ExtResource( 14 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 11.0
+margin_bottom = 11.0
+
+[node name="EquippedArmor" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/EquippedMargin/Equipped" instance=ExtResource( 14 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 11.0
+margin_right = 22.0
+margin_bottom = 11.0
+
+[node name="Coins" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow"]
+margin_left = 24.0
+margin_right = 64.0
+margin_bottom = 6.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+custom_constants/margin_top = 0
+
+[node name="CoinsDecor" type="TextureRect" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/Coins"]
+margin_right = 40.0
+margin_bottom = 6.0
+texture = ExtResource( 12 )
+
+[node name="CoinAmount" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SecondRow/Coins"]
+margin_top = 1.0
+margin_right = 40.0
+margin_bottom = 4.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.776471, 0.262745, 1 )
+text = "1000:COIN"
+align = 2
+
+[node name="InventoryItemsMargin" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+visible = false
+margin_top = 21.0
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 1
+size_flags_vertical = 3
+custom_constants/margin_top = 3
+custom_constants/margin_bottom = 1
+
+[node name="InventoryItemsScrollContainer" type="ScrollContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/InventoryItemsMargin"]
+margin_top = 3.0
+margin_right = 64.0
+margin_bottom = 42.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 3 )
+scroll_horizontal_enabled = false
+
+[node name="InventoryItems" type="GridContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/InventoryItemsMargin/InventoryItemsScrollContainer"]
+columns = 4
+
+[node name="SettingsMargin" type="MarginContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer"]
+margin_top = 9.0
+margin_right = 64.0
+margin_bottom = 64.0
+size_flags_vertical = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+script = ExtResource( 19 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 62.0
+margin_bottom = 53.0
+custom_constants/separation = 0
+
+[node name="Save" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 9.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+enabled_focus_mode = 0
+text = "Save"
+flat = true
+align = 0
+
+[node name="ResetSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 9.0
+margin_right = 60.0
+margin_bottom = 18.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+enabled_focus_mode = 0
+text = "Reset save"
+flat = true
+align = 0
+
+[node name="LoadSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 18.0
+margin_right = 60.0
+margin_bottom = 27.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+enabled_focus_mode = 0
+text = "Load Save"
+flat = true
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 27.0
+margin_right = 51.0
+margin_bottom = 45.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 18.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_right = 20.0
+margin_bottom = 9.0
+custom_fonts/font = ExtResource( 17 )
+text = "Music"
+
+[node name="Label2" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 20.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 17 )
+text = "SFX"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer"]
+margin_left = 24.0
+margin_right = 51.0
+margin_bottom = 18.0
+custom_constants/separation = 0
+
+[node name="Music Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+margin_right = 27.0
+
+[node name="SFX Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+margin_top = 9.0
+margin_right = 27.0
+margin_bottom = 18.0
+
+[node name="ItemInfoMenu" parent="PauseMenuControl/PauseMenuMargin" instance=ExtResource( 16 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
+[connection signal="SaveDataLoadedManually" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataLoadedManually"]
+[connection signal="SaveDataReset" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataReset"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/Save" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_Save_pressed"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/ResetSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_ResetSave_pressed"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/LoadSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_LoadSave_pressed"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnMusicVolume_VolumeValueUpdated"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnSFXVolume_VolumeValueUpdated"]
+[connection signal="DetailedItemInfoMenuAppeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuAppeared"]
+[connection signal="DetailedItemInfoMenuDisappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuDisappeared"]
+[connection signal="EquippedArmorChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedArmorChanged"]
+[connection signal="EquippedWeaponChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedWeaponChanged"]
+[connection signal="ItemUsed" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="_on_ItemInfoMenu_ItemUsed"]

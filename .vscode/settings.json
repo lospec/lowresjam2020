@@ -1,0 +1,16 @@
+{
+    "mono-debug.exceptionOptions": {
+        "System.ArithmeticException": "always",
+        "System.ArrayTypeMismatchException": "always",
+        "System.DivideByZeroException": "always",
+        "System.Exception": "always",
+        "System.IndexOutOfRangeException": "always",
+        "System.InvalidCastException": "always",
+        "System.NullReferenceException": "always",
+        "System.OutOfMemoryException": "always",
+        "System.OverflowException": "always",
+        "System.StackOverflowException": "always",
+        "System.SystemException": "always",
+        "System.TypeInitializationException": "always"
+    }
+}

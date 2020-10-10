@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://guild_hall/chest/chest_item.gd" type="Script" id=1]
+[ext_resource path="res://guild_hall/chest/ChestItems.cs" type="Script" id=1]
 [ext_resource path="res://guild_hall/chest/chest_slot.png" type="Texture" id=2]
 
 [node name="ChestItem" type="MarginContainer"]
@@ -31,4 +31,4 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 7.0
 margin_bottom = 7.0
-[connection signal="gui_input" from="ItemCenter/Item" to="." method="_on_Item_gui_input"]
+[connection signal="gui_input" from="ItemCenter/Item" to="." method="OnItem_GUIInput"]

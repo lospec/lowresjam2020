@@ -9,86 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "AI_Behaviour",
-"language": "GDScript",
-"path": "res://AI/AI_Behaviour.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "BaseEntity",
-"language": "GDScript",
-"path": "res://Entities/BaseEntity/BaseEntity.gd"
-}, {
-"base": "TextureRect",
-"class": "CombatAttackAnim",
-"language": "GDScript",
-"path": "res://Combat/CombatAttackAnim.gd"
-}, {
-"base": "Node",
-"class": "CombatChar",
-"language": "GDScript",
-"path": "res://Combat/CombatChar.gd"
-}, {
-"base": "TextureRect",
-"class": "CombatEnemyTexture",
-"language": "GDScript",
-"path": "res://Combat/CombatEnemyTexture.gd"
-}, {
-"base": "ShakableControl",
-"class": "CombatMenu",
-"language": "GDScript",
-"path": "res://Combat/CombatMenu.gd"
-}, {
-"base": "Reference",
-"class": "CombatUtil",
-"language": "GDScript",
-"path": "res://Combat/CombatUtil.gd"
-}, {
-"base": "Resource",
-"class": "EntityResource",
-"language": "GDScript",
-"path": "res://Entities/BaseEntity/EntityResource.gd"
-}, {
-"base": "Node",
-"class": "PlayerCombat",
-"language": "GDScript",
-"path": "res://Combat/PlayerCombat.gd"
-}, {
 "base": "Reference",
 "class": "PriorityQueue",
 "language": "GDScript",
-"path": "res://World/MapGen/PriorityQueue.gd"
-}, {
-"base": "Control",
-"class": "ShakableControl",
-"language": "GDScript",
-"path": "res://Combat/CombatShake.gd"
-}, {
-"base": "Resource",
-"class": "StatusEffect",
-"language": "GDScript",
-"path": "res://StatusEffect/Bases/StatusEffect.gd"
+"path": "res://world/map_gen/priority_queue.gd"
 } ]
 _global_script_class_icons={
-"AI_Behaviour": "",
-"BaseEntity": "",
-"CombatAttackAnim": "",
-"CombatChar": "",
-"CombatEnemyTexture": "",
-"CombatMenu": "",
-"CombatUtil": "",
-"EntityResource": "",
-"PlayerCombat": "",
-"PriorityQueue": "",
-"ShakableControl": "",
-"StatusEffect": ""
+"PriorityQueue": ""
 }
 
 [application]
 
 config/name="Heroes' Guild"
-run/main_scene="res://UI/Splash Screen/Splash Screen.tscn"
-boot_splash/image="res://UI/Splash Screen/Splash Screen First Frame.png"
+run/main_scene="res://ui/splash_screen/splash_screen.tscn"
+boot_splash/image="res://ui/splash_screen/splash_screen_first_frame.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
@@ -99,14 +33,13 @@ default_bus_layout=""
 
 [autoload]
 
-Data="*res://data/import_data.gd"
-PixelPerfectScaling="*res://Utility/PixelPerfectScaling.gd"
-Utility="*res://Utility/Utility.gd"
-PaletteSwap="*res://Utility/Palette Swap.tscn"
-Transitions="*res://Utility/Transitions.tscn"
-SaveData="*res://Utility/save_data.gd"
-AudioSystem="*res://Utility/audio_system.tscn"
-StatEffectUtility="*res://StatusEffect/stat_effects.gd"
+Transitions="*res://utility/transitions.tscn"
+AudioSystem="*res://utility/audio_system.tscn"
+PaletteSwap="*res://utility/palette_swap.tscn"
+Data="*res://data/Data.cs"
+SaveData="*res://utility/SaveData.cs"
+Autoload="*res://utility/Autoload.cs"
+PixelPerfectScaling="*res://utility/PixelPerfectScaling.cs"
 
 [display]
 
@@ -120,7 +53,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "MonoDebuggerQM-1.0.2" )
 
 [importer_defaults]
 
@@ -216,6 +149,14 @@ guild_hall_desk_interact={
 2d_physics/layer_4="Guild Hall Door"
 2d_physics/layer_5="Chests"
 2d_physics/layer_6="Guild Hall Desk"
+
+[logging]
+
+file_logging/enable_file_logging=true
+
+[mono]
+
+unhandled_exception_policy=1
 
 [network]
 
