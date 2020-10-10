@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
 using Godot;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Object = System.Object;
 
 namespace HeroesGuild.utility
 {
@@ -42,8 +44,20 @@ namespace HeroesGuild.utility
         public string CharacterName { get; set; } = "Jason";
         [JsonProperty]
         public int Coins { get; set; } = DEFAULT_COINS;
-        [JsonProperty]
+
+        //[JsonProperty]
         public List<string> Inventory { get; set; } = DefaultInventory;
+        [JsonProperty]
+        private object InventoryItems
+        {
+            get => Inventory;
+            set
+            {
+                var inventoryJArray = (JArray) value;
+                Inventory = inventoryJArray.ToObject<List<string>>();
+            }
+        }
+
         [JsonProperty]
         public string EquippedWeapon { get; set; } = DEFAULT_WEAPON;
         [JsonProperty]
@@ -52,9 +66,20 @@ namespace HeroesGuild.utility
         public int MaxHealth { get; set; } = DEFAULT_HEALTH;
         [JsonProperty]
         public int Health { get; set; } = DEFAULT_HEALTH;
-        [JsonProperty]
+
         public List<List<string>> ChestContent { get; set; } =
             DefaultChestContent;
+        [JsonProperty]
+        private object ChestItems
+        {
+            get => ChestContent;
+            set
+            {
+                var chestContentJArray = (JArray) value;
+                ChestContent = chestContentJArray.ToObject<List<List<string>>>();
+            }
+        }
+
         [JsonProperty]
         public int GuildLevel { get; set; } = 1;
         [JsonProperty]
@@ -92,24 +117,18 @@ namespace HeroesGuild.utility
             var saveDataParsed = JsonConvert.DeserializeObject<Dictionary<string, object>>(saveData);
             foreach (KeyValuePair<string, object> data in saveDataParsed)
             {
-                // The Set method cannot be used with unmarshallable managed types
-                // (i.e. types that cannot be converted to Godot's variant type)
+                // Reflection is being used instead of Godot's set method.
+                // This is as a result of the set method being unable to be used with unmarshallable
+                // managed types types (i.e. types that cannot be converted to Godot's variant type)
                 // such as JArray
-                switch (data.Key)
-                {
-                    case nameof(Inventory):
-                        var inventoryJArray = (JArray) data.Value;
-                        var inventory = inventoryJArray.ToObject<List<string>>();
-                        Inventory = inventory;
-                        continue;
-                    case nameof(ChestContent):
-                        var chestContentJArray = (JArray) data.Value;
-                        var chestContent = chestContentJArray.ToObject<List<List<string>>>();
-                        ChestContent = chestContent;
-                        continue;
-                }
 
-                Set(data.Key, data.Value);
+                PropertyInfo prop = GetType().GetProperty(data.Key,
+                    BindingFlags.NonPublic | BindingFlags.Public |
+                    BindingFlags.Instance);
+                prop.SetValue(this,
+                    prop.PropertyType == typeof(Object)
+                        ? data.Value
+                        : Convert.ChangeType(data.Value, prop.PropertyType));
             }
 
             file.Close();
