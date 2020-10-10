@@ -23,7 +23,10 @@ namespace HeroesGuild.utility
 
         public static readonly List<List<string>> DefaultChestContent =
             new List<List<string>>();
-        
+
+        public const int DEFAULT_GUILD_LEVEL = 1;
+        public const int DEFAULT_COINS_DEPOSITED = 0;
+
 
         public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
         [JsonProperty]
@@ -80,9 +83,9 @@ namespace HeroesGuild.utility
         }
 
         [JsonProperty]
-        public int GuildLevel { get; set; } = 1;
+        public int GuildLevel { get; set; } = DEFAULT_GUILD_LEVEL;
         [JsonProperty]
-        public int CoinsDeposited { get; set; } = 0;
+        public int CoinsDeposited { get; set; } = DEFAULT_COINS_DEPOSITED;
 
         public override void _Ready()
         {
@@ -131,6 +134,22 @@ namespace HeroesGuild.utility
             }
 
             file.Close();
+        }
+
+        public void ResetSave()
+        {
+            WorldPosition = DefaultWorldPosition;
+            Coins = DEFAULT_COINS;
+            Inventory = DefaultInventory;
+            EquippedWeapon = DEFAULT_WEAPON;
+            EquippedArmor = DEFAULT_ARMOR;
+            MaxHealth = DEFAULT_HEALTH;
+            Health = DEFAULT_HEALTH;
+            ChestContent = DefaultChestContent;
+            GuildLevel = DEFAULT_GUILD_LEVEL;
+            CoinsDeposited = DEFAULT_COINS_DEPOSITED;
+
+            SaveGame();
         }
     }
 }

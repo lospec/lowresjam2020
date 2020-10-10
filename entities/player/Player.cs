@@ -13,7 +13,6 @@ namespace HeroesGuild.entities.player
         [Signal] public delegate void EnemyDetected(BaseEntity player,
             BaseEntity enemy);
 
-
         [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
 
         [Signal] public delegate void InventoryButtonPressed(
@@ -54,19 +53,13 @@ namespace HeroesGuild.entities.player
             birdsSystem = GetNode<Node2D>("BirdsSystem");
             cloudsSystem = GetNode<Node2D>("CloudsSystem");
 
-            var saveData = Autoload.Get<SaveData>();
-            Coins = saveData.Coins;
-            Inventory = saveData.Inventory;
-            EquippedWeapon = saveData.EquippedWeapon;
-            EquippedArmor = saveData.EquippedArmor;
-            maxHealth = saveData.MaxHealth;
-            Health = saveData.Health;
+            UpdatePlayerDataFromSaveData();
 
             base._Ready();
 
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
 
-
+            var saveData = Autoload.Get<SaveData>();
             var texture =
                 ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
                     saveData.CharacterName.ToLower()));
@@ -76,6 +69,24 @@ namespace HeroesGuild.entities.player
 
         private void OnPlayerTree_Exiting()
         {
+            UpdateSaveDataFromPlayerData();
+            var saveData = Autoload.Get<SaveData>();
+            saveData.SaveGame();
+        }
+
+        public void UpdatePlayerDataFromSaveData()
+        {
+            var saveData = Autoload.Get<SaveData>();
+            Coins = saveData.Coins;
+            Inventory = saveData.Inventory;
+            EquippedWeapon = saveData.EquippedWeapon;
+            EquippedArmor = saveData.EquippedArmor;
+            maxHealth = saveData.MaxHealth;
+            Health = saveData.Health;
+        }
+
+        public void UpdateSaveDataFromPlayerData()
+        {
             var saveData = Autoload.Get<SaveData>();
             saveData.Coins = Coins;
             saveData.Inventory = Inventory;
@@ -83,7 +94,6 @@ namespace HeroesGuild.entities.player
             saveData.EquippedArmor = EquippedArmor;
             saveData.MaxHealth = maxHealth;
             saveData.Health = Health;
-            saveData.SaveGame();
         }
 
         public override void _PhysicsProcess(float delta)
