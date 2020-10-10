@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using HeroesGuild.guild_hall.chest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -43,30 +42,8 @@ namespace HeroesGuild.utility
         public string CharacterName { get; set; } = "Jason";
         [JsonProperty]
         public int Coins { get; set; } = DEFAULT_COINS;
-
-        public List<string> Inventory { get; set; } = DefaultInventory;
         [JsonProperty]
-        private object InventoryItems
-        {
-            get => Inventory;
-            set
-            {
-                if (value is null)
-                {
-                    GD.PrintErr($"Value is not of type JArray and is instead null");
-                    return;
-                }
-                else if (!(value is JArray))
-                {
-                    GD.PrintErr($"Value is not of type JArray and is instead {value.GetType().Name}");
-                    return;
-                }
-
-                var jArray = (JArray) value;
-                Inventory = jArray.Select(i => (string) i).ToList();
-            }
-        }
-
+        public List<string> Inventory { get; set; } = DefaultInventory;
         [JsonProperty]
         public string EquippedWeapon { get; set; } = DEFAULT_WEAPON;
         [JsonProperty]
@@ -78,31 +55,6 @@ namespace HeroesGuild.utility
         [JsonProperty]
         public List<List<string>> ChestContent { get; set; } =
             DefaultChestContent;
-        /*[JsonProperty]
-        private object ChestItems
-        {
-            get => ChestContent;
-            set
-            {
-                if (value is null)
-                {
-                    GD.PrintErr($"Value is not of type JArray and is instead null");
-                    return;
-                }
-                else if (!(value is JArray))
-                {
-                    GD.PrintErr($"Value is not of type JArray and is instead {value.GetType().Name}");
-                    return;
-                }
-
-                var jArray = (JArray) value;
-                foreach (var e in jArray.Select(i => (string) i))
-                {
-                    GD.Print(e);
-                }
-            }
-        }*/
-
         [JsonProperty]
         public int GuildLevel { get; set; } = 1;
         [JsonProperty]
@@ -140,15 +92,20 @@ namespace HeroesGuild.utility
             var saveDataParsed = JsonConvert.DeserializeObject<Dictionary<string, object>>(saveData);
             foreach (KeyValuePair<string, object> data in saveDataParsed)
             {
-                // I don't know why but when Set is used with a JArray it sets it to null
+                // The Set method cannot be used with unmarshallable managed types
+                // (i.e. types that cannot be converted to Godot's variant type)
+                // such as JArray
                 switch (data.Key)
                 {
-                    case nameof(InventoryItems):
-                        InventoryItems = data.Value;
+                    case nameof(Inventory):
+                        var inventoryJArray = (JArray) data.Value;
+                        var inventory = inventoryJArray.ToObject<List<string>>();
+                        Inventory = inventory;
                         continue;
                     case nameof(ChestContent):
-                        var jArray = (JArray) data.Value;
-                        ChestContent = jArray.ToObject<List<List<string>>>();
+                        var chestContentJArray = (JArray) data.Value;
+                        var chestContent = chestContentJArray.ToObject<List<List<string>>>();
+                        ChestContent = chestContent;
                         continue;
                 }
 
