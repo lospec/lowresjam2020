@@ -24,6 +24,12 @@ namespace HeroesGuild.ui.pause_menu
                 GD.Linear2Db(newVolume / VOLUME_DIVISOR) - _volumeSubtracted;
         }
 
+        private void _on_Save_pressed()
+        {
+            var saveData = Autoload.Get<SaveData>();
+            saveData.SaveGame();
+        }
+
         private void _on_ResetSave_pressed()
         {
             var saveData = Autoload.Get<SaveData>();
