@@ -83,6 +83,7 @@ namespace HeroesGuild.entities.player
             saveData.EquippedArmor = EquippedArmor;
             saveData.MaxHealth = maxHealth;
             saveData.Health = Health;
+            saveData.SaveGame();
         }
 
         public override void _PhysicsProcess(float delta)
