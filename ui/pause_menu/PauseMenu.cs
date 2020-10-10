@@ -359,5 +359,17 @@ namespace HeroesGuild.ui.pause_menu
         {
             UpdateInventory();
         }
+
+        private void _on_SettingsMargin_SaveDataReset()
+        {
+            playerInstance.UpdatePlayerDataFromSaveData();
+            UpdateInventory();
+        }
+
+        private void _on_SettingsMargin_SaveDataLoadedManually()
+        {
+            playerInstance.UpdatePlayerDataFromSaveData();
+            UpdateInventory();
+        }
     }
 }

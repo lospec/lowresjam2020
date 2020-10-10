@@ -7,7 +7,7 @@ namespace HeroesGuild.guild_hall.chest
     {
         public AnimatedSprite animatedSprite;
         public int chestID;
-        public Dictionary<int, string> contents;
+        public List<string> contents;
 
         public override void _Ready()
         {

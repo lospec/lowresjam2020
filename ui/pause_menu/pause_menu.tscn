@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://ui/inventory/background.png" type="Texture" id=1]
 [ext_resource path="res://ui/pause_menu/PauseMenu.cs" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://ui/font_resources/wendy-10.tres" type="DynamicFont" id=17]
 [ext_resource path="res://ui/settings/audio_settings/volume_control.tscn" type="PackedScene" id=18]
 [ext_resource path="res://ui/pause_menu/SettingsMargin.cs" type="Script" id=19]
+[ext_resource path="res://ui/font_resources/wendy-10_confirm_use.tres" type="DynamicFont" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 4
@@ -30,7 +31,6 @@ pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="PauseMenuControl" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -206,42 +206,75 @@ custom_constants/margin_left = 2
 custom_constants/margin_bottom = 2
 script = ExtResource( 19 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 53.0
-margin_bottom = 20.0
+margin_right = 62.0
+margin_bottom = 53.0
+custom_constants/separation = 0
+
+[node name="ResetSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 9.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+enabled_focus_mode = 0
+text = "Reset save"
+flat = true
+align = 0
+
+[node name="LoadSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 9.0
+margin_right = 60.0
+margin_bottom = 18.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+enabled_focus_mode = 0
+text = "Load Save"
+flat = true
+align = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 18.0
+margin_right = 51.0
+margin_bottom = 36.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer"]
 margin_right = 20.0
 margin_bottom = 18.0
 custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_right = 20.0
 margin_bottom = 9.0
 custom_fonts/font = ExtResource( 17 )
 text = "Music"
 
-[node name="Label2" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 9.0
 margin_right = 20.0
 margin_bottom = 18.0
 custom_fonts/font = ExtResource( 17 )
 text = "SFX"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer"]
 margin_left = 24.0
 margin_right = 51.0
 margin_bottom = 18.0
 custom_constants/separation = 0
 
-[node name="Music Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+[node name="Music Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
 margin_right = 27.0
 
-[node name="SFX Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
+[node name="SFX Volume" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 18 )]
 margin_top = 9.0
 margin_right = 27.0
 margin_bottom = 18.0
@@ -254,8 +287,12 @@ margin_right = 64.0
 margin_bottom = 64.0
 
 [node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
-[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnMusicVolume_VolumeValueUpdated"]
-[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnSFXVolume_VolumeValueUpdated"]
+[connection signal="SaveDataLoadedManually" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataLoadedManually"]
+[connection signal="SaveDataReset" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataReset"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/ResetSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_ResetSave_pressed"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/LoadSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_LoadSave_pressed"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnMusicVolume_VolumeValueUpdated"]
+[connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnSFXVolume_VolumeValueUpdated"]
 [connection signal="DetailedItemInfoMenuAppeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuAppeared"]
 [connection signal="DetailedItemInfoMenuDisappeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuDisappeared"]
 [connection signal="EquippedArmorChanged" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="." method="OnItemInfoMenu_EquippedArmorChanged"]
