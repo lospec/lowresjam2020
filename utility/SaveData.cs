@@ -118,7 +118,7 @@ namespace HeroesGuild.utility
             {
                 // Reflection is being used instead of Godot's set method.
                 // This is as a result of the set method being unable to be used with unmarshallable
-                // managed types types (i.e. types that cannot be converted to Godot's variant type)
+                // managed types (i.e. types that cannot be converted to Godot's variant type)
                 // such as JArray
 
                 PropertyInfo prop = GetType().GetProperty(data.Key,
