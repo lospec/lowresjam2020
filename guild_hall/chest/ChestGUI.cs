@@ -95,7 +95,7 @@ namespace HeroesGuild.guild_hall.chest
 
             _openedChestID = chestInstance.chestID;
             _chestInstance.contents =
-                Autoload.Get<SaveData>().ChestContent[_openedChestID];
+                SaveManager.SaveData.ChestContent[_openedChestID];
             _tree.Paused = true;
             _playerInstance.hudMargin.Visible = false;
             UpdateChestUI();
@@ -106,7 +106,7 @@ namespace HeroesGuild.guild_hall.chest
         public void Close()
         {
             _margin.Visible = false;
-            Autoload.Get<SaveData>().ChestContent[_openedChestID] =
+            SaveManager.SaveData.ChestContent[_openedChestID] =
                 _chestInstance.contents;
             _openedChestID = -1;
             _chestInstance = null;

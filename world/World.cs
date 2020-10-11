@@ -41,7 +41,7 @@ namespace HeroesGuild.world
             _player.birdsSystem.Visible = true;
             _player.cloudsSystem.Visible = true;
 
-            _player.Position = Autoload.Get<SaveData>().WorldPosition;
+            _player.Position = SaveManager.SaveData.WorldPosition;
 
             if (!AudioSystem.IsMusicPlaying)
             {
@@ -136,7 +136,7 @@ namespace HeroesGuild.world
             if (body.IsInGroup("player"))
             {
                 var offset = new Vector2(0, 5);
-                Autoload.Get<SaveData>().WorldPosition = _player.Position + offset;
+                SaveManager.SaveData.WorldPosition = _player.Position + offset;
 
                 AudioSystem.PlaySFX(AudioSystem.SFXCollection.GuildHallEnter);
                 var transitionParams =
@@ -187,15 +187,15 @@ namespace HeroesGuild.world
         {
             _player.isDead = true;
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             saveData.WorldPosition = SaveData.DefaultWorldPosition;
-            saveData.Coins = SaveData.DEFAULT_COINS;
+            saveData.Coins = SaveData.DefaultCoins;
             saveData.Inventory = SaveData.DefaultInventory;
-            saveData.EquippedWeapon = SaveData.DEFAULT_WEAPON;
-            saveData.EquippedArmor = SaveData.DEFAULT_ARMOR;
-            saveData.MaxHealth = SaveData.DEFAULT_HEALTH;
-            saveData.Health = SaveData.DEFAULT_HEALTH;
-            _player.Health = SaveData.DEFAULT_HEALTH;
+            saveData.EquippedWeapon = SaveData.DefaultWeapon;
+            saveData.EquippedArmor = SaveData.DefaultArmor;
+            saveData.MaxHealth = SaveData.DefaultHealth;
+            saveData.Health = SaveData.DefaultHealth;
+            _player.Health = SaveData.DefaultHealth;
 
             AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
