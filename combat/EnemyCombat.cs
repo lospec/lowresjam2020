@@ -68,16 +68,16 @@ namespace HeroesGuild.combat
             switch (action)
             {
                 case CombatUtil.CombatAction.Quick:
-                    GD.Print(CharacterInstance.enemyName);
-                    GD.Print(CharacterInstance.Stat.QuickDamageType);
+                    GD.Print(CharacterInstance.enemyName, " - ",
+                        CharacterInstance.Stat.QuickDamageType);
                     return CharacterInstance.Stat.QuickDamageType;
                 case CombatUtil.CombatAction.Counter:
-                    GD.Print(CharacterInstance.enemyName);
-                    GD.Print(CharacterInstance.Stat.CounterDamageType);
+                    GD.Print(CharacterInstance.enemyName, " - ",
+                        CharacterInstance.Stat.CounterDamageType);
                     return CharacterInstance.Stat.CounterDamageType;
                 case CombatUtil.CombatAction.Heavy:
-                    GD.Print(CharacterInstance.enemyName);
-                    GD.Print(CharacterInstance.Stat.HeavyDamageType);
+                    GD.Print(CharacterInstance.enemyName, " - ",
+                        CharacterInstance.Stat.HeavyDamageType);
                     return CharacterInstance.Stat.HeavyDamageType;
                 default:
                     return "None";
@@ -93,7 +93,7 @@ namespace HeroesGuild.combat
 
             if (!string.IsNullOrWhiteSpace(CharacterInstance.Stat.AttackPool))
             {
-                GD.Print(CharacterInstance.Stat.AttackPool);
+                GD.Print($"{CharacterInstance.Name} - {CharacterInstance.Stat.AttackPool}");
                 var action =
                     PoolCharToAction(
                         CharacterInstance.Stat.AttackPool.ToLower()[_poolIndex]);
