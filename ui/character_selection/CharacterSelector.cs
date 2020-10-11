@@ -8,11 +8,15 @@ namespace HeroesGuild.ui.character_selection
     public class CharacterSelector : MarginContainer
     {
         private const string WORLD_SCENE_PATH = "res://world/world.tscn";
+
         private const string CHARACTER_RESOURCE_PATH =
             "res://ui/character_selection/character.tscn";
+
         private const int SCROLL_AMOUNT = 40;
+
         private static readonly PackedScene CharacterResource =
             ResourceLoader.Load<PackedScene>(CHARACTER_RESOURCE_PATH);
+
         private BaseButton[] _buttons;
         private BoxContainer _characters;
 
@@ -52,15 +56,15 @@ namespace HeroesGuild.ui.character_selection
             foreach (var button in _buttons)
             {
                 button.Connect("mouse_entered", this, nameof(OnButton_MouseEntered),
-                    new Array { button });
+                    new Array {button});
                 button.Connect("pressed", this, nameof(OnButton_Pressed),
-                    new Array { button });
+                    new Array {button});
             }
         }
 
         private void UpdateCharacters()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
 
             foreach (var keyValuePair in Autoload.Get<Data>().characterData)
             {
@@ -69,7 +73,7 @@ namespace HeroesGuild.ui.character_selection
 
                 if (characterRecord.guildLevel > saveData.GuildLevel) continue;
 
-                var character = (Character)CharacterResource.Instance();
+                var character = (Character) CharacterResource.Instance();
                 _characters.AddChild(character);
                 character.characterName = characterName;
                 if (!character.UpdateCharacter())
@@ -79,21 +83,21 @@ namespace HeroesGuild.ui.character_selection
                 }
 
                 character.characterButton.Connect("pressed", this,
-                    nameof(OnCharacter_Pressed), new Array { character });
+                    nameof(OnCharacter_Pressed), new Array {character});
             }
         }
 
         public void OnScrollLeft_GUIInput(InputEvent @event)
         {
             if (@event is InputEventMouseButton inputEvent &&
-                inputEvent.ButtonIndex == (int)ButtonList.Left)
+                inputEvent.ButtonIndex == (int) ButtonList.Left)
                 _scrollLeftHeld = inputEvent.Pressed;
         }
 
         public void OnScrollRight_GUIInput(InputEvent @event)
         {
             if (@event is InputEventMouseButton inputEvent &&
-                inputEvent.ButtonIndex == (int)ButtonList.Left)
+                inputEvent.ButtonIndex == (int) ButtonList.Left)
                 _scrollRightHeld = inputEvent.Pressed;
         }
 
@@ -104,8 +108,8 @@ namespace HeroesGuild.ui.character_selection
             if (_scrollRightHeld) _scrollValue += SCROLL_AMOUNT * delta;
 
             _scrollValue = Mathf.Max(_scrollValue, 0);
-            _characterScroll.ScrollHorizontal = (int)_scrollValue;
-            if ((int)_scrollValue > _characterScroll.ScrollHorizontal)
+            _characterScroll.ScrollHorizontal = (int) _scrollValue;
+            if ((int) _scrollValue > _characterScroll.ScrollHorizontal)
                 _scrollValue = _characterScroll.ScrollHorizontal;
         }
 
@@ -122,7 +126,7 @@ namespace HeroesGuild.ui.character_selection
         {
             AudioSystem.StopAllMusic();
 
-            Autoload.Get<SaveData>().CharacterName = selectedCharacterName;
+            SaveManager.SaveData.CharacterName = selectedCharacterName;
             var transitionParams =
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f);

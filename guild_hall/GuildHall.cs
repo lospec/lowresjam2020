@@ -127,7 +127,7 @@ namespace HeroesGuild.guild_hall
             foreach (Node chest in GetTree().GetNodesInGroup("Chest"))
                 chest.QueueFree();
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             for (var i = 0; i < saveData.GuildLevel; i++)
             {
                 if (i >= saveData.ChestContent.Count)

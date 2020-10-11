@@ -387,7 +387,7 @@ namespace HeroesGuild.guild_hall.guild_interface
 
             var newCoinsAmount = Mathf.Max(_playerInstance.Coins - depositAmount, 0);
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             saveData.CoinsDeposited += _playerInstance.Coins - newCoinsAmount;
             _playerInstance.Coins = newCoinsAmount;
 
@@ -412,7 +412,7 @@ namespace HeroesGuild.guild_hall.guild_interface
 
         private void UpdateGuildLevel()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             _nextLevelLabel.Text = $"To Level {saveData.GuildLevel + 1}";
             var totalCoinsForNextLevel = saveData.GuildLevel * 250;
             _nextLevelProgressText.Text =
@@ -421,7 +421,7 @@ namespace HeroesGuild.guild_hall.guild_interface
 
         private void UpdateProgressBarInstantly()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             var totalCoinsForNextLevel = saveData.GuildLevel * 250;
             _depositProgressBar.MaxValue = totalCoinsForNextLevel;
             _depositProgressBar.Value = saveData.CoinsDeposited;
@@ -436,7 +436,7 @@ namespace HeroesGuild.guild_hall.guild_interface
                 await ToSignal(_marketItemsGrid.GetChild(childCount - 1),
                     "tree_exited");
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             var buyableItems = (from pair in Autoload.Get<Data>().itemData
                 let itemRecord = pair.Value
                 where itemRecord.BuyValue > 0 && itemRecord.BuyValue <=

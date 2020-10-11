@@ -5,9 +5,11 @@ namespace HeroesGuild.ui.pause_menu
 {
     public class SettingsMargin : MarginContainer
     {
-        [Signal] public delegate void SaveDataReset();
+        [Signal]
+        public delegate void SaveDataReset();
 
-        [Signal] public delegate void SaveDataLoadedManually();
+        [Signal]
+        public delegate void SaveDataLoadedManually();
 
         private const float VOLUME_DIVISOR = 5.0f;
         private readonly float _volumeSubtracted = GD.Linear2Db(100f / VOLUME_DIVISOR);
@@ -26,21 +28,19 @@ namespace HeroesGuild.ui.pause_menu
 
         private void _on_Save_pressed()
         {
-            var saveData = Autoload.Get<SaveData>();
-            saveData.SaveGame();
+            SaveManager.SaveGame();
         }
 
         private void _on_ResetSave_pressed()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             saveData.ResetSave();
             EmitSignal(nameof(SaveDataReset));
         }
 
         private void _on_LoadSave_pressed()
         {
-            var saveData = Autoload.Get<SaveData>();
-            saveData.LoadGame();
+            SaveManager.LoadGame();
             EmitSignal(nameof(SaveDataLoadedManually));
         }
     }

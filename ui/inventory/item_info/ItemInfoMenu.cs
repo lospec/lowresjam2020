@@ -1,9 +1,7 @@
 using System;
-using System.Net;
 using Godot;
 using HeroesGuild.data;
 using HeroesGuild.entities.player;
-using HeroesGuild.ui.pause_menu;
 using HeroesGuild.utility;
 
 namespace HeroesGuild.ui.inventory.item_info
@@ -277,7 +275,7 @@ namespace HeroesGuild.ui.inventory.item_info
 
                     playerInstance.EquippedArmor = selectedItem;
                     playerInstance.maxHealth =
-                        SaveData.DEFAULT_HEALTH + itemRecord.HealthAdded;
+                        SaveData.DefaultHealth + itemRecord.HealthAdded;
                     playerInstance.Health += itemRecord.HealthAdded;
                     EmitSignal(nameof(EquippedArmorChanged));
                     _equipButton.Visible = false;

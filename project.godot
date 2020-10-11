@@ -37,7 +37,6 @@ Transitions="*res://utility/transitions.tscn"
 AudioSystem="*res://utility/audio_system.tscn"
 PaletteSwap="*res://utility/palette_swap.tscn"
 Data="*res://data/Data.cs"
-SaveData="*res://utility/SaveData.cs"
 Autoload="*res://utility/Autoload.cs"
 PixelPerfectScaling="*res://utility/PixelPerfectScaling.cs"
 

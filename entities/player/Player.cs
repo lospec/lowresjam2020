@@ -9,19 +9,24 @@ namespace HeroesGuild.entities.player
     public class Player : BaseEntity
     {
         public event Action<BaseEntity, bool> ToggleEnemyActive;
-        
-        [Signal] public delegate void EnemyDetected(BaseEntity player,
+
+        [Signal]
+        public delegate void EnemyDetected(BaseEntity player,
             BaseEntity enemy);
 
-        [Signal] public delegate void GuildHallDeskInputReceived(Node2D desk);
+        [Signal]
+        public delegate void GuildHallDeskInputReceived(Node2D desk);
 
-        [Signal] public delegate void InventoryButtonPressed(
+        [Signal]
+        public delegate void InventoryButtonPressed(
             BaseEntity player);
 
-        [Signal] public delegate void OpenChestInputReceived(Node2D chest);
+        [Signal]
+        public delegate void OpenChestInputReceived(Node2D chest);
 
         private const string OverWorldSprite =
             "res://entities/player/spritesheets/{0}_overworld.png";
+
         private Area2D _chestDetector;
         private Area2D _collisionDetector;
         private Area2D _deskDetector;
@@ -59,7 +64,7 @@ namespace HeroesGuild.entities.player
 
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             var texture =
                 ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
                     saveData.CharacterName.ToLower()));
@@ -70,13 +75,12 @@ namespace HeroesGuild.entities.player
         private void OnPlayerTree_Exiting()
         {
             UpdateSaveDataFromPlayerData();
-            var saveData = Autoload.Get<SaveData>();
-            saveData.SaveGame();
+            SaveManager.SaveGame();
         }
 
         public void UpdatePlayerDataFromSaveData()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             Coins = saveData.Coins;
             Inventory = saveData.Inventory;
             EquippedWeapon = saveData.EquippedWeapon;
@@ -87,7 +91,7 @@ namespace HeroesGuild.entities.player
 
         public void UpdateSaveDataFromPlayerData()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             saveData.Coins = Coins;
             saveData.Inventory = Inventory;
             saveData.EquippedWeapon = EquippedWeapon;
@@ -122,7 +126,7 @@ namespace HeroesGuild.entities.player
         {
             if (body.IsInGroup("enemies"))
             {
-                ToggleEnemyActive?.Invoke(body as BaseEntity, true);    
+                ToggleEnemyActive?.Invoke(body as BaseEntity, true);
             }
         }
 
