@@ -132,7 +132,7 @@ namespace HeroesGuild.guild_hall
             {
                 if (i >= saveData.ChestContent.Count)
                     saveData.ChestContent.Add(Enumerable.Range(0, 8)
-                        .ToDictionary(key => key, _ => string.Empty));
+                        .Select(e => string.Empty).ToList());
 
                 var position = _firstChestPosition +
                                new Vector2(CHEST_GAP_X * i, CHEST_GAP_Y * i);

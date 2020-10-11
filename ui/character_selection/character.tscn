@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/Player/spritesheets/abby_overworld.png" type="Texture" id=1]
+[ext_resource path="res://entities/player/spritesheets/abby_overworld.png" type="Texture" id=1]
 [ext_resource path="res://ui/character_selection/Character.cs" type="Script" id=2]
 [ext_resource path="res://ui/character_selection/character_hover.png" type="Texture" id=3]
 
