@@ -17,7 +17,7 @@ namespace HeroesGuild.combat
 
         public void TakeDamage(int damage, string damageType)
         {
-            GD.Print($"TAKE DAMAGE: {damage} type {damageType}");
+            GD.Print($"{CharacterInstance.Name} TAKE DAMAGE: {damage} type {damageType}");
             EmitSignal(nameof(DamageTaken), damage, damageType);
 
             if (CharacterInstance.statusEffects.ContainsKey("Frozen") &&

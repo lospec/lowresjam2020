@@ -25,7 +25,7 @@ namespace HeroesGuild.combat
 
             if (minDuration > 0 && timer?.TimeLeft > 0)
             {
-                GD.Print(timer.TimeLeft);
+                GD.Print("Timer Time Left: ", timer.TimeLeft);
                 await ToSignal(timer, "timeout");
             }
         }
