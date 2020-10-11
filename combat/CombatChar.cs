@@ -83,7 +83,7 @@ namespace HeroesGuild.combat
                 return;
             }
 
-            if (GD.Randf() < statusEffectChance)
+            if (Utility.Random.NextDouble() < statusEffectChance)
             {
                 target.CharacterInstance.AddStatusEffect(statusEffect);
 

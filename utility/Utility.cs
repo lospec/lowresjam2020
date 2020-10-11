@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -8,6 +9,8 @@ namespace HeroesGuild.utility
     {
         private const string InventorySpritePath =
             "res://items/inventory_sprites/{0}.png";
+
+        public static readonly Random Random = new Random();
 
         static Utility()
         {
