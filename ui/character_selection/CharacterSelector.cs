@@ -60,7 +60,7 @@ namespace HeroesGuild.ui.character_selection
 
         private void UpdateCharacters()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
 
             foreach (var keyValuePair in Autoload.Get<Data>().characterData)
             {
@@ -122,7 +122,7 @@ namespace HeroesGuild.ui.character_selection
         {
             AudioSystem.StopAllMusic();
 
-            Autoload.Get<SaveData>().CharacterName = selectedCharacterName;
+            SaveManager.SaveData.CharacterName = selectedCharacterName;
             var transitionParams =
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f);

@@ -59,7 +59,7 @@ namespace HeroesGuild.entities.player
 
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
 
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             var texture =
                 ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
                     saveData.CharacterName.ToLower()));
@@ -70,13 +70,12 @@ namespace HeroesGuild.entities.player
         private void OnPlayerTree_Exiting()
         {
             UpdateSaveDataFromPlayerData();
-            var saveData = Autoload.Get<SaveData>();
-            saveData.SaveGame();
+            SaveManager.SaveGame();
         }
 
         public void UpdatePlayerDataFromSaveData()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             Coins = saveData.Coins;
             Inventory = saveData.Inventory;
             EquippedWeapon = saveData.EquippedWeapon;
@@ -87,7 +86,7 @@ namespace HeroesGuild.entities.player
 
         public void UpdateSaveDataFromPlayerData()
         {
-            var saveData = Autoload.Get<SaveData>();
+            var saveData = SaveManager.SaveData;
             saveData.Coins = Coins;
             saveData.Inventory = Inventory;
             saveData.EquippedWeapon = EquippedWeapon;
