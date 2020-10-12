@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Godot;
 using Newtonsoft.Json;
 
@@ -7,7 +8,9 @@ namespace HeroesGuild.utility
     [JsonObject(MemberSerialization.OptIn)]
     public class SaveData
     {
+        public const string MostRecentSaveDataVersion = "0.1";
         public const int DefaultCoins = 100;
+        public const string DefaultCharacterName = "Jason";
         public const string DefaultWeapon = "Stick";
         public const string DefaultArmor = "";
         public const int DefaultHealth = 20;
@@ -22,23 +25,38 @@ namespace HeroesGuild.utility
         public static readonly List<List<string>> DefaultChestContent =
             new List<List<string>>();
 
+        [JsonProperty(Required = Required.Always)] public string SaveDataVersion;
 
         [JsonProperty] public Vector2 WorldPosition { get; set; }
 
-        [JsonProperty] public string CharacterName { get; set; }
-        [JsonProperty] public int Coins { get; set; }
+        [JsonProperty, DefaultValue(DefaultCharacterName)]
+        public string CharacterName { get; set; }
+
+        [JsonProperty, DefaultValue(DefaultCoins)]
+        public int Coins { get; set; }
 
 
-        [JsonProperty] public string EquippedWeapon { get; set; }
-        [JsonProperty] public string EquippedArmor { get; set; }
-        [JsonProperty] public int MaxHealth { get; set; }
-        [JsonProperty] public int Health { get; set; }
+        [JsonProperty, DefaultValue(DefaultWeapon)]
+        public string EquippedWeapon { get; set; }
 
-        [JsonProperty] public int GuildLevel { get; set; }
-        [JsonProperty] public int CoinsDeposited { get; set; }
-        [JsonProperty("Inventory")] private List<string> _inventory;
+        [JsonProperty, DefaultValue(DefaultArmor)]
+        public string EquippedArmor { get; set; }
 
-        [JsonProperty("ChestContent")] private List<List<string>> _chestContent;
+        [JsonProperty, DefaultValue(DefaultHealth)]
+        public int MaxHealth { get; set; }
+
+        [JsonProperty, DefaultValue(DefaultHealth)]
+        public int Health { get; set; }
+
+        [JsonProperty, DefaultValue(DefaultGuildLevel)]
+        public int GuildLevel { get; set; }
+
+        [JsonProperty, DefaultValue(DefaultCoinsDeposited)]
+        public int CoinsDeposited { get; set; }
+
+        [JsonProperty("Inventory", Required = Required.Always)] private List<string> _inventory;
+
+        [JsonProperty("ChestContent", Required = Required.Always)] private List<List<string>> _chestContent;
 
 
         public ref List<List<string>> ChestContent => ref _chestContent;
@@ -48,9 +66,10 @@ namespace HeroesGuild.utility
         {
             return new SaveData
             {
+                SaveDataVersion = MostRecentSaveDataVersion,
                 _chestContent = DefaultChestContent,
                 WorldPosition = DefaultWorldPosition,
-                CharacterName = "Jason",
+                CharacterName = DefaultCharacterName,
                 Coins = DefaultCoins,
                 EquippedWeapon = DefaultWeapon,
                 EquippedArmor = DefaultArmor,
