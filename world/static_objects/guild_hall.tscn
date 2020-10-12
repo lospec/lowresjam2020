@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/static_objects/flag_frames.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://world/static_objects/guild_hall.png" type="Texture" id=2]
+[ext_resource path="res://world/static_objects/GuildHall.cs" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 3 )
@@ -9,38 +10,43 @@ extents = Vector2( 6, 3 )
 [node name="GuildHall" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 2147483648
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -58 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Flag" type="AnimatedSprite" parent="."]
+[node name="Flag" type="AnimatedSprite" parent="." groups=[
+"guild_hall_flag",
+]]
 position = Vector2( 10, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 1
-playing = true
 
-[node name="Flag2" type="AnimatedSprite" parent="."]
+[node name="Flag2" type="AnimatedSprite" parent="." groups=[
+"guild_hall_flag",
+]]
 position = Vector2( 63, -51.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 2
-playing = true
+frame = 1
 
-[node name="Flag3" type="AnimatedSprite" parent="."]
+[node name="Flag3" type="AnimatedSprite" parent="." groups=[
+"guild_hall_flag",
+]]
 position = Vector2( 9, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 3
-playing = true
+frame = 2
 
-[node name="Flag4" type="AnimatedSprite" parent="."]
+[node name="Flag4" type="AnimatedSprite" parent="." groups=[
+"guild_hall_flag",
+]]
 position = Vector2( 64, -24.5 )
 frames = ExtResource( 1 )
 animation = "idle"
-playing = true
+frame = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 31, -23 )
