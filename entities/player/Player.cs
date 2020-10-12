@@ -20,8 +20,6 @@ namespace HeroesGuild.entities.player
 
         [Signal] public delegate void OpenChestInputReceived(Node2D chest);
 
-        private const string OverWorldSprite =
-            "res://entities/player/spritesheets/{0}_overworld.png";
         private Area2D _chestDetector;
         private Area2D _collisionDetector;
         private Area2D _deskDetector;
@@ -60,11 +58,7 @@ namespace HeroesGuild.entities.player
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
 
             var saveData = SaveManager.SaveData;
-            var texture =
-                ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
-                    saveData.CharacterName.ToLower()));
-
-            sprite.Texture = texture;
+            sprite.Texture = Utility.GetPlayerResource(saveData.CharacterName);
         }
 
         private void OnPlayerTree_Exiting()

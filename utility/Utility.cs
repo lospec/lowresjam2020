@@ -10,6 +10,9 @@ namespace HeroesGuild.utility
         private const string InventorySpritePath =
             "res://items/inventory_sprites/{0}.png";
 
+        private const string OverWorldSprite =
+            "res://entities/player/spritesheets/{0}_overworld.png";
+
         public static readonly Random Random = new Random();
 
         static Utility()
@@ -32,6 +35,12 @@ namespace HeroesGuild.utility
         {
             return GD.Load<Texture>(string.Format(InventorySpritePath,
                 itemName.ToLower().Replace(" ", "_")));
+        }
+
+        public static Texture GetPlayerResource(string playerName)
+        {
+            return ResourceLoader.Load<Texture>(string.Format(OverWorldSprite,
+                playerName.ToLower()));
         }
     }
 }
