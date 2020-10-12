@@ -370,6 +370,7 @@ namespace HeroesGuild.ui.pause_menu
         {
             playerInstance.UpdatePlayerDataFromSaveData();
             UpdateInventory();
+            playerInstance.Position = SaveManager.SaveData.WorldPosition;
         }
     }
 }
