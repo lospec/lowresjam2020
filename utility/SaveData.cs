@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using Godot;
 using Newtonsoft.Json;
 
@@ -56,10 +57,10 @@ namespace HeroesGuild.utility
         public int CoinsDeposited { get; set; }
 
         [JsonProperty("Inventory", Required = Required.Always)]
-        private List<string> _inventory;
+        private List<string> _inventory = DefaultInventory;
 
         [JsonProperty("ChestContent", Required = Required.Always)]
-        private List<List<string>> _chestContent;
+        private List<List<string>> _chestContent = DefaultChestContent;
 
 
         public ref List<List<string>> ChestContent => ref _chestContent;
@@ -67,21 +68,21 @@ namespace HeroesGuild.utility
 
         public static SaveData Default()
         {
-            return new SaveData
+            var saveData = new SaveData();
+            foreach (var propertyInfo in saveData.GetType().GetProperties(
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty))
             {
-                SaveDataVersion = MostRecentSaveDataVersion,
-                _chestContent = DefaultChestContent,
-                WorldPosition = DefaultWorldPosition,
-                CharacterName = DefaultCharacterName,
-                Coins = DefaultCoins,
-                EquippedWeapon = DefaultWeapon,
-                EquippedArmor = DefaultArmor,
-                MaxHealth = DefaultHealth,
-                Health = DefaultHealth,
-                GuildLevel = DefaultGuildLevel,
-                CoinsDeposited = DefaultCoinsDeposited,
-                _inventory = DefaultInventory
-            };
+                var attr = propertyInfo.GetCustomAttribute<DefaultValueAttribute>();
+                if (attr == null)
+                {
+                    continue;
+                }
+
+                GD.Print($"prop: {propertyInfo.Name}, value: {attr.Value}");
+                propertyInfo.SetValue(saveData, attr.Value);
+            }
+
+            return saveData;
         }
     }
 }

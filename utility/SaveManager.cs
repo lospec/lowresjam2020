@@ -20,20 +20,35 @@ namespace HeroesGuild.utility
             LoadGame();
         }
 
-        public static void LoadGame()
+        private static string ReadSaveFile(out bool result)
         {
+            result = false;
             var file = new File();
             if (!file.FileExists(SaveDataPath))
             {
                 GD.PrintErr("Attempted to load game data but no save data file found");
-                return;
+                return string.Empty;
             }
-
 
             file.Open(SaveDataPath, File.ModeFlags.Read);
             var saveDataText = file.GetAsText();
             file.Close();
+            return saveDataText;
+        }
 
+        public static void LoadGame()
+        {
+            var saveDataText = ReadSaveFile(out var result);
+            if (!result)
+            {
+                return;
+            }
+            
+            LoadGame(saveDataText);
+        }
+
+        private static void LoadGame(string saveDataText)
+        {
             SaveData data;
             try
             {
@@ -42,7 +57,8 @@ namespace HeroesGuild.utility
             }
             catch (JsonReaderException ex)
             {
-                GD.PrintErr("Failed to read Save File - Save file is most likely not in the correct JSON format");
+                GD.PrintErr(
+                    "Failed to read Save File - Save file is most likely not in the correct JSON format");
                 GD.PrintErr($"Caught the following exception:\n{ex}");
                 GD.Print("Will now load default save data");
                 SaveData = SaveData.Default();
@@ -50,7 +66,8 @@ namespace HeroesGuild.utility
             }
             catch (JsonSerializationException ex)
             {
-                GD.PrintErr("Failed to Deserialize Save File - Save file may be for an unsupported version of the game");
+                GD.PrintErr(
+                    "Failed to Deserialize Save File - Save file may be for an unsupported version of the game");
                 GD.PrintErr($"Caught the following exception:\n{ex}");
                 GD.Print("Will now load default save data");
                 SaveData = SaveData.Default();
@@ -73,7 +90,8 @@ namespace HeroesGuild.utility
             var file = new File();
             file.Open(SaveDataPath, File.ModeFlags.Write);
             GD.Print($"Save to {file.GetPathAbsolute()}");
-            file.StoreString(JsonConvert.SerializeObject(SaveData, Formatting.Indented, JsonSerializerSettings));
+            file.StoreString(JsonConvert.SerializeObject(SaveData, Formatting.Indented,
+                JsonSerializerSettings));
             file.Close();
         }
 
