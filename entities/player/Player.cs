@@ -51,14 +51,11 @@ namespace HeroesGuild.entities.player
             birdsSystem = GetNode<Node2D>("BirdsSystem");
             cloudsSystem = GetNode<Node2D>("CloudsSystem");
 
-            UpdatePlayerDataFromSaveData();
-
             base._Ready();
 
-            _hudHealthLabel.Text = $"{Health}/{maxHealth}";
+            UpdatePlayerDataFromSaveData();
 
-            var saveData = SaveManager.SaveData;
-            sprite.Texture = Utility.GetPlayerResource(saveData.CharacterName);
+            _hudHealthLabel.Text = $"{Health}/{maxHealth}";
         }
 
         private void OnPlayerTree_Exiting()
@@ -76,6 +73,7 @@ namespace HeroesGuild.entities.player
             EquippedArmor = saveData.EquippedArmor;
             maxHealth = saveData.MaxHealth;
             Health = saveData.Health;
+            sprite.Texture = Utility.GetPlayerResource(saveData.CharacterName);
         }
 
         public void UpdateSaveDataFromPlayerData()
