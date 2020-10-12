@@ -8,7 +8,7 @@ namespace HeroesGuild.utility
         private const string SaveDataPath = "user://heroes_guild.save";
         public static SaveData SaveData { get; private set; } = SaveData.Default();
 
-        private static readonly JsonSerializerSettings _jsonSerializerSettings =
+        private static readonly JsonSerializerSettings JsonSerializerSettings =
             new JsonSerializerSettings
             {
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
@@ -38,7 +38,7 @@ namespace HeroesGuild.utility
             try
             {
                 data = JsonConvert.DeserializeObject<SaveData>(saveDataText,
-                    _jsonSerializerSettings);
+                    JsonSerializerSettings);
             }
             catch (JsonReaderException ex)
             {
@@ -73,7 +73,7 @@ namespace HeroesGuild.utility
             var file = new File();
             file.Open(SaveDataPath, File.ModeFlags.Write);
             GD.Print($"Save to {file.GetPathAbsolute()}");
-            file.StoreString(JsonConvert.SerializeObject(SaveData, Formatting.Indented, _jsonSerializerSettings));
+            file.StoreString(JsonConvert.SerializeObject(SaveData, Formatting.Indented, JsonSerializerSettings));
             file.Close();
         }
 
