@@ -6,7 +6,7 @@ namespace HeroesGuild.utility
     public static class SaveManager
     {
         private const string SaveDataPath = "user://heroes_guild.save";
-        public static SaveData SaveData { get; private set; } = SaveData.Default();
+        public static SaveData SaveData { get; private set; } = new SaveData();
 
         private static readonly JsonSerializerSettings JsonSerializerSettings =
             new JsonSerializerSettings
@@ -43,7 +43,7 @@ namespace HeroesGuild.utility
             {
                 return;
             }
-            
+
             LoadGame(saveDataText);
         }
 
@@ -61,7 +61,7 @@ namespace HeroesGuild.utility
                     "Failed to read Save File - Save file is most likely not in the correct JSON format");
                 GD.PrintErr($"Caught the following exception:\n{ex}");
                 GD.Print("Will now load default save data");
-                SaveData = SaveData.Default();
+                SaveData = new SaveData();
                 return;
             }
             catch (JsonSerializationException ex)
@@ -70,7 +70,7 @@ namespace HeroesGuild.utility
                     "Failed to Deserialize Save File - Save file may be for an unsupported version of the game");
                 GD.PrintErr($"Caught the following exception:\n{ex}");
                 GD.Print("Will now load default save data");
-                SaveData = SaveData.Default();
+                SaveData = new SaveData();
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace HeroesGuild.utility
 
         public static void ResetSave()
         {
-            SaveData = SaveData.Default();
+            SaveData = new SaveData();
             SaveGame();
         }
     }
