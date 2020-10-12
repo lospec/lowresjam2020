@@ -25,8 +25,7 @@ namespace HeroesGuild.utility
         public static readonly List<List<string>> DefaultChestContent =
             new List<List<string>>();
 
-        [JsonProperty(Required = Required.Always)]
-        [DefaultValue(MostRecentSaveDataVersion)]
+        [JsonProperty(Required = Required.Always, Order = -999)]
         public string SaveDataVersion { get; set; } = MostRecentSaveDataVersion;
 
         [JsonProperty]
