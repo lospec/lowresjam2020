@@ -6,7 +6,7 @@ namespace HeroesGuild.utility
     public static class SaveManager
     {
         private const string SaveDataPath = "user://heroes_guild.save";
-        public static SaveData SaveData { get; private set; } = new SaveData();
+        public static SaveData SaveData { get; private set; } = SaveData.Default();
 
         static SaveManager()
         {
@@ -30,7 +30,6 @@ namespace HeroesGuild.utility
             {
                 GD.Print("Save file is corrupted");
                 GD.PrintErr("Failed to Deserialize Save File");
-                SaveData = SaveData.Default();
             }
             else
             {
