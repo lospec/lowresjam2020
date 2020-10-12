@@ -26,62 +26,45 @@ namespace HeroesGuild.utility
             new List<List<string>>();
 
         [JsonProperty(Required = Required.Always)]
-        public string SaveDataVersion { get; set; }
+        [DefaultValue(MostRecentSaveDataVersion)]
+        public string SaveDataVersion { get; set; } = MostRecentSaveDataVersion;
 
-        [JsonProperty] public Vector2 WorldPosition { get; set; }
+        [JsonProperty]
+        public Vector2 WorldPosition { get; set; } = DefaultWorldPosition;
 
         [JsonProperty, DefaultValue(DefaultCharacterName)]
-        public string CharacterName { get; set; }
+        public string CharacterName { get; set; } = DefaultCharacterName;
 
         [JsonProperty, DefaultValue(DefaultCoins)]
-        public int Coins { get; set; }
+        public int Coins { get; set; } = DefaultCoins;
 
 
         [JsonProperty, DefaultValue(DefaultWeapon)]
-        public string EquippedWeapon { get; set; }
+        public string EquippedWeapon { get; set; } = DefaultWeapon;
 
         [JsonProperty, DefaultValue(DefaultArmor)]
-        public string EquippedArmor { get; set; }
+        public string EquippedArmor { get; set; } = DefaultArmor;
 
         [JsonProperty, DefaultValue(DefaultHealth)]
-        public int MaxHealth { get; set; }
+        public int MaxHealth { get; set; } = DefaultHealth;
 
         [JsonProperty, DefaultValue(DefaultHealth)]
-        public int Health { get; set; }
+        public int Health { get; set; } = DefaultHealth;
 
         [JsonProperty, DefaultValue(DefaultGuildLevel)]
-        public int GuildLevel { get; set; }
+        public int GuildLevel { get; set; } = DefaultGuildLevel;
 
         [JsonProperty, DefaultValue(DefaultCoinsDeposited)]
-        public int CoinsDeposited { get; set; }
+        public int CoinsDeposited { get; set; } = DefaultCoinsDeposited;
 
         [JsonProperty("Inventory", Required = Required.Always)]
-        private List<string> _inventory;
+        private List<string> _inventory = DefaultInventory;
 
         [JsonProperty("ChestContent", Required = Required.Always)]
-        private List<List<string>> _chestContent;
+        private List<List<string>> _chestContent = DefaultChestContent;
 
 
         public ref List<List<string>> ChestContent => ref _chestContent;
         public ref List<string> Inventory => ref _inventory;
-
-        public static SaveData Default()
-        {
-            return new SaveData
-            {
-                SaveDataVersion = MostRecentSaveDataVersion,
-                _chestContent = DefaultChestContent,
-                WorldPosition = DefaultWorldPosition,
-                CharacterName = DefaultCharacterName,
-                Coins = DefaultCoins,
-                EquippedWeapon = DefaultWeapon,
-                EquippedArmor = DefaultArmor,
-                MaxHealth = DefaultHealth,
-                Health = DefaultHealth,
-                GuildLevel = DefaultGuildLevel,
-                CoinsDeposited = DefaultCoinsDeposited,
-                _inventory = DefaultInventory
-            };
-        }
     }
 }
