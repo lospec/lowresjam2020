@@ -25,7 +25,8 @@ namespace HeroesGuild.utility
         public static readonly List<List<string>> DefaultChestContent =
             new List<List<string>>();
 
-        [JsonProperty(Required = Required.Always)] public string SaveDataVersion;
+        [JsonProperty(Required = Required.Always)]
+        public string SaveDataVersion { get; set; }
 
         [JsonProperty] public Vector2 WorldPosition { get; set; }
 
@@ -54,9 +55,11 @@ namespace HeroesGuild.utility
         [JsonProperty, DefaultValue(DefaultCoinsDeposited)]
         public int CoinsDeposited { get; set; }
 
-        [JsonProperty("Inventory", Required = Required.Always)] private List<string> _inventory;
+        [JsonProperty("Inventory", Required = Required.Always)]
+        private List<string> _inventory;
 
-        [JsonProperty("ChestContent", Required = Required.Always)] private List<List<string>> _chestContent;
+        [JsonProperty("ChestContent", Required = Required.Always)]
+        private List<List<string>> _chestContent;
 
 
         public ref List<List<string>> ChestContent => ref _chestContent;
