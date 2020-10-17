@@ -172,6 +172,7 @@ namespace HeroesGuild.combat
                     CombatUtil.GetActionColor(CombatUtil.CombatAction.Heavy));
 
             var damageType = playerCombat.GetDamageType(action);
+            if (damageType == "none") return;
             var effectAnimation = _effectAnimations.GetAnimation(damageType);
             await _attackEffect.Play(effectAnimation,
                 CombatUtil.GetActionColor(action));
