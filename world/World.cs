@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.combat;
 using HeroesGuild.data;
@@ -158,10 +159,8 @@ namespace HeroesGuild.world
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
 
                     enemyInstance.Die();
-                    _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
-                    GetTree().Paused = false;
-                    _player.hudMargin.Visible = true;
+                    _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     break;
                 case CombatUtil.CombatOutcome.CombatLose:
                     enemyInstance.Die();
@@ -183,6 +182,13 @@ namespace HeroesGuild.world
                     throw new ArgumentOutOfRangeException(nameof(outcome), outcome,
                         null);
             }
+        }
+
+        private void _on_DroppedItems_Closed(bool wasAutomatic)
+        {
+            _combatMenu.Visible = false;
+            _player.hudMargin.Visible = true;
+            GetTree().Paused = false;
         }
 
         private async void GameOver()
