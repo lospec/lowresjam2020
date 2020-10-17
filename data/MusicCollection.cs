@@ -29,6 +29,8 @@ namespace HeroesGuild.data
         public MusicRecord Overworld { get; set; }
         [JsonProperty("TitleScreen")]
         public MusicRecord TitleScreen { get; set; }
+        [JsonProperty("BattleVictoryJingle")]
+        public MusicRecord BattleVictoryJingle { get; set; }
         public Dictionary<string, Func<MusicRecord>> KeyValue
         {
             set => _keyValue = value;

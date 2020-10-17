@@ -64,5 +64,11 @@
     "volume_db": -15,
     "fade_in": true,
     "playback_position": 0
+  },
+  "BattleVictoryJingle": {
+    "music_clip": "VictoryJingle",
+    "volume_db": -20,
+    "fade_in": true,
+    "playback_position": 0
   }
 }

@@ -106,9 +106,6 @@
     "min_pitch": 1,
     "max_pitch": 1
   },
-  "BattleVictoryJingle": {
-    "sfx_clip": "VictoryJingle"
-  },
   "CharacterSelectorButtonHover": {
     "sfx_clip": "ButtonHover",
     "min_volume_db": -15,

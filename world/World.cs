@@ -156,7 +156,7 @@ namespace HeroesGuild.world
             {
                 case CombatUtil.CombatOutcome.CombatWin:
                     AudioSystem.StopAllMusic();
-                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.BattleVictoryJingle);
 
                     enemyInstance.Die();
                     _combatMenu.Visible = false;
@@ -186,6 +186,9 @@ namespace HeroesGuild.world
 
         private void _on_DroppedItems_Closed(bool wasAutomatic)
         {
+            AudioSystem.StopAllAudio();
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+
             _combatMenu.Visible = false;
             _player.hudMargin.Visible = true;
             GetTree().Paused = false;
