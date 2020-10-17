@@ -154,6 +154,7 @@ namespace HeroesGuild.world
             switch (outcome)
             {
                 case CombatUtil.CombatOutcome.CombatWin:
+                    AudioSystem.StopAllMusic();
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
 
                     enemyInstance.Die();
@@ -168,6 +169,7 @@ namespace HeroesGuild.world
                     GameOver();
                     break;
                 case CombatUtil.CombatOutcome.CombatFlee:
+                    AudioSystem.StopAllMusic();
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     GetTree().Paused = false;
