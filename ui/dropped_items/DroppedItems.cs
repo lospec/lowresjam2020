@@ -62,7 +62,7 @@ namespace HeroesGuild.ui.dropped_items
 
             for (var i = 0; i < enemyRecord.MaxItemDropped; i++)
             {
-                var chance = GD.Randf();
+                var chance = Utility.Random.NextDouble();
                 foreach (var item in items)
                     if (chance < item.Value)
                     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using HeroesGuild.utility;
 
 namespace HeroesGuild.combat
 {
@@ -150,7 +151,7 @@ namespace HeroesGuild.combat
 
             public FleeOutcome Roll()
             {
-                var roll = GD.Randf();
+                var roll = Utility.Random.NextDouble();
                 var chance = 0f;
                 foreach (var pair in _outcomeTable)
                 {
