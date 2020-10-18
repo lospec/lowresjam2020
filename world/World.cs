@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.combat;
 using HeroesGuild.data;
@@ -118,9 +117,10 @@ namespace HeroesGuild.world
         {
             if (Input.IsActionJustPressed("ui_cancel"))
             {
-                if (_combatMenu.Visible && _pauseMenu.pauseMenuControl.Visible)
+                if (_combatMenu.Visible)
                 {
-                    _pauseMenu.TogglePauseCombat(_player);
+                    if (_pauseMenu.pauseMenuControl.Visible)
+                        _pauseMenu.TogglePauseCombat(_player);
                 }
                 else
                 {
