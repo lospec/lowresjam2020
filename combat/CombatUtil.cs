@@ -158,7 +158,7 @@ namespace HeroesGuild.combat
                     if (roll < chance) return pair.Key;
                 }
 
-                throw new Exception("flee chances probably dont add to 100%");
+                throw new Exception("flee chances probably don't add to 100%");
             }
         }
     }
