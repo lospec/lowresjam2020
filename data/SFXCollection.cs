@@ -38,8 +38,8 @@ namespace HeroesGuild.data
         public SFXRecord BattleStatusFrozen { get; set; }
         [JsonProperty("BattleStatusOnFire")]
         public SFXRecord BattleStatusOnFire { get; set; }
-        [JsonProperty("BattleStatusPoisoned")]
-        public SFXRecord BattleStatusPoisoned { get; set; }
+        [JsonProperty("BattleStatusPoison")]
+        public SFXRecord BattleStatusPoison { get; set; }
         [JsonProperty("BattleStatusWeak")]
         public SFXRecord BattleStatusWeak { get; set; }
         [JsonProperty("CharacterSelectorButtonHover")]

@@ -56,7 +56,7 @@ namespace HeroesGuild.utility
             ConfusionStatus,
             OnFireStatus,
             FrozenStatus,
-            PoisonedStatus,
+            PoisonStatus,
             WeakStatus
         }
 
@@ -166,7 +166,7 @@ namespace HeroesGuild.utility
                 SFX.ConfusionStatus => "res://sfx/confusion.wav",
                 SFX.OnFireStatus => "res://sfx/fire3.wav",
                 SFX.FrozenStatus => "res://sfx/ice.wav",
-                SFX.PoisonedStatus => "res://sfx/poison.wav",
+                SFX.PoisonStatus => "res://sfx/poison.wav",
                 SFX.WeakStatus => "res://sfx/weak.wav",
                 _ => throw new ArgumentException()
             };

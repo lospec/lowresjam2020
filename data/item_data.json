@@ -383,7 +383,7 @@
     "quick_effect_chance": 0.1,
     "heavy_damage": 23,
     "heavy_damage_type": "Blunt",
-    "heavy_status_effect": "Poisoned",
+    "heavy_status_effect": "Poison",
     "heavy_effect_chance": 0.3,
     "counter_damage": 23,
     "counter_damage_type": "Blunt",

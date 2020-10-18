@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.entities.base_entity;
@@ -107,7 +108,7 @@ namespace HeroesGuild.combat
                 combat = await TakeTurn();
                 if (combat)
                 {
-                    foreach (var statusEffectsKey in _playerInstance.statusEffects.Keys)
+                    foreach (var statusEffectsKey in _playerInstance.statusEffects.Keys.ToList())
                     {
                         var statusEffect =
                             _playerInstance.statusEffects[statusEffectsKey];
@@ -116,7 +117,7 @@ namespace HeroesGuild.combat
                             _playerInstance.statusEffects.Remove(statusEffectsKey);
                     }
 
-                    foreach (var statusEffectsKey in _enemyInstance.statusEffects.Keys)
+                    foreach (var statusEffectsKey in _enemyInstance.statusEffects.Keys.ToList())
                     {
                         var statusEffect =
                             _enemyInstance.statusEffects[statusEffectsKey];

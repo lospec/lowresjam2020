@@ -46,7 +46,7 @@
     "heavy_effect_chance": 0,
     "counter_damage": 1,
     "counter_damage_type": "Pierce",
-    "counter_status_effect": "Poisoned",
+    "counter_status_effect": "Poison",
     "counter_effect_chance": 0.75,
     "ai_type": "Coward",
     "move_speed": 4

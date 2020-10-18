@@ -75,6 +75,7 @@ namespace HeroesGuild.combat
             target.TakeDamage(damage, damageType);
 
             var statusEffect = GetStatusEffect(action);
+            if (statusEffect == "none") return;
             var statusEffectChance = GetEffectChance(action);
 
             var enemy = target.CharacterInstance as BaseEnemy;
