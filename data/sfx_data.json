@@ -92,8 +92,8 @@
     "min_pitch": 1,
     "max_pitch": 1
   },
-  "BattleStatusPoisoned": {
-    "sfx_clip": "PoisonedStatus",
+  "BattleStatusPoison": {
+    "sfx_clip": "PoisonStatus",
     "min_volume_db": -25,
     "max_volume_db": -25,
     "min_pitch": 1,
