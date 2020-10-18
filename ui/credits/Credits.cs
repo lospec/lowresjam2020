@@ -51,7 +51,7 @@ namespace HeroesGuild.ui.credits
         {
             if (GetTree().ChangeScene(MainMenuPath) != Error.Ok)
                 GD.PushError(
-                    "An error occured while attempting to change to the main menu scene");
+                    "An error occurred while attempting to change to the main menu scene");
         }
     }
 }
