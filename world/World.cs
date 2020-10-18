@@ -117,9 +117,10 @@ namespace HeroesGuild.world
         {
             if (Input.IsActionJustPressed("ui_cancel"))
             {
-                if (_combatMenu.Visible && _pauseMenu.pauseMenuControl.Visible)
+                if (_combatMenu.Visible)
                 {
-                    _pauseMenu.TogglePauseCombat(_player);
+                    if (_pauseMenu.pauseMenuControl.Visible)
+                        _pauseMenu.TogglePauseCombat(_player);
                 }
                 else
                 {
@@ -154,13 +155,12 @@ namespace HeroesGuild.world
             switch (outcome)
             {
                 case CombatUtil.CombatOutcome.CombatWin:
-                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+                    AudioSystem.StopAllMusic();
+                    AudioSystem.PlayMusic(AudioSystem.MusicCollection.BattleVictoryJingle);
 
                     enemyInstance.Die();
-                    _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     _combatMenu.Visible = false;
-                    GetTree().Paused = false;
-                    _player.hudMargin.Visible = true;
+                    _droppedItemsGUI.DropItems(enemyInstance.enemyName, _player);
                     break;
                 case CombatUtil.CombatOutcome.CombatLose:
                     enemyInstance.Die();
@@ -168,6 +168,7 @@ namespace HeroesGuild.world
                     GameOver();
                     break;
                 case CombatUtil.CombatOutcome.CombatFlee:
+                    AudioSystem.StopAllMusic();
                     AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
                     enemyInstance.Die();
                     GetTree().Paused = false;
@@ -181,6 +182,16 @@ namespace HeroesGuild.world
                     throw new ArgumentOutOfRangeException(nameof(outcome), outcome,
                         null);
             }
+        }
+
+        private void _on_DroppedItems_Closed(bool wasAutomatic)
+        {
+            AudioSystem.StopAllAudio();
+            AudioSystem.PlayMusic(AudioSystem.MusicCollection.Overworld);
+
+            _combatMenu.Visible = false;
+            _player.hudMargin.Visible = true;
+            GetTree().Paused = false;
         }
 
         private async void GameOver()

@@ -42,8 +42,6 @@ namespace HeroesGuild.data
         public SFXRecord BattleStatusPoisoned { get; set; }
         [JsonProperty("BattleStatusWeak")]
         public SFXRecord BattleStatusWeak { get; set; }
-        [JsonProperty("BattleVictoryJingle")]
-        public SFXRecord BattleVictoryJingle { get; set; }
         [JsonProperty("CharacterSelectorButtonHover")]
         public SFXRecord CharacterSelectorButtonHover { get; set; }
         [JsonProperty("CharacterSelectorButtonPressed")]

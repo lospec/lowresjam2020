@@ -8,6 +8,9 @@ namespace HeroesGuild.ui.dropped_items
 {
     public class DroppedItems : CanvasLayer
     {
+        [Signal]
+        public delegate void Closed(bool wasAutomatic);
+
         private const float MAX_COIN_DROP = 1.2f;
         private const float MIN_COIN_DROP = 0.8f;
         private static readonly PackedScene ItemDroppedResource =
@@ -35,7 +38,6 @@ namespace HeroesGuild.ui.dropped_items
 
         public void DropItems(string enemyName, Player playerInstance)
         {
-            GetTree().Paused = true;
             _playerInstance = playerInstance;
             var enemyRecord = Autoload.Get<Data>().enemyData[enemyName];
             var coinsDropped = (int) GD.RandRange(
@@ -80,13 +82,13 @@ namespace HeroesGuild.ui.dropped_items
         public void Close()
         {
             margin.Visible = false;
-            _playerInstance.hudMargin.Visible = true;
-            GetTree().Paused = false;
+            EmitSignal(nameof(Closed), false);
         }
 
         private void OnAutoClose_Timeout()
         {
-            Close();
+            margin.Visible = false;
+            EmitSignal(nameof(Closed), true);
         }
     }
 }

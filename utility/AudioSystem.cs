@@ -20,7 +20,8 @@ namespace HeroesGuild.utility
             BattleHuman,
             BattleRobot,
             BattleSlime,
-            GameOver
+            GameOver,
+            VictoryJingle
         }
 
         public enum SFX
@@ -40,7 +41,6 @@ namespace HeroesGuild.utility
             HeroesGuildPureAsbestos,
             HeroesGuildUnsettled,
             HeroesGuildWildleoknight,
-            VictoryJingle,
             BeastHurt,
             DemonHurt,
             FloraHurt,
@@ -123,6 +123,7 @@ namespace HeroesGuild.utility
                 Music.BattleRobot => "res://music/battle_robot.ogg",
                 Music.BattleSlime => "res://music/battle_slime.ogg",
                 Music.GameOver => "res://music/game_over.ogg",
+                Music.VictoryJingle => "res://music/victory_jingle.ogg",
                 _ => throw new ArgumentException()
             };
             return ResourceLoader.Load<AudioStream>(path);
@@ -150,7 +151,6 @@ namespace HeroesGuild.utility
                     "res://sfx/heroes_guild_unsettled.wav",
                 SFX.HeroesGuildWildleoknight =>
                     "res://sfx/heroes_guild_wildleoknight.wav",
-                SFX.VictoryJingle => "res://sfx/victory_jingle.wav",
                 SFX.BeastHurt => "res://sfx/beast_hit.wav",
                 SFX.DemonHurt => "res://sfx/demon_hit.wav",
                 SFX.FloraHurt => "res://sfx/flora_hit.wav",
