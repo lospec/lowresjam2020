@@ -51,6 +51,9 @@ namespace HeroesGuild.entities.enemies.base_enemy
                     stateMachine.active = b;
                 }
             };
+
+            if (Stat.MaxHealth <= 0) return;
+            Health = Stat.MaxHealth;
         }
 
         private async void LoadEnemy(string enemyDataName)
