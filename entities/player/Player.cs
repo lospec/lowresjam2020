@@ -25,6 +25,8 @@ namespace HeroesGuild.entities.player
         private Area2D _deskDetector;
         private Label _hudHealthLabel;
 
+        public int maxHealth = 10;
+
         public Node2D birdsSystem;
         public Camera2D camera;
         public Node2D cloudsSystem;
@@ -54,6 +56,9 @@ namespace HeroesGuild.entities.player
             base._Ready();
 
             UpdatePlayerDataFromSaveData();
+
+            if (maxHealth > 0)
+                Health = maxHealth;
 
             _hudHealthLabel.Text = $"{Health}/{maxHealth}";
         }

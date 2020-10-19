@@ -74,7 +74,7 @@ namespace HeroesGuild.combat
 
             _combatMenu.SetPlayerHealthValue(_playerInstance.maxHealth,
                 _playerInstance.Health);
-            _combatMenu.SetEnemyHealthValue(_enemyInstance.maxHealth,
+            _combatMenu.SetEnemyHealthValue(_enemyInstance.Stat.MaxHealth,
                 _enemyInstance.Health);
 
             var weaponName = _playerInstance.EquippedWeapon;

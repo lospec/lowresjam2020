@@ -55,7 +55,6 @@ namespace HeroesGuild.entities.base_entity
         public int animationFrame = 0;
         public Animations currentAnimation = Animations.IdleDown;
 
-        [Export] public int maxHealth = 10;
         [Export] public float moveSpeed = 10;
         public Vector2 realVelocity = Vector2.Zero;
 
@@ -95,9 +94,6 @@ namespace HeroesGuild.entities.base_entity
         {
             sprite = GetNode<Sprite>("Sprite");
             _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-            if (maxHealth <= 0) return;
-
-            Health = maxHealth;
         }
 
         public override void _PhysicsProcess(float delta)
