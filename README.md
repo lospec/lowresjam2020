@@ -16,6 +16,10 @@ This game was initially developed over the course of a week for the [LOWRESJAM 2
 
 The game was created with [Godot Engine](https://godotengine.org/).
 
+## HOW YOU CAN HELP
+
+Please see our issue tracker for bugs that need to be fixed and features that need to be added. 
+
 ## CREDITS
 
 We are a team of ~20, founded on the [Lospec.com](https://lospec.com) discord server for the purpose of entering this gamejam.  
