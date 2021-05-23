@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+﻿  <Project Sdk="Godot.NET.Sdk/3.2.3">
   <PropertyGroup>
     <ProjectGuid>{BEFA83C4-AE30-482F-8AD0-98C91178F72E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -17,9 +17,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" />
-    <Compile Remove=".mono\**" />
-    <EmbeddedResource Remove=".mono\**" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	<Compile Include="**\*.cs" />
+	<Compile Remove=".mono\**" />
+	<EmbeddedResource Remove=".mono\**" />
+	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>
