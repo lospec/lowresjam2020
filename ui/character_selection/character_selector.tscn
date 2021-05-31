@@ -142,7 +142,6 @@ custom_fonts/font = ExtResource( 12 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.803922, 0.803922, 0.803922, 1 )
 custom_colors/font_color_pressed = Color( 0.435294, 0.435294, 0.435294, 1 )
-enabled_focus_mode = 0
 text = "Select"
 flat = true
 
@@ -166,6 +165,7 @@ margin_right = 44.0
 margin_bottom = 10.0
 size_flags_horizontal = 4
 texture = ExtResource( 2 )
+
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollLeft" to="." method="OnScrollLeft_GUIInput"]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/ScrollRight" to="." method="OnScrollRight_GUIInput"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/SelectVBox/Select" to="." method="OnSelect_Pressed"]

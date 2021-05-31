@@ -221,7 +221,6 @@ custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
 custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
-enabled_focus_mode = 0
 text = "Save"
 flat = true
 align = 0
@@ -235,7 +234,6 @@ custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
 custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
-enabled_focus_mode = 0
 text = "Reset save"
 flat = true
 align = 0
@@ -249,7 +247,6 @@ custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
 custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
-enabled_focus_mode = 0
 text = "Load Save"
 flat = true
 align = 0
@@ -304,6 +301,7 @@ margin_right = 64.0
 margin_bottom = 64.0
 
 [node name="ItemStatsPopup" parent="PauseMenuControl" instance=ExtResource( 15 )]
+
 [connection signal="SaveDataLoadedManually" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataLoadedManually"]
 [connection signal="SaveDataReset" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" to="." method="_on_SettingsMargin_SaveDataReset"]
 [connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/Save" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_Save_pressed"]

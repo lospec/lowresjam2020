@@ -209,7 +209,6 @@ custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.882353, 0.776471, 0.262745, 1 )
 custom_colors/font_color_hover = Color( 0.788235, 0.498039, 0.207843, 1 )
 custom_colors/font_color_pressed = Color( 0.4, 0.117647, 0.145098, 1 )
-enabled_focus_mode = 0
 text = "1"
 flat = true
 
@@ -329,6 +328,7 @@ visible = false
 
 [node name="MarketItemPriceMargin" parent="." instance=ExtResource( 6 )]
 visible = false
+
 [connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DecreaseAmount" to="." method="OnDecreaseAmount_Pressed"]
 [connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/DepositButtonMargin/DepositButtonVBox/Deposit" to="." method="OnDeposit_Pressed"]
 [connection signal="pressed" from="Margin/VBoxContainer/DepositMargin/DepositVBox/DepositHBox/IncreaseAmount" to="." method="OnIncreaseAmount_Pressed"]
