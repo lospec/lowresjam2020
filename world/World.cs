@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using HeroesGuild.combat;
 using HeroesGuild.data;
@@ -201,7 +202,7 @@ namespace HeroesGuild.world
             var saveData = SaveManager.SaveData;
             saveData.WorldPosition = SaveData.DefaultWorldPosition;
             saveData.Coins = SaveData.DefaultCoins;
-            saveData.Inventory = SaveData.DefaultInventory;
+            saveData.Inventory = new List<string>(SaveData.DefaultInventory);
             saveData.EquippedWeapon = SaveData.DefaultWeapon;
             saveData.EquippedArmor = SaveData.DefaultArmor;
             saveData.MaxHealth = SaveData.DefaultHealth;

@@ -97,7 +97,6 @@ namespace HeroesGuild.ui.pause_menu
             };
         }
 
-
         private static Texture GetMenuBackground(Menu menu)
         {
             var path = menu switch
@@ -207,8 +206,6 @@ namespace HeroesGuild.ui.pause_menu
 
         private void UpdateEquippedItem()
         {
-            if (playerInstance.EquippedWeapon == null) return;
-
             _equippedWeapon.itemName = playerInstance.EquippedWeapon;
             if (playerInstance.EquippedWeapon != "")
             {
@@ -216,6 +213,15 @@ namespace HeroesGuild.ui.pause_menu
                     _equippedWeapon.GetNode<TextureButton>("MarginContainer/Item");
                 equippedWeaponTextureButton.TextureNormal =
                     _equippedWeapon.InventoryItemResource;
+            }
+
+            _equippedArmor.itemName = playerInstance.EquippedArmor;
+            if (playerInstance.EquippedArmor != "")
+            {
+                var equippedArmorTextureButton =
+                    _equippedArmor.GetNode<TextureButton>("MarginContainer/Item");
+                equippedArmorTextureButton.TextureNormal =
+                    _equippedArmor.InventoryItemResource;
             }
 
             foreach (InventoryItem equippedItem in _equippedItemsHBox.GetChildren())
@@ -369,6 +375,7 @@ namespace HeroesGuild.ui.pause_menu
         private void _on_SettingsMargin_SaveDataLoadedManually()
         {
             playerInstance.UpdatePlayerDataFromSaveData();
+            UpdateEquippedItem();
             UpdateInventory();
             playerInstance.Position = SaveManager.SaveData.WorldPosition;
         }

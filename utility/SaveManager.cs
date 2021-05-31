@@ -12,7 +12,8 @@ namespace HeroesGuild.utility
             new JsonSerializerSettings
             {
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
-                MissingMemberHandling = MissingMemberHandling.Error
+                MissingMemberHandling = MissingMemberHandling.Error,
+                ObjectCreationHandling = ObjectCreationHandling.Replace,
             };
 
         static SaveManager()
@@ -22,17 +23,18 @@ namespace HeroesGuild.utility
 
         private static string ReadSaveFile(out bool result)
         {
-            result = false;
             var file = new File();
             if (!file.FileExists(SaveDataPath))
             {
                 GD.PrintErr("Attempted to load game data but no save data file found");
+                result = false;
                 return string.Empty;
             }
 
             file.Open(SaveDataPath, File.ModeFlags.Read);
             var saveDataText = file.GetAsText();
             file.Close();
+            result = true;
             return saveDataText;
         }
 
@@ -83,7 +85,6 @@ namespace HeroesGuild.utility
 
             SaveData = data;
         }
-
 
         public static void SaveGame()
         {

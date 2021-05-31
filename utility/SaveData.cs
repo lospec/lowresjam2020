@@ -57,7 +57,7 @@ namespace HeroesGuild.utility
         public int CoinsDeposited { get; set; } = DefaultCoinsDeposited;
 
         [JsonProperty("Inventory", Required = Required.Always)]
-        private List<string> _inventory = DefaultInventory;
+        private List<string> _inventory = new List<string>(DefaultInventory);
 
         [JsonProperty("ChestContent", Required = Required.Always)]
         private List<List<string>> _chestContent = DefaultChestContent;
