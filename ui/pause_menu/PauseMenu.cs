@@ -206,6 +206,10 @@ namespace HeroesGuild.ui.pause_menu
 
         private void UpdateEquippedItem()
         {
+            var saveData = SaveManager.SaveData;
+            saveData.EquippedWeapon = playerInstance.EquippedWeapon;
+            saveData.EquippedArmor = playerInstance.EquippedArmor;
+
             _equippedWeapon.itemName = playerInstance.EquippedWeapon;
             if (playerInstance.EquippedWeapon != "")
             {
