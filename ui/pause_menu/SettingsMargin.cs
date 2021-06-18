@@ -39,7 +39,7 @@ namespace HeroesGuild.ui.pause_menu
 
         private void _on_LoadSave_pressed()
         {
-            SaveManager.LoadGame();
+            SaveManager.LoadGame(out _);
             EmitSignal(nameof(SaveDataLoadedManually));
         }
     }

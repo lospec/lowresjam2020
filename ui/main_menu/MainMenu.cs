@@ -10,6 +10,7 @@ namespace HeroesGuild.ui.main_menu
     {
         private const string CharacterSelectionScenePath =
             "res://ui/character_selection/character_selector.tscn";
+        private const string WorldScenePath = "res://world/world.tscn";
 
         private List<SFXRecord> _introSFX;
 
@@ -55,7 +56,7 @@ namespace HeroesGuild.ui.main_menu
                     }
                     else
                     {
-                        GoToCharacterSelector();
+                        GoToNextMenu();
                     }
 
                     break;
@@ -63,12 +64,12 @@ namespace HeroesGuild.ui.main_menu
                 case InputEventMouseButton eventMouseButton
                     when eventMouseButton.Pressed && eventMouseButton
                         .ButtonIndex == (int) ButtonList.Left && !_changingScene:
-                    GoToCharacterSelector();
+                    GoToNextMenu();
                     break;
             }
         }
 
-        private async void GoToCharacterSelector()
+        private void GoToNextMenu()
         {
             if (!_introSFXPlayed)
             {
@@ -81,12 +82,34 @@ namespace HeroesGuild.ui.main_menu
             AudioSystem.PlaySFX(AudioSystem.SFXCollection.TitleScreenKeyPressed);
 
             _changingScene = true;
+            SaveManager.LoadGame(out bool wasSuccessful);
+            if (wasSuccessful)
+            {
+                GoToWorld();
+            }
+            else
+            {
+                GoToCharacterSelector();
+            }
+        }
+
+        private async void GoToCharacterSelector()
+        {
             var transitionParams =
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f);
             var transitions = Autoload.Get<Transitions>();
             await transitions.ChangeSceneDoubleTransition(CharacterSelectionScenePath,
                 transitionParams);
+        }
+
+        private async void GoToWorld()
+        {
+            var transitionParams =
+                new Transitions.TransitionParams(
+                    Transitions.TransitionType.ShrinkingCircle, 0.2f);
+            await Autoload.Get<Transitions>()
+                .ChangeSceneDoubleTransition(WorldScenePath, transitionParams);
         }
 
         private void SetIntroSFXPlayed()

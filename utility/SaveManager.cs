@@ -18,7 +18,7 @@ namespace HeroesGuild.utility
 
         static SaveManager()
         {
-            LoadGame();
+            LoadGame(out _);
         }
 
         private static string ReadSaveFile(out bool result)
@@ -38,15 +38,17 @@ namespace HeroesGuild.utility
             return saveDataText;
         }
 
-        public static void LoadGame()
+        public static void LoadGame(out bool wasSuccessful)
         {
             var saveDataText = ReadSaveFile(out var result);
             if (!result)
             {
+                wasSuccessful = false;
                 return;
             }
 
             LoadGame(saveDataText);
+            wasSuccessful = true;
         }
 
         private static void LoadGame(string saveDataText)
