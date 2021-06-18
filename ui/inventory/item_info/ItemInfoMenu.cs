@@ -277,6 +277,9 @@ namespace HeroesGuild.ui.inventory.item_info
                     playerInstance.maxHealth =
                         SaveData.DefaultHealth + itemRecord.healthAdded;
                     playerInstance.Health += itemRecord.healthAdded;
+                    var saveData = SaveManager.SaveData;
+                    saveData.MaxHealth = playerInstance.maxHealth;
+                    saveData.Health = playerInstance.Health;
                     EmitSignal(nameof(EquippedArmorChanged));
                     _equipButton.Visible = false;
                     break;

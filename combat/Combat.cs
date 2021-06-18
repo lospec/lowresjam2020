@@ -153,6 +153,7 @@ namespace HeroesGuild.combat
 
         private void EndCombat(CombatUtil.CombatOutcome outcome)
         {
+            SaveManager.SaveData.Health = _playerInstance.Health;
             _playerInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
                 nameof(_combatMenu.UpdatePlayerHealthValue));
             _enemyInstance.Disconnect(nameof(BaseEntity.HealthChanged), _combatMenu,
