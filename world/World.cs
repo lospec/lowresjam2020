@@ -215,7 +215,7 @@ namespace HeroesGuild.world
             saveData.EquippedArmor = SaveData.DefaultArmor;
             saveData.MaxHealth = SaveData.DefaultHealth;
             saveData.Health = SaveData.DefaultHealth;
-            _player.Health = SaveData.DefaultHealth;
+            _player.UpdatePlayerDataFromSaveData();
 
             AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
