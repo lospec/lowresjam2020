@@ -9,6 +9,7 @@ using HeroesGuild.ui.dropped_items;
 using HeroesGuild.ui.pause_menu;
 using HeroesGuild.utility;
 using HeroesGuild.world.enemy_spawn;
+using HeroesGuild.world.static_objects;
 using Array = Godot.Collections.Array;
 
 namespace HeroesGuild.world
@@ -28,6 +29,9 @@ namespace HeroesGuild.world
         private YSort _map;
         private PauseMenu _pauseMenu;
         private Player _player;
+        private GuildHall _guildHall;
+
+        private Vector2 _returnToGuildPosition;
 
         public override void _Ready()
         {
@@ -37,12 +41,16 @@ namespace HeroesGuild.world
             _combatMenu = _combat.GetNode<CombatMenu>("CombatMenu");
             _pauseMenu = GetNode<PauseMenu>("PauseMenu");
             _player = _map.GetNode<Player>("Player");
+            _guildHall = _map.GetNode<GuildHall>("GuildHall");
             _droppedItemsGUI = GetNode<DroppedItems>("DroppedItems");
 
             _player.birdsSystem.Visible = true;
             _player.cloudsSystem.Visible = true;
 
             _player.Position = SaveManager.SaveData.WorldPosition;
+
+            _returnToGuildPosition = _guildHall.getPlayerExitPosition();
+            _pauseMenu.returnToGuildPosition = _returnToGuildPosition;
 
             if (!AudioSystem.IsMusicPlaying)
             {

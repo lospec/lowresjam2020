@@ -57,7 +57,9 @@ namespace HeroesGuild.ui.pause_menu
         private VBoxContainer _pauseMenuVBox;
         private BoxContainer _secondRowHBox;
         private TextureButton _settingsButton;
-        private MarginContainer _settingsMargin;
+        private SettingsMargin _settingsMargin;
+        private VBoxContainer _settingsMarginVBox;
+        private Button _returnToGuildButton;
         private BoxContainer _topHBox;
 
 
@@ -65,6 +67,7 @@ namespace HeroesGuild.ui.pause_menu
 
         public Control pauseMenuControl;
         public Player playerInstance;
+        public Vector2 returnToGuildPosition;
 
         private static Color GetMenuHeaderColor(Menu menu)
         {
@@ -145,7 +148,9 @@ namespace HeroesGuild.ui.pause_menu
             _equippedArmor = _equippedItemsHBox.GetNode<InventoryItem>("EquippedArmor");
             _itemStatsPopup = pauseMenuControl.GetNode<ItemStatPopUp>("ItemStatsPopup");
             _itemInfoMenu = _pauseMenuMargin.GetNode<ItemInfoMenu>("ItemInfoMenu");
-            _settingsMargin = _pauseMenuVBox.GetNode<MarginContainer>("SettingsMargin");
+            _settingsMargin = _pauseMenuVBox.GetNode<SettingsMargin>("SettingsMargin");
+            _settingsMarginVBox = _settingsMargin.GetNode<VBoxContainer>("VBoxContainer");
+            _returnToGuildButton = _settingsMarginVBox.GetNode<Button>("ReturnToGuild");
 
             pauseMenuControl.Visible = false;
             _itemStatsPopup.RectPosition =
@@ -169,6 +174,7 @@ namespace HeroesGuild.ui.pause_menu
             playerInstance = player;
             var paused = GetTree().Paused;
             paused = GetTree().Paused = !paused;
+            _returnToGuildButton.Disabled = !_isInWorld();
             pauseMenuControl.Visible = paused;
             playerInstance.hudMargin.Visible = !paused;
             if (paused)
@@ -383,11 +389,26 @@ namespace HeroesGuild.ui.pause_menu
             playerInstance.UpdatePlayerDataFromSaveData();
             UpdateEquippedItem();
             UpdateInventory();
-            var currentSceneFilename = GetTree().CurrentScene.Filename;
-            if (currentSceneFilename == WorldScenePath)
+            if (_isInWorld())
             {
                 playerInstance.Position = SaveManager.SaveData.WorldPosition;
             }
+        }
+
+        private void _on_ReturnToGuild_pressed()
+        {
+            if (!_isInWorld())
+            {
+                GD.PrintErr("Attempted to return to the guild but the player was not in the world");
+                return;
+            }
+
+            playerInstance.Position = returnToGuildPosition;
+        }
+
+        private bool _isInWorld() {
+            var currentSceneFilename = GetTree().CurrentScene.Filename;
+            return currentSceneFilename == WorldScenePath;
         }
     }
 }

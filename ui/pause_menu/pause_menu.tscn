@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://ui/inventory/background.png" type="Texture" id=1]
 [ext_resource path="res://ui/pause_menu/PauseMenu.cs" type="Script" id=2]
@@ -25,6 +25,11 @@
 size = 4
 extra_spacing_top = -1
 font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+content_margin_left = 2.0
+content_margin_top = 1.0
+content_margin_bottom = 3.0
 
 [node name="PauseMenu" type="CanvasLayer"]
 pause_mode = 2
@@ -215,8 +220,13 @@ custom_constants/separation = 0
 
 [node name="Save" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
 margin_right = 60.0
-margin_bottom = 9.0
+margin_bottom = 7.0
 focus_mode = 0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
@@ -226,10 +236,15 @@ flat = true
 align = 0
 
 [node name="ResetSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
-margin_top = 9.0
+margin_top = 7.0
 margin_right = 60.0
-margin_bottom = 18.0
+margin_bottom = 14.0
 focus_mode = 0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
@@ -239,10 +254,15 @@ flat = true
 align = 0
 
 [node name="LoadSave" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
-margin_top = 18.0
+margin_top = 14.0
 margin_right = 60.0
-margin_bottom = 27.0
+margin_bottom = 21.0
 focus_mode = 0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
@@ -254,10 +274,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ReturnToGuild" type="Button" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
+margin_top = 21.0
+margin_right = 60.0
+margin_bottom = 28.0
+focus_mode = 0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.541176, 0.541176, 0.541176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+text = "Return to Guild"
+flat = true
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer"]
-margin_top = 27.0
+margin_top = 28.0
 margin_right = 51.0
-margin_bottom = 45.0
+margin_bottom = 46.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -307,6 +348,7 @@ margin_bottom = 64.0
 [connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/Save" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_Save_pressed"]
 [connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/ResetSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_ResetSave_pressed"]
 [connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/LoadSave" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="_on_LoadSave_pressed"]
+[connection signal="pressed" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/ReturnToGuild" to="." method="_on_ReturnToGuild_pressed"]
 [connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/Music Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnMusicVolume_VolumeValueUpdated"]
 [connection signal="VolumeValueUpdated" from="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin/VBoxContainer/HBoxContainer/VBoxContainer2/SFX Volume" to="PauseMenuControl/PauseMenuMargin/VBoxContainer/SettingsMargin" method="OnSFXVolume_VolumeValueUpdated"]
 [connection signal="DetailedItemInfoMenuAppeared" from="PauseMenuControl/PauseMenuMargin/ItemInfoMenu" to="PauseMenuControl/ItemStatsPopup" method="OnItemInfoMenu_DetailedItemInfoMenuAppeared"]
