@@ -11,6 +11,8 @@ namespace HeroesGuild.ui.pause_menu
 {
     public class PauseMenu : CanvasLayer
     {
+        private const string WorldScenePath = "res://world/world.tscn";
+
         public enum Menu
         {
             Settings,
@@ -381,7 +383,11 @@ namespace HeroesGuild.ui.pause_menu
             playerInstance.UpdatePlayerDataFromSaveData();
             UpdateEquippedItem();
             UpdateInventory();
-            playerInstance.Position = SaveManager.SaveData.WorldPosition;
+            var currentSceneFilename = GetTree().CurrentScene.Filename;
+            if (currentSceneFilename == WorldScenePath)
+            {
+                playerInstance.Position = SaveManager.SaveData.WorldPosition;
+            }
         }
     }
 }
