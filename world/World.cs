@@ -63,10 +63,10 @@ namespace HeroesGuild.world
         private void SpawnEnemies()
         {
             foreach (EnemySpawn enemySpawn in _enemySpawns.GetChildren())
-                SpawnEnemy(enemySpawn);
+                SpawnEnemies(enemySpawn);
         }
 
-        private void SpawnEnemy(EnemySpawn enemySpawn)
+        private void SpawnEnemies(EnemySpawn enemySpawn)
         {
             if (enemySpawn.enemies.Length == 0)
             {
@@ -83,43 +83,47 @@ namespace HeroesGuild.world
             }
 
             for (var i = 0; i < enemySpawn.enemyNumber; i++)
+                SpawnEnemy(enemySpawn);
+        }
+
+        private async void SpawnEnemy(EnemySpawn enemySpawn)
+        {
+            var enemy = (BaseEnemy) _baseEnemyScene.Instance();
+            var safe = false;
+            var enemyName = enemySpawn.enemies.RandomElement();
+            if (string.IsNullOrWhiteSpace(enemyName))
             {
-                var enemy = (BaseEnemy) _baseEnemyScene.Instance();
-                var safe = false;
-                var enemyName = enemySpawn.enemies.RandomElement();
-                if (string.IsNullOrWhiteSpace(enemyName))
-                {
-                    GD.PushError(
-                        $"{enemySpawn.Name} enemy spawn has a null enemy attached");
-                    return;
-                }
-
-                var data = Autoload.Get<Data>();
-                if (!data.enemyData.ContainsKey(enemyName))
-                {
-                    GD.PushError(
-                        $"{enemySpawn} enemy spawn has a {enemyName} enemy with no data attached.");
-                    return;
-                }
-
-                enemy.OnDependency = (ref BaseEnemy.EnemyDependencies dependency) =>
-                {
-                    dependency.EnemyName = enemyName;
-                    dependency.PlayerInstance = _player;
-                };
-
-                while (!safe)
-                {
-                    enemy.Position = enemySpawn.GetRandomGlobalPosition();
-                    _map.CallDeferred("add_child", enemy);
-                    safe = enemy.IsInAllowedTile();
-
-                    if (!safe) enemy.QueueFree();
-                }
-
-                enemy.Connect(nameof(BaseEnemy.Died), this, nameof(OnEnemy_Death),
-                    new Array {enemySpawn});
+                GD.PushError(
+                    $"{enemySpawn.Name} enemy spawn has a null enemy attached");
+                return;
             }
+
+            var data = Autoload.Get<Data>();
+            if (!data.enemyData.ContainsKey(enemyName))
+            {
+                GD.PushError(
+                    $"{enemySpawn} enemy spawn has a {enemyName} enemy with no data attached.");
+                return;
+            }
+
+            enemy.OnDependency = (ref BaseEnemy.EnemyDependencies dependency) =>
+            {
+                dependency.EnemyName = enemyName;
+                dependency.PlayerInstance = _player;
+            };
+
+            _map.CallDeferred("add_child", enemy);
+            await ToSignal(enemy, "ready");
+            await ToSignal(GetTree(), "physics_frame");
+
+            while (!safe)
+            {
+                enemy.Position = enemySpawn.GetRandomGlobalPosition();
+                safe = await enemy.IsInAllowedTile();
+            }
+
+            enemy.Connect(nameof(BaseEnemy.Died), this, nameof(OnEnemy_Death),
+                new Array {enemySpawn});
         }
 
         public override void _UnhandledInput(InputEvent @event)

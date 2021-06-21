@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using HeroesGuild.ai;
 using HeroesGuild.data;
@@ -37,6 +38,8 @@ namespace HeroesGuild.entities.enemies.base_enemy
 
         public EnemyRecord Stat { get; set; }
 
+        private Area2D _isSpawnSafeArea2D;
+
         public override void _Ready()
         {
             base._Ready();
@@ -51,6 +54,8 @@ namespace HeroesGuild.entities.enemies.base_enemy
                     stateMachine.active = b;
                 }
             };
+
+            _isSpawnSafeArea2D = GetNode<Area2D>("IsSpawnSafeArea2D");
 
             if (Stat.MaxHealth <= 0) return;
             Health = Stat.MaxHealth;
@@ -88,13 +93,10 @@ namespace HeroesGuild.entities.enemies.base_enemy
             EmitSignal(nameof(StatsLoaded));
         }
 
-        public bool IsInAllowedTile()
+        public async Task<bool> IsInAllowedTile()
         {
-            var isSpawnSafeArea2D = GetNode<Area2D>("IsSpawnSafeArea2D");
-            if (isSpawnSafeArea2D.GetOverlappingBodies().Count == 0) return true;
-
-            isSpawnSafeArea2D.QueueFree();
-            return false;
+            await ToSignal(GetTree(), "physics_frame");
+            return _isSpawnSafeArea2D.GetOverlappingBodies().Count == 0;
         }
 
         public void Die()
