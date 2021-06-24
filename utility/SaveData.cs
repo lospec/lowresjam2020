@@ -24,6 +24,9 @@ namespace HeroesGuild.utility
 
         public static readonly List<List<string>> DefaultChestContent =
             new List<List<string>>();
+        
+        public static readonly List<string> DefaultDeadCharacterNames =
+            new List<string>();
 
         [JsonProperty(Required = Required.Always, Order = -999)]
         public string SaveDataVersion { get; set; } = MostRecentSaveDataVersion;
@@ -36,6 +39,9 @@ namespace HeroesGuild.utility
 
         [JsonProperty, DefaultValue(DefaultCoins)]
         public int Coins { get; set; } = DefaultCoins;
+
+        [JsonProperty, DefaultValue(false)]
+        public bool isDead { get; set; } = false;
 
 
         [JsonProperty, DefaultValue(DefaultWeapon)]
@@ -62,8 +68,13 @@ namespace HeroesGuild.utility
         [JsonProperty("ChestContent", Required = Required.Always)]
         private List<List<string>> _chestContent = DefaultChestContent;
 
+        [JsonProperty("DeadCharacterNames")]
+        private List<string> _deadCharacterNames = DefaultDeadCharacterNames;
+
 
         public ref List<List<string>> ChestContent => ref _chestContent;
         public ref List<string> Inventory => ref _inventory;
+
+        public ref List<string> DeadCharacterNames => ref _deadCharacterNames;
     }
 }

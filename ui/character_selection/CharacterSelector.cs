@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using HeroesGuild.data;
@@ -58,16 +60,30 @@ namespace HeroesGuild.ui.character_selection
             }
         }
 
+        private IEnumerable<KeyValuePair<string, CharacterRecord>> getAvailableCharacters(SaveData saveData)
+        {
+            return Autoload.Get<Data>().characterData.Where(kvp =>
+                    !saveData.DeadCharacterNames.Contains(kvp.Key) &&
+                    kvp.Value.guildLevel <= saveData.GuildLevel
+                );
+        }
+
         private void UpdateCharacters()
         {
             var saveData = SaveManager.SaveData;
 
-            foreach (var keyValuePair in Autoload.Get<Data>().characterData)
+            var availableCharacters = getAvailableCharacters(saveData);
+            if (availableCharacters.Count() == 0)
+            {
+                // Make every character alive if every available character is dead
+                saveData.DeadCharacterNames = SaveData.DefaultDeadCharacterNames;
+                availableCharacters = getAvailableCharacters(saveData);
+            }
+
+            foreach (var keyValuePair in availableCharacters)
             {
                 var characterName = keyValuePair.Key;
                 var characterRecord = keyValuePair.Value;
-
-                if (characterRecord.guildLevel > saveData.GuildLevel) continue;
 
                 var character = (Character)CharacterResource.Instance();
                 _characters.AddChild(character);
@@ -122,7 +138,10 @@ namespace HeroesGuild.ui.character_selection
         {
             AudioSystem.StopAllMusic();
 
-            SaveManager.SaveData.CharacterName = selectedCharacterName;
+            var saveData = SaveManager.SaveData;
+            saveData.CharacterName = selectedCharacterName;
+            saveData.isDead = false;
+
             var transitionParams =
                 new Transitions.TransitionParams(
                     Transitions.TransitionType.ShrinkingCircle, 0.2f);

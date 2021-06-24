@@ -83,7 +83,7 @@ namespace HeroesGuild.ui.main_menu
 
             _changingScene = true;
             SaveManager.LoadGame(out bool wasSuccessful);
-            if (wasSuccessful)
+            if (wasSuccessful && !SaveManager.SaveData.isDead)
             {
                 GoToWorld();
             }

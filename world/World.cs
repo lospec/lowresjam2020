@@ -221,6 +221,9 @@ namespace HeroesGuild.world
             saveData.Health = SaveData.DefaultHealth;
             _player.UpdatePlayerDataFromSaveData();
 
+            saveData.DeadCharacterNames.Add(saveData.CharacterName);
+            saveData.isDead = true;
+
             AudioSystem.StopAllMusic();
             await Autoload.Get<Transitions>().ChangeSceneDoubleTransition(
                 GameOverScenePath,

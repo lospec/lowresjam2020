@@ -85,11 +85,15 @@ namespace HeroesGuild.utility
                 return;
             }
 
+            if (data.DeadCharacterNames == null)
+                data.DeadCharacterNames = SaveData.DefaultDeadCharacterNames;
+
             SaveData = data;
         }
 
         public static void SaveGame()
         {
+            SaveData.SaveDataVersion = SaveData.MostRecentSaveDataVersion;
             var file = new File();
             file.Open(SaveDataPath, File.ModeFlags.Write);
             GD.Print($"Save to {file.GetPathAbsolute()}");
